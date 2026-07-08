@@ -5,14 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Construire votre produit, c'était la partie facile — on lance à votre place</title>
 <meta name="description" content="Un vrai lancement, c'est 40 heures de travail que personne ne fait. Nos agents les font pour vous : 25 plateformes, prospects chauds, chaque message déjà écrit. Vous validez, vous envoyez.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap">
 <style>
 /* ============================================================
-   LAUNCH LANDING — dark editorial / phosphor-amber terminal
-   Self-contained : aucune requête externe, system fonts only.
+   SONAR — LAUNCH LANDING
+   Dark editorial / phosphor-amber terminal, v2 art direction :
+   glow radial ambré, texture constellation, flux signaux live.
+   Typo : IBM Plex Mono (display) + IBM Plex Sans (texte).
+   Seule requête externe : Google Fonts ci-dessus.
    ============================================================ */
 
 :root{
-  --bg:        #0F0D0A;
+  --bg:        #0D0B08;
   --bg-raise:  #16130E;
   --bg-panel:  #1A160F;
   --ink:       #EDE8DE;
@@ -21,8 +27,13 @@
   --accent:    #F2A33C;
   --accent-hi: #FFC069;
   --line:      #2A241A;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* statuts du flux — palette terminal ANSI (vert / ambre / cyan) */
+  --st-detect: #4CC38A;
+  --st-hot:    #F2A33C;
+  --st-ready:  #56B6C2;
+  --st-sent:   #6E6557;
+  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
@@ -34,7 +45,10 @@ html{ scroll-behavior:smooth; }
 }
 
 body{
-  background:var(--bg);
+  background-color:var(--bg);
+  /* texture constellation : fine trame lignes + points, très faible.
+     SVG inline (data URI), aucune requête réseau. */
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760'%3E%3Cg stroke='%23EDE8DE' stroke-opacity='.045' stroke-width='1' fill='none'%3E%3Cpath d='M60 80 220 40 340 140 280 340 90 300z' /%3E%3Cpath d='M520 60 640 180 460 300 360 560 560 600 610 420 640 180'/%3E%3Cpath d='M90 300 150 480 250 660'/%3E%3Cpath d='M700 320 610 420'/%3E%3C/g%3E%3Cg fill='%23EDE8DE' fill-opacity='.10'%3E%3Ccircle cx='60' cy='80' r='1.5'/%3E%3Ccircle cx='220' cy='40' r='1.2'/%3E%3Ccircle cx='340' cy='140' r='1.6'/%3E%3Ccircle cx='520' cy='60' r='1.2'/%3E%3Ccircle cx='640' cy='180' r='1.5'/%3E%3Ccircle cx='90' cy='300' r='1.2'/%3E%3Ccircle cx='280' cy='340' r='1.5'/%3E%3Ccircle cx='460' cy='300' r='1.2'/%3E%3Ccircle cx='610' cy='420' r='1.6'/%3E%3Ccircle cx='150' cy='480' r='1.2'/%3E%3Ccircle cx='360' cy='560' r='1.5'/%3E%3Ccircle cx='560' cy='600' r='1.2'/%3E%3Ccircle cx='250' cy='660' r='1.4'/%3E%3Ccircle cx='700' cy='320' r='1.2'/%3E%3C/g%3E%3C/svg%3E");
   color:var(--ink);
   font-family:var(--sans);
   font-size:1.0625rem;
@@ -55,6 +69,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 em{ font-style:italic; }
 strong{ font-weight:700; color:var(--ink); }
 
+.sr-only{
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
 /* ---------- layout ---------- */
 
 .wrap{
@@ -62,10 +82,13 @@ strong{ font-weight:700; color:var(--ink); }
   margin:0 auto;
   padding:0 1.375rem;
 }
-.wrap--wide{ max-width:56rem; }
+.wrap--wide{ max-width:64rem; }
 
 section{ padding:5.5rem 0; border-top:1px solid var(--line); }
 @media (min-width:760px){ section{ padding:7.5rem 0; } }
+
+/* bandes alternées : tint léger, la texture du body reste visible */
+.band{ background:linear-gradient(180deg, rgba(237,232,222,.035), rgba(237,232,222,.015)); }
 
 /* ---------- type ---------- */
 
@@ -81,18 +104,21 @@ section{ padding:5.5rem 0; border-top:1px solid var(--line); }
 }
 .eyebrow::before{ content:"// "; color:var(--faint); }
 
+h1, h2, .kicker{
+  font-family:var(--mono);
+}
 h1{
-  font-size:clamp(1.9rem, 5.6vw, 3.25rem);
-  line-height:1.12;
-  letter-spacing:-.022em;
-  font-weight:750;
+  font-size:clamp(1.55rem, 1rem + 2.6vw, 2.55rem);
+  line-height:1.22;
+  letter-spacing:-.035em;
+  font-weight:600;
   text-wrap:balance;
 }
 h2{
-  font-size:clamp(1.5rem, 3.8vw, 2.15rem);
-  line-height:1.2;
-  letter-spacing:-.018em;
-  font-weight:700;
+  font-size:clamp(1.35rem, 1rem + 1.8vw, 1.95rem);
+  line-height:1.28;
+  letter-spacing:-.03em;
+  font-weight:600;
   margin-bottom:1.75rem;
   text-wrap:balance;
 }
@@ -105,6 +131,52 @@ h3{
 p + p{ margin-top:1.25rem; }
 .muted{ color:var(--muted); }
 
+/* ---------- barre de marque ---------- */
+
+.top{
+  padding:1.35rem 0;
+}
+.top-in{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:1rem;
+  letter-spacing:.06em;
+  color:var(--ink);
+  text-decoration:none;
+}
+.brand .dot{
+  display:inline-block;
+  width:.55em; height:.55em;
+  border-radius:50%;
+  background:var(--accent);
+  margin-right:.55em;
+  box-shadow:0 0 10px rgba(242,163,60,.8);
+  vertical-align:baseline;
+}
+@media (prefers-reduced-motion: no-preference){
+  .brand .dot{ animation:ping 2.6s ease-in-out infinite; }
+  @keyframes ping{
+    0%,100%{ box-shadow:0 0 6px rgba(242,163,60,.6); }
+    50%{ box-shadow:0 0 16px rgba(242,163,60,1); }
+  }
+}
+.top-link{
+  font-family:var(--mono);
+  font-size:.85rem;
+  color:var(--muted);
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.45rem .9rem;
+  transition:color .15s ease, border-color .15s ease;
+}
+.top-link:hover{ color:var(--accent); border-color:var(--accent); }
+
 /* ---------- CTA button ---------- */
 
 .btn{
@@ -114,15 +186,23 @@ p + p{ margin-top:1.25rem; }
   font-weight:600;
   letter-spacing:.01em;
   color:#160F04;
-  background:var(--accent);
-  border:1px solid var(--accent);
+  background:linear-gradient(180deg, var(--accent-hi), var(--accent));
+  border:1px solid var(--accent-hi);
   border-radius:6px;
   padding:.95rem 1.6rem;
   text-decoration:none;
   cursor:pointer;
-  transition:background .15s ease, transform .15s ease;
+  box-shadow:
+    0 10px 34px rgba(242,163,60,.28),
+    0 2px 8px rgba(0,0,0,.45);
+  transition:box-shadow .15s ease, filter .15s ease, transform .15s ease;
 }
-.btn:hover{ background:var(--accent-hi); border-color:var(--accent-hi); }
+.btn:hover{
+  filter:brightness(1.07);
+  box-shadow:
+    0 12px 44px rgba(242,163,60,.4),
+    0 2px 8px rgba(0,0,0,.45);
+}
 .btn:active{ transform:translateY(1px); }
 .btn .arr{ display:inline-block; transition:transform .15s ease; }
 .btn:hover .arr{ transform:translateX(4px); }
@@ -139,41 +219,255 @@ p + p{ margin-top:1.25rem; }
 
 .hero{
   border-top:none;
-  padding:6.5rem 0 6rem;
+  position:relative;
+  overflow:hidden;
+  padding:4.5rem 0 5.5rem;
 }
-@media (min-width:760px){ .hero{ padding:9rem 0 8rem; } }
+@media (min-width:980px){ .hero{ padding:6rem 0 7.5rem; } }
 
-.hero h1 .flip{ color:var(--accent); }
-.hero .lede{
-  margin-top:2rem;
-  font-size:clamp(1.05rem, 2vw, 1.2rem);
-  color:var(--muted);
-  max-width:38rem;
+/* glow ambré : deux halos radiaux derrière le contenu */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(42rem 30rem at 78% 18%, rgba(242,163,60,.17), transparent 65%),
+    radial-gradient(24rem 18rem at 88% 42%, rgba(255,192,105,.10), transparent 70%),
+    radial-gradient(30rem 24rem at 8% 90%, rgba(242,163,60,.05), transparent 70%);
 }
-.hero .cta-row{ margin-top:2.5rem; }
+
+.hero-grid{
+  position:relative;
+  display:grid;
+  gap:3.25rem;
+  align-items:center;
+}
+@media (min-width:980px){
+  .hero-grid{ grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr); gap:3.5rem; }
+}
+
+.hero h1 .flip{
+  /* traitement encadré du groupe clé (réf. Focus) */
+  color:var(--accent-hi);
+  background:rgba(242,163,60,.08);
+  box-shadow:inset 0 0 0 1px rgba(242,163,60,.38);
+  border-radius:.14em;
+  padding:.03em .2em;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+.hero .lede{
+  margin-top:1.9rem;
+  font-size:clamp(1.02rem, 1.6vw, 1.14rem);
+  color:var(--muted);
+  max-width:36rem;
+}
+.hero .cta-row{ margin-top:2.4rem; }
 
 @media (prefers-reduced-motion: no-preference){
-  .hero > .wrap > *{
+  .hero-copy > *{
     animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
   }
-  .hero .lede{ animation-delay:.12s; }
-  .hero .cta-row{ animation-delay:.24s; }
+  .hero .lede{ animation-delay:.1s; }
+  .hero .cta-row{ animation-delay:.2s; }
+  .hero .mini-zone{ animation-delay:.3s; }
   @keyframes rise{
     from{ opacity:0; transform:translateY(14px); }
     to{ opacity:1; transform:none; }
   }
 }
 
+/* ---------- mini capture email (liste d'attente) ---------- */
+
+.mini-zone{ margin-top:2.25rem; max-width:34rem; }
+.mini-form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.6rem;
+}
+.mini-form input[type="email"]{
+  flex:1 1 14rem;
+  font-family:var(--mono);
+  font-size:.95rem;
+  color:var(--ink);
+  background:rgba(13,11,8,.75);
+  border:1px solid rgba(242,163,60,.3);
+  border-radius:6px;
+  padding:.8rem .95rem;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.mini-form input[type="email"]::placeholder{ color:var(--faint); }
+.mini-form input[type="email"]:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(242,163,60,.16), 0 0 26px rgba(242,163,60,.22);
+}
+.mini-form .btn--sm{
+  padding:.8rem 1.15rem;
+  font-size:.9rem;
+  flex:0 0 auto;
+}
+.mini-note{
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:var(--faint);
+  margin-top:.65rem;
+}
+.mini-success{
+  border-left:3px solid var(--st-detect);
+  padding:.35rem 0 .35rem 1rem;
+  font-size:.95rem;
+}
+.mini-success p:first-child{ font-weight:700; }
+.mini-success p + p{ margin-top:.25rem; color:var(--muted); font-size:.9rem; }
+
+/* ---------- flux signaux (artefact hero) ---------- */
+
+.feed{
+  position:relative;
+  background:linear-gradient(180deg, #1B170F, #131009);
+  border:1px solid rgba(242,163,60,.2);
+  border-radius:14px;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.55),
+    0 0 90px rgba(242,163,60,.09);
+  padding:1.1rem 1.15rem 1.25rem;
+}
+@media (min-width:980px){
+  .feed{ transform:rotate(.6deg) translateY(-.25rem); }
+}
+.feed-head{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  padding:0 .15rem .9rem;
+  border-bottom:1px solid var(--line);
+  margin-bottom:.9rem;
+}
+.feed-head .dots{ display:flex; gap:.35rem; }
+.feed-head .dots i{
+  width:.6rem; height:.6rem; border-radius:50%;
+  background:var(--line);
+}
+.feed-head .dots i:first-child{ background:rgba(242,163,60,.55); }
+.feed-title{
+  font-family:var(--mono);
+  font-size:.75rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--faint);
+}
+
+.feed-rows{ list-style:none; display:grid; gap:.55rem; }
+.feed-row{
+  font-family:var(--mono);
+  font-size:.8rem;
+  line-height:1.55;
+  color:var(--muted);
+  background:rgba(237,232,222,.03);
+  border-left:2px solid var(--faint);
+  border-radius:0 6px 6px 0;
+  padding:.6rem .75rem .6rem .85rem;
+}
+.feed-row .pill{
+  display:inline-block;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  border-radius:999px;
+  padding:.08rem .55rem;
+  margin-right:.55rem;
+  white-space:nowrap;
+}
+.feed-row--detect{ border-left-color:var(--st-detect); }
+.feed-row--detect .pill{ color:var(--st-detect); background:rgba(76,195,138,.12); }
+.feed-row--hot{ border-left-color:var(--st-hot); }
+.feed-row--hot .pill{ color:var(--st-hot); background:rgba(242,163,60,.13); }
+.feed-row--ready{ border-left-color:var(--st-ready); }
+.feed-row--ready .pill{ color:var(--st-ready); background:rgba(86,182,194,.12); }
+.feed-row--sent{ border-left-color:var(--st-sent); }
+.feed-row--sent{ color:var(--faint); }
+.feed-row--sent .pill{ color:var(--st-detect); background:rgba(76,195,138,.08); }
+
+.feed-scan{
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:var(--faint);
+  margin-top:.85rem;
+  padding:0 .15rem;
+}
+.feed-scan .caret{ color:var(--accent); }
+
+@media (prefers-reduced-motion: no-preference){
+  .feed{ animation:rise .8s cubic-bezier(.2,.7,.2,1) .25s both; }
+  .feed-row{ animation:feedin .5s ease-out both; }
+  .feed-row:nth-child(1){ animation-delay:.7s; }
+  .feed-row:nth-child(2){ animation-delay:1.05s; }
+  .feed-row:nth-child(3){ animation-delay:1.4s; }
+  .feed-row:nth-child(4){ animation-delay:1.75s; }
+  .feed-scan .caret{ animation:blink 1.1s step-end infinite; }
+  @keyframes feedin{
+    from{ opacity:0; transform:translateX(-8px); }
+    to{ opacity:1; transform:none; }
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+}
+
+/* ---------- strip de stats (preuve honnête) ---------- */
+
+section.stats{
+  padding:3rem 0 2.75rem;
+}
+.stat-row{
+  list-style:none;
+  display:grid;
+  gap:1.5rem;
+}
+@media (min-width:760px){
+  .stat-row{ grid-template-columns:1fr 1fr 1fr; gap:2.5rem; }
+}
+.stat-row li{
+  border-left:2px solid rgba(242,163,60,.4);
+  padding-left:1.1rem;
+}
+.stat-n{
+  display:block;
+  font-family:var(--mono);
+  font-size:clamp(1.7rem, 3.4vw, 2.3rem);
+  font-weight:600;
+  letter-spacing:-.03em;
+  color:var(--accent);
+  line-height:1.15;
+}
+.stat-t{
+  display:block;
+  font-size:.9rem;
+  color:var(--muted);
+  line-height:1.5;
+  margin-top:.35rem;
+  max-width:17rem;
+}
+.stat-src{
+  font-family:var(--mono);
+  font-size:.75rem;
+  color:var(--faint);
+  margin-top:1.9rem;
+}
+.stat-src::before{ content:"// "; }
+
 /* ---------- agitation : the refresh beats (signature) ---------- */
 
 .beat{
-  font-weight:700;
-  letter-spacing:-.015em;
-  line-height:1.15;
+  font-family:var(--mono);
+  font-weight:600;
+  letter-spacing:-.02em;
+  line-height:1.2;
   text-wrap:balance;
 }
-.beat--1{ font-size:clamp(1.35rem, 3.4vw, 1.9rem); margin-top:3.5rem; }
-.beat--2{ font-size:clamp(1.7rem, 4.6vw, 2.6rem); margin-top:3rem; color:var(--accent); }
+.beat--1{ font-size:clamp(1.25rem, 3vw, 1.7rem); margin-top:3.5rem; }
+.beat--2{ font-size:clamp(1.55rem, 4vw, 2.3rem); margin-top:3rem; color:var(--accent); }
 
 .readout{
   font-family:var(--mono);
@@ -216,11 +510,13 @@ p + p{ margin-top:1.25rem; }
 @media (min-width:720px){ .cards{ grid-template-columns:1fr 1fr; gap:1.25rem; } }
 
 .card{
-  background:var(--bg-raise);
+  background:linear-gradient(180deg, rgba(26,22,15,.9), rgba(19,16,10,.9));
   border:1px solid var(--line);
-  border-radius:8px;
+  border-radius:10px;
   padding:1.75rem 1.6rem;
+  transition:border-color .2s ease, transform .2s ease;
 }
+.card:hover{ border-color:rgba(242,163,60,.35); transform:translateY(-2px); }
 .card h3{ margin-bottom:1.1rem; }
 .card h3 .emo{ margin-right:.5rem; }
 
@@ -245,11 +541,12 @@ ul.arrows li::before{
 
 .guarantee{
   background:var(--bg-panel);
-  border:1px solid var(--line);
+  border:1px solid rgba(242,163,60,.22);
   border-left:3px solid var(--accent);
   border-radius:8px;
   padding:2.25rem 2rem;
   margin-top:2.5rem;
+  box-shadow:0 18px 50px rgba(0,0,0,.35), 0 0 60px rgba(242,163,60,.05);
 }
 .guarantee p:first-child{
   font-size:clamp(1.1rem, 2.4vw, 1.3rem);
@@ -274,11 +571,11 @@ ul.arrows li::before{
 
 .fit-col{
   border:1px solid var(--line);
-  border-radius:8px;
+  border-radius:10px;
   padding:1.75rem 1.6rem;
-  background:var(--bg-raise);
+  background:linear-gradient(180deg, rgba(26,22,15,.9), rgba(19,16,10,.9));
 }
-.fit-col--no{ background:transparent; }
+.fit-col--no{ background:transparent; border-style:dashed; }
 .fit-col ul{ list-style:none; }
 .fit-col li{ display:flex; gap:.7rem; line-height:1.55; }
 .fit-col li + li{ margin-top:1rem; }
@@ -290,7 +587,9 @@ ul.arrows li::before{
 .qa{ margin-top:2.75rem; }
 .qa + .qa{ margin-top:2.75rem; padding-top:2.75rem; border-top:1px solid var(--line); }
 .qa h3{
-  font-size:clamp(1.1rem, 2.4vw, 1.3rem);
+  font-family:var(--mono);
+  font-size:clamp(1.02rem, 2.2vw, 1.2rem);
+  letter-spacing:-.02em;
   margin-bottom:.85rem;
 }
 .qa h3::before{ content:"Q "; font-family:var(--mono); color:var(--accent); font-weight:600; margin-right:.35rem; }
@@ -299,10 +598,10 @@ ul.arrows li::before{
 /* ---------- CTA final + form ---------- */
 
 .final .kicker{
-  font-size:clamp(1.5rem, 3.8vw, 2.15rem);
-  line-height:1.2;
-  letter-spacing:-.018em;
-  font-weight:750;
+  font-size:clamp(1.35rem, 1rem + 1.8vw, 1.95rem);
+  line-height:1.28;
+  letter-spacing:-.03em;
+  font-weight:600;
   text-wrap:balance;
 }
 .final .kicker .flip{ color:var(--accent); }
@@ -310,10 +609,11 @@ ul.arrows li::before{
 
 .form-panel{
   margin-top:3.5rem;
-  background:var(--bg-panel);
-  border:1px solid var(--line);
-  border-radius:10px;
+  background:linear-gradient(180deg, #1B170F, #131009);
+  border:1px solid rgba(242,163,60,.2);
+  border-radius:12px;
   padding:2.25rem 1.75rem;
+  box-shadow:0 24px 60px rgba(0,0,0,.45), 0 0 80px rgba(242,163,60,.06);
 }
 @media (min-width:760px){ .form-panel{ padding:2.75rem 2.5rem; } }
 
@@ -348,6 +648,7 @@ ul.arrows li::before{
   padding:.8rem .9rem;
   appearance:none;
   -webkit-appearance:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
 }
 .field select{
   background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F2A33C' stroke-width='2'/%3E%3C/svg%3E");
@@ -356,7 +657,11 @@ ul.arrows li::before{
   padding-right:2.5rem;
 }
 .field input:focus,
-.field select:focus{ border-color:var(--accent); outline:none; }
+.field select:focus{
+  border-color:var(--accent);
+  outline:none;
+  box-shadow:0 0 0 3px rgba(242,163,60,.14);
+}
 .field input::placeholder{ color:var(--faint); }
 
 .form-panel .btn{ margin-top:2rem; width:100%; text-align:center; }
@@ -375,27 +680,99 @@ footer{
   border-top:1px solid var(--line);
   padding:2.5rem 0 3.5rem;
 }
+footer .foot-in{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem 2rem;
+  align-items:baseline;
+  justify-content:space-between;
+}
 footer p{
   font-family:var(--mono);
   font-size:.8rem;
   color:var(--faint);
 }
+footer .brand{ font-size:.9rem; color:var(--muted); }
 </style>
 </head>
 <body>
 
+<!-- ================= MARQUE ================= -->
+<nav class="top" aria-label="Navigation principale">
+  <div class="wrap wrap--wide top-in">
+    <a class="brand" href="#"><span class="dot" aria-hidden="true"></span>sonar</a>
+    <a class="top-link" href="#reserver">Réserver mon lancement →</a>
+  </div>
+</nav>
+
 <!-- ================= HERO ================= -->
 <header class="hero">
-  <div class="wrap">
-    <h1>Construire votre produit, c'était la partie facile. Le faire savoir, c'est le vrai travail&nbsp;— <span class="flip">on le fait à votre place.</span></h1>
-    <p class="lede">Un vrai lancement, c'est 40 heures de travail que personne ne fait&nbsp;: 25 plateformes, du contenu pour chaque canal, les communautés de votre niche, les prospects à trouver un par un. Nos agents les font pour vous — soumissions préparées, posts calibrés, prospects chauds identifiés, chaque message déjà écrit. Vous validez, vous envoyez. Le reste, c'est notre travail — pas le vôtre.</p>
-    <div class="cta-row">
-      <a class="btn" href="#reserver">Réserver mon lancement <span class="arr">→</span></a>
-      <!-- TODO fondateur : remplacer [mois] par le mois réel avant mise en ligne -->
-      <p class="cta-note">2 places par mois — parce qu'on livre ça seul, pas une astuce marketing. Prochaine fenêtre&nbsp;: [mois].</p>
+  <div class="wrap wrap--wide hero-grid">
+    <div class="hero-copy">
+      <h1>Construire votre produit, c'était la partie facile. Le faire savoir, c'est le vrai travail&nbsp;— <span class="flip">on le fait à votre place.</span></h1>
+      <p class="lede">Un vrai lancement, c'est 40 heures de travail que personne ne fait&nbsp;: 25 plateformes, du contenu pour chaque canal, les communautés de votre niche, les prospects à trouver un par un. Nos agents les font pour vous — soumissions préparées, posts calibrés, prospects chauds identifiés, chaque message déjà écrit. Vous validez, vous envoyez. Le reste, c'est notre travail — pas le vôtre.</p>
+      <div class="cta-row">
+        <a class="btn" href="#reserver">Réserver mon lancement <span class="arr">→</span></a>
+        <!-- TODO fondateur : remplacer [mois] par le mois réel avant mise en ligne -->
+        <p class="cta-note">2 places par mois — parce qu'on livre ça seul, pas une astuce marketing. Prochaine fenêtre&nbsp;: [mois].</p>
+      </div>
+
+      <!-- Capture légère : liste d'attente (2e formulaire Netlify, distinct
+           du formulaire de réservation en bas de page). -->
+      <div class="mini-zone">
+        <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="liste-form" class="mini-form">
+          <input type="hidden" name="form-name" value="liste-attente" />
+          <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
+          <label class="sr-only" for="liste-email">Email</label>
+          <input type="email" id="liste-email" name="email" required autocomplete="email" placeholder="vous@votresaas.com">
+          <button type="submit" class="btn btn--sm">Rejoindre la liste <span class="arr">→</span></button>
+        </form>
+        <p class="mini-note" id="liste-note">Pas encore prêt à réserver&nbsp;? On vous prévient à l'ouverture de la prochaine fenêtre. Rien d'autre.</p>
+        <div class="mini-success" id="liste-success" hidden>
+          <p>Vous êtes sur la liste.</p>
+          <p>On vous écrit à l'ouverture de la prochaine fenêtre — et pour rien d'autre.</p>
+        </div>
+      </div>
     </div>
+
+    <!-- Artefact visuel : flux de signaux simulé — ce que Sonar détecte
+         et prépare, lisible en 2 secondes. -->
+    <figure class="feed" aria-label="Aperçu du flux Sonar : signaux détectés dans votre niche, actions préparées, envoi après votre validation">
+      <div class="feed-head">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="feed-title">sonar — flux temps réel</span>
+      </div>
+      <ul class="feed-rows">
+        <li class="feed-row feed-row--detect"><span class="pill">🟢 Signal détecté</span>SaaS de facturation lève 2M€ — post LinkedIn identifié</li>
+        <li class="feed-row feed-row--hot"><span class="pill">🎯 Prospect chaud</span>CTO cherche un outil de monitoring — DM rédigé</li>
+        <li class="feed-row feed-row--ready"><span class="pill">📣 Soumission prête</span>Product Hunt, créneau du 14</li>
+        <li class="feed-row feed-row--sent"><span class="pill">✓ Validé et envoyé</span>il y a 6 min</li>
+      </ul>
+      <p class="feed-scan"><span class="caret" aria-hidden="true">▌</span> scan de votre niche en cours…</p>
+    </figure>
   </div>
 </header>
+
+<!-- ================= PREUVE HONNÊTE : STATS SOURCÉES ================= -->
+<section class="stats band" aria-label="Le problème, en chiffres">
+  <div class="wrap wrap--wide">
+    <ul class="stat-row">
+      <li>
+        <span class="stat-n">54%</span>
+        <span class="stat-t">des produits indie hackers font 0€ de revenu</span>
+      </li>
+      <li>
+        <span class="stat-n">89%</span>
+        <span class="stat-t">des fondateurs Product Hunt ne relanceraient pas</span>
+      </li>
+      <li>
+        <span class="stat-n">70-80%</span>
+        <span class="stat-t">des lancements startup n'obtiennent jamais de traction</span>
+      </li>
+    </ul>
+    <p class="stat-src">Sources publiques — pas des stats maison.</p>
+  </div>
+</section>
 
 <!-- ================= AGITATION ================= -->
 <section>
@@ -416,7 +793,7 @@ footer p{
 </section>
 
 <!-- ================= LA VÉRITÉ ================= -->
-<section>
+<section class="band">
   <div class="wrap">
     <span class="eyebrow">La vérité</span>
     <h2>Un lancement n'est pas un post. C'est 40 heures de travail que vous ne ferez jamais.</h2>
@@ -439,7 +816,7 @@ footer p{
 </section>
 
 <!-- ================= LIVRABLES ================= -->
-<section>
+<section class="band">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Livrables</span>
     <h2>Ce que vous recevez en 7 jours.</h2>
@@ -494,7 +871,7 @@ footer p{
 </section>
 
 <!-- ================= POUR QUI ================= -->
-<section>
+<section class="band">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Pour qui</span>
     <h2>Ce n'est pas pour tout le monde.</h2>
@@ -546,7 +923,7 @@ footer p{
 </section>
 
 <!-- ================= CTA FINAL + FORMULAIRE ================= -->
-<section class="final">
+<section class="final band">
   <div class="wrap">
     <p class="kicker">Vous n'avez pas construit pendant six semaines <span class="flip">pour finir à 3 likes.</span></p>
     <p class="muted">Dans 7 jours, votre marché entier peut savoir que vous existez — avec des conversations qualifiées à la clé, garanties ou on continue gratuitement.</p>
@@ -558,7 +935,8 @@ footer p{
       <!--
         Netlify Forms : détecté automatiquement au déploiement grâce à
         data-netlify="true" + name="lancement" + l'input caché form-name.
-        Aucun backend nécessaire.
+        Aucun backend nécessaire. Un second formulaire name="liste-attente"
+        (capture email légère) vit dans le hero, avec son propre form-name.
 
         Soumission : le petit script en bas de page intercepte le submit
         et affiche l'état de succès inline (#form-success) sans quitter
@@ -608,36 +986,47 @@ footer p{
 </section>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap wrap--wide foot-in">
+    <span class="brand"><span class="dot" aria-hidden="true"></span>sonar</span>
     <p>Agents IA + validation humaine. Pas de bots, pas de spam, pas d'upvotes achetés.</p>
   </div>
 </footer>
 
 <script>
-/* Soumission inline du formulaire Netlify : affiche l'état de succès
-   sans quitter la page. Fallback sans JS : POST Netlify classique. */
+/* Soumission inline des formulaires Netlify : affiche l'état de succès
+   sans quitter la page. Fallback sans JS : POST Netlify classique.
+   Deux formulaires distincts : "lancement" (bas de page) et
+   "liste-attente" (hero) — IDs séparés, aucun partage. */
 (function () {
-  var form = document.getElementById('lancement-form');
-  if (!form || !window.fetch) return;
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      form.hidden = true;
-      document.getElementById('form-success').hidden = false;
-    }).catch(function () {
-      /* Échec réseau : soumission native (form.submit() ne redéclenche
-         pas ce listener), Netlify gère alors la redirection. */
-      btn.disabled = false;
-      form.submit();
+  function wire(formId, successId, alsoHideId) {
+    var form = document.getElementById(formId);
+    if (!form || !window.fetch) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        form.hidden = true;
+        if (alsoHideId) {
+          var extra = document.getElementById(alsoHideId);
+          if (extra) extra.hidden = true;
+        }
+        document.getElementById(successId).hidden = false;
+      }).catch(function () {
+        /* Échec réseau : soumission native (form.submit() ne redéclenche
+           pas ce listener), Netlify gère alors la redirection. */
+        btn.disabled = false;
+        form.submit();
+      });
     });
-  });
+  }
+  wire('lancement-form', 'form-success', null);
+  wire('liste-form', 'liste-success', 'liste-note');
 })();
 </script>
 
