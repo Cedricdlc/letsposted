@@ -45,14 +45,31 @@ Solution : une machine d'agents IA qui exécute le lancement. Le client donne so
 
 ## POSITIONNEMENT & COPY
 
-- Headline landing : « Construire votre produit, c'était la partie facile. Le faire savoir, c'est le vrai travail — on le fait à votre place. »
-- Copy pain-first : agitation (le launch à 3 likes), vérité (les 40h que personne ne fait), solution (« Vous codez. Nos agents font les 40 heures. »)
+- Headline landing (revenue à sa version narrative) : « Construire votre produit, c'était la partie facile. Maintenant, faites-le connaître pour trouver vos premiers clients. »
+- **Promesse en une phrase (nouvelle, à mettre en avant près du hero)** : « On transforme les 40 heures de votre lancement en 4 heures de validation — vous ne faites qu'envoyer. »
+- **Recentrage du framing (décidé cette session)** : le hero et le concept visuel ne doivent plus mettre "agent IA" en avant — narratif saturé en 2026 (cf. Risques). Le vrai différenciant à visualiser, c'est le **schéma de diffusion ciblée par niche/pertinence/signaux détectés**, pas "des agents qui travaillent". Le principe de supervision humaine reste un principe non négociable, mais en soutien de la mécanique, pas comme titre.
+- Copy pain-first : agitation (le launch à 3 likes), vérité (les 40h que personne ne fait), solution (diffusion ciblée + validation humaine).
 - Côté clients : le système reste mystérieux (« notre méthode », pas les détails techniques). Côté X : transparence totale du build.
-- **Point corrigé cette session** : la version initiale promettait "vos premiers clients arrivent" — surpromesse, car le service contrôle la visibilité et les conversations qualifiées, pas la conversion finale (qui dépend du produit/pricing du client). Corrigé partout dans la copy vers "conversations qualifiées garanties", avec une objection dédiée qui assume cette limite plutôt que de la cacher (repère de confiance pour une audience anti-bullshit).
+- **Point corrigé précédemment** : la version initiale promettait "vos premiers clients arrivent" en conclusion de paragraphe — surpromesse corrigée vers "conversations qualifiées garanties" ailleurs dans la copy (garantie, objection dédiée). Le retour du headline narratif ("trouver vos premiers clients") reste un hook acceptable tant que la promesse en une phrase et la garantie, juste en dessous, calibrent immédiatement l'attente réelle.
 - Garantie : visibilité partout + [X] conversations qualifiées, sinon travail gratuit jusqu'à obtention
 - Rareté réelle : 2 lancements/mois (capacité solo) — à présenter explicitement comme réelle et non comme tactique marketing
 - Lancement : offre pilote à prix réduit contre case study chiffré public (PAS de faux témoignages)
+- **4 livrables, pas un de plus** (copy figée) : 1) soumissions 25+ plateformes (Product Hunt, Uneed, Peerlist, BetaList, niche), 2) contenus de lancement prêts à poster + 2 articles SEO/GEO, 3) prospects chauds + messages déjà écrits + relances, 4) plan d'exécution jour par jour **+ calendrier de relances à 90 jours** ("un lancement est un rythme, pas un événement") **+ débrief J+14**.
+- Design : pivot vers un thème clair blanc/violet, DA originale (pas une copie des références étudiées), moins de texte, plus d'impact sur résultats/méthode/problème.
 - Copy complète et à jour : voir `copy-landing-value-proposition.md`
+
+## ICP — portrait affiné (nouvelle session)
+
+**Client cible : le fondateur de SaaS qui vient de lancer (ou va lancer) et qui sait que la distribution va le tuer.**
+- Solo ou petite équipe, SaaS fonctionnel ou à quelques jours de l'être
+- A déjà vécu (ou redoute) le launch à 3 likes
+- A du budget : rentable, financé, ou fondateur avec revenus (PAS le maker fauché — cohérent avec l'exclusion des 54% à 0€ déjà actée)
+- Techniquement à l'aise mais déteste/procrastine le travail de distribution
+- Détectable publiquement : posts "launching soon", PH upcoming, annonces de levées, launch récent à métriques faibles
+
+**Anti-ICP** : produit inexistant/non fonctionnel, cherche de la magie sans valider/envoyer lui-même, veut du volume spam.
+
+**Audience X (distincte des clients)** : les makers/indie hackers regardent le build, partagent, crédibilisent — minorité deviendra cliente, le reste non, et c'est ok. Deux populations, deux discours, une seule histoire.
 
 ## BUSINESS MODEL (séquence)
 
@@ -76,13 +93,16 @@ Stack : Claude Code (un agent par module avec son CLAUDE.md), n8n ou crons pour 
 - **Risque plateforme** : soumissions/DM en volume, même validés à la main, peuvent déclencher des détections anti-spam sur LinkedIn/Reddit en particulier
 - **Dépendance rétention client** : le service ne contrôle pas si le produit/pricing du client convertit derrière — d'où la garantie calibrée sur "conversations qualifiées", jamais sur "clients" ou "revenu"
 
-## PLAN 30 JOURS (règle : pas de rediscussion du concept avant J30)
+## PLAN 30 JOURS (règle d'or : rien ne se code tant que ça n'a pas été fait deux fois à la main)
 
-- S1 : thread fondateur X + build du Launch Mapper (agent plateformes)
-- S2 : test de la machine sur mon propre projet (cobaye), chiffres publics
-- S3 : build du Signal Scout + documentation publique
-- S4 : landing en ligne + DM asynchrones aux 10 meilleurs prospects du Scout
-- Critère de succès J30 : 1 lancement réel exécuté + 1 pilote signé ou 5 conversations qualifiées
+- **J1-7 — Lancement cobaye (le mien), à la main.** Claude Code en assistant ad hoc, 15-20 plateformes réellement soumises, 15 prospects contactés. Tout chronométré et documenté sur X. Chaque tâche répétitive notée = la spec de la machine.
+- **J5-10 — Vente du pilote.** 5-10 DM à des makers en post-launch silencieux : « Je viens de faire ça pour mon produit [chiffres], je le fais pour le tien à prix pilote contre case study. »
+- **J10-25 — Livraison du pilote + industrialisation.** Deuxième passage manuel = on code ce qui s'est répété (`platforms.json` vérifié, Factory v1 = prompts nettoyés).
+- **J30 — Bilan.** Critère de succès : 2 lancements exécutés (dont 1 payé) OU 5 conversations qualifiées + v1 de la machine + 4 semaines de contenu.
+
+**Actif propriétaire n°1 : `platforms.json`** — les 25+ plateformes avec exigences exactes par champ, vérifiées à la main, se remplit en livrant les 2 premiers lancements.
+
+**Le récit public (X)** : arc "Builder, pas vendeur — 100 DM à la main pour Breakpoint, 1 réponse. Alors je construis la machine qui fait la distribution à ma place. Chiffres publics chaque semaine." Formule de launch (référence Shipper) : constat status quo → "il est temps que ça change" → Introducing [nom] → définition une ligne → preuve dogfooding → démo. Cadence : 1 post/jour minimum.
 
 ## MON HISTORIQUE (pour le storytelling)
 
