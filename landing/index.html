@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construire votre produit, c'était la partie facile — on lance à votre place</title>
+<meta name="description" content="Un vrai lancement, c'est 40 heures de travail que personne ne fait. Nos agents les font pour vous : 25 plateformes, prospects chauds, chaque message déjà écrit. Vous validez, vous envoyez.">
+<style>
+/* ============================================================
+   LAUNCH LANDING — dark editorial / phosphor-amber terminal
+   Self-contained : aucune requête externe, system fonts only.
+   ============================================================ */
+
+:root{
+  --bg:        #0F0D0A;
+  --bg-raise:  #16130E;
+  --bg-panel:  #1A160F;
+  --ink:       #EDE8DE;
+  --muted:     #A69C8C;
+  --faint:     #6E6557;
+  --accent:    #F2A33C;
+  --accent-hi: #FFC069;
+  --line:      #2A241A;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:1.0625rem;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+::selection{ background:var(--accent); color:#160F04; }
+
+a{ color:var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+em{ font-style:italic; }
+strong{ font-weight:700; color:var(--ink); }
+
+/* ---------- layout ---------- */
+
+.wrap{
+  max-width:44rem;
+  margin:0 auto;
+  padding:0 1.375rem;
+}
+.wrap--wide{ max-width:56rem; }
+
+section{ padding:5.5rem 0; border-top:1px solid var(--line); }
+@media (min-width:760px){ section{ padding:7.5rem 0; } }
+
+/* ---------- type ---------- */
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.8125rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:block;
+  margin-bottom:1.75rem;
+}
+.eyebrow::before{ content:"// "; color:var(--faint); }
+
+h1{
+  font-size:clamp(1.9rem, 5.6vw, 3.25rem);
+  line-height:1.12;
+  letter-spacing:-.022em;
+  font-weight:750;
+  text-wrap:balance;
+}
+h2{
+  font-size:clamp(1.5rem, 3.8vw, 2.15rem);
+  line-height:1.2;
+  letter-spacing:-.018em;
+  font-weight:700;
+  margin-bottom:1.75rem;
+  text-wrap:balance;
+}
+h3{
+  font-size:1.125rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+
+p + p{ margin-top:1.25rem; }
+.muted{ color:var(--muted); }
+
+/* ---------- CTA button ---------- */
+
+.btn{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:#160F04;
+  background:var(--accent);
+  border:1px solid var(--accent);
+  border-radius:6px;
+  padding:.95rem 1.6rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .15s ease, transform .15s ease;
+}
+.btn:hover{ background:var(--accent-hi); border-color:var(--accent-hi); }
+.btn:active{ transform:translateY(1px); }
+.btn .arr{ display:inline-block; transition:transform .15s ease; }
+.btn:hover .arr{ transform:translateX(4px); }
+
+.cta-note{
+  font-size:.9rem;
+  font-style:italic;
+  color:var(--muted);
+  margin-top:1.1rem;
+  max-width:34rem;
+}
+
+/* ---------- hero ---------- */
+
+.hero{
+  border-top:none;
+  padding:6.5rem 0 6rem;
+}
+@media (min-width:760px){ .hero{ padding:9rem 0 8rem; } }
+
+.hero h1 .flip{ color:var(--accent); }
+.hero .lede{
+  margin-top:2rem;
+  font-size:clamp(1.05rem, 2vw, 1.2rem);
+  color:var(--muted);
+  max-width:38rem;
+}
+.hero .cta-row{ margin-top:2.5rem; }
+
+@media (prefers-reduced-motion: no-preference){
+  .hero > .wrap > *{
+    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .hero .lede{ animation-delay:.12s; }
+  .hero .cta-row{ animation-delay:.24s; }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:none; }
+  }
+}
+
+/* ---------- agitation : the refresh beats (signature) ---------- */
+
+.beat{
+  font-weight:700;
+  letter-spacing:-.015em;
+  line-height:1.15;
+  text-wrap:balance;
+}
+.beat--1{ font-size:clamp(1.35rem, 3.4vw, 1.9rem); margin-top:3.5rem; }
+.beat--2{ font-size:clamp(1.7rem, 4.6vw, 2.6rem); margin-top:3rem; color:var(--accent); }
+
+.readout{
+  font-family:var(--mono);
+  font-size:clamp(.95rem, 2vw, 1.1rem);
+  line-height:1.9;
+  color:var(--muted);
+  background:var(--bg-raise);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:6px;
+  padding:1.35rem 1.5rem;
+  margin-top:3.5rem;
+}
+
+.punch{
+  display:block;
+  margin-top:3rem;
+  font-size:clamp(1.15rem, 2.6vw, 1.45rem);
+  line-height:1.45;
+  font-weight:700;
+}
+.punch em{ font-style:normal; color:var(--accent); }
+
+/* ---------- solution ---------- */
+
+.one-thing{
+  font-size:clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height:1.5;
+  margin-top:2.25rem;
+}
+.one-thing strong{ color:var(--accent); }
+
+/* ---------- livrables ---------- */
+
+.cards{
+  display:grid;
+  gap:1rem;
+  margin-top:2.75rem;
+}
+@media (min-width:720px){ .cards{ grid-template-columns:1fr 1fr; gap:1.25rem; } }
+
+.card{
+  background:var(--bg-raise);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:1.75rem 1.6rem;
+}
+.card h3{ margin-bottom:1.1rem; }
+.card h3 .emo{ margin-right:.5rem; }
+
+ul.arrows{ list-style:none; }
+ul.arrows li{
+  position:relative;
+  padding-left:1.6rem;
+  color:var(--muted);
+  font-size:.975rem;
+  line-height:1.6;
+}
+ul.arrows li + li{ margin-top:.75rem; }
+ul.arrows li::before{
+  content:"→";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-family:var(--mono);
+}
+
+/* ---------- garantie ---------- */
+
+.guarantee{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:8px;
+  padding:2.25rem 2rem;
+  margin-top:2.5rem;
+}
+.guarantee p:first-child{
+  font-size:clamp(1.1rem, 2.4vw, 1.3rem);
+  line-height:1.55;
+}
+.guarantee .no-list{
+  margin-top:1.5rem;
+  font-family:var(--mono);
+  font-size:.95rem;
+  color:var(--muted);
+}
+.guarantee .no-list strong{ color:var(--ink); font-weight:600; }
+
+/* ---------- pour qui ---------- */
+
+.fit{
+  display:grid;
+  gap:1rem;
+  margin-top:2.5rem;
+}
+@media (min-width:720px){ .fit{ grid-template-columns:1fr 1fr; gap:1.25rem; } }
+
+.fit-col{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:1.75rem 1.6rem;
+  background:var(--bg-raise);
+}
+.fit-col--no{ background:transparent; }
+.fit-col ul{ list-style:none; }
+.fit-col li{ display:flex; gap:.7rem; line-height:1.55; }
+.fit-col li + li{ margin-top:1rem; }
+.fit-col li .mark{ flex:none; }
+.fit-col--no li{ color:var(--muted); }
+
+/* ---------- objections ---------- */
+
+.qa{ margin-top:2.75rem; }
+.qa + .qa{ margin-top:2.75rem; padding-top:2.75rem; border-top:1px solid var(--line); }
+.qa h3{
+  font-size:clamp(1.1rem, 2.4vw, 1.3rem);
+  margin-bottom:.85rem;
+}
+.qa h3::before{ content:"Q "; font-family:var(--mono); color:var(--accent); font-weight:600; margin-right:.35rem; }
+.qa p{ color:var(--muted); }
+
+/* ---------- CTA final + form ---------- */
+
+.final .kicker{
+  font-size:clamp(1.5rem, 3.8vw, 2.15rem);
+  line-height:1.2;
+  letter-spacing:-.018em;
+  font-weight:750;
+  text-wrap:balance;
+}
+.final .kicker .flip{ color:var(--accent); }
+.final p{ margin-top:1.5rem; max-width:38rem; }
+
+.form-panel{
+  margin-top:3.5rem;
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:2.25rem 1.75rem;
+}
+@media (min-width:760px){ .form-panel{ padding:2.75rem 2.5rem; } }
+
+.form-panel .form-title{
+  font-family:var(--mono);
+  font-size:.8125rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:2rem;
+}
+.form-panel .form-title::before{ content:"// "; color:var(--faint); }
+
+.field{ margin-top:1.5rem; }
+.field:first-of-type{ margin-top:0; }
+.field label{
+  display:block;
+  font-family:var(--mono);
+  font-size:.85rem;
+  color:var(--muted);
+  margin-bottom:.5rem;
+}
+.field input,
+.field select{
+  width:100%;
+  font-family:var(--sans);
+  font-size:1rem;
+  color:var(--ink);
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.8rem .9rem;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.field select{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F2A33C' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right .9rem center;
+  padding-right:2.5rem;
+}
+.field input:focus,
+.field select:focus{ border-color:var(--accent); outline:none; }
+.field input::placeholder{ color:var(--faint); }
+
+.form-panel .btn{ margin-top:2rem; width:100%; text-align:center; }
+@media (min-width:560px){ .form-panel .btn{ width:auto; } }
+
+.form-success{
+  border-left:3px solid var(--accent);
+  padding:.5rem 0 .5rem 1.25rem;
+}
+.form-success p:first-child{ font-weight:700; font-size:1.15rem; }
+.form-success p + p{ margin-top:.6rem; color:var(--muted); }
+
+/* ---------- footer ---------- */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:2.5rem 0 3.5rem;
+}
+footer p{
+  font-family:var(--mono);
+  font-size:.8rem;
+  color:var(--faint);
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <h1>Construire votre produit, c'était la partie facile. Le faire savoir, c'est le vrai travail&nbsp;— <span class="flip">on le fait à votre place.</span></h1>
+    <p class="lede">Un vrai lancement, c'est 40 heures de travail que personne ne fait&nbsp;: 25 plateformes, du contenu pour chaque canal, les communautés de votre niche, les prospects à trouver un par un. Nos agents les font pour vous — soumissions préparées, posts calibrés, prospects chauds identifiés, chaque message déjà écrit. Vous validez, vous envoyez. Le reste, c'est notre travail — pas le vôtre.</p>
+    <div class="cta-row">
+      <a class="btn" href="#reserver">Réserver mon lancement <span class="arr">→</span></a>
+      <!-- TODO fondateur : remplacer [mois] par le mois réel avant mise en ligne -->
+      <p class="cta-note">2 places par mois — parce qu'on livre ça seul, pas une astuce marketing. Prochaine fenêtre&nbsp;: [mois].</p>
+    </div>
+  </div>
+</header>
+
+<!-- ================= AGITATION ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Agitation</span>
+    <h2>Vous connaissez cette journée par cœur.</h2>
+    <p class="muted">Six semaines de build. Le jour J, vous postez sur X. Vous soumettez sur Product Hunt à 6h.</p>
+
+    <p class="beat beat--1">Puis vous actualisez.</p>
+    <p class="beat beat--2">Vous actualisez encore.</p>
+
+    <p class="readout">12 visites. 3 likes — dont votre cofondateur. Un commentaire d'un bot.</p>
+
+    <p class="muted" style="margin-top:3rem">Le soir, vous accusez l'algorithme. Le lendemain, vous parlez d'«&nbsp;itérer&nbsp;». Une semaine plus tard, vous êtes retourné coder une feature que personne n'a demandée — parce que coder, au moins, ça donne l'impression d'avancer.</p>
+
+    <strong class="punch">Pendant ce temps, un produit moins bon que le vôtre vient de passer 5K MRR. Pas parce qu'il est meilleur. <em>Parce qu'on l'a vu.</em></strong>
+  </div>
+</section>
+
+<!-- ================= LA VÉRITÉ ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">La vérité</span>
+    <h2>Un lancement n'est pas un post. C'est 40 heures de travail que vous ne ferez jamais.</h2>
+    <p class="muted">25 plateformes à traiter une par une. Des posts calibrés pour X, LinkedIn, Reddit, Hacker News — chacun avec ses codes, où le moindre faux pas vous grille. Les communautés de votre niche à identifier et infiltrer. Les prospects qui cherchent votre solution <em>aujourd'hui</em>, à trouver un par un. Les DM personnalisés, sans avoir l'air d'un robot.</p>
+    <p>Vous le savez. C'est exactement pour ça que vous ne le faites pas.</p>
+    <p>Et c'est exactement pour ça que la majorité des lancements ne génèrent jamais de traction mesurable.</p>
+  </div>
+</section>
+
+<!-- ================= SOLUTION ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Solution</span>
+    <h2>Vous codez. Nos agents font les 40 heures.</h2>
+    <p class="muted">Vous nous donnez votre produit. Pendant que vous travaillez, nos agents parcourent votre niche en continu&nbsp;: où votre cible parle, ce qu'elle demande, qui se plaint d'un concurrent, qui montre des signaux d'achat. Chaque signal devient une action prête&nbsp;: la soumission remplie, le post calibré, la réponse au thread, le DM personnalisé.</p>
+    <p class="muted">Notre méthode décide où votre lancement doit apparaître et qui doit le voir.</p>
+    <p class="one-thing">Vous ne faites qu'une chose&nbsp;: <strong>valider et appuyer sur envoyer.</strong></p>
+    <p>Rien ne part sans vous. Chaque mot sonne comme vous.</p>
+  </div>
+</section>
+
+<!-- ================= LIVRABLES ================= -->
+<section>
+  <div class="wrap wrap--wide">
+    <span class="eyebrow">Livrables</span>
+    <h2>Ce que vous recevez en 7 jours.</h2>
+    <div class="cards">
+      <div class="card">
+        <h3><span class="emo">📣</span>Votre produit, partout</h3>
+        <ul class="arrows">
+          <li>Product Hunt + les 25 plateformes de lancement qui comptent, préparées au pixel près</li>
+          <li>Les directories de niche de votre marché</li>
+          <li>Vos posts rédigés pour X, LinkedIn, Reddit, Hacker News — dans les codes de chaque communauté</li>
+          <li>2 articles SEO/GEO&nbsp;: exister sur Google <em>et</em> dans les réponses des IA</li>
+          <li>La carte des communautés, newsletters et créateurs de votre niche, avec le pitch adapté à chacun</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="emo">🎯</span>Vos prospects chauds, nommés</h3>
+        <ul class="arrows">
+          <li>La liste des personnes qui montrent des signaux d'achat <em>maintenant</em> — pas des listes achetées</li>
+          <li>Chaque DM et email rédigé individuellement, prêt à envoyer</li>
+          <li>Les relances graduées pour les silencieux</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="emo">🧠</span>Un cerveau humain sur votre message</h3>
+        <ul class="arrows">
+          <li>8 ans de recherche utilisateur&nbsp;: on sait pourquoi les gens achètent — et pourquoi ils ignorent</li>
+          <li>Votre positionnement et votre pricing challengés avant d'appuyer sur envoyer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="emo">📊</span>Votre cockpit</h3>
+        <ul class="arrows">
+          <li>Le tableau de bord&nbsp;: ce qui est parti, ce qui répond, ce qui convertit</li>
+          <li>Le débrief stratégique à J+14&nbsp;: ce qui a marché, où insister, la suite</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GARANTIE ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Garantie</span>
+    <h2>Le seul risque, c'est de ne rien faire.</h2>
+    <div class="guarantee">
+      <!-- TODO fondateur : remplacer [X] par le nombre de conversations garanties -->
+      <p>Votre produit visible sur toutes les plateformes qui comptent, et <strong>[X] conversations qualifiées</strong> avec de vrais prospects de votre cible — ou on continue à travailler gratuitement jusqu'à les obtenir.</p>
+      <p class="no-list"><strong>Pas de bots. Pas de spam. Pas d'upvotes achetés.</strong> Votre réputation est le seul actif qu'on ne risque jamais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section>
+  <div class="wrap wrap--wide">
+    <span class="eyebrow">Pour qui</span>
+    <h2>Ce n'est pas pour tout le monde.</h2>
+    <div class="fit">
+      <div class="fit-col">
+        <ul>
+          <li><span class="mark">✅</span><span>Votre SaaS est fonctionnel, ou à quelques jours de l'être</span></li>
+          <li><span class="mark">✅</span><span>Vous savez qui votre produit sert, même approximativement</span></li>
+          <li><span class="mark">✅</span><span>Vous enverrez ce qu'on prépare</span></li>
+        </ul>
+      </div>
+      <div class="fit-col fit-col--no">
+        <ul>
+          <li><span class="mark">❌</span><span>Votre produit n'existe pas encore</span></li>
+          <li><span class="mark">❌</span><span>Vous cherchez de la magie sans lever le petit doigt</span></li>
+          <li><span class="mark">❌</span><span>Vous voulez des bots qui spamment à votre place</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OBJECTIONS ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Objections</span>
+    <h2>Vous vous dites sûrement…</h2>
+
+    <div class="qa">
+      <h3>«&nbsp;Je peux le faire moi-même.&nbsp;»</h3>
+      <p>Oui. C'est 40 heures, dispersées sur des semaines, dans des tâches que vous détestez. Vous ne le ferez pas — votre dernier launch le prouve. Nous, c'est notre seul travail.</p>
+    </div>
+
+    <div class="qa">
+      <h3>«&nbsp;Je peux le faire avec ChatGPT.&nbsp;»</h3>
+      <p>ChatGPT vous écrira des posts. Il ne connaît pas les 25 plateformes, ne scanne pas votre niche en continu, ne trouve pas les prospects qui achètent cette semaine, et vous dira que votre idée est super. Notre système fait le travail — pas la conversation.</p>
+    </div>
+
+    <div class="qa">
+      <h3>«&nbsp;Et si je n'ai pas de clients à la fin&nbsp;?&nbsp;»</h3>
+      <p>Personne ne peut vous garantir des clients sans mentir — ni nous, ni personne d'autre. Ce qu'on garantit, c'est ce que 90% des lancements n'obtiennent jamais&nbsp;: une vraie visibilité et des conversations qualifiées avec votre cible. Si votre produit et votre pitch tiennent la route, la conversion vous appartient déjà — et vous partez avec beaucoup plus de matière qu'un post à 3 likes.</p>
+    </div>
+
+    <div class="qa">
+      <h3>«&nbsp;Et après le lancement&nbsp;?&nbsp;»</h3>
+      <p>Le lancement vous donne l'élan. Au débrief J+14, on vous montre ce que nos agents ont détecté dans votre niche pendant la semaine — et si vous voulez qu'ils continuent chaque semaine, on en parle. Sans engagement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA FINAL + FORMULAIRE ================= -->
+<section class="final">
+  <div class="wrap">
+    <p class="kicker">Vous n'avez pas construit pendant six semaines <span class="flip">pour finir à 3 likes.</span></p>
+    <p class="muted">Dans 7 jours, votre marché entier peut savoir que vous existez — avec des conversations qualifiées à la clé, garanties ou on continue gratuitement.</p>
+    <p class="muted">Ou vous pouvez actualiser vos analytics encore un mois.</p>
+
+    <div class="form-panel" id="reserver">
+      <p class="form-title">Réserver mon lancement</p>
+
+      <!--
+        Netlify Forms : détecté automatiquement au déploiement grâce à
+        data-netlify="true" + name="lancement" + l'input caché form-name.
+        Aucun backend nécessaire.
+
+        Soumission : le petit script en bas de page intercepte le submit
+        et affiche l'état de succès inline (#form-success) sans quitter
+        la page. Si JavaScript est désactivé, Netlify prend le relais et
+        redirige vers sa page de succès par défaut. Pour une page de
+        succès personnalisée à la place, créer un fichier merci.html et
+        ajouter action="/merci" sur le <form> ci-dessous.
+      -->
+      <form name="lancement" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="lancement-form">
+        <input type="hidden" name="form-name" value="lancement" />
+        <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
+
+        <div class="field">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" required autocomplete="given-name" placeholder="Votre prénom">
+        </div>
+
+        <div class="field">
+          <label for="email">Email professionnel</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="vous@votresaas.com">
+        </div>
+
+        <div class="field">
+          <label for="ca">CA mensuel</label>
+          <select id="ca" name="ca-mensuel" required>
+            <option value="" disabled selected>Sélectionnez</option>
+            <option value="20-50k€">20-50k€</option>
+            <option value="50-100k€">50-100k€</option>
+            <option value="100-250k€">100-250k€</option>
+            <option value="250-500k€">250-500k€</option>
+            <option value="+500k€">+500k€</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Réserver mon lancement <span class="arr">→</span></button>
+      </form>
+
+      <div class="form-success" id="form-success" hidden>
+        <p>Demande envoyée.</p>
+        <p>On regarde votre produit et on vous répond sous 48h. Rien ne part sans vous — ça commence ici.</p>
+      </div>
+    </div>
+
+    <!-- TODO fondateur : ajuster "ce mois-ci" / le prix pilote si besoin -->
+    <p class="cta-note">Offre pilote&nbsp;: 2 lancements ce mois-ci à prix de lancement, contre un case study chiffré et public. Quand c'est complet, c'est le mois prochain.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Agents IA + validation humaine. Pas de bots, pas de spam, pas d'upvotes achetés.</p>
+  </div>
+</footer>
+
+<script>
+/* Soumission inline du formulaire Netlify : affiche l'état de succès
+   sans quitter la page. Fallback sans JS : POST Netlify classique. */
+(function () {
+  var form = document.getElementById('lancement-form');
+  if (!form || !window.fetch) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      form.hidden = true;
+      document.getElementById('form-success').hidden = false;
+    }).catch(function () {
+      /* Échec réseau : soumission native (form.submit() ne redéclenche
+         pas ce listener), Netlify gère alors la redirection. */
+      btn.disabled = false;
+      form.submit();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
