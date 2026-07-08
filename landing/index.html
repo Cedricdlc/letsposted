@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Construire votre produit, c'était la partie facile — on lance à votre place</title>
+<title>Sonar — Nos agents IA rendent votre lancement visible</title>
 <meta name="description" content="Un vrai lancement, c'est 40 heures de travail que personne ne fait. Nos agents les font pour vous : 25 plateformes, prospects chauds, chaque message déjà écrit. Vous validez, vous envoyez.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400..700&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap">
 <style>
 /* ============================================================
-   SONAR — LAUNCH LANDING
-   Dark editorial / phosphor-amber terminal, v2 art direction :
-   glow radial ambré, texture constellation, flux signaux live.
-   Typo : IBM Plex Mono (display) + IBM Plex Sans (texte).
+   SONAR — LAUNCH LANDING · v3 art direction
+   Dark editorial / phosphor-amber terminal, densifié :
+   barre d'annonce, nav sticky + marque radar SVG, cartes à
+   numéros fantômes, pipeline n8n en fenêtre code-editor,
+   rupture crème sur les livrables, rouge de disqualification.
+   Typo : IBM Plex Mono (structure) + IBM Plex Sans (texte)
+   + Fraunces italique (un seul accent, hero).
    Seule requête externe : Google Fonts ci-dessus.
    ============================================================ */
 
@@ -27,6 +30,14 @@
   --accent:    #F2A33C;
   --accent-hi: #FFC069;
   --line:      #2A241A;
+  /* rupture crème (section livrables) */
+  --cream:     #F5EFE3;
+  --cream-ink: #1A160F;
+  --cream-mut: #5C5344;
+  --cream-line:#E0D5BE;
+  --amber-deep:#B4741F;
+  /* disqualification */
+  --red:       #C0453A;
   /* statuts du flux — palette terminal ANSI (vert / ambre / cyan) */
   --st-detect: #4CC38A;
   --st-hot:    #F2A33C;
@@ -34,11 +45,12 @@
   --st-sent:   #6E6557;
   --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
 }
 
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; scroll-padding-top:5rem; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *,*::before,*::after{ animation:none !important; transition:none !important; }
@@ -55,6 +67,7 @@ body{
   line-height:1.7;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
+  overflow-x:hidden;
 }
 
 ::selection{ background:var(--accent); color:#160F04; }
@@ -82,7 +95,7 @@ strong{ font-weight:700; color:var(--ink); }
   margin:0 auto;
   padding:0 1.375rem;
 }
-.wrap--wide{ max-width:64rem; }
+.wrap--wide{ max-width:70rem; }
 
 section{ padding:5.5rem 0; border-top:1px solid var(--line); }
 @media (min-width:760px){ section{ padding:7.5rem 0; } }
@@ -108,10 +121,10 @@ h1, h2, .kicker{
   font-family:var(--mono);
 }
 h1{
-  font-size:clamp(1.55rem, 1rem + 2.6vw, 2.55rem);
-  line-height:1.22;
+  font-size:clamp(1.7rem, 1rem + 3vw, 2.9rem);
+  line-height:1.18;
   letter-spacing:-.035em;
-  font-weight:600;
+  font-weight:700;
   text-wrap:balance;
 }
 h2{
@@ -131,51 +144,88 @@ h3{
 p + p{ margin-top:1.25rem; }
 .muted{ color:var(--muted); }
 
-/* ---------- barre de marque ---------- */
+/* ---------- barre d'annonce ---------- */
 
-.top{
-  padding:1.35rem 0;
+.annbar{
+  background:linear-gradient(90deg, rgba(242,163,60,.18), rgba(242,163,60,.08) 55%, rgba(242,163,60,.14));
+  border-bottom:1px solid rgba(242,163,60,.28);
+  font-family:var(--mono);
+  font-size:.78rem;
 }
-.top-in{
+.annbar-in{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.1rem;
+  padding:.55rem 0;
+  flex-wrap:wrap;
+}
+.ann-pill{
+  background:rgba(242,163,60,.16);
+  border:1px solid rgba(242,163,60,.45);
+  color:var(--accent-hi);
+  border-radius:999px;
+  padding:.14rem .7rem;
+  font-weight:600;
+  white-space:nowrap;
+}
+.ann-text{ color:var(--muted); }
+.ann-link{
+  color:var(--accent);
+  font-weight:600;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.ann-link:hover{ color:var(--accent-hi); text-decoration:underline; }
+@media (max-width:719px){ .ann-text{ display:none; } }
+
+/* ---------- nav sticky ---------- */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:rgba(13,11,8,.86);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:1.25rem;
+  padding:.7rem 0;
 }
 .brand{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
   font-family:var(--mono);
-  font-weight:600;
-  font-size:1rem;
-  letter-spacing:.06em;
+  font-weight:700;
+  font-size:1.05rem;
+  letter-spacing:.05em;
   color:var(--ink);
   text-decoration:none;
 }
-.brand .dot{
-  display:inline-block;
-  width:.55em; height:.55em;
-  border-radius:50%;
-  background:var(--accent);
-  margin-right:.55em;
-  box-shadow:0 0 10px rgba(242,163,60,.8);
-  vertical-align:baseline;
-}
+.brand svg{ display:block; flex:none; }
 @media (prefers-reduced-motion: no-preference){
-  .brand .dot{ animation:ping 2.6s ease-in-out infinite; }
-  @keyframes ping{
-    0%,100%{ box-shadow:0 0 6px rgba(242,163,60,.6); }
-    50%{ box-shadow:0 0 16px rgba(242,163,60,1); }
+  .mark-outer{ animation:ringpulse 2.8s ease-in-out infinite; }
+  @keyframes ringpulse{
+    0%,100%{ stroke-opacity:.2; }
+    50%{ stroke-opacity:.6; }
   }
 }
-.top-link{
+.nav-links{ display:none; gap:1.9rem; }
+@media (min-width:900px){ .nav-links{ display:flex; } }
+.nav-links a{
   font-family:var(--mono);
   font-size:.85rem;
   color:var(--muted);
   text-decoration:none;
-  border:1px solid var(--line);
-  border-radius:6px;
-  padding:.45rem .9rem;
-  transition:color .15s ease, border-color .15s ease;
+  transition:color .15s ease;
 }
-.top-link:hover{ color:var(--accent); border-color:var(--accent); }
+.nav-links a:hover{ color:var(--accent); }
 
 /* ---------- CTA button ---------- */
 
@@ -206,6 +256,14 @@ p + p{ margin-top:1.25rem; }
 .btn:active{ transform:translateY(1px); }
 .btn .arr{ display:inline-block; transition:transform .15s ease; }
 .btn:hover .arr{ transform:translateX(4px); }
+
+.btn--nav{
+  padding:.6rem 1rem;
+  font-size:.85rem;
+  white-space:nowrap;
+  box-shadow:0 6px 20px rgba(242,163,60,.25), 0 1px 4px rgba(0,0,0,.4);
+}
+@media (max-width:479px){ .btn--nav .long{ display:none; } }
 
 .cta-note{
   font-size:.9rem;
@@ -248,7 +306,7 @@ p + p{ margin-top:1.25rem; }
 }
 
 .hero h1 .flip{
-  /* traitement encadré du groupe clé (réf. Focus) */
+  /* traitement encadré du groupe clé */
   color:var(--accent-hi);
   background:rgba(242,163,60,.08);
   box-shadow:inset 0 0 0 1px rgba(242,163,60,.38);
@@ -263,15 +321,27 @@ p + p{ margin-top:1.25rem; }
   color:var(--muted);
   max-width:36rem;
 }
-.hero .cta-row{ margin-top:2.4rem; }
+/* l'accent serif italique : un seul par page, ici */
+.stat-accent{
+  margin-top:1.7rem;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(1.35rem, 1rem + 1.6vw, 1.8rem);
+  line-height:1.35;
+  letter-spacing:.005em;
+  color:var(--accent-hi);
+}
+.hero .cta-row{ margin-top:2.3rem; }
 
 @media (prefers-reduced-motion: no-preference){
   .hero-copy > *{
     animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
   }
-  .hero .lede{ animation-delay:.1s; }
-  .hero .cta-row{ animation-delay:.2s; }
-  .hero .mini-zone{ animation-delay:.3s; }
+  .hero .lede{ animation-delay:.08s; }
+  .hero .stat-accent{ animation-delay:.16s; }
+  .hero .cta-row{ animation-delay:.24s; }
+  .hero .mini-zone{ animation-delay:.32s; }
   @keyframes rise{
     from{ opacity:0; transform:translateY(14px); }
     to{ opacity:1; transform:none; }
@@ -322,6 +392,14 @@ p + p{ margin-top:1.25rem; }
 .mini-success p:first-child{ font-weight:700; }
 .mini-success p + p{ margin-top:.25rem; color:var(--muted); font-size:.9rem; }
 
+/* ---------- pastilles macOS (réutilisées : feed, pipeline, browsers) ---------- */
+
+.tl{ display:flex; gap:.4rem; flex:none; }
+.tl i{ width:.65rem; height:.65rem; border-radius:50%; display:block; }
+.tl i:nth-child(1){ background:#FF5F57; }
+.tl i:nth-child(2){ background:#FEBC2E; }
+.tl i:nth-child(3){ background:#28C840; }
+
 /* ---------- flux signaux (artefact hero) ---------- */
 
 .feed{
@@ -345,12 +423,6 @@ p + p{ margin-top:1.25rem; }
   border-bottom:1px solid var(--line);
   margin-bottom:.9rem;
 }
-.feed-head .dots{ display:flex; gap:.35rem; }
-.feed-head .dots i{
-  width:.6rem; height:.6rem; border-radius:50%;
-  background:var(--line);
-}
-.feed-head .dots i:first-child{ background:rgba(242,163,60,.55); }
 .feed-title{
   font-family:var(--mono);
   font-size:.75rem;
@@ -457,30 +529,51 @@ section.stats{
 }
 .stat-src::before{ content:"// "; }
 
-/* ---------- agitation : the refresh beats (signature) ---------- */
+/* ---------- agitation : cartes à numéros fantômes ---------- */
 
-.beat{
-  font-family:var(--mono);
-  font-weight:600;
-  letter-spacing:-.02em;
-  line-height:1.2;
-  text-wrap:balance;
+.pain-grid{
+  display:grid;
+  gap:1.25rem;
+  margin-top:3rem;
 }
-.beat--1{ font-size:clamp(1.25rem, 3vw, 1.7rem); margin-top:3.5rem; }
-.beat--2{ font-size:clamp(1.55rem, 4vw, 2.3rem); margin-top:3rem; color:var(--accent); }
+@media (min-width:880px){ .pain-grid{ grid-template-columns:repeat(3, 1fr); } }
 
-.readout{
-  font-family:var(--mono);
-  font-size:clamp(.95rem, 2vw, 1.1rem);
-  line-height:1.9;
-  color:var(--muted);
-  background:var(--bg-raise);
+.pain{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg, rgba(26,22,15,.92), rgba(19,16,10,.92));
   border:1px solid var(--line);
-  border-left:3px solid var(--accent);
-  border-radius:6px;
-  padding:1.35rem 1.5rem;
-  margin-top:3.5rem;
+  border-radius:12px;
+  padding:2.1rem 1.6rem 2rem;
+  transition:border-color .2s ease, transform .2s ease;
 }
+.pain:hover{ border-color:rgba(242,163,60,.35); transform:translateY(-2px); }
+.pain .ghost{
+  position:absolute;
+  top:-2.6rem;
+  right:-.9rem;
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:9.5rem;
+  line-height:1;
+  letter-spacing:-.06em;
+  color:var(--ink);
+  opacity:.08;
+  pointer-events:none;
+  user-select:none;
+}
+.pain .tag{
+  display:block;
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:1.1rem;
+}
+.pain h3{ margin-bottom:.85rem; font-size:1.15rem; line-height:1.35; }
+.pain p{ font-size:.95rem; color:var(--muted); line-height:1.65; position:relative; }
 
 .punch{
   display:block;
@@ -488,10 +581,20 @@ section.stats{
   font-size:clamp(1.15rem, 2.6vw, 1.45rem);
   line-height:1.45;
   font-weight:700;
+  max-width:44rem;
 }
 .punch em{ font-style:normal; color:var(--accent); }
 
-/* ---------- solution ---------- */
+/* ---------- solution : 2 colonnes + callout garantie ---------- */
+
+.sol-grid{
+  display:grid;
+  gap:2.75rem;
+  align-items:start;
+}
+@media (min-width:940px){
+  .sol-grid{ grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:4rem; }
+}
 
 .one-thing{
   font-size:clamp(1.15rem, 2.6vw, 1.4rem);
@@ -500,41 +603,500 @@ section.stats{
 }
 .one-thing strong{ color:var(--accent); }
 
-/* ---------- livrables ---------- */
-
-.cards{
-  display:grid;
-  gap:1rem;
-  margin-top:2.75rem;
+.callout{
+  background:linear-gradient(180deg, rgba(242,163,60,.13), rgba(242,163,60,.05));
+  border:1px solid rgba(242,163,60,.32);
+  border-radius:14px;
+  padding:2rem 1.85rem;
+  box-shadow:0 18px 50px rgba(0,0,0,.3), 0 0 60px rgba(242,163,60,.07);
 }
-@media (min-width:720px){ .cards{ grid-template-columns:1fr 1fr; gap:1.25rem; } }
+@media (min-width:940px){ .callout{ position:sticky; top:6.5rem; } }
+.co-label{
+  display:block;
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:1.1rem;
+}
+.co-big{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height:1.42;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  text-wrap:balance;
+}
+.co-big em{ font-style:normal; color:var(--accent-hi); }
+.co-foot{
+  margin-top:1.15rem;
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:var(--muted);
+}
+.co-foot a{ color:var(--accent); }
 
-.card{
-  background:linear-gradient(180deg, rgba(26,22,15,.9), rgba(19,16,10,.9));
+/* ---------- pipeline n8n : fenêtre code-editor ---------- */
+
+.flow{
+  margin-top:4rem;
+  background:linear-gradient(180deg, #1B170F, #12100A);
+  border:1px solid rgba(242,163,60,.22);
+  border-radius:14px;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.5),
+    0 0 80px rgba(242,163,60,.07);
+  overflow:hidden;
+}
+.flow-bar{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  padding:.85rem 1.15rem;
+  border-bottom:1px solid var(--line);
+  background:rgba(237,232,222,.03);
+}
+.flow-title{
+  font-family:var(--mono);
+  font-size:.78rem;
+  letter-spacing:.08em;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.flow-status{
+  margin-left:auto;
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--st-detect);
+  background:rgba(76,195,138,.1);
+  border:1px solid rgba(76,195,138,.3);
+  border-radius:999px;
+  padding:.16rem .65rem;
+  white-space:nowrap;
+}
+@media (prefers-reduced-motion: no-preference){
+  .flow-status b{ animation:blink 1.6s step-end infinite; }
+}
+.flow-body{
+  overflow-x:auto;
+  padding:2rem 1.4rem;
+  /* trame de points façon canvas n8n */
+  background-image:radial-gradient(rgba(237,232,222,.07) 1px, transparent 1px);
+  background-size:18px 18px;
+}
+.flow-track{
+  list-style:none;
+  display:flex;
+  align-items:stretch;
+  min-width:max-content;
+  padding:.1rem;
+}
+.node{
+  flex:0 0 12.5rem;
+  display:flex;
+  flex-direction:column;
+  gap:.35rem;
+  background:rgba(13,11,8,.78);
   border:1px solid var(--line);
   border-radius:10px;
-  padding:1.75rem 1.6rem;
-  transition:border-color .2s ease, transform .2s ease;
+  padding:1rem 1.05rem .85rem;
+  box-shadow:0 8px 22px rgba(0,0,0,.35);
 }
-.card:hover{ border-color:rgba(242,163,60,.35); transform:translateY(-2px); }
-.card h3{ margin-bottom:1.1rem; }
-.card h3 .emo{ margin-right:.5rem; }
-
-ul.arrows{ list-style:none; }
-ul.arrows li{
-  position:relative;
-  padding-left:1.6rem;
-  color:var(--muted);
-  font-size:.975rem;
-  line-height:1.6;
+.node--human{
+  border-color:rgba(242,163,60,.55);
+  box-shadow:0 8px 22px rgba(0,0,0,.35), 0 0 26px rgba(242,163,60,.14);
 }
-ul.arrows li + li{ margin-top:.75rem; }
-ul.arrows li::before{
-  content:"→";
-  position:absolute;
-  left:0;
+.n-icon{ font-size:1.2rem; line-height:1; }
+.node--human .n-icon{ color:var(--accent); font-weight:700; font-family:var(--mono); }
+.n-label{
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin-top:.25rem;
+}
+.n-sub{ font-size:.78rem; color:var(--muted); line-height:1.45; }
+.n-metric{
+  margin-top:auto;
+  padding-top:.6rem;
+  border-top:1px dashed var(--line);
+  font-family:var(--mono);
+  font-size:.67rem;
+  letter-spacing:.07em;
+  color:var(--faint);
+  text-transform:uppercase;
+}
+.node--human .n-metric{ color:var(--accent); border-top-color:rgba(242,163,60,.35); }
+.conn{
+  flex:none;
+  display:flex;
+  align-items:center;
+  padding:0 .3rem;
   color:var(--accent);
   font-family:var(--mono);
+  font-size:1rem;
+}
+.conn::before{
+  content:"";
+  display:block;
+  width:1.1rem;
+  height:2px;
+  background:linear-gradient(90deg, rgba(242,163,60,.15), rgba(242,163,60,.7));
+  margin-right:-.15rem;
+}
+/* desktop large : les 5 nœuds tiennent sans scroll */
+@media (min-width:1080px){
+  .flow-track{ min-width:0; width:100%; }
+  .node{ flex:1 1 0; min-width:0; }
+}
+.flow-cap{
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:var(--faint);
+  padding:.8rem 1.4rem .95rem;
+  border-top:1px solid var(--line);
+}
+.flow-cap::before{ content:"// "; }
+
+/* ---------- livrables : rupture crème ---------- */
+
+.light{
+  background:var(--cream);
+  color:var(--cream-ink);
+  border-top:1px solid var(--cream);
+}
+.light .eyebrow{ color:var(--amber-deep); }
+.light .eyebrow::before{ color:#B7A98C; }
+.light h2, .light h3{ color:var(--cream-ink); }
+.light .muted{ color:var(--cream-mut); }
+.light strong{ color:var(--cream-ink); }
+
+/* — showcase séquentiel : 4 livrables numérotés, texte à gauche / mockup à droite — */
+
+.dlv{ margin-top:3.25rem; display:flex; flex-direction:column; gap:4.25rem; }
+@media (min-width:920px){ .dlv{ margin-top:4rem; gap:5.5rem; } }
+
+.dlv-row{ display:grid; gap:1.75rem; align-items:center; min-width:0; }
+@media (min-width:920px){
+  .dlv-row{ grid-template-columns:minmax(0,4fr) minmax(0,6fr); gap:3.5rem; }
+}
+
+.dlv-step{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--amber-deep);
+  background:rgba(180,116,31,.1);
+  border:1px solid rgba(180,116,31,.32);
+  border-radius:999px;
+  padding:.24rem .8rem;
+  margin-bottom:1.15rem;
+}
+.dlv-step::before{
+  content:"";
+  width:.45rem;
+  height:.45rem;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(242,163,60,.22);
+}
+.dlv-txt h3{
+  font-size:clamp(1.18rem, 1rem + 1vw, 1.42rem);
+  line-height:1.34;
+  letter-spacing:-.015em;
+  text-wrap:balance;
+}
+.dlv-txt p{
+  margin-top:.9rem;
+  color:var(--cream-mut);
+  font-size:.975rem;
+  line-height:1.65;
+}
+
+/* cadre "viseur" : crochets aux 4 coins du mockup */
+.dlv-mock{ position:relative; padding:.85rem; min-width:0; }
+.dlv-mock .fr{ position:absolute; inset:0; pointer-events:none; }
+.dlv-mock::before, .dlv-mock::after,
+.dlv-mock .fr::before, .dlv-mock .fr::after{
+  content:"";
+  position:absolute;
+  width:.95rem;
+  height:.95rem;
+  border:0 solid rgba(180,116,31,.55);
+}
+.dlv-mock::before{ top:0; left:0; border-top-width:2px; border-left-width:2px; }
+.dlv-mock::after{ top:0; right:0; border-top-width:2px; border-right-width:2px; }
+.dlv-mock .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
+.dlv-mock .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
+
+/* panneau UI simulé */
+.panel{
+  background:#FFFDF7;
+  border:1px solid var(--cream-line);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 18px 44px rgba(26,22,15,.1);
+}
+.p-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.8rem;
+  padding:.68rem 1rem;
+  background:#EFE7D6;
+  border-bottom:1px solid var(--cream-line);
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  color:#6E6248;
+}
+.p-head .t{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sim{
+  flex:none;
+  font-family:var(--mono);
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--amber-deep);
+  background:rgba(180,116,31,.12);
+  border:1px solid rgba(180,116,31,.35);
+  border-radius:999px;
+  padding:.14rem .55rem;
+  white-space:nowrap;
+}
+.p-body{ padding:1.05rem 1.1rem 1.15rem; }
+
+/* pastilles de statut / d'intention */
+.pill{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--mono);
+  font-size:.6rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border-radius:999px;
+  padding:.15rem .55rem;
+  white-space:nowrap;
+}
+.pill--ok{ color:#2E6B45; background:rgba(76,151,106,.14); border:1px solid rgba(76,151,106,.4); }
+.pill--wait{ color:#8A7D63; background:#F1EADA; border:1px solid var(--cream-line); }
+.pill--hot{ color:#9E352C; background:rgba(192,69,58,.1); border:1px solid rgba(192,69,58,.38); }
+.pill--mid{ color:var(--amber-deep); background:rgba(180,116,31,.1); border:1px solid rgba(180,116,31,.35); }
+
+/* — mockup 1 : checklist plateformes — */
+.chk{ list-style:none; }
+.chk li{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  padding:.6rem .15rem;
+  font-size:.86rem;
+}
+.chk li + li{ border-top:1px dashed var(--cream-line); }
+.chk .box{
+  flex:none;
+  width:1.05rem;
+  height:1.05rem;
+  border-radius:4px;
+  border:1.5px solid #C9BB9C;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.6rem;
+  line-height:1;
+  color:#FFFDF7;
+}
+.chk .box--done{ background:var(--amber-deep); border-color:var(--amber-deep); }
+.chk .name{
+  flex:1 1 auto;
+  min-width:0;
+  font-weight:600;
+  color:var(--cream-ink);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* — mockup 2 : file de contenus — */
+.queue{ display:grid; grid-template-columns:1fr 1fr; gap:.65rem; }
+.q-card{
+  min-width:0;
+  background:#FBF7EC;
+  border:1px solid var(--cream-line);
+  border-radius:8px;
+  padding:.65rem .7rem;
+}
+.q-net{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#6E6248;
+}
+.q-net i{ flex:none; width:.42rem; height:.42rem; border-radius:50%; display:block; }
+.q-net i.nx{ background:#1A160F; }
+.q-net i.nl{ background:#2867B2; }
+.q-net i.nr{ background:var(--red); }
+.q-net i.nh{ background:var(--accent); }
+.q-txt{
+  margin-top:.45rem;
+  font-size:.74rem;
+  line-height:1.5;
+  color:var(--cream-mut);
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.q-seo{
+  grid-column:1 / -1;
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  flex-wrap:wrap;
+  background:rgba(180,116,31,.06);
+  border:1px dashed rgba(180,116,31,.45);
+  border-radius:8px;
+  padding:.6rem .75rem;
+  font-size:.76rem;
+  color:var(--cream-mut);
+}
+
+/* — mockup 3 : prospects chauds — */
+.pros{ list-style:none; }
+.pros li{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  padding:.6rem .15rem;
+}
+.pros li + li{ border-top:1px dashed var(--cream-line); }
+.avatar{
+  flex:none;
+  width:2.1rem;
+  height:2.1rem;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--mono);
+  font-size:.66rem;
+  font-weight:700;
+  border:1px solid rgba(26,22,15,.08);
+}
+.av-a{ background:#EED9B8; color:#7A5312; }
+.av-b{ background:#E7D2CB; color:#7C4038; }
+.av-c{ background:#D9E0CC; color:#4A5E3A; }
+.av-d{ background:#E0DAC9; color:#5C5344; }
+.pros .who{ flex:1 1 auto; min-width:0; line-height:1.3; }
+.pros .who b{
+  display:block;
+  font-size:.84rem;
+  font-weight:700;
+  color:var(--cream-ink);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.pros .who small{
+  display:block;
+  font-size:.7rem;
+  color:#8A7D63;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.pros .score{
+  flex:none;
+  font-family:var(--mono);
+  font-size:.88rem;
+  font-weight:700;
+  color:var(--cream-ink);
+  min-width:2.6rem;
+  text-align:right;
+}
+
+/* — mockup 4 : plan d'exécution J1→J7 + débrief — */
+.cal-days{
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0,1fr));
+  gap:.3rem;
+  font-family:var(--mono);
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  color:#8A7D63;
+  text-align:center;
+}
+.cal-days span{ padding:.28rem 0; border-bottom:2px solid var(--cream-line); }
+.cal-track{
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0,1fr));
+  grid-auto-rows:min-content;
+  gap:.35rem .3rem;
+  margin-top:.55rem;
+}
+.chip{
+  min-width:0;
+  font-family:var(--mono);
+  font-size:.6rem;
+  font-weight:600;
+  line-height:1.35;
+  border-radius:5px;
+  padding:.34rem .42rem;
+  overflow-wrap:break-word;
+}
+.chip--a{ grid-column:1 / 3; grid-row:1; background:rgba(180,116,31,.14); border:1px solid rgba(180,116,31,.4); color:#7A5312; }
+.chip--b{ grid-column:3 / 5; grid-row:2; background:rgba(76,151,106,.13); border:1px solid rgba(76,151,106,.38); color:#2E6B45; }
+.chip--c{ grid-column:6 / 8; grid-row:3; background:rgba(86,150,162,.13); border:1px solid rgba(86,150,162,.4); color:#2E6B75; }
+.cal-debrief{
+  margin-top:1rem;
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  flex-wrap:wrap;
+  background:rgba(180,116,31,.07);
+  border:1px dashed rgba(180,116,31,.5);
+  border-radius:8px;
+  padding:.65rem .8rem;
+}
+.cal-debrief b{
+  font-family:var(--mono);
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--amber-deep);
+  white-space:nowrap;
+}
+.cal-debrief span{ font-size:.78rem; color:var(--cream-mut); }
+
+/* mobile : pastilles d'intention plus compactes, chips calendrier plus larges
+   (évite la coupure en plein mot et la troncature des noms) */
+@media (max-width:600px){
+  .pros li{ gap:.55rem; }
+  .pros .pill{ font-size:.54rem; letter-spacing:.05em; padding:.13rem .45rem; }
+  .chip--a{ grid-column:1 / 4; }
+  .chip--b{ grid-column:3 / 6; }
+  .chip--c{ grid-column:5 / 8; }
 }
 
 /* ---------- garantie ---------- */
@@ -575,11 +1137,30 @@ ul.arrows li::before{
   padding:1.75rem 1.6rem;
   background:linear-gradient(180deg, rgba(26,22,15,.9), rgba(19,16,10,.9));
 }
-.fit-col--no{ background:transparent; border-style:dashed; }
+.fit-label{
+  display:block;
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:1.4rem;
+  color:var(--st-detect);
+}
+.fit-label::before{ content:"// "; color:var(--faint); }
 .fit-col ul{ list-style:none; }
 .fit-col li{ display:flex; gap:.7rem; line-height:1.55; }
 .fit-col li + li{ margin-top:1rem; }
 .fit-col li .mark{ flex:none; }
+
+/* disqualification : le rouge, deuxième couleur sémantique de la page */
+.fit-col--no{
+  background:linear-gradient(180deg, rgba(192,69,58,.1), rgba(192,69,58,.04));
+  border:1px solid rgba(192,69,58,.38);
+  border-left:3px solid var(--red);
+}
+.fit-col--no .fit-label{ color:#E07B70; }
+.fit-col--no .fit-label::before{ color:rgba(192,69,58,.6); }
 .fit-col--no li{ color:var(--muted); }
 
 /* ---------- objections ---------- */
@@ -684,7 +1265,7 @@ footer .foot-in{
   display:flex;
   flex-wrap:wrap;
   gap:.75rem 2rem;
-  align-items:baseline;
+  align-items:center;
   justify-content:space-between;
 }
 footer p{
@@ -697,11 +1278,34 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 </head>
 <body>
 
-<!-- ================= MARQUE ================= -->
-<nav class="top" aria-label="Navigation principale">
-  <div class="wrap wrap--wide top-in">
-    <a class="brand" href="#"><span class="dot" aria-hidden="true"></span>sonar</a>
-    <a class="top-link" href="#reserver">Réserver mon lancement →</a>
+<!-- ================= BARRE D'ANNONCE ================= -->
+<div class="annbar" role="region" aria-label="Annonce">
+  <div class="wrap wrap--wide annbar-in">
+    <span class="ann-pill">🟡 2 places pilote</span>
+    <span class="ann-text">Case study public à l'issue — pas de faux témoignages.</span>
+    <a class="ann-link" href="#pour-qui">Voir mon éligibilité →</a>
+  </div>
+</div>
+
+<!-- ================= NAV STICKY ================= -->
+<nav class="nav" aria-label="Navigation principale">
+  <div class="wrap wrap--wide nav-in">
+    <a class="brand" href="#">
+      <!-- marque : ping radar, anneaux concentriques autour d'un point -->
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle class="mark-outer" cx="14" cy="14" r="12.5" stroke="#F2A33C" stroke-opacity=".25" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="8.5" stroke="#F2A33C" stroke-opacity=".5" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="4.8" stroke="#F2A33C" stroke-opacity=".85" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="1.9" fill="#F2A33C"/>
+      </svg>
+      sonar
+    </a>
+    <div class="nav-links">
+      <a href="#solution">Comment ça marche</a>
+      <a href="#livrables">Livrables</a>
+      <a href="#pour-qui">Qualification</a>
+    </div>
+    <a class="btn btn--nav" href="#reserver"><span class="long">Réserver mon lancement </span><span class="sr-only">Réserver </span><span class="arr">→</span></a>
   </div>
 </nav>
 
@@ -709,8 +1313,9 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 <header class="hero">
   <div class="wrap wrap--wide hero-grid">
     <div class="hero-copy">
-      <h1>Construire votre produit, c'était la partie facile. Le faire savoir, c'est le vrai travail&nbsp;— <span class="flip">on le fait à votre place.</span></h1>
+      <h1>Nos agents IA rendent votre lancement <span class="flip">visible.</span></h1>
       <p class="lede">Un vrai lancement, c'est 40 heures de travail que personne ne fait&nbsp;: 25 plateformes, du contenu pour chaque canal, les communautés de votre niche, les prospects à trouver un par un. Nos agents les font pour vous — soumissions préparées, posts calibrés, prospects chauds identifiés, chaque message déjà écrit. Vous validez, vous envoyez. Le reste, c'est notre travail — pas le vôtre.</p>
+      <p class="stat-accent">7 jours, 25 plateformes. Zéro template.</p>
       <div class="cta-row">
         <a class="btn" href="#reserver">Réserver mon lancement <span class="arr">→</span></a>
         <!-- TODO fondateur : remplacer [mois] par le mois réel avant mise en ligne -->
@@ -739,7 +1344,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
          et prépare, lisible en 2 secondes. -->
     <figure class="feed" aria-label="Aperçu du flux Sonar : signaux détectés dans votre niche, actions préparées, envoi après votre validation">
       <div class="feed-head">
-        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="tl" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="feed-title">sonar — flux temps réel</span>
       </div>
       <ul class="feed-rows">
@@ -774,91 +1379,218 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
   </div>
 </section>
 
-<!-- ================= AGITATION ================= -->
-<section>
-  <div class="wrap">
+<!-- ================= AGITATION : 3 CARTES ================= -->
+<section id="probleme">
+  <div class="wrap wrap--wide">
     <span class="eyebrow">Agitation</span>
     <h2>Vous connaissez cette journée par cœur.</h2>
-    <p class="muted">Six semaines de build. Le jour J, vous postez sur X. Vous soumettez sur Product Hunt à 6h.</p>
+    <p class="muted" style="max-width:44rem">Six semaines de build. Le jour J, vous postez sur X. Vous soumettez sur Product Hunt à 6h. Puis vous actualisez. Vous actualisez encore.</p>
 
-    <p class="beat beat--1">Puis vous actualisez.</p>
-    <p class="beat beat--2">Vous actualisez encore.</p>
-
-    <p class="readout">12 visites. 3 likes — dont votre cofondateur. Un commentaire d'un bot.</p>
-
-    <p class="muted" style="margin-top:3rem">Le soir, vous accusez l'algorithme. Le lendemain, vous parlez d'«&nbsp;itérer&nbsp;». Une semaine plus tard, vous êtes retourné coder une feature que personne n'a demandée — parce que coder, au moins, ça donne l'impression d'avancer.</p>
+    <div class="pain-grid">
+      <article class="pain">
+        <span class="ghost" aria-hidden="true">01</span>
+        <span class="tag">01 · Visibilité</span>
+        <h3>Vous avez lancé dans le silence.</h3>
+        <p>12 visites. 3 likes — dont votre cofondateur. Un commentaire d'un bot. Le soir, vous accusez l'algorithme. Une semaine plus tard, vous êtes retourné coder une feature que personne n'a demandée — parce que coder, au moins, ça donne l'impression d'avancer.</p>
+      </article>
+      <article class="pain">
+        <span class="ghost" aria-hidden="true">02</span>
+        <span class="tag">02 · Timing</span>
+        <h3>40 heures que vous ne ferez jamais.</h3>
+        <p>Un lancement n'est pas un post&nbsp;: 25 plateformes à traiter une par une, les communautés de votre niche à identifier et infiltrer, les prospects qui cherchent votre solution <em>aujourd'hui</em> à trouver un par un. Vous le savez. C'est exactement pour ça que vous ne le faites pas.</p>
+      </article>
+      <article class="pain">
+        <span class="ghost" aria-hidden="true">03</span>
+        <span class="tag">03 · Crédibilité</span>
+        <h3>Chaque plateforme a ses codes.</h3>
+        <p>Des posts calibrés pour X, LinkedIn, Reddit, Hacker News — chacun avec ses codes, où le moindre faux pas vous grille. Des DM personnalisés, sans avoir l'air d'un robot. C'est exactement pour ça que la majorité des lancements ne génèrent jamais de traction mesurable.</p>
+      </article>
+    </div>
 
     <strong class="punch">Pendant ce temps, un produit moins bon que le vôtre vient de passer 5K MRR. Pas parce qu'il est meilleur. <em>Parce qu'on l'a vu.</em></strong>
   </div>
 </section>
 
-<!-- ================= LA VÉRITÉ ================= -->
-<section class="band">
-  <div class="wrap">
-    <span class="eyebrow">La vérité</span>
-    <h2>Un lancement n'est pas un post. C'est 40 heures de travail que vous ne ferez jamais.</h2>
-    <p class="muted">25 plateformes à traiter une par une. Des posts calibrés pour X, LinkedIn, Reddit, Hacker News — chacun avec ses codes, où le moindre faux pas vous grille. Les communautés de votre niche à identifier et infiltrer. Les prospects qui cherchent votre solution <em>aujourd'hui</em>, à trouver un par un. Les DM personnalisés, sans avoir l'air d'un robot.</p>
-    <p>Vous le savez. C'est exactement pour ça que vous ne le faites pas.</p>
-    <p>Et c'est exactement pour ça que la majorité des lancements ne génèrent jamais de traction mesurable.</p>
+<!-- ================= SOLUTION / COMMENT ÇA MARCHE ================= -->
+<section id="solution" class="band">
+  <div class="wrap wrap--wide">
+    <div class="sol-grid">
+      <div>
+        <span class="eyebrow">Comment ça marche</span>
+        <h2>Vous codez. Nos agents font les 40 heures.</h2>
+        <p class="muted">Vous nous donnez votre produit. Pendant que vous travaillez, nos agents parcourent votre niche en continu&nbsp;: où votre cible parle, ce qu'elle demande, qui se plaint d'un concurrent, qui montre des signaux d'achat. Chaque signal devient une action prête&nbsp;: la soumission remplie, le post calibré, la réponse au thread, le DM personnalisé.</p>
+        <p class="muted">Notre méthode décide où votre lancement doit apparaître et qui doit le voir.</p>
+        <p class="one-thing">Vous ne faites qu'une chose&nbsp;: <strong>valider et appuyer sur envoyer.</strong></p>
+        <p>Rien ne part sans vous. Chaque mot sonne comme vous.</p>
+      </div>
+      <aside class="callout" aria-label="Résultat garanti">
+        <span class="co-label">Résultat · Garantie</span>
+        <p class="co-big">Des conversations qualifiées, <em>garanties</em> — ou on continue gratuitement.</p>
+        <p class="co-foot">le détail, sans astérisque caché → <a href="#garantie">garantie</a></p>
+      </aside>
+    </div>
+
+    <!-- Pipeline : fenêtre code-editor, façon canvas n8n.
+         Statut honnête : "en construction", pas de faux compteur. -->
+    <figure class="flow" aria-label="Le pipeline Sonar : détection de signaux, filtrage IA, génération de contenu, validation humaine, publication">
+      <div class="flow-bar">
+        <span class="tl" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="flow-title">Sonar · Launch Pipeline · n8n</span>
+        <span class="flow-status"><b aria-hidden="true">●</b> Actif · en construction</span>
+      </div>
+      <div class="flow-body" tabindex="0" role="group" aria-label="Diagramme du pipeline, défilement horizontal">
+        <ol class="flow-track">
+          <li class="node">
+            <span class="n-icon" aria-hidden="true">📡</span>
+            <span class="n-label">Signal Scout</span>
+            <span class="n-sub">Détection de signaux publics</span>
+            <span class="n-metric">in · 25 plateformes</span>
+          </li>
+          <li class="conn" aria-hidden="true">▶</li>
+          <li class="node">
+            <span class="n-icon" aria-hidden="true">🧠</span>
+            <span class="n-label">Filtre IA</span>
+            <span class="n-sub">Claude évalue la pertinence</span>
+            <span class="n-metric">model · claude</span>
+          </li>
+          <li class="conn" aria-hidden="true">▶</li>
+          <li class="node">
+            <span class="n-icon" aria-hidden="true">📣</span>
+            <span class="n-label">Factory</span>
+            <span class="n-sub">Génère le contenu calibré</span>
+            <span class="n-metric">out · post + DM</span>
+          </li>
+          <li class="conn" aria-hidden="true">▶</li>
+          <li class="node node--human">
+            <span class="n-icon" aria-hidden="true">✓</span>
+            <span class="n-label">Validation humaine</span>
+            <span class="n-sub">Vous relisez et validez</span>
+            <span class="n-metric">action · requise</span>
+          </li>
+          <li class="conn" aria-hidden="true">▶</li>
+          <li class="node">
+            <span class="n-icon" aria-hidden="true">🚀</span>
+            <span class="n-label">Publication</span>
+            <span class="n-sub">Envoi sur la plateforme</span>
+            <span class="n-metric">statut · en attente</span>
+          </li>
+        </ol>
+      </div>
+      <figcaption class="flow-cap">chaque envoi passe par l'étape 4 — rien ne part sans vous</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- ================= SOLUTION ================= -->
-<section>
-  <div class="wrap">
-    <span class="eyebrow">Solution</span>
-    <h2>Vous codez. Nos agents font les 40 heures.</h2>
-    <p class="muted">Vous nous donnez votre produit. Pendant que vous travaillez, nos agents parcourent votre niche en continu&nbsp;: où votre cible parle, ce qu'elle demande, qui se plaint d'un concurrent, qui montre des signaux d'achat. Chaque signal devient une action prête&nbsp;: la soumission remplie, le post calibré, la réponse au thread, le DM personnalisé.</p>
-    <p class="muted">Notre méthode décide où votre lancement doit apparaître et qui doit le voir.</p>
-    <p class="one-thing">Vous ne faites qu'une chose&nbsp;: <strong>valider et appuyer sur envoyer.</strong></p>
-    <p>Rien ne part sans vous. Chaque mot sonne comme vous.</p>
-  </div>
-</section>
-
-<!-- ================= LIVRABLES ================= -->
-<section class="band">
+<!-- ================= LIVRABLES : RUPTURE CRÈME ================= -->
+<section id="livrables" class="light">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Livrables</span>
     <h2>Ce que vous recevez en 7 jours.</h2>
-    <div class="cards">
-      <div class="card">
-        <h3><span class="emo">📣</span>Votre produit, partout</h3>
-        <ul class="arrows">
-          <li>Product Hunt + les 25 plateformes de lancement qui comptent, préparées au pixel près</li>
-          <li>Les directories de niche de votre marché</li>
-          <li>Vos posts rédigés pour X, LinkedIn, Reddit, Hacker News — dans les codes de chaque communauté</li>
-          <li>2 articles SEO/GEO&nbsp;: exister sur Google <em>et</em> dans les réponses des IA</li>
-          <li>La carte des communautés, newsletters et créateurs de votre niche, avec le pitch adapté à chacun</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><span class="emo">🎯</span>Vos prospects chauds, nommés</h3>
-        <ul class="arrows">
-          <li>La liste des personnes qui montrent des signaux d'achat <em>maintenant</em> — pas des listes achetées</li>
-          <li>Chaque DM et email rédigé individuellement, prêt à envoyer</li>
-          <li>Les relances graduées pour les silencieux</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><span class="emo">🧠</span>Un cerveau humain sur votre message</h3>
-        <ul class="arrows">
-          <li>8 ans de recherche utilisateur&nbsp;: on sait pourquoi les gens achètent — et pourquoi ils ignorent</li>
-          <li>Votre positionnement et votre pricing challengés avant d'appuyer sur envoyer</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><span class="emo">📊</span>Votre cockpit</h3>
-        <ul class="arrows">
-          <li>Le tableau de bord&nbsp;: ce qui est parti, ce qui répond, ce qui convertit</li>
-          <li>Le débrief stratégique à J+14&nbsp;: ce qui a marché, où insister, la suite</li>
-        </ul>
-      </div>
+    <!-- Showcase séquentiel : 4 livrables, texte à gauche / mockup simulé à droite.
+         Mockups volontairement génériques — pas de faux clients, pas de fausses marques. -->
+    <div class="dlv">
+
+      <!-- 1/4 · soumissions plateformes -->
+      <article class="dlv-row">
+        <div class="dlv-txt">
+          <span class="dlv-step">1/4</span>
+          <h3>Vos soumissions sur les 25+ plateformes qui comptent</h3>
+          <p>Product Hunt, Uneed, Peerlist, BetaList, les directories de votre niche… Chaque soumission préparée au champ près (tagline, descriptions, formats), avec la checklist d'envoi dans le bon ordre. Vous copiez, vous collez, vous êtes partout.</p>
+        </div>
+        <div class="dlv-mock">
+          <span class="fr" aria-hidden="true"></span>
+          <figure class="panel" aria-label="Exemple simulé : checklist des soumissions plateformes, prêtes à envoyer">
+            <div class="p-head"><span class="t">Checklist de lancement · J1</span><span class="sim">exemple simulé</span></div>
+            <div class="p-body">
+              <ul class="chk">
+                <li><span class="box box--done" aria-hidden="true">✓</span><span class="name">Product Hunt</span><span class="pill pill--ok">Prêt</span></li>
+                <li><span class="box box--done" aria-hidden="true">✓</span><span class="name">Uneed</span><span class="pill pill--ok">Prêt</span></li>
+                <li><span class="box box--done" aria-hidden="true">✓</span><span class="name">Peerlist</span><span class="pill pill--ok">Prêt</span></li>
+                <li><span class="box box--done" aria-hidden="true">✓</span><span class="name">BetaList</span><span class="pill pill--ok">Prêt</span></li>
+                <li><span class="box" aria-hidden="true"></span><span class="name">[Directory de niche]</span><span class="pill pill--wait">En attente</span></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 2/4 · contenus de lancement -->
+      <article class="dlv-row">
+        <div class="dlv-txt">
+          <span class="dlv-step">2/4</span>
+          <h3>Vos contenus de lancement, prêts à poster</h3>
+          <p>Les posts calibrés pour X, LinkedIn, Reddit et Hacker News — dans les codes de chaque communauté — et 2 articles SEO/GEO pour exister sur Google et dans les réponses des IA.</p>
+        </div>
+        <div class="dlv-mock">
+          <span class="fr" aria-hidden="true"></span>
+          <figure class="panel" aria-label="Exemple simulé : file de contenus de lancement par plateforme">
+            <div class="p-head"><span class="t">File de contenus · semaine de lancement</span><span class="sim">exemple simulé</span></div>
+            <div class="p-body">
+              <div class="queue">
+                <div class="q-card"><span class="q-net"><i class="nx" aria-hidden="true"></i>X</span><p class="q-txt">On lance aujourd'hui. 6 mois de nuits blanches pour régler un problème que personne ne…</p></div>
+                <div class="q-card"><span class="q-net"><i class="nl" aria-hidden="true"></i>LinkedIn</span><p class="q-txt">La semaine dernière, notre produit est passé de projet perso à outil public. Voici ce que…</p></div>
+                <div class="q-card"><span class="q-net"><i class="nr" aria-hidden="true"></i>Reddit</span><p class="q-txt">J'ai construit un outil qui automatise la partie la plus pénible d'un lancement, et…</p></div>
+                <div class="q-card"><span class="q-net"><i class="nh" aria-hidden="true"></i>HN</span><p class="q-txt">Show HN&nbsp;: un outil qui prépare vos 25 soumissions de lancement au champ près…</p></div>
+                <div class="q-seo"><span class="pill pill--mid">SEO / GEO</span><span>2 articles — pour Google et les réponses des IA</span></div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 3/4 · prospects chauds -->
+      <article class="dlv-row">
+        <div class="dlv-txt">
+          <span class="dlv-step">3/4</span>
+          <h3>Vos prospects chauds, avec les messages déjà écrits</h3>
+          <p>La liste des personnes de votre niche qui montrent des signaux d'achat maintenant, le DM ou l'email personnalisé pour chacune, et les relances pour les silencieux. Vous n'avez plus qu'à envoyer.</p>
+        </div>
+        <div class="dlv-mock">
+          <span class="fr" aria-hidden="true"></span>
+          <figure class="panel" aria-label="Exemple simulé : liste de prospects avec niveau d'intention et score">
+            <div class="p-head"><span class="t">Signaux détectés · cette semaine</span><span class="sim">exemple simulé</span></div>
+            <div class="p-body">
+              <ul class="pros">
+                <li><span class="avatar av-a" aria-hidden="true">TM</span><span class="who"><b>T. Martin</b><small>Fondateur</small></span><span class="pill pill--hot">intention haute</span><span class="score">91%</span></li>
+                <li><span class="avatar av-b" aria-hidden="true">LD</span><span class="who"><b>L. Dubois</b><small>CTO</small></span><span class="pill pill--hot">intention haute</span><span class="score">84%</span></li>
+                <li><span class="avatar av-c" aria-hidden="true">AB</span><span class="who"><b>A. Bernard</b><small>Indie hacker</small></span><span class="pill pill--mid">intention moyenne</span><span class="score">72%</span></li>
+                <li><span class="avatar av-d" aria-hidden="true">SM</span><span class="who"><b>S. Moreau</b><small>Head of Growth</small></span><span class="pill pill--mid">intention moyenne</span><span class="score">64%</span></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 4/4 · plan d'exécution + débrief -->
+      <article class="dlv-row">
+        <div class="dlv-txt">
+          <span class="dlv-step">4/4</span>
+          <h3>Votre plan d'exécution + le débrief</h3>
+          <p>La checklist jour par jour de votre semaine de lancement, et le débrief à J+14&nbsp;: ce qui a marché, ce qui répond, où insister.</p>
+        </div>
+        <div class="dlv-mock">
+          <span class="fr" aria-hidden="true"></span>
+          <figure class="panel" aria-label="Exemple simulé : plan d'exécution sur 7 jours avec débrief à J+14">
+            <div class="p-head"><span class="t">Plan d'exécution · J1 → J7</span><span class="sim">exemple simulé</span></div>
+            <div class="p-body">
+              <div class="cal-days" aria-hidden="true"><span>J1</span><span>J2</span><span>J3</span><span>J4</span><span>J5</span><span>J6</span><span>J7</span></div>
+              <div class="cal-track">
+                <span class="chip chip--a">Soumissions PH + directories</span>
+                <span class="chip chip--b">Posts X / LinkedIn</span>
+                <span class="chip chip--c">Premiers DM envoyés</span>
+              </div>
+              <div class="cal-debrief"><b>Débrief · J+14</b><span>Ce qui a marché, où insister, la suite.</span></div>
+            </div>
+          </figure>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
 <!-- ================= GARANTIE ================= -->
-<section>
+<section id="garantie">
   <div class="wrap">
     <span class="eyebrow">Garantie</span>
     <h2>Le seul risque, c'est de ne rien faire.</h2>
@@ -871,12 +1603,13 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 </section>
 
 <!-- ================= POUR QUI ================= -->
-<section class="band">
+<section id="pour-qui" class="band">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Pour qui</span>
     <h2>Ce n'est pas pour tout le monde.</h2>
     <div class="fit">
       <div class="fit-col">
+        <span class="fit-label">C'est pour vous si</span>
         <ul>
           <li><span class="mark">✅</span><span>Votre SaaS est fonctionnel, ou à quelques jours de l'être</span></li>
           <li><span class="mark">✅</span><span>Vous savez qui votre produit sert, même approximativement</span></li>
@@ -884,6 +1617,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
         </ul>
       </div>
       <div class="fit-col fit-col--no">
+        <span class="fit-label">Ce n'est pas pour vous si</span>
         <ul>
           <li><span class="mark">❌</span><span>Votre produit n'existe pas encore</span></li>
           <li><span class="mark">❌</span><span>Vous cherchez de la magie sans lever le petit doigt</span></li>
@@ -987,7 +1721,15 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 
 <footer>
   <div class="wrap wrap--wide foot-in">
-    <span class="brand"><span class="dot" aria-hidden="true"></span>sonar</span>
+    <span class="brand">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="12.5" stroke="#F2A33C" stroke-opacity=".25" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="8.5" stroke="#F2A33C" stroke-opacity=".5" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="4.8" stroke="#F2A33C" stroke-opacity=".85" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="1.9" fill="#F2A33C"/>
+      </svg>
+      sonar
+    </span>
     <p>Agents IA + validation humaine. Pas de bots, pas de spam, pas d'upvotes achetés.</p>
   </div>
 </footer>
