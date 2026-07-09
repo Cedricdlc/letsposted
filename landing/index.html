@@ -3,23 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sonar — Votre lancement, diffusé là où votre niche regarde</title>
-<meta name="description" content="On transforme les 40 heures de votre lancement en 4 heures de validation. Diffusion ciblée par niche et pertinence : 25 plateformes, prospects chauds, chaque message déjà écrit. Vous validez, vous envoyez.">
+<title>Sonar — Construire, c'était facile. Faites-le savoir.</title>
+<meta name="description" content="Votre lancement diffusé sur 25 plateformes, dans votre niche, vers les prospects qui cherchent déjà. Chaque message déjà écrit — vous validez, vous envoyez.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400..700&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap">
 <style>
 /* ============================================================
-   SONAR — LAUNCH LANDING · v4 art direction
-   Papier violacé clair + UN accent raisin saturé (#6B2FA3).
-   Concept hero : la diffusion ciblée par niche/pertinence
-   (anneaux concentriques = ondes sonar), pas "les agents IA".
-   Signature conservée : crochets viseur aux coins des mockups,
-   recolorés violet. Rupture : section Livrables inversée en
-   prune nuit, panneaux UI blancs flottants.
-   Typo : IBM Plex Sans 700 serré (titres) + IBM Plex Mono
-   (labels techniques) + Fraunces italique (un accent violet
-   par section clé).
+   SONAR — LANDING · v5 "sharp"
+   Page courte : problème → solution → livrables → capture.
+   Papier violacé + accent raisin (#6B2FA3). Signature : crochets
+   viseur, ondes concentriques, rupture prune nuit (livrables),
+   CTA final en violet vif plein (#7B3FD4) — le beat le plus fort.
+   Conversion unique : barre fusionnée URL + email + bouton
+   (formulaire Netlify name="liste-attente"), répétée en bas.
    Seule requête externe : Google Fonts ci-dessus.
    ============================================================ */
 
@@ -30,17 +27,14 @@
   --muted:      #5F5473;
   --faint:      #9187A3;
   --line:       #E9E2F2;
-  /* l'accent unique : violet raisin, plus rouge que l'indigo générique */
   --violet:     #6B2FA3;
   --violet-deep:#521F82;
   --violet-soft:rgba(107,47,163,.08);
   --violet-line:rgba(107,47,163,.24);
-  /* rupture prune nuit (section livrables) */
   --night:      #1D1130;
   --night-line: rgba(250,248,252,.14);
   --night-muted:#BBAED3;
   --violet-hi:  #B78FE8;
-  /* sémantique (statuts) */
   --ok:         #1F7A4D;
   --red:        #B4403A;
   --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -70,7 +64,7 @@ body{
 ::selection{ background:var(--violet); color:#FAF8FC; }
 
 a{ color:var(--violet); }
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+a:focus-visible, button:focus-visible, input:focus-visible{
   outline:2px solid var(--violet);
   outline-offset:3px;
   border-radius:2px;
@@ -94,10 +88,9 @@ strong{ font-weight:700; color:var(--ink); }
 }
 .wrap--wide{ max-width:70rem; }
 
-section{ padding:5rem 0; border-top:1px solid var(--line); }
-@media (min-width:760px){ section{ padding:6.5rem 0; } }
+section{ padding:4.5rem 0; border-top:1px solid var(--line); }
+@media (min-width:760px){ section{ padding:5.5rem 0; } }
 
-/* bande alternée : voile violet très léger */
 .band{ background:linear-gradient(180deg, rgba(107,47,163,.035), rgba(107,47,163,.012)); }
 
 /* ---------- type ---------- */
@@ -114,14 +107,11 @@ section{ padding:5rem 0; border-top:1px solid var(--line); }
 }
 .eyebrow::before{ content:"// "; color:var(--faint); }
 
-h1, h2{
-  font-family:var(--sans);
-  color:var(--ink);
-}
+h1, h2{ font-family:var(--sans); color:var(--ink); }
 h1{
-  font-size:clamp(1.95rem, 1.1rem + 3.6vw, 3.35rem);
-  line-height:1.08;
-  letter-spacing:-.04em;
+  font-size:clamp(2.25rem, 1.1rem + 4.9vw, 4.15rem);
+  line-height:1.04;
+  letter-spacing:-.045em;
   font-weight:700;
   text-wrap:balance;
 }
@@ -142,7 +132,6 @@ h3{
 p + p{ margin-top:1.15rem; }
 .muted{ color:var(--muted); }
 
-/* l'accent serif italique : une ligne émotionnelle par section clé */
 .stat-accent{
   font-family:var(--serif);
   font-style:italic;
@@ -152,49 +141,15 @@ p + p{ margin-top:1.15rem; }
   color:var(--violet);
 }
 
-/* ---------- barre d'annonce ---------- */
-
-.annbar{
-  background:linear-gradient(90deg, rgba(107,47,163,.1), rgba(107,47,163,.045) 55%, rgba(107,47,163,.08));
-  border-bottom:1px solid var(--violet-line);
-  font-family:var(--mono);
-  font-size:.78rem;
+.flip{
+  color:var(--violet-deep);
+  background:var(--violet-soft);
+  box-shadow:inset 0 0 0 1px var(--violet-line);
+  border-radius:.14em;
+  padding:.02em .16em;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
 }
-.annbar-in{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:1.1rem;
-  padding:.55rem 0;
-  flex-wrap:wrap;
-}
-.ann-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:.45rem;
-  background:var(--violet);
-  color:#FAF8FC;
-  border-radius:999px;
-  padding:.16rem .75rem;
-  font-weight:600;
-  white-space:nowrap;
-}
-.ann-pill::before{
-  content:"";
-  width:.42rem; height:.42rem;
-  border-radius:50%;
-  background:#FAF8FC;
-  opacity:.85;
-}
-.ann-text{ color:var(--muted); }
-.ann-link{
-  color:var(--violet);
-  font-weight:600;
-  text-decoration:none;
-  white-space:nowrap;
-}
-.ann-link:hover{ color:var(--violet-deep); text-decoration:underline; }
-@media (max-width:719px){ .ann-text{ display:none; } }
 
 /* ---------- nav sticky ---------- */
 
@@ -233,6 +188,8 @@ p + p{ margin-top:1.15rem; }
     50%{ stroke-opacity:.6; }
   }
 }
+
+/* liens numérotés façon table des matières */
 .nav-links{ display:none; gap:1.9rem; }
 @media (min-width:900px){ .nav-links{ display:flex; } }
 .nav-links a{
@@ -243,49 +200,56 @@ p + p{ margin-top:1.15rem; }
   transition:color .15s ease;
 }
 .nav-links a:hover{ color:var(--violet); }
-
-/* ---------- CTA button ---------- */
-
-.btn{
-  display:inline-block;
-  font-family:var(--mono);
-  font-size:1rem;
+.nav-links a sup{
+  font-size:.6em;
   font-weight:600;
-  letter-spacing:.01em;
-  color:#FAF8FC;
-  background:var(--violet);
+  color:var(--violet);
+  margin-left:.22em;
+  letter-spacing:.05em;
+}
+
+/* CTA fusionné : carré icône violet + pastille texte, un seul bloc */
+.cta-fused{
+  display:inline-flex;
+  align-items:stretch;
+  text-decoration:none;
   border:1px solid var(--violet);
   border-radius:999px;
-  padding:.95rem 1.7rem;
-  text-decoration:none;
-  cursor:pointer;
-  box-shadow:0 10px 30px rgba(107,47,163,.28), 0 2px 6px rgba(36,24,52,.12);
-  transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  overflow:hidden;
+  background:var(--panel);
+  box-shadow:0 8px 22px rgba(107,47,163,.22);
+  transition:box-shadow .15s ease, border-color .15s ease, transform .15s ease;
 }
-.btn:hover{
-  background:var(--violet-deep);
+.cta-fused:hover{
   border-color:var(--violet-deep);
-  box-shadow:0 12px 38px rgba(107,47,163,.36), 0 2px 6px rgba(36,24,52,.12);
+  box-shadow:0 10px 30px rgba(107,47,163,.32);
 }
-.btn:active{ transform:translateY(1px); }
-.btn .arr{ display:inline-block; transition:transform .15s ease; }
-.btn:hover .arr{ transform:translateX(4px); }
-
-.btn--nav{
-  padding:.6rem 1.1rem;
+.cta-fused:active{ transform:translateY(1px); }
+.cta-fused .ic{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:2.35rem;
+  background:var(--violet);
+  color:#FAF8FC;
+  font-family:var(--mono);
+  font-size:1rem;
+  font-weight:700;
+  transition:background .15s ease;
+}
+.cta-fused:hover .ic{ background:var(--violet-deep); }
+.cta-fused .tx{
+  display:flex;
+  align-items:center;
+  padding:.55rem 1.05rem .55rem .9rem;
+  font-family:var(--mono);
   font-size:.85rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--violet-deep);
   white-space:nowrap;
-  box-shadow:0 6px 18px rgba(107,47,163,.22);
 }
-@media (max-width:479px){ .btn--nav .long{ display:none; } }
-
-.cta-note{
-  font-size:.9rem;
-  font-style:italic;
-  color:var(--muted);
-  margin-top:1.1rem;
-  max-width:34rem;
-}
+@media (max-width:419px){ .cta-fused .tx{ padding:.55rem .8rem .55rem .7rem; font-size:.78rem; } }
 
 /* ---------- hero ---------- */
 
@@ -293,26 +257,26 @@ p + p{ margin-top:1.15rem; }
   border-top:none;
   position:relative;
   overflow:hidden;
-  padding:4rem 0 5rem;
+  padding:4.25rem 0 5rem;
 }
-@media (min-width:980px){ .hero{ padding:5.5rem 0 7rem; } }
+@media (min-width:980px){ .hero{ padding:6rem 0 7rem; } }
 
-/* ondes de diffusion : anneaux concentriques derrière le panneau,
-   + deux halos violets très légers */
+/* ondes de diffusion : anneaux concentriques + halos violets */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    repeating-radial-gradient(circle at 84% 34%, rgba(107,47,163,.055) 0 1.5px, transparent 1.5px 58px),
-    radial-gradient(40rem 28rem at 82% 22%, rgba(107,47,163,.07), transparent 65%),
-    radial-gradient(28rem 22rem at 6% 92%, rgba(107,47,163,.045), transparent 70%);
+    repeating-radial-gradient(circle at 84% 30%, rgba(107,47,163,.07) 0 1.5px, transparent 1.5px 54px),
+    radial-gradient(44rem 30rem at 82% 20%, rgba(107,47,163,.09), transparent 65%),
+    radial-gradient(28rem 22rem at 4% 96%, rgba(107,47,163,.055), transparent 70%);
 }
 @media (max-width:979px){
   .hero::before{
     background:
-      radial-gradient(30rem 22rem at 85% 8%, rgba(107,47,163,.06), transparent 65%);
+      repeating-radial-gradient(circle at 90% 4%, rgba(107,47,163,.055) 0 1.5px, transparent 1.5px 50px),
+      radial-gradient(30rem 22rem at 85% 6%, rgba(107,47,163,.07), transparent 65%);
   }
 }
 
@@ -323,116 +287,112 @@ p + p{ margin-top:1.15rem; }
   align-items:center;
 }
 @media (min-width:980px){
-  .hero-grid{ grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr); gap:3.5rem; }
+  .hero-grid{ grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:3.5rem; }
 }
 
-.hero h1 .flip{
-  color:var(--violet-deep);
-  background:var(--violet-soft);
-  box-shadow:inset 0 0 0 1px var(--violet-line);
-  border-radius:.14em;
-  padding:.02em .16em;
-  -webkit-box-decoration-break:clone;
-  box-decoration-break:clone;
-}
 .hero .lede{
   margin-top:1.6rem;
-  font-size:clamp(1.02rem, 1.6vw, 1.14rem);
+  font-size:clamp(1.05rem, 1.7vw, 1.2rem);
   color:var(--muted);
-  max-width:34rem;
+  max-width:36rem;
 }
 .hero .stat-accent{
-  margin-top:1.5rem;
+  margin-top:1.4rem;
   font-size:clamp(1.3rem, 1rem + 1.5vw, 1.7rem);
   max-width:32rem;
 }
 
-/* pastilles de promesse : trois pills, coche violette */
-.hero-pills{
-  list-style:none;
-  display:flex;
-  flex-wrap:wrap;
-  gap:.55rem;
-  margin-top:1.6rem;
-}
-.hero-pills li{
-  display:inline-flex;
-  align-items:center;
-  gap:.45rem;
-  font-family:var(--mono);
-  font-size:.76rem;
-  font-weight:600;
-  color:var(--muted);
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:.34rem .85rem;
-  white-space:nowrap;
-}
-.hero-pills .chk-mark{ color:var(--violet); font-weight:700; }
-
-.hero .cta-row{ margin-top:2.1rem; }
-
 @media (prefers-reduced-motion: no-preference){
-  .hero-copy > *{
-    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
-  }
+  .hero-copy > *{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; }
   .hero .lede{ animation-delay:.07s; }
   .hero .stat-accent{ animation-delay:.14s; }
-  .hero .hero-pills{ animation-delay:.2s; }
-  .hero .cta-row{ animation-delay:.26s; }
-  .hero .mini-zone{ animation-delay:.32s; }
+  .hero .capzone{ animation-delay:.22s; }
   @keyframes rise{
     from{ opacity:0; transform:translateY(14px); }
     to{ opacity:1; transform:none; }
   }
 }
 
-/* ---------- mini capture email (liste d'attente) ---------- */
+/* ---------- barre de capture fusionnée : URL + email + bouton ---------- */
 
-.mini-zone{ margin-top:2.1rem; max-width:34rem; }
-.mini-form{
+.capzone{ margin-top:2.3rem; max-width:41rem; }
+
+.capbar-in{
   display:flex;
-  flex-wrap:wrap;
-  gap:.6rem;
-}
-.mini-form input[type="email"]{
-  flex:1 1 14rem;
-  font-family:var(--mono);
-  font-size:.95rem;
-  color:var(--ink);
+  align-items:stretch;
   background:var(--panel);
-  border:1px solid var(--line);
+  border:1.5px solid var(--ink);
   border-radius:999px;
-  padding:.8rem 1.1rem;
-  transition:border-color .15s ease, box-shadow .15s ease;
+  overflow:hidden;
+  box-shadow:0 18px 44px rgba(36,24,52,.16), 0 3px 10px rgba(36,24,52,.08);
 }
-.mini-form input[type="email"]::placeholder{ color:var(--faint); }
-.mini-form input[type="email"]:focus{
+.capbar-in input{
+  min-width:0;
+  border:0;
+  background:transparent;
+  font-family:var(--mono);
+  font-size:.92rem;
+  color:var(--ink);
+  padding:1.05rem 1.15rem;
+}
+.capbar-in input::placeholder{ color:var(--faint); }
+/* focus interne : anneau inset (le pill est en overflow:hidden) */
+.capbar-in input:focus{ outline:none; }
+.capbar-in input:focus-visible{
   outline:none;
-  border-color:var(--violet);
-  box-shadow:0 0 0 3px var(--violet-soft);
+  box-shadow:inset 0 0 0 2px var(--violet);
+  background:var(--violet-soft);
 }
-.mini-form .btn--sm{
-  padding:.8rem 1.2rem;
-  font-size:.9rem;
-  flex:0 0 auto;
+.capbar-in .seg-url{ flex:1.12 1 0; border-right:1px solid var(--line); }
+.capbar-in .seg-mail{ flex:.88 1 0; border-right:1px solid var(--line); }
+.cap-btn{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  border:0;
+  background:var(--violet);
+  color:#FAF8FC;
+  font-family:var(--mono);
+  font-size:.92rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  padding:0 1.5rem;
+  cursor:pointer;
+  transition:background .15s ease;
+  white-space:nowrap;
 }
-.mini-note{
+.cap-btn:hover{ background:var(--violet-deep); }
+.cap-btn:disabled{ opacity:.6; cursor:wait; }
+.cap-btn .arr{ display:inline-block; transition:transform .15s ease; }
+.cap-btn:hover .arr{ transform:translateX(4px); }
+
+/* mobile : les 3 segments s'empilent, le pill devient carte */
+@media (max-width:719px){
+  .capbar-in{ flex-direction:column; border-radius:18px; }
+  .capbar-in .seg-url,
+  .capbar-in .seg-mail{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
+  .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+}
+
+.cap-note{
   font-family:var(--mono);
   font-size:.78rem;
   color:var(--faint);
-  margin-top:.65rem;
+  margin-top:.75rem;
 }
-.mini-success{
+.cap-success{
   border-left:3px solid var(--ok);
   padding:.35rem 0 .35rem 1rem;
-  font-size:.95rem;
+  font-size:.98rem;
 }
-.mini-success p:first-child{ font-weight:700; }
-.mini-success p + p{ margin-top:.25rem; color:var(--muted); font-size:.9rem; }
+.cap-success p:first-child{ font-weight:700; }
+.cap-success p + p{ margin-top:.25rem; color:var(--muted); font-size:.9rem; }
 
-/* ---------- points fenêtre (feed, pipeline) ---------- */
+/* le viseur épouse la barre */
+.capzone .vf{ padding:.7rem; }
+
+/* ---------- points fenêtre ---------- */
 
 .tl{ display:flex; gap:.4rem; flex:none; }
 .tl i{ width:.6rem; height:.6rem; border-radius:50%; display:block; }
@@ -440,7 +400,7 @@ p + p{ margin-top:1.15rem; }
 .tl i:nth-child(2){ background:rgba(107,47,163,.45); }
 .tl i:nth-child(3){ background:rgba(107,47,163,.18); }
 
-/* ---------- crochets viseur (signature, réutilisés hero + livrables) ---------- */
+/* ---------- crochets viseur (signature) ---------- */
 
 .vf{ position:relative; padding:.85rem; min-width:0; }
 .vf .fr{ position:absolute; inset:0; pointer-events:none; }
@@ -548,11 +508,9 @@ p + p{ margin-top:1.15rem; }
   @keyframes blink{ 50%{ opacity:0; } }
 }
 
-/* ---------- strip de stats (preuve honnête) ---------- */
+/* ---------- strip de stats ---------- */
 
-section.stats{
-  padding:2.75rem 0 2.5rem;
-}
+section.stats{ padding:2.75rem 0 2.5rem; }
 .stat-row{
   list-style:none;
   display:grid;
@@ -595,9 +553,9 @@ section.stats{
 .pain-grid{
   display:grid;
   gap:1.25rem;
-  margin-top:2.75rem;
+  margin-top:2.5rem;
 }
-@media (min-width:880px){ .pain-grid{ grid-template-columns:repeat(3, 1fr); } }
+@media (min-width:760px){ .pain-grid{ grid-template-columns:1fr 1fr; } }
 
 .pain{
   position:relative;
@@ -624,31 +582,79 @@ section.stats{
   pointer-events:none;
   user-select:none;
 }
-.pain .tag{
-  display:block;
+.pain h3{ margin-bottom:.75rem; font-size:1.3rem; line-height:1.3; letter-spacing:-.02em; }
+.pain p{ font-size:.97rem; color:var(--muted); line-height:1.6; position:relative; }
+
+/* ---------- avant / après (panneau compact) ---------- */
+
+.ba{
+  margin-top:1.25rem;
+  display:grid;
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 28px rgba(36,24,52,.05);
+}
+@media (min-width:640px){ .ba{ grid-template-columns:1fr 1fr; } }
+.ba-col{
+  min-width:0;
+  background:var(--panel);
+  padding:1.3rem 1.5rem 1.35rem;
+}
+.ba-col--after{
+  background:linear-gradient(180deg, rgba(107,47,163,.075), rgba(107,47,163,.025)), var(--panel);
+}
+.ba-head{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:.85rem;
+}
+.ba-emo{ font-size:1.35rem; line-height:1; flex:none; }
+.ba-head svg{ display:block; flex:none; }
+.ba-tag{
   font-family:var(--mono);
-  font-size:.72rem;
+  font-size:.68rem;
   font-weight:600;
   letter-spacing:.16em;
   text-transform:uppercase;
-  color:var(--violet);
-  margin-bottom:1rem;
+  color:var(--faint);
 }
-.pain h3{ margin-bottom:.75rem; font-size:1.15rem; line-height:1.35; }
-.pain p{ font-size:.95rem; color:var(--muted); line-height:1.6; position:relative; }
+.ba-col--after .ba-tag{ color:var(--violet); }
+.ba ul{ list-style:none; display:grid; gap:.5rem; }
+.ba li{
+  display:flex;
+  align-items:baseline;
+  gap:.6rem;
+  font-size:.94rem;
+  font-weight:600;
+  line-height:1.45;
+  color:var(--muted);
+}
+.ba-col--after li{ color:var(--ink); }
+.ba .x, .ba .v{
+  flex:none;
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:.9rem;
+}
+.ba .x{ color:var(--red); }
+.ba .v{ color:var(--ok); }
 
 .punch{
   display:block;
-  margin-top:2.75rem;
-  font-size:clamp(1.15rem, 2.6vw, 1.5rem);
-  line-height:1.45;
+  margin-top:2.5rem;
+  font-size:clamp(1.2rem, 2.8vw, 1.6rem);
+  line-height:1.42;
   font-weight:700;
   max-width:44rem;
-  letter-spacing:-.015em;
+  letter-spacing:-.018em;
 }
 .punch em{ font-style:normal; color:var(--violet); }
 
-/* ---------- méthode : 2 colonnes + callout garantie ---------- */
+/* ---------- méthode ---------- */
 
 .sol-grid{
   display:grid;
@@ -674,7 +680,6 @@ section.stats{
   padding:2rem 1.85rem;
   box-shadow:0 14px 40px rgba(36,24,52,.08);
 }
-@media (min-width:940px){ .callout{ position:sticky; top:6.5rem; } }
 .co-label{
   display:block;
   font-family:var(--mono);
@@ -700,12 +705,11 @@ section.stats{
   font-size:.78rem;
   color:var(--muted);
 }
-.co-foot a{ color:var(--violet); }
 
-/* ---------- pipeline de diffusion : fenêtre atelier ---------- */
+/* ---------- pipeline de diffusion ---------- */
 
 .flow{
-  margin-top:3.5rem;
+  margin-top:3.25rem;
   background:var(--panel);
   border:1px solid var(--line);
   border-radius:16px;
@@ -746,7 +750,6 @@ section.stats{
 .flow-body{
   overflow-x:auto;
   padding:2rem 1.4rem;
-  /* trame de points façon canvas */
   background-image:radial-gradient(rgba(107,47,163,.12) 1px, transparent 1px);
   background-size:18px 18px;
 }
@@ -771,6 +774,14 @@ section.stats{
 .node--human{
   border-color:var(--violet);
   box-shadow:0 8px 20px rgba(36,24,52,.07), 0 0 0 3px var(--violet-soft);
+}
+/* pulse discret sur l'anneau (box-shadow : aucun impact layout) */
+@media (prefers-reduced-motion: no-preference){
+  .node--human{ animation:humanpulse 2.8s ease-in-out infinite; }
+  @keyframes humanpulse{
+    0%,100%{ box-shadow:0 8px 20px rgba(36,24,52,.07), 0 0 0 3px rgba(107,47,163,.08); }
+    50%{ box-shadow:0 8px 20px rgba(36,24,52,.07), 0 0 0 6px rgba(107,47,163,.16); }
+  }
 }
 .n-icon{
   font-family:var(--mono);
@@ -816,7 +827,6 @@ section.stats{
   background:linear-gradient(90deg, rgba(107,47,163,.12), rgba(107,47,163,.65));
   margin-right:-.15rem;
 }
-/* desktop large : les 5 nœuds tiennent sans scroll */
 @media (min-width:1080px){
   .flow-track{ min-width:0; width:100%; }
   .node{ flex:1 1 0; min-width:0; }
@@ -853,14 +863,11 @@ section.stats{
 .night-brk .eyebrow::before{ color:rgba(244,239,250,.35); }
 .night-brk h2, .night-brk h3{ color:#F4EFFA; }
 .night-brk .muted{ color:var(--night-muted); }
-.night-brk .stat-accent{ color:var(--violet-hi); }
 .night-brk .vf::before, .night-brk .vf::after,
 .night-brk .vf .fr::before, .night-brk .vf .fr::after{
   border-color:var(--violet-hi);
   opacity:.75;
 }
-
-/* — showcase séquentiel : 4 livrables numérotés, texte à gauche / mockup à droite — */
 
 .dlv{ margin-top:3rem; display:flex; flex-direction:column; gap:4rem; }
 @media (min-width:920px){ .dlv{ margin-top:3.75rem; gap:5rem; } }
@@ -908,7 +915,7 @@ section.stats{
 }
 .dlv-txt p strong{ color:#F4EFFA; }
 
-/* panneau UI simulé (blanc, flotte sur la nuit) */
+/* panneau UI simulé */
 .panel{
   background:var(--panel);
   border:1px solid var(--line);
@@ -947,7 +954,6 @@ section.stats{
 }
 .p-body{ padding:1.05rem 1.1rem 1.15rem; }
 
-/* pastilles de statut / d'intention */
 .pill{
   flex:none;
   display:inline-flex;
@@ -1103,7 +1109,7 @@ section.stats{
   text-align:right;
 }
 
-/* — mockup 4 : plan d'exécution J1→J7 + relances 90j + débrief — */
+/* — mockup 4 : plan d'exécution (artefact calendrier) — */
 .cal-days{
   display:grid;
   grid-template-columns:repeat(7, minmax(0,1fr));
@@ -1137,7 +1143,6 @@ section.stats{
 .chip--b{ grid-column:3 / 5; grid-row:2; background:rgba(31,122,77,.1); border:1px solid rgba(31,122,77,.35); color:var(--ok); }
 .chip--c{ grid-column:6 / 8; grid-row:3; background:rgba(40,103,178,.09); border:1px solid rgba(40,103,178,.32); color:#245F92; }
 
-/* cadence de relances 90 jours : strip compact après la grille J1→J7 */
 .cal-relance{
   margin-top:1rem;
   display:flex;
@@ -1194,7 +1199,6 @@ section.stats{
 }
 .cal-debrief span{ font-size:.78rem; color:var(--muted); }
 
-/* mobile : pastilles d'intention plus compactes, chips calendrier plus larges */
 @media (max-width:600px){
   .pros li{ gap:.55rem; }
   .pros .pill{ font-size:.54rem; letter-spacing:.05em; padding:.13rem .45rem; }
@@ -1203,176 +1207,68 @@ section.stats{
   .chip--c{ grid-column:5 / 8; }
 }
 
-/* ---------- garantie ---------- */
+/* ---------- CTA final : violet plein, saturé (le beat le plus fort) ---------- */
 
-.guarantee{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-left:3px solid var(--violet);
-  border-radius:10px;
-  padding:2.1rem 2rem;
-  margin-top:2.25rem;
-  box-shadow:0 14px 40px rgba(36,24,52,.07);
+.final{
+  --vivid:#7B3FD4;
+  background:var(--vivid);
+  border-top:1px solid var(--vivid);
+  color:#F6F0FF;
+  position:relative;
+  overflow:hidden;
 }
-.guarantee p:first-child{
-  font-size:clamp(1.1rem, 2.4vw, 1.3rem);
-  line-height:1.55;
+.final::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-radial-gradient(circle at 88% 8%, rgba(255,255,255,.06) 0 1.5px, transparent 1.5px 54px),
+    radial-gradient(42rem 28rem at 92% 0%, rgba(255,255,255,.12), transparent 65%),
+    radial-gradient(30rem 22rem at 0% 100%, rgba(29,17,48,.22), transparent 70%);
 }
-.guarantee .no-list{
-  margin-top:1.35rem;
-  font-family:var(--mono);
-  font-size:.95rem;
-  color:var(--muted);
-}
-.guarantee .no-list strong{ color:var(--ink); font-weight:600; }
-
-/* ---------- pour qui ---------- */
-
-.fit{
-  display:grid;
-  gap:1rem;
-  margin-top:2.25rem;
-}
-@media (min-width:720px){ .fit{ grid-template-columns:1fr 1fr; gap:1.25rem; } }
-
-.fit-col{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:1.75rem 1.6rem;
-  background:var(--panel);
-  box-shadow:0 10px 28px rgba(36,24,52,.05);
-}
-.fit-label{
-  display:block;
-  font-family:var(--mono);
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  margin-bottom:1.3rem;
-  color:var(--ok);
-}
-.fit-label::before{ content:"// "; color:var(--faint); }
-.fit-col ul{ list-style:none; }
-.fit-col li{ display:flex; gap:.7rem; line-height:1.55; }
-.fit-col li + li{ margin-top:.9rem; }
-.fit-col li .mark{
-  flex:none;
-  font-family:var(--mono);
-  font-weight:700;
-  color:var(--ok);
-}
-
-/* disqualification : le rouge, deuxième couleur sémantique de la page */
-.fit-col--no{
-  background:linear-gradient(180deg, rgba(180,64,58,.05), rgba(180,64,58,.015));
-  border:1px solid rgba(180,64,58,.3);
-  border-left:3px solid var(--red);
-}
-.fit-col--no .fit-label{ color:var(--red); }
-.fit-col--no li{ color:var(--muted); }
-.fit-col--no li .mark{ color:var(--red); }
-
-/* ---------- objections ---------- */
-
-.qa{ margin-top:2.5rem; }
-.qa + .qa{ margin-top:2.5rem; padding-top:2.5rem; border-top:1px solid var(--line); }
-.qa h3{
-  font-size:clamp(1.05rem, 2.2vw, 1.22rem);
-  letter-spacing:-.02em;
-  margin-bottom:.75rem;
-}
-.qa h3::before{ content:"Q"; font-family:var(--mono); color:var(--violet); font-weight:700; margin-right:.55rem; }
-.qa p{ color:var(--muted); }
-
-/* ---------- CTA final + form ---------- */
-
+.final > .wrap{ position:relative; }
 .final .kicker{
-  font-size:clamp(1.5rem, 1.05rem + 2vw, 2.25rem);
-  line-height:1.16;
-  letter-spacing:-.035em;
+  font-size:clamp(1.6rem, 1.05rem + 2.6vw, 2.6rem);
+  line-height:1.12;
+  letter-spacing:-.04em;
   font-weight:700;
   text-wrap:balance;
+  color:#FFFFFF;
 }
 .final .kicker .flip{
-  color:var(--violet-deep);
-  background:var(--violet-soft);
-  box-shadow:inset 0 0 0 1px var(--violet-line);
-  border-radius:.14em;
-  padding:.02em .16em;
-  -webkit-box-decoration-break:clone;
-  box-decoration-break:clone;
+  color:#FFFFFF;
+  background:rgba(255,255,255,.14);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);
 }
 .final p{ margin-top:1.4rem; max-width:38rem; }
-
-.form-panel{
-  margin-top:3rem;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-top:3px solid var(--violet);
-  border-radius:14px;
-  padding:2.25rem 1.75rem;
-  box-shadow:0 24px 56px rgba(36,24,52,.1);
-}
-@media (min-width:760px){ .form-panel{ padding:2.75rem 2.5rem; } }
-
-.form-panel .form-title{
+.final .muted{ color:rgba(246,240,255,.92); }
+.final .trust{
+  margin-top:1.9rem;
   font-family:var(--mono);
-  font-size:.8125rem;
+  font-size:.9rem;
   font-weight:600;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--violet);
-  margin-bottom:2rem;
+  color:#FFFFFF;
 }
-.form-panel .form-title::before{ content:"// "; color:var(--faint); }
-
-.field{ margin-top:1.5rem; }
-.field:first-of-type{ margin-top:0; }
-.field label{
-  display:block;
-  font-family:var(--mono);
-  font-size:.85rem;
-  color:var(--muted);
-  margin-bottom:.5rem;
+.final .capzone{ margin-top:1.1rem; }
+/* barre de capture sur fond vif : pill blanc, liseré blanc, ombre prune */
+.final .vf::before, .final .vf::after,
+.final .vf .fr::before, .final .vf .fr::after{
+  border-color:#FFFFFF;
+  opacity:.85;
 }
-.field input,
-.field select{
-  width:100%;
-  font-family:var(--sans);
-  font-size:1rem;
-  color:var(--ink);
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:.8rem .9rem;
-  appearance:none;
-  -webkit-appearance:none;
-  transition:border-color .15s ease, box-shadow .15s ease;
+.final .capbar-in{
+  border-color:#FFFFFF;
+  box-shadow:0 24px 56px rgba(29,17,48,.45), 0 4px 12px rgba(29,17,48,.3);
 }
-.field select{
-  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B2FA3' stroke-width='2'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right .9rem center;
-  padding-right:2.5rem;
+.final .cap-success{
+  border-left-color:#8FE6B4;
+  color:#FFFFFF;
 }
-.field input:focus,
-.field select:focus{
-  border-color:var(--violet);
-  outline:none;
-  box-shadow:0 0 0 3px var(--violet-soft);
-}
-.field input::placeholder{ color:var(--faint); }
-
-.form-panel .btn{ margin-top:2rem; width:100%; text-align:center; }
-@media (min-width:560px){ .form-panel .btn{ width:auto; } }
-
-.form-success{
-  border-left:3px solid var(--violet);
-  padding:.5rem 0 .5rem 1.25rem;
-}
-.form-success p:first-child{ font-weight:700; font-size:1.15rem; }
-.form-success p + p{ margin-top:.6rem; color:var(--muted); }
+.final .cap-success p + p{ color:rgba(246,240,255,.85); }
+.final a:focus-visible,
+.final button:focus-visible{ outline-color:#FFFFFF; }
+.final ::selection{ background:#1D1130; color:#FFFFFF; }
 
 /* ---------- footer ---------- */
 
@@ -1397,20 +1293,10 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 </head>
 <body>
 
-<!-- ================= BARRE D'ANNONCE ================= -->
-<div class="annbar" role="region" aria-label="Annonce">
-  <div class="wrap wrap--wide annbar-in">
-    <span class="ann-pill">2 places pilote</span>
-    <span class="ann-text">Case study public à l'issue — pas de faux témoignages.</span>
-    <a class="ann-link" href="#pour-qui">Voir mon éligibilité →</a>
-  </div>
-</div>
-
 <!-- ================= NAV STICKY ================= -->
 <nav class="nav" aria-label="Navigation principale">
   <div class="wrap wrap--wide nav-in">
     <a class="brand" href="#">
-      <!-- marque : ondes de diffusion, anneaux concentriques autour d'un point -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle class="mark-outer" cx="14" cy="14" r="12.5" stroke="#6B2FA3" stroke-opacity=".25" stroke-width="1.5"/>
         <circle cx="14" cy="14" r="8.5" stroke="#6B2FA3" stroke-opacity=".5" stroke-width="1.5"/>
@@ -1420,11 +1306,13 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
       sonar
     </a>
     <div class="nav-links">
-      <a href="#solution">La méthode</a>
-      <a href="#livrables">Livrables</a>
-      <a href="#pour-qui">Qualification</a>
+      <a href="#solution">Méthode<sup aria-hidden="true">01</sup></a>
+      <a href="#livrables">Livrables<sup aria-hidden="true">02</sup></a>
     </div>
-    <a class="btn btn--nav" href="#reserver"><span class="long">Réserver mon lancement </span><span class="sr-only">Réserver </span><span class="arr">→</span></a>
+    <a class="cta-fused" href="#capture">
+      <span class="ic" aria-hidden="true">↗</span>
+      <span class="tx">Me faire repérer</span>
+    </a>
   </div>
 </nav>
 
@@ -1432,40 +1320,37 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 <header class="hero">
   <div class="wrap wrap--wide hero-grid">
     <div class="hero-copy">
-      <h1>Construire votre produit, c'était la partie facile. Maintenant, <span class="flip">faites-le connaître</span> pour trouver vos premiers clients.</h1>
-      <p class="lede">Votre lancement, diffusé là où votre niche regarde&nbsp;: 25 plateformes, les communautés qui comptent, les prospects qui cherchent déjà. Chaque message pertinent, déjà écrit.</p>
-      <p class="stat-accent">On transforme les 40 heures de votre lancement en 4 heures de validation — vous ne faites qu'envoyer.</p>
-      <ul class="hero-pills" aria-label="Ce qui est inclus">
-        <li><span class="chk-mark" aria-hidden="true">✓</span>25+ plateformes ciblées</li>
-        <li><span class="chk-mark" aria-hidden="true">✓</span>prospects chauds inclus</li>
-        <li><span class="chk-mark" aria-hidden="true">✓</span>validation humaine</li>
-      </ul>
-      <div class="cta-row">
-        <a class="btn" href="#reserver">Réserver mon lancement <span class="arr">→</span></a>
-        <!-- TODO fondateur : remplacer [mois] par le mois réel avant mise en ligne -->
-        <p class="cta-note">2 places par mois — parce qu'on livre ça seul, pas une astuce marketing. Prochaine fenêtre&nbsp;: [mois].</p>
-      </div>
+      <h1>Construire, c'était la partie facile. <span class="flip">Faites-le savoir.</span></h1>
+      <p class="lede">Votre lancement diffusé sur 25 plateformes, dans votre niche, vers les prospects qui cherchent déjà. Chaque message déjà écrit.</p>
+      <p class="stat-accent">Les 40 heures de votre lancement, réduites à 4. Vous ne faites qu'envoyer.</p>
 
-      <!-- Capture légère : liste d'attente (2e formulaire Netlify, distinct
-           du formulaire de réservation en bas de page). -->
-      <div class="mini-zone">
-        <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="liste-form" class="mini-form">
-          <input type="hidden" name="form-name" value="liste-attente" />
-          <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
-          <label class="sr-only" for="liste-email">Email</label>
-          <input type="email" id="liste-email" name="email" required autocomplete="email" placeholder="vous@votresaas.com">
-          <button type="submit" class="btn btn--sm">Rejoindre la liste <span class="arr">→</span></button>
-        </form>
-        <p class="mini-note" id="liste-note">Pas encore prêt à réserver&nbsp;? On vous prévient à l'ouverture de la prochaine fenêtre. Rien d'autre.</p>
-        <div class="mini-success" id="liste-success" hidden>
-          <p>Vous êtes sur la liste.</p>
-          <p>On vous écrit à l'ouverture de la prochaine fenêtre — et pour rien d'autre.</p>
+      <!-- Capture principale : URL du produit + email, un seul geste.
+           Formulaire Netlify name="liste-attente" (répété en bas de page,
+           IDs distincts, même form-name). -->
+      <div class="capzone" id="capture">
+        <div class="vf">
+          <span class="fr" aria-hidden="true"></span>
+          <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="capture-form">
+            <input type="hidden" name="form-name" value="liste-attente" />
+            <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
+            <div class="capbar-in">
+              <label class="sr-only" for="cap-url">URL de votre produit</label>
+              <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url" name="url" required placeholder="https://votreproduit.com">
+              <label class="sr-only" for="cap-email">Email</label>
+              <input class="seg-mail" type="email" autocomplete="email" id="cap-email" name="email" required placeholder="vous@votresaas.com">
+              <button type="submit" class="cap-btn">Me faire repérer <span class="arr" aria-hidden="true">→</span></button>
+            </div>
+          </form>
+        </div>
+        <p class="cap-note" id="cap-note-1">Zéro spam · Zéro bot · Vous validez tout.</p>
+        <div class="cap-success" id="cap-success-1" hidden>
+          <p>Reçu. On regarde votre produit.</p>
+          <p>On vous écrit avec ce que votre niche demande — et pour rien d'autre.</p>
         </div>
       </div>
     </div>
 
-    <!-- Artefact visuel : le schéma de diffusion ciblée — signaux de niche
-         détectés, pertinence scorée, diffusion prête, lisible en 2 secondes. -->
+    <!-- Artefact visuel : le flux de diffusion ciblée -->
     <div class="vf">
       <span class="fr" aria-hidden="true"></span>
       <figure class="feed" aria-label="Aperçu du flux Sonar : signaux détectés dans votre niche, pertinence scorée, diffusion après votre validation">
@@ -1485,7 +1370,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
   </div>
 </header>
 
-<!-- ================= PREUVE HONNÊTE : STATS SOURCÉES ================= -->
+<!-- ================= PREUVE : STATS SOURCÉES ================= -->
 <section class="stats band" aria-label="Le problème, en chiffres">
   <div class="wrap wrap--wide">
     <ul class="stat-row">
@@ -1506,63 +1391,81 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
   </div>
 </section>
 
-<!-- ================= AGITATION : 3 CARTES ================= -->
+<!-- ================= AGITATION ================= -->
 <section id="probleme">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Le problème</span>
-    <h2>Vous connaissez cette journée par cœur.</h2>
-    <p class="muted" style="max-width:44rem">Six semaines de build. Le jour J, vous postez. Puis vous actualisez.</p>
+    <h2>Vous avez lancé. Il ne s'est rien passé.</h2>
 
     <div class="pain-grid">
       <article class="pain">
         <span class="ghost" aria-hidden="true">01</span>
-        <span class="tag">01 · Visibilité</span>
-        <h3>Vous avez lancé dans le silence.</h3>
-        <p>12 visites. 3 likes — dont votre cofondateur. Une semaine plus tard, vous êtes retourné coder une feature que personne n'a demandée.</p>
+        <h3>12 visites. 3 likes.</h3>
+        <p>Dont votre cofondateur. Une semaine plus tard, vous êtes retourné coder une feature que personne n'a demandée.</p>
       </article>
       <article class="pain">
         <span class="ghost" aria-hidden="true">02</span>
-        <span class="tag">02 · Timing</span>
         <h3>40 heures que vous ne ferez jamais.</h3>
-        <p>25 plateformes, les communautés de votre niche, les prospects à trouver un par un. Vous le savez. C'est exactement pour ça que vous ne le faites pas.</p>
-      </article>
-      <article class="pain">
-        <span class="ghost" aria-hidden="true">03</span>
-        <span class="tag">03 · Crédibilité</span>
-        <h3>Chaque plateforme a ses codes.</h3>
-        <p>X, LinkedIn, Reddit, Hacker News — le moindre faux pas vous grille. C'est pour ça que la majorité des lancements ne génèrent jamais de traction.</p>
+        <p>25 plateformes, les communautés de votre niche, les prospects un par un. Vous le savez. C'est exactement pour ça que vous ne le faites pas.</p>
       </article>
     </div>
 
-    <strong class="punch">Pendant ce temps, un produit moins bon que le vôtre vient de passer 5K MRR. Pas parce qu'il est meilleur. <em>Parce qu'on l'a vu.</em></strong>
+    <!-- Avant / après — compact. Colonne "après" = promesses du mécanisme,
+         pas de faux chiffres de résultats (aucun client réel à ce jour). -->
+    <div class="ba" role="group" aria-label="Avant / après Sonar">
+      <div class="ba-col">
+        <div class="ba-head">
+          <span class="ba-emo" aria-hidden="true">😩</span>
+          <span class="ba-tag">Lancement seul</span>
+        </div>
+        <ul>
+          <li><span class="x" aria-hidden="true">✗</span>12 visites. 3 likes.</li>
+          <li><span class="x" aria-hidden="true">✗</span>40 heures de diffusion manuelle</li>
+          <li><span class="x" aria-hidden="true">✗</span>Personne ne vous voit</li>
+        </ul>
+      </div>
+      <div class="ba-col ba-col--after">
+        <div class="ba-head">
+          <svg width="26" height="20" viewBox="0 0 26 20" fill="none" aria-hidden="true">
+            <path d="M2 16 L9 10 L14 13 L24 3" stroke="#6B2FA3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.5 3 H24 V9.5" stroke="#6B2FA3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="ba-tag">Avec Sonar</span>
+        </div>
+        <ul>
+          <li><span class="v" aria-hidden="true">✓</span>Diffusé sur 25+ plateformes</li>
+          <li><span class="v" aria-hidden="true">✓</span>Prospects identifiés en temps réel</li>
+          <li><span class="v" aria-hidden="true">✓</span>Visible dès aujourd'hui</li>
+        </ul>
+      </div>
+    </div>
+
+    <strong class="punch">Pendant ce temps, un produit moins bon que le vôtre passe 5K MRR. Pas parce qu'il est meilleur. <em>Parce qu'on l'a vu.</em></strong>
   </div>
 </section>
 
-<!-- ================= LA MÉTHODE : DIFFUSION CIBLÉE ================= -->
+<!-- ================= LA MÉTHODE ================= -->
 <section id="solution" class="band">
   <div class="wrap wrap--wide">
     <div class="sol-grid">
       <div>
         <span class="eyebrow">La méthode</span>
         <h2>La bonne audience, pas la plus grande.</h2>
-        <p class="muted">On cartographie où votre niche parle et ce qu'elle demande. Chaque signal pertinent devient une action prête&nbsp;: la soumission remplie, le post calibré, le DM personnalisé.</p>
-        <p class="one-thing">Vous ne faites qu'une chose&nbsp;: <strong>valider et appuyer sur envoyer.</strong></p>
-        <p class="muted">Rien ne part sans vous. Chaque mot sonne comme vous.</p>
+        <p class="muted">On cartographie où votre niche parle. Chaque signal devient une action prête&nbsp;: la soumission remplie, le post calibré, le DM personnalisé.</p>
+        <p class="one-thing">Vous ne faites qu'une chose&nbsp;: <strong>valider et envoyer.</strong></p>
       </div>
       <aside class="callout" aria-label="Résultat garanti">
         <span class="co-label">Résultat · Garantie</span>
         <p class="co-big">Des conversations qualifiées, <em>garanties</em> — ou on continue gratuitement.</p>
-        <p class="co-foot">le détail, sans astérisque caché → <a href="#garantie">garantie</a></p>
+        <p class="co-foot">zéro astérisque caché</p>
       </aside>
     </div>
 
-    <!-- Pipeline de diffusion ciblée : détection → pertinence → contenu
-         → validation humaine → diffusion. Statut honnête : "en construction". -->
     <figure class="flow" aria-label="Le pipeline Sonar : signaux de niche, filtre de pertinence, contenu calibré, validation humaine, diffusion ciblée">
       <div class="flow-bar">
         <span class="tl" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="flow-title">Sonar · Diffusion ciblée · pipeline</span>
-        <span class="flow-status"><b aria-hidden="true">●</b> Actif · en construction</span>
+        <span class="flow-status"><b aria-hidden="true">●</b> Live</span>
       </div>
       <div class="flow-body" tabindex="0" role="group" aria-label="Diagramme du pipeline, défilement horizontal">
         <ol class="flow-track">
@@ -1602,7 +1505,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
           </li>
         </ol>
       </div>
-      <figcaption class="flow-cap">rien ne part sans l'étape 4 — la validation humaine</figcaption>
+      <figcaption class="flow-cap">rien ne part sans l'étape 4 — votre validation</figcaption>
     </figure>
   </div>
 </section>
@@ -1611,9 +1514,8 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
 <section id="livrables" class="night-brk">
   <div class="wrap wrap--wide">
     <span class="eyebrow">Livrables</span>
-    <h2>Ce que vous recevez en 7 jours.</h2>
-    <!-- Showcase séquentiel : 4 livrables, texte à gauche / mockup simulé à droite.
-         Mockups volontairement génériques — pas de faux clients, pas de fausses marques. -->
+    <h2>Ce que vous recevez.</h2>
+    <!-- Mockups volontairement génériques — pas de faux clients, pas de fausses marques. -->
     <div class="dlv">
 
       <!-- 1/4 · soumissions plateformes -->
@@ -1621,12 +1523,12 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
         <div class="dlv-txt">
           <span class="dlv-step">1/4</span>
           <h3>Vos soumissions sur les 25+ plateformes qui comptent</h3>
-          <p>Product Hunt, Uneed, Peerlist, BetaList, les directories de votre niche — chaque soumission préparée au champ près. Vous copiez, vous collez, vous êtes partout.</p>
+          <p>Product Hunt, Uneed, Peerlist, BetaList, les directories de votre niche — chaque soumission remplie au champ près. Vous copiez, vous collez, vous êtes partout.</p>
         </div>
         <div class="dlv-mock vf">
           <span class="fr" aria-hidden="true"></span>
           <figure class="panel" aria-label="Exemple simulé : checklist des soumissions plateformes, prêtes à envoyer">
-            <div class="p-head"><span class="t">Checklist de lancement · J1</span><span class="sim">exemple simulé</span></div>
+            <div class="p-head"><span class="t">Checklist de lancement</span><span class="sim">exemple simulé</span></div>
             <div class="p-body">
               <ul class="chk">
                 <li><span class="box box--done" aria-hidden="true">✓</span><span class="name">Product Hunt</span><span class="pill pill--ok">Prêt</span></li>
@@ -1644,13 +1546,13 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
       <article class="dlv-row">
         <div class="dlv-txt">
           <span class="dlv-step">2/4</span>
-          <h3>Vos contenus de lancement, prêts à poster</h3>
-          <p>Les posts calibrés pour X, LinkedIn, Reddit et Hacker News, et 2 articles SEO/GEO pour exister sur Google et dans les réponses des IA.</p>
+          <h3>Vos contenus, prêts à poster</h3>
+          <p>Les posts calibrés pour X, LinkedIn, Reddit et Hacker News. Plus 2 articles SEO/GEO pour exister sur Google et dans les réponses des IA.</p>
         </div>
         <div class="dlv-mock vf">
           <span class="fr" aria-hidden="true"></span>
           <figure class="panel" aria-label="Exemple simulé : file de contenus de lancement par plateforme">
-            <div class="p-head"><span class="t">File de contenus · semaine de lancement</span><span class="sim">exemple simulé</span></div>
+            <div class="p-head"><span class="t">File de contenus</span><span class="sim">exemple simulé</span></div>
             <div class="p-body">
               <div class="queue">
                 <div class="q-card"><span class="q-net"><i class="nx" aria-hidden="true"></i>X</span><p class="q-txt">On lance aujourd'hui. 6 mois de nuits blanches pour régler un problème que personne ne…</p></div>
@@ -1668,8 +1570,8 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
       <article class="dlv-row">
         <div class="dlv-txt">
           <span class="dlv-step">3/4</span>
-          <h3>Vos prospects chauds, avec les messages déjà écrits</h3>
-          <p>Les personnes qui montrent des signaux d'achat maintenant, le message personnalisé pour chacune, les relances pour les silencieux.</p>
+          <h3>Vos prospects chauds, messages déjà écrits</h3>
+          <p>Les personnes qui montrent des signaux d'achat maintenant. Le message personnalisé pour chacune, les relances pour les silencieux.</p>
         </div>
         <div class="dlv-mock vf">
           <span class="fr" aria-hidden="true"></span>
@@ -1687,17 +1589,17 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
         </div>
       </article>
 
-      <!-- 4/4 · plan d'exécution + relances 90j + débrief -->
+      <!-- 4/4 · plan d'exécution + débrief -->
       <article class="dlv-row">
         <div class="dlv-txt">
           <span class="dlv-step">4/4</span>
           <h3>Votre plan d'exécution + le débrief</h3>
-          <p>La checklist jour par jour de votre semaine de lancement, le calendrier de relances à 90 jours (un lancement est un rythme, pas un événement), et le débrief à J+14.</p>
+          <p>La checklist jour par jour, la cadence de relances sur 90 jours, le débrief qui vous dit où insister. Un lancement est un rythme, pas un événement.</p>
         </div>
         <div class="dlv-mock vf">
           <span class="fr" aria-hidden="true"></span>
-          <figure class="panel" aria-label="Exemple simulé : plan d'exécution sur 7 jours, relances à 30, 60 et 90 jours, débrief à J+14">
-            <div class="p-head"><span class="t">Plan d'exécution · J1 → J7</span><span class="sim">exemple simulé</span></div>
+          <figure class="panel" aria-label="Exemple simulé : plan d'exécution semaine de lancement, relances à 30, 60 et 90 jours, débrief">
+            <div class="p-head"><span class="t">Plan d'exécution · semaine de lancement</span><span class="sim">exemple simulé</span></div>
             <div class="p-body">
               <div class="cal-days" aria-hidden="true"><span>J1</span><span>J2</span><span>J3</span><span>J4</span><span>J5</span><span>J6</span><span>J7</span></div>
               <div class="cal-track">
@@ -1706,7 +1608,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
                 <span class="chip chip--c">Premiers DM envoyés</span>
               </div>
               <div class="cal-relance"><b>relances</b><span class="rline" aria-hidden="true"></span><span class="rchip">J30</span><span class="rchip">J60</span><span class="rchip">J90</span></div>
-              <div class="cal-debrief"><b>Débrief · J+14</b><span>Ce qui a marché, où insister, la suite.</span></div>
+              <div class="cal-debrief"><b>Débrief</b><span>Ce qui a marché, où insister, la suite.</span></div>
             </div>
           </figure>
         </div>
@@ -1716,133 +1618,34 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
   </div>
 </section>
 
-<!-- ================= GARANTIE ================= -->
-<section id="garantie">
+<!-- ================= CTA FINAL ================= -->
+<section class="final">
   <div class="wrap">
-    <span class="eyebrow">Garantie</span>
-    <h2>Le seul risque, c'est de ne rien faire.</h2>
-    <div class="guarantee">
-      <!-- TODO fondateur : remplacer [X] par le nombre de conversations garanties -->
-      <p>Votre produit visible sur toutes les plateformes qui comptent, et <strong>[X] conversations qualifiées</strong> avec de vrais prospects — ou on continue gratuitement.</p>
-      <p class="no-list"><strong>Pas de bots. Pas de spam. Pas d'upvotes achetés.</strong> Votre réputation est le seul actif qu'on ne risque jamais.</p>
-    </div>
-  </div>
-</section>
+    <p class="kicker">Vous n'avez pas construit six semaines <span class="flip">pour finir à 3 likes.</span></p>
+    <p class="muted">Collez votre URL. On vous montre où votre niche regarde. Ou vous actualisez vos analytics encore un mois.</p>
 
-<!-- ================= POUR QUI ================= -->
-<section id="pour-qui" class="band">
-  <div class="wrap wrap--wide">
-    <span class="eyebrow">Pour qui</span>
-    <h2>Ce n'est pas pour tout le monde.</h2>
-    <div class="fit">
-      <div class="fit-col">
-        <span class="fit-label">C'est pour vous si</span>
-        <ul>
-          <li><span class="mark" aria-hidden="true">✓</span><span>Votre SaaS est fonctionnel, ou à quelques jours de l'être</span></li>
-          <li><span class="mark" aria-hidden="true">✓</span><span>Vous savez qui votre produit sert, même approximativement</span></li>
-          <li><span class="mark" aria-hidden="true">✓</span><span>Vous enverrez ce qu'on prépare</span></li>
-        </ul>
+    <p class="trust">Zéro bot. Zéro spam. Vous validez chaque envoi — ou on continue gratuitement.</p>
+
+    <div class="capzone">
+      <div class="vf">
+        <span class="fr" aria-hidden="true"></span>
+        <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="capture-form-2">
+          <input type="hidden" name="form-name" value="liste-attente" />
+          <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
+          <div class="capbar-in">
+            <label class="sr-only" for="cap-url-2">URL de votre produit</label>
+            <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-2" name="url" required placeholder="https://votreproduit.com">
+            <label class="sr-only" for="cap-email-2">Email</label>
+            <input class="seg-mail" type="email" autocomplete="email" id="cap-email-2" name="email" required placeholder="vous@votresaas.com">
+            <button type="submit" class="cap-btn">Me faire repérer <span class="arr" aria-hidden="true">→</span></button>
+          </div>
+        </form>
       </div>
-      <div class="fit-col fit-col--no">
-        <span class="fit-label">Ce n'est pas pour vous si</span>
-        <ul>
-          <li><span class="mark" aria-hidden="true">✕</span><span>Votre produit n'existe pas encore</span></li>
-          <li><span class="mark" aria-hidden="true">✕</span><span>Vous cherchez de la magie sans lever le petit doigt</span></li>
-          <li><span class="mark" aria-hidden="true">✕</span><span>Vous voulez des bots qui spamment à votre place</span></li>
-        </ul>
+      <div class="cap-success" id="cap-success-2" hidden>
+        <p>Reçu. On regarde votre produit.</p>
+        <p>On vous écrit avec ce que votre niche demande — et pour rien d'autre.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ================= OBJECTIONS ================= -->
-<section>
-  <div class="wrap">
-    <span class="eyebrow">Objections</span>
-    <h2>Vous vous dites sûrement…</h2>
-
-    <div class="qa">
-      <h3>«&nbsp;Je peux le faire moi-même.&nbsp;»</h3>
-      <p>Oui. C'est 40 heures dans des tâches que vous détestez — votre dernier launch prouve que vous ne les ferez pas.</p>
-    </div>
-
-    <div class="qa">
-      <h3>«&nbsp;Je peux le faire avec ChatGPT.&nbsp;»</h3>
-      <p>ChatGPT écrit des posts. Il ne connaît pas les 25 plateformes, ne scanne pas votre niche, et ne trouve pas qui achète cette semaine.</p>
-    </div>
-
-    <div class="qa">
-      <h3>«&nbsp;Et si je n'ai pas de clients à la fin&nbsp;?&nbsp;»</h3>
-      <p>Personne ne garantit des clients sans mentir. On garantit ce que 90% des lancements n'obtiennent jamais&nbsp;: une vraie visibilité et des conversations qualifiées avec votre cible.</p>
-    </div>
-
-    <div class="qa">
-      <h3>«&nbsp;Et après le lancement&nbsp;?&nbsp;»</h3>
-      <p>Le débrief J+14 vous montre ce que la semaine a détecté dans votre niche. Si vous voulez que ça continue, on en parle — sans engagement.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CTA FINAL + FORMULAIRE ================= -->
-<section class="final band">
-  <div class="wrap">
-    <p class="kicker">Vous n'avez pas construit pendant six semaines <span class="flip">pour finir à 3 likes.</span></p>
-    <p class="muted">Dans 7 jours, votre marché entier peut savoir que vous existez — conversations qualifiées garanties, ou on continue gratuitement.</p>
-    <p class="muted">Ou vous pouvez actualiser vos analytics encore un mois.</p>
-
-    <div class="form-panel" id="reserver">
-      <p class="form-title">Réserver mon lancement</p>
-
-      <!--
-        Netlify Forms : détecté automatiquement au déploiement grâce à
-        data-netlify="true" + name="lancement" + l'input caché form-name.
-        Aucun backend nécessaire. Un second formulaire name="liste-attente"
-        (capture email légère) vit dans le hero, avec son propre form-name.
-
-        Soumission : le petit script en bas de page intercepte le submit
-        et affiche l'état de succès inline (#form-success) sans quitter
-        la page. Si JavaScript est désactivé, Netlify prend le relais et
-        redirige vers sa page de succès par défaut. Pour une page de
-        succès personnalisée à la place, créer un fichier merci.html et
-        ajouter action="/merci" sur le <form> ci-dessous.
-      -->
-      <form name="lancement" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="lancement-form">
-        <input type="hidden" name="form-name" value="lancement" />
-        <p hidden aria-hidden="true"><label>Ne pas remplir&nbsp;: <input name="bot-field" /></label></p>
-
-        <div class="field">
-          <label for="prenom">Prénom</label>
-          <input type="text" id="prenom" name="prenom" required autocomplete="given-name" placeholder="Votre prénom">
-        </div>
-
-        <div class="field">
-          <label for="email">Email professionnel</label>
-          <input type="email" id="email" name="email" required autocomplete="email" placeholder="vous@votresaas.com">
-        </div>
-
-        <div class="field">
-          <label for="ca">CA mensuel</label>
-          <select id="ca" name="ca-mensuel" required>
-            <option value="" disabled selected>Sélectionnez</option>
-            <option value="20-50k€">20-50k€</option>
-            <option value="50-100k€">50-100k€</option>
-            <option value="100-250k€">100-250k€</option>
-            <option value="250-500k€">250-500k€</option>
-            <option value="+500k€">+500k€</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn">Réserver mon lancement <span class="arr">→</span></button>
-      </form>
-
-      <div class="form-success" id="form-success" hidden>
-        <p>Demande envoyée.</p>
-        <p>On regarde votre produit et on vous répond sous 48h. Rien ne part sans vous — ça commence ici.</p>
-      </div>
-    </div>
-
-    <!-- TODO fondateur : ajuster "ce mois-ci" / le prix pilote si besoin -->
-    <p class="cta-note">Offre pilote&nbsp;: 2 lancements ce mois-ci à prix de lancement, contre un case study chiffré et public. Quand c'est complet, c'est le mois prochain.</p>
   </div>
 </section>
 
@@ -1857,15 +1660,15 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
       </svg>
       sonar
     </span>
-    <p>Diffusion ciblée + validation humaine. Pas de bots, pas de spam, pas d'upvotes achetés.</p>
+    <p>Diffusion ciblée + validation humaine. Zéro bot, zéro spam, zéro upvote acheté.</p>
   </div>
 </footer>
 
 <script>
 /* Soumission inline des formulaires Netlify : affiche l'état de succès
    sans quitter la page. Fallback sans JS : POST Netlify classique.
-   Deux formulaires distincts : "lancement" (bas de page) et
-   "liste-attente" (hero) — IDs séparés, aucun partage. */
+   Deux instances du même formulaire "liste-attente" (hero + CTA final),
+   IDs séparés, même form-name — Netlify les agrège. */
 (function () {
   function wire(formId, successId, alsoHideId) {
     var form = document.getElementById(formId);
@@ -1880,7 +1683,7 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
         body: new URLSearchParams(new FormData(form)).toString()
       }).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        form.hidden = true;
+        form.closest('.vf').hidden = true;
         if (alsoHideId) {
           var extra = document.getElementById(alsoHideId);
           if (extra) extra.hidden = true;
@@ -1894,8 +1697,18 @@ footer .brand{ font-size:.9rem; color:var(--muted); }
       });
     });
   }
-  wire('lancement-form', 'form-success', null);
-  wire('liste-form', 'liste-success', 'liste-note');
+  wire('capture-form', 'cap-success-1', 'cap-note-1');
+  wire('capture-form-2', 'cap-success-2', null);
+
+  /* Le CTA du header amène à la barre de capture et place le focus
+     directement dans le champ URL. */
+  var navCta = document.querySelector('.cta-fused');
+  if (navCta) {
+    navCta.addEventListener('click', function () {
+      var url = document.getElementById('cap-url');
+      if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 450);
+    });
+  }
 })();
 </script>
 
