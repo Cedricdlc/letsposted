@@ -24,7 +24,9 @@ Solution : une machine d'agents IA qui exécute le lancement. Le client donne so
 
 ## ICP, NICHE ET LANGUE — décidé et arbitré
 
-**Marché/langue : francophone, pour le contenu ET les clients.** Décision prise après arbitrage explicite (pas anglophone malgré un marché plus grand) :
+**Revirement (2026-07-09) : la landing et la copy produit passent en anglais.** Raison donnée : toucher une audience plus large, et X fonctionne mieux en anglais pour ce type de contenu. Ça inverse l'arbitrage FR ci-dessous — noté tel quel pour la mémoire, mais à re-clarifier : est-ce que le contenu de build-in-public (X/YouTube) suit aussi en anglais, ou seulement la landing/produit ? Si le contenu reste FR pendant que la landing est EN, le risque de flywheel disjoint (audience ≠ langue du produit) identifié ci-dessous redevient d'actualité — à trancher explicitement à la prochaine session si pas déjà fait.
+
+**Ancien arbitrage (francophone, pour le contenu ET les clients)** — décision prise après arbitrage explicite (pas anglophone malgré un marché plus grand) :
 - Le levier le plus critique du projet, c'est la fréquence/qualité du contenu quotidien sur 2 ans — pas la taille du marché adressable. Documenter en langue non-native aurait ralenti la production et affaibli la voix (fragments, rupture de ton) que le positionnement demande.
 - Le marché anglophone "build in public" est plus grand mais saturé de narratifs "IA fait ton GTM" — s'y différencier est plus dur, encore plus avec une friction de langue.
 - Le flywheel doit boucler : audience X → leads. Contenu en français + ICP anglophone = deux publics disjoints qui ne se nourrissent pas.
