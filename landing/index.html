@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sonar — Your product works. Nobody knows.</title>
+<title>Sonar — You shipped. Nobody noticed.</title>
 <meta name="description" content="Done-for-you SaaS launches. 25+ platforms, every post written, hot prospects identified with DMs ready to send. You review, you hit send.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -415,6 +415,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   color:var(--body);
 }
 
+/* real platform brand mark — sits at the right of the card header,
+   like the corner logo on an embedded post */
+.p-logo{
+  flex:none;
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  align-self:flex-start;
+  opacity:.95;
+}
+.p-logo svg{ display:block; }
+
 /* — Product Hunt-style card : logo tile + name/tagline + upvote box — */
 .pcard--ph .p-ava{
   width:2.6rem;
@@ -434,6 +446,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   border-radius:10px;
   padding:.45rem .7rem;
   background:var(--card-2);
+}
+/* PH row is dense (upvote box already owns the right edge) : its brand
+   mark rides the product tile like a source-favicon badge instead */
+.pcard--ph .p-ava{ position:relative; }
+.pcard--ph .p-logo{
+  position:absolute;
+  right:-.4rem;
+  bottom:-.4rem;
+  margin:0;
+  border-radius:50%;
+  box-shadow:0 0 0 2.5px var(--card);
 }
 .upvote .tri{
   width:0; height:0;
@@ -504,6 +527,41 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .pcard--ph{ top:auto; left:0; transform:rotate(-1.6deg); }
   .pcard--x{ top:auto; right:auto; margin:-.8rem 0 0 auto; transform:rotate(1.4deg); }
   .pcard--li{ bottom:auto; left:0; margin-top:-.8rem; transform:rotate(-1deg); }
+}
+
+/* quiet chip row under the fan : more platforms, same immersion */
+.more-nets{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:.5rem .55rem;
+  flex-wrap:wrap;
+  margin-top:1.2rem;
+  padding:0 .15rem;
+}
+.net-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--body);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.3rem .75rem .3rem .45rem;
+  white-space:nowrap;
+}
+.net-chip svg{ display:block; flex:none; }
+.more-note{
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--faint);
+  white-space:nowrap;
+}
+@media (prefers-reduced-motion: no-preference){
+  .more-nets{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay:.9s; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1005,7 +1063,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="badge">Done-For-You SaaS Launches</span>
-      <h1>Your product works. <span class="hush">Nobody knows.</span></h1>
+      <h1>You shipped. <span class="hush">Nobody noticed.</span></h1>
       <p class="lede">We put it in front of everyone who matters.</p>
       <p class="sub">25+ platforms. Every post written. Hot prospects identified, DMs ready to send. You review, you hit send — your product gets seen, your first customers show up.</p>
       <div class="hero-cta">
@@ -1014,8 +1072,9 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       </div>
     </div>
 
-    <!-- Hero artefact : fanned platform-style cards. Generic placeholder
-         content only — no real accounts, no fake social proof. -->
+    <!-- Hero artefact : fanned platform-style cards. Real platform brand
+         marks (inline SVG) anchor each card; the post content itself stays
+         generic placeholder — no real accounts, no fake social proof. -->
     <div class="stack-zone vf">
       <span class="fr" aria-hidden="true"></span>
       <div class="stack" role="img" aria-label="Preview: your launch broadcast as posts on Product Hunt, X and LinkedIn">
@@ -1023,7 +1082,12 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         <!-- Product Hunt-style listing card -->
         <div class="pcard pcard--ph" aria-hidden="true">
           <div class="p-row">
-            <span class="p-ava">YP</span>
+            <span class="p-ava">YP<span class="p-logo">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="12" fill="#FF6154"/>
+                <path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/>
+              </svg>
+            </span></span>
             <span class="p-name">
               <b>Your Product</b>
               <small>Shipped. Now seen everywhere.</small>
@@ -1045,6 +1109,11 @@ footer .brand{ font-size:.92rem; color:var(--body); }
               <b>Your Product</b>
               <small class="h">@yourproduct · 2h</small>
             </span>
+            <span class="p-logo">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#E7E9EA" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/>
+              </svg>
+            </span>
           </div>
           <p class="p-txt">Launch day. Six months of nights and weekends — it's live. Built for the people who kept asking for it. Here's what it does →</p>
           <div class="x-icons">
@@ -1063,6 +1132,12 @@ footer .brand{ font-size:.92rem; color:var(--body); }
               <b>Founder</b>
               <small>Building Your Product · 1st</small>
             </span>
+            <span class="p-logo">
+              <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+                <rect width="24" height="24" rx="4.5" fill="#0A66C2"/>
+                <path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/>
+              </svg>
+            </span>
           </div>
           <p class="p-txt">We launched today. It started with a problem our own users kept describing — here's what we built for them, and what we learned.</p>
           <div class="li-actions">
@@ -1072,6 +1147,40 @@ footer .brand{ font-size:.92rem; color:var(--body); }
           </div>
         </div>
 
+      </div>
+
+      <!-- more platforms, chip-sized : broadens the "everywhere" feeling
+           without adding a fourth card to the fan -->
+      <div class="more-nets">
+        <span class="net-chip">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#FF4500"/>
+            <path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/>
+            <circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/>
+            <circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
+            <circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
+            <ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/>
+            <circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/>
+            <circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/>
+            <path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          Reddit
+        </span>
+        <span class="net-chip">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="3" fill="#FF6600"/>
+            <path d="M7.6 6.2 12 13v5M16.4 6.2 12 13" fill="none" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Hacker News
+        </span>
+        <span class="net-chip">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6" fill="#FFBC00"/>
+            <path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          AppSumo
+        </span>
+        <span class="more-note">+ 20 more</span>
       </div>
     </div>
   </div>
