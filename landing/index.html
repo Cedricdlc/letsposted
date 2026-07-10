@@ -14,8 +14,9 @@
    SONAR — LANDING · v6 "broadcast"
    Dark rebuild. Deep navy-black paper, violet gradient accent.
    Signature: one traveling conic-gradient ring on the Guarantee
-   card. Hero: fanned platform-mockup cards (PH / X / LinkedIn
-   chrome, generic content) under a radial violet glow.
+   card. Hero: broadcast hub-and-spoke diagram — a generic product
+   tile fanning curved threads (with traveling SMIL pulses) down to
+   real platform marks, under a radial violet glow.
    Kept from v5: corner-bracket viewfinder motif, Netlify form
    name="liste-attente" (fields url + email), inline JS success
    handler with native-submit fallback.
@@ -342,14 +343,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   }
 }
 
-/* ---------- hero artefact : fanned platform cards ---------- */
+/* ---------- hero artefact : broadcast hub-and-spoke ---------- */
 
 .stack-zone{ position:relative; }
 .stack{
   position:relative;
-  min-height:33rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.1rem;
+  padding:1.5rem .25rem .5rem;
 }
-/* the warm(-violet) glow behind the floating UI */
+/* the warm(-violet) glow behind the diagram */
 .stack::before{
   content:"";
   position:absolute;
@@ -359,213 +364,56 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   filter:blur(6px);
 }
 
-.pcard{
-  position:absolute;
-  width:min(21.5rem, 88%);
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:1rem 1.1rem;
-  box-shadow:0 30px 70px rgba(0,0,0,.55), 0 6px 18px rgba(0,0,0,.4);
-}
-.pcard--ph{ top:0; left:0; transform:rotate(-5deg); z-index:1; }
-.pcard--x{ top:8.6rem; right:0; transform:rotate(2.5deg); z-index:3; border-color:#2E2E38; }
-.pcard--li{ bottom:0; left:0; transform:rotate(-2deg); z-index:2; }
-
-@media (prefers-reduced-motion: no-preference){
-  .pcard{ animation:cardin .8s cubic-bezier(.2,.7,.2,1) both; }
-  .pcard--ph{ animation-delay:.3s; }
-  .pcard--x{ animation-delay:.5s; }
-  .pcard--li{ animation-delay:.7s; }
-  @keyframes cardin{
-    from{ opacity:0; transform:translateY(22px) rotate(0deg); }
-  }
-}
-
-/* shared platform-chrome bits */
-.p-row{ display:flex; align-items:center; gap:.7rem; min-width:0; }
-.p-ava{
-  flex:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:.72rem;
-  letter-spacing:.02em;
-  color:#EDE9FE;
-}
-.p-name{ min-width:0; line-height:1.25; }
-.p-name b{
-  display:block;
-  font-size:.88rem;
-  font-weight:700;
-  color:var(--ink);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.p-name small{
-  display:block;
-  font-size:.74rem;
-  color:var(--faint);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.p-txt{
-  margin-top:.65rem;
-  font-size:.85rem;
-  line-height:1.55;
-  color:var(--body);
-}
-
-/* real platform brand mark — sits at the right of the card header,
-   like the corner logo on an embedded post */
-.p-logo{
-  flex:none;
-  margin-left:auto;
-  display:flex;
-  align-items:center;
-  align-self:flex-start;
-  opacity:.95;
-}
-.p-logo svg{ display:block; }
-
-/* — Product Hunt-style card : logo tile + name/tagline + upvote box — */
-.pcard--ph .p-ava{
-  width:2.6rem;
-  height:2.6rem;
-  border-radius:10px;
-  background:var(--grad);
-  font-size:.82rem;
-}
-.upvote{
-  flex:none;
-  margin-left:auto;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.1rem;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:.45rem .7rem;
-  background:var(--card-2);
-}
-/* PH row is dense (upvote box already owns the right edge) : its brand
-   mark rides the product tile like a source-favicon badge instead */
-.pcard--ph .p-ava{ position:relative; }
-.pcard--ph .p-logo{
-  position:absolute;
-  right:-.4rem;
-  bottom:-.4rem;
-  margin:0;
-  border-radius:50%;
-  box-shadow:0 0 0 2.5px var(--card);
-}
-.upvote .tri{
-  width:0; height:0;
-  border-left:.42rem solid transparent;
-  border-right:.42rem solid transparent;
-  border-bottom:.52rem solid var(--violet-2);
-}
-.upvote b{ font-size:.8rem; font-weight:700; color:var(--ink); }
-.ph-tags{ display:flex; gap:.45rem; margin-top:.75rem; flex-wrap:wrap; }
-.ph-tag{
-  font-size:.66rem;
-  font-weight:600;
-  letter-spacing:.04em;
-  color:var(--faint);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:.14rem .55rem;
-  white-space:nowrap;
-}
-
-/* — X-style card : round avatar, handle, icon row — */
-.pcard--x .p-ava{
-  width:2.35rem;
-  height:2.35rem;
-  border-radius:50%;
-  background:#3F3F50;
-}
-.p-name .h{ color:var(--faint); font-weight:400; }
-.x-icons{
-  display:flex;
-  justify-content:space-between;
-  max-width:15rem;
-  margin-top:.8rem;
-  color:var(--faint);
-}
-.x-icons span{
-  display:inline-flex;
-  align-items:center;
-  gap:.35rem;
-  font-size:.72rem;
-}
-.x-icons svg{ display:block; }
-
-/* — LinkedIn-style card : avatar + name/title, reaction bar — */
-.pcard--li .p-ava{
-  width:2.5rem;
-  height:2.5rem;
-  border-radius:50%;
-  background:#4C3A78;
-}
-.li-actions{
-  display:flex;
-  gap:1.4rem;
-  margin-top:.8rem;
-  padding-top:.65rem;
-  border-top:1px solid var(--line-soft);
-  font-size:.74rem;
-  font-weight:600;
-  color:var(--faint);
-}
-.li-actions span{ display:inline-flex; align-items:center; gap:.35rem; }
-.li-actions svg{ display:block; }
-
-/* narrow screens : the fan stacks vertically with soft overlap */
-@media (max-width:979px){
-  .stack{ min-height:0; padding:1rem .25rem; }
-  .pcard{ position:relative; width:min(23rem, 100%); }
-  .pcard--ph{ top:auto; left:0; transform:rotate(-1.6deg); }
-  .pcard--x{ top:auto; right:auto; margin:-.8rem 0 0 auto; transform:rotate(1.4deg); }
-  .pcard--li{ bottom:auto; left:0; margin-top:-.8rem; transform:rotate(-1deg); }
-}
-
-/* quiet chip row under the fan : more platforms, same immersion */
-.more-nets{
+/* the whole diagram is one SVG : hub, threads and badges scale together,
+   so the composition can never misalign or overflow horizontally */
+.bcast{
   position:relative;
-  display:flex;
-  align-items:center;
-  gap:.5rem .55rem;
-  flex-wrap:wrap;
-  margin-top:1.2rem;
-  padding:0 .15rem;
+  display:block;
+  width:100%;
+  max-width:30rem;
+  height:auto;
+  overflow:visible;
 }
-.net-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:.45rem;
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.01em;
-  color:var(--body);
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:.3rem .75rem .3rem .45rem;
-  white-space:nowrap;
+
+.b-hub-tile{ filter:drop-shadow(0 16px 34px rgba(139,92,246,.45)); }
+
+.b-wire{
+  fill:none;
+  stroke:rgba(139,92,246,.25);
+  stroke-width:1.25;
+  stroke-linecap:round;
 }
-.net-chip svg{ display:block; flex:none; }
+
+.b-badge{ filter:drop-shadow(0 12px 24px rgba(0,0,0,.5)); }
+.b-badge .bg{
+  fill:var(--card);
+  stroke:var(--line);
+  stroke-width:1;
+}
+
 .more-note{
+  position:relative;
   font-size:.72rem;
   font-weight:600;
   color:var(--faint);
   white-space:nowrap;
 }
+
 @media (prefers-reduced-motion: no-preference){
-  .more-nets{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay:.9s; }
+  .stack{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay:.25s; }
+  .b-badge{ animation:bpop .55s cubic-bezier(.2,.7,.2,1) both; }
+  .b-badges > .b-badge:nth-child(1){ animation-delay:.4s; }
+  .b-badges > .b-badge:nth-child(2){ animation-delay:.5s; }
+  .b-badges > .b-badge:nth-child(3){ animation-delay:.6s; }
+  .b-badges > .b-badge:nth-child(4){ animation-delay:.7s; }
+  .b-badges > .b-badge:nth-child(5){ animation-delay:.8s; }
+  .b-badges > .b-badge:nth-child(6){ animation-delay:.9s; }
+  @keyframes bpop{ from{ opacity:0; } }
+}
+/* reduced motion : the curved threads stay, the traveling pulses go
+   (SMIL ignores the global animation:none rule, so hide them here) */
+@media (prefers-reduced-motion: reduce){
+  .b-dots{ display:none; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1091,115 +939,134 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       </div>
     </div>
 
-    <!-- Hero artefact : fanned platform-style cards. Real platform brand
-         marks (inline SVG) anchor each card; the post content itself stays
-         generic placeholder — no real accounts, no fake social proof. -->
+    <!-- Hero artefact : broadcast diagram. A generic "your product" tile
+         (deliberately not the GetSeen mark) fans curved threads down to
+         real platform brand marks (inline SVG); a small pulse travels
+         each thread. No real accounts, no fake numbers. -->
     <div class="stack-zone vf">
       <span class="fr" aria-hidden="true"></span>
-      <div class="stack" role="img" aria-label="Preview: your launch broadcast as posts on Product Hunt, X and LinkedIn">
+      <div class="stack" role="img" aria-label="Your product broadcast across Product Hunt, X, LinkedIn, Reddit, Hacker News, AppSumo and 20+ more platforms">
+        <svg class="bcast" viewBox="0 0 420 312" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="bgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8B5CF6"/>
+              <stop offset="1" stop-color="#C084FC"/>
+            </linearGradient>
+          </defs>
 
-        <!-- Product Hunt-style listing card -->
-        <div class="pcard pcard--ph" aria-hidden="true">
-          <div class="p-row">
-            <span class="p-ava">YP<span class="p-logo">
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- curved threads, hub → platforms -->
+          <path id="bw1" class="b-wire" d="M210 92 Q210 140 64 160"/>
+          <path id="bw2" class="b-wire" d="M210 92 Q210 165 110 215"/>
+          <path id="bw3" class="b-wire" d="M210 92 Q210 195 174 245"/>
+          <path id="bw4" class="b-wire" d="M210 92 Q210 195 246 245"/>
+          <path id="bw5" class="b-wire" d="M210 92 Q210 165 310 215"/>
+          <path id="bw6" class="b-wire" d="M210 92 Q210 140 356 160"/>
+
+          <!-- traveling pulses. SMIL animateMotion follows each thread;
+               starts hidden so nothing flashes at the origin before its
+               begin time. Hidden entirely under prefers-reduced-motion. -->
+          <g class="b-dots">
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin=".2s" fill="freeze"/>
+              <animateMotion dur="2.4s" begin=".2s" repeatCount="indefinite"><mpath href="#bw1"/></animateMotion>
+            </g>
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin="1.4s" fill="freeze"/>
+              <animateMotion dur="2.7s" begin="1.4s" repeatCount="indefinite"><mpath href="#bw2"/></animateMotion>
+            </g>
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin=".8s" fill="freeze"/>
+              <animateMotion dur="2.2s" begin=".8s" repeatCount="indefinite"><mpath href="#bw3"/></animateMotion>
+            </g>
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin="1.9s" fill="freeze"/>
+              <animateMotion dur="2.5s" begin="1.9s" repeatCount="indefinite"><mpath href="#bw4"/></animateMotion>
+            </g>
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin=".5s" fill="freeze"/>
+              <animateMotion dur="2.3s" begin=".5s" repeatCount="indefinite"><mpath href="#bw5"/></animateMotion>
+            </g>
+            <g visibility="hidden">
+              <circle r="5" fill="#C084FC" opacity=".25"/>
+              <circle r="2.2" fill="#EDE9FE"/>
+              <set attributeName="visibility" to="visible" begin="1.1s" fill="freeze"/>
+              <animateMotion dur="2.6s" begin="1.1s" repeatCount="indefinite"><mpath href="#bw6"/></animateMotion>
+            </g>
+          </g>
+
+          <!-- hub : the visitor's product, generic launch glyph -->
+          <g class="b-hub">
+            <rect class="b-hub-tile" x="178" y="20" width="64" height="64" rx="15" fill="url(#bgrad)"/>
+            <g transform="translate(210 52) rotate(-45) scale(1.15) translate(-12 -12)">
+              <path fill="#FFFFFF" d="M2 21 21 12 2 3v7l15 2-15 2z"/>
+            </g>
+          </g>
+
+          <!-- platform badges, arranged on an arc around the hub.
+               Brand marks reused verbatim from v6's pcards / net-chips. -->
+          <g class="b-badges">
+            <g class="b-badge">
+              <circle class="bg" cx="42" cy="172" r="25"/>
+              <svg x="31" y="161" width="22" height="22" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="12" fill="#FF6154"/>
                 <path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/>
               </svg>
-            </span></span>
-            <span class="p-name">
-              <b>Your Product</b>
-              <small>Shipped. Now seen everywhere.</small>
-            </span>
-            <span class="upvote"><span class="tri"></span><b>214</b></span>
-          </div>
-          <div class="ph-tags">
-            <span class="ph-tag">SaaS</span>
-            <span class="ph-tag">Developer Tools</span>
-            <span class="ph-tag">Launching today</span>
-          </div>
-        </div>
-
-        <!-- X-style post card -->
-        <div class="pcard pcard--x" aria-hidden="true">
-          <div class="p-row">
-            <span class="p-ava">YP</span>
-            <span class="p-name">
-              <b>Your Product</b>
-              <small class="h">@yourproduct · 2h</small>
-            </span>
-            <span class="p-logo">
-              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+            </g>
+            <g class="b-badge">
+              <circle class="bg" cx="94" cy="235" r="25"/>
+              <svg x="85.5" y="226.5" width="17" height="17" viewBox="0 0 24 24">
                 <path fill="#E7E9EA" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/>
               </svg>
-            </span>
-          </div>
-          <p class="p-txt">Launch day. Six months of nights and weekends. It's live. Built for the people who kept asking for it. Here's what it does →</p>
-          <div class="x-icons">
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.3-3.9A8.38 8.38 0 0 1 3 11.5a8.5 8.5 0 1 1 18 0z"/></svg>18</span>
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>42</span>
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>127</span>
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></span>
-          </div>
-        </div>
-
-        <!-- LinkedIn-style post card -->
-        <div class="pcard pcard--li" aria-hidden="true">
-          <div class="p-row">
-            <span class="p-ava">F</span>
-            <span class="p-name">
-              <b>Founder</b>
-              <small>Building Your Product · 1st</small>
-            </span>
-            <span class="p-logo">
-              <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+            </g>
+            <g class="b-badge">
+              <circle class="bg" cx="169" cy="269" r="25"/>
+              <svg x="159" y="259" width="20" height="20" viewBox="0 0 24 24">
                 <rect width="24" height="24" rx="4.5" fill="#0A66C2"/>
                 <path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/>
               </svg>
-            </span>
-          </div>
-          <p class="p-txt">We launched today. It started with a problem our own users kept describing. Here's what we built for them, and what we learned.</p>
-          <div class="li-actions">
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span>
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.3-3.9A8.38 8.38 0 0 1 3 11.5a8.5 8.5 0 1 1 18 0z"/></svg>Comment</span>
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Repost</span>
-          </div>
-        </div>
+            </g>
+            <g class="b-badge">
+              <circle class="bg" cx="251" cy="269" r="25"/>
+              <svg x="240" y="258" width="22" height="22" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#FF4500"/>
+                <path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/>
+                <circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/>
+                <circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
+                <circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
+                <ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/>
+                <circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/>
+                <circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/>
+                <path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </g>
+            <g class="b-badge">
+              <circle class="bg" cx="326" cy="235" r="25"/>
+              <svg x="316" y="225" width="20" height="20" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="3" fill="#FF6600"/>
+                <path d="M7.6 6.2 12 13v5M16.4 6.2 12 13" fill="none" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </g>
+            <g class="b-badge">
+              <circle class="bg" cx="378" cy="172" r="25"/>
+              <svg x="368" y="162" width="20" height="20" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="6" fill="#FFBC00"/>
+                <path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </g>
+          </g>
+        </svg>
 
-      </div>
-
-      <!-- more platforms, chip-sized : broadens the "everywhere" feeling
-           without adding a fourth card to the fan -->
-      <div class="more-nets">
-        <span class="net-chip">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="12" fill="#FF4500"/>
-            <path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/>
-            <circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/>
-            <circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
-            <circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/>
-            <ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/>
-            <circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/>
-            <circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/>
-            <path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/>
-          </svg>
-          Reddit
-        </span>
-        <span class="net-chip">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="3" fill="#FF6600"/>
-            <path d="M7.6 6.2 12 13v5M16.4 6.2 12 13" fill="none" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Hacker News
-        </span>
-        <span class="net-chip">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#FFBC00"/>
-            <path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          AppSumo
-        </span>
-        <span class="more-note">+ 20 more</span>
+        <p class="more-note">+ 20 more platforms</p>
       </div>
     </div>
   </div>
