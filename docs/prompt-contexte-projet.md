@@ -135,3 +135,13 @@ Note de cohérence : le mécanisme de prospection par signaux publics (plutôt q
 ---
 
 *Fin du prompt. Demande-moi ensuite ce dont tu as besoin : code d'un module, contenu X, itération copy, etc.*
+
+## DÉPLOIEMENT — état actuel (2026-07-10)
+
+**Site Netlify de test** : https://graceful-marzipan-b14e6e.netlify.app (site_id `d4a26bd1-7f35-41c7-bf41-b4e83b981e0d`, équipe "Acai"). Déployé depuis `landing/` via `netlify deploy --prod`.
+
+**Bug corrigé** : le site avait `processing_settings.ignore_html_forms: true` par défaut (réglage Netlify, pas un bug de code) — empêchait toute détection de formulaire, d'où des POST qui renvoyaient 404. Corrigé via `netlify api updateSite` pour repasser `ignore_html_forms: false`. Formulaire `liste-attente` (champ `url` + honeypot) confirmé détecté et fonctionnel après redéploiement.
+
+**Note** : si un nouveau site Netlify est recréé plus tard (changement de nom de domaine, etc.), vérifier ce réglage `ignore_html_forms` en premier si le formulaire semble ne pas fonctionner malgré un code correct.
+
+**Idée en attente** : afficher un vrai score d'analyse (ex: Google PageSpeed Insights API) pour l'URL soumise par le visiteur, avec un CTA "Augmenter les stats" — nécessite une fonction serveur (Netlify Functions), pas faisable en JS client pur (CORS). Doit rester des données réelles, jamais fabriquées (cohérent avec le principe anti-faux-résultats déjà tenu partout ailleurs sur le site). Pas encore scopé/construit.
