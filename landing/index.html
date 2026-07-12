@@ -962,7 +962,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   background:var(--card);
   border:1px solid var(--line);
   border-radius:12px;
-  padding:1.25rem 1.35rem;
+  padding:1.6rem 1.6rem;
 }
 .ready-score{ display:flex; align-items:baseline; gap:.6rem; margin-bottom:.9rem; }
 .ready-score-num{
@@ -980,6 +980,77 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .ready-cta{ margin-top:1rem; font-size:.9rem; }
 .ready-cta a{ font-weight:700; }
 .ready-note{ margin-top:.7rem; font-size:.76rem; color:var(--faint); }
+
+/* ---------- platform preview cards (in-context mockups) ---------- */
+
+.pv-grid{
+  display:grid;
+  gap:1.1rem;
+  margin-top:1.3rem;
+}
+@media (min-width:700px){ .pv-grid{ grid-template-columns:repeat(3,1fr); } }
+.pv-card{
+  background:var(--card-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:1.2rem 1.25rem;
+  font-size:.82rem;
+}
+.pv-head{
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  margin-bottom:.6rem;
+  font-size:.76rem;
+  font-weight:600;
+  color:var(--faint);
+}
+.pv-title{
+  color:var(--ink);
+  font-weight:600;
+  line-height:1.35;
+  margin-bottom:.3rem;
+}
+.pv-body{ color:var(--body); line-height:1.45; }
+.pv-reach{ margin-top:.65rem; font-size:.72rem; color:var(--faint); }
+.pv-note{ margin-top:.9rem; font-size:.76rem; color:var(--faint); }
+
+/* ---------- lead magnet (email + first name capture) ---------- */
+
+.lm-zone{ margin-top:1.4rem; }
+.lm-head{ font-size:.9rem; font-weight:700; color:var(--ink); margin-bottom:.7rem; }
+.lm-bar{
+  display:flex;
+  align-items:stretch;
+  background:var(--card);
+  border:1px solid var(--violet-line);
+  border-radius:999px;
+  overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.5), 0 0 40px rgba(139,92,246,.1);
+}
+.lm-bar input{
+  min-width:0;
+  border:0;
+  background:transparent;
+  font-family:var(--sans);
+  font-size:.94rem;
+  color:var(--ink);
+  padding:1.05rem 1.15rem;
+}
+.lm-bar input::placeholder{ color:var(--faint); }
+.lm-bar input:focus{ outline:none; }
+.lm-bar input:focus-visible{
+  outline:none;
+  box-shadow:inset 0 0 0 2px var(--violet);
+  background:rgba(139,92,246,.08);
+}
+.lm-bar .seg-name{ flex:1 1 0; border-right:1px solid var(--line); }
+.lm-bar .seg-email{ flex:1.4 1 0; border-right:1px solid var(--line); }
+@media (max-width:719px){
+  .lm-bar{ flex-direction:column; border-radius:18px; }
+  .lm-bar .seg-name, .lm-bar .seg-email{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
+  .lm-bar .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+}
 .cap-success p:first-child{ font-weight:700; color:var(--ink); }
 .cap-success p + p{ margin-top:.25rem; color:var(--body); font-size:.9rem; }
 .capzone .vf{ padding:.7rem; }
@@ -1023,7 +1094,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       <a href="#pipeline">First customers</a>
       <a href="#guarantee">Guarantee</a>
     </div>
-    <a class="btn" href="#book">Book my launch <span class="a" aria-hidden="true">→</span></a>
+    <a class="btn" href="#book">Analyze my launch <span class="a" aria-hidden="true">→</span></a>
   </div>
 </nav>
 
@@ -1040,13 +1111,13 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         <div class="capzone capzone--hero">
           <div class="vf">
             <span class="fr" aria-hidden="true"></span>
-            <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="capture-form-hero">
+            <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
               <input type="hidden" name="form-name" value="liste-attente" />
               <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
               <div class="capbar-in">
                 <label class="sr-only" for="cap-url-hero">Product URL</label>
                 <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
-                <button type="submit" class="cap-btn">Book my launch <span class="a" aria-hidden="true">→</span></button>
+                <button type="submit" class="cap-btn">Get my free launch analysis <span class="a" aria-hidden="true">→</span></button>
               </div>
             </form>
           </div>
@@ -1056,6 +1127,28 @@ footer .brand{ font-size:.92rem; color:var(--body); }
           <div class="ready" id="ready-hero" hidden>
             <p class="ready-load" id="ready-load-hero"><span class="dot" aria-hidden="true"></span>Checking your launch readiness…</p>
             <div class="ready-result" id="ready-result-hero" hidden></div>
+            <div class="lm-zone" id="leadmagnet-hero" hidden>
+              <p class="lm-head">Get the full preview pack (25+ platforms) + book your launch</p>
+              <div class="vf">
+                <span class="fr" aria-hidden="true"></span>
+                <form action='/' id='lm-form-hero' method='POST' name='lead-magnet' data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="lead-magnet" />
+                  <input type="hidden" name="url" id="lm-url-hero" />
+                  <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+                  <div class="lm-bar">
+                    <label class="sr-only" for="lm-name-hero">First name</label>
+                    <input class="seg-name" type="text" autocomplete="given-name" id="lm-name-hero" name="prenom" required placeholder="First name">
+                    <label class="sr-only" for="lm-email-hero">Email</label>
+                    <input class="seg-email" type="email" autocomplete="email" id="lm-email-hero" name="email" required placeholder="you@yourproduct.com">
+                    <button type="submit" class="cap-btn">Send it to me <span class="a" aria-hidden="true">→</span></button>
+                  </div>
+                </form>
+              </div>
+              <div class="cap-success" id="lm-success-hero" hidden>
+                <p>Sent. Check your inbox.</p>
+                <p>We'll also reach out to book your launch slot.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1399,13 +1492,13 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     <div class="capzone">
       <div class="vf">
         <span class="fr" aria-hidden="true"></span>
-        <form name="liste-attente" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="capture-form">
+        <form action='/' id='capture-form' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="liste-attente" />
           <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div class="capbar-in">
             <label class="sr-only" for="cap-url">Product URL</label>
             <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url" name="url" required placeholder="https://yourproduct.com">
-            <button type="submit" class="cap-btn">Book my launch <span class="a" aria-hidden="true">→</span></button>
+            <button type="submit" class="cap-btn">Get my free launch analysis <span class="a" aria-hidden="true">→</span></button>
           </div>
         </form>
       </div>
@@ -1417,6 +1510,28 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       <div class="ready" id="ready-1" hidden>
         <p class="ready-load" id="ready-load-1"><span class="dot" aria-hidden="true"></span>Checking your launch readiness…</p>
         <div class="ready-result" id="ready-result-1" hidden></div>
+        <div class="lm-zone" id="leadmagnet-1" hidden>
+          <p class="lm-head">Get the full preview pack (25+ platforms) + book your launch</p>
+          <div class="vf">
+            <span class="fr" aria-hidden="true"></span>
+            <form action='/' id='lm-form-1' method='POST' name='lead-magnet' data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="lead-magnet" />
+              <input type="hidden" name="url" id="lm-url-1" />
+              <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+              <div class="lm-bar">
+                <label class="sr-only" for="lm-name-1">First name</label>
+                <input class="seg-name" type="text" autocomplete="given-name" id="lm-name-1" name="prenom" required placeholder="First name">
+                <label class="sr-only" for="lm-email-1">Email</label>
+                <input class="seg-email" type="email" autocomplete="email" id="lm-email-1" name="email" required placeholder="you@yourproduct.com">
+                <button type="submit" class="cap-btn">Send it to me <span class="a" aria-hidden="true">→</span></button>
+              </div>
+            </form>
+          </div>
+          <div class="cap-success" id="lm-success-1" hidden>
+            <p>Sent. Check your inbox.</p>
+            <p>We'll also reach out to book your launch slot.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1438,10 +1553,10 @@ footer .brand{ font-size:.92rem; color:var(--body); }
 </footer>
 
 <!-- ================= STICKY CTA BANNER ================= -->
-<div class="bar" id="ctabar" role="complementary" aria-label="Book your launch">
+<div class="bar" id="ctabar" role="complementary" aria-label="Analyze your launch">
   <div class="wrap bar-in">
     <p class="bar-txt"><span class="soft">Your product deserves customers. </span>Launched for you, end to end.</p>
-    <a class="btn" href="#book">Book my launch <span class="a" aria-hidden="true">→</span></a>
+    <a class="btn" href="#book">Analyze my launch <span class="a" aria-hidden="true">→</span></a>
   </div>
 </div>
 
@@ -1480,6 +1595,8 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   }
   wire('capture-form', 'cap-success-1', 'cap-note-1', '1');
   wire('capture-form-hero', 'cap-success-hero', null, 'hero');
+  wire('lm-form-1', 'lm-success-1', null, null);
+  wire('lm-form-hero', 'lm-success-hero', null, null);
 
   /* Real launch-readiness check : calls our own Netlify Function, which
      fetches the submitted site's meta tags and a PageSpeed Insights score.
@@ -1500,7 +1617,14 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       .then(function (data) {
         loadEl.hidden = true;
         resultEl.hidden = false;
-        resultEl.innerHTML = renderReadiness(data);
+        resultEl.innerHTML = renderReadiness(data, suffix);
+        var meta = data.meta || {};
+        if (meta.reachable && (meta.title || meta.description)) {
+          var lm = document.getElementById('leadmagnet-' + suffix);
+          var lmUrl = document.getElementById('lm-url-' + suffix);
+          if (lm && lmUrl) { lmUrl.value = data.url || url; lm.hidden = false; }
+          fetchPlatformCopy(meta, suffix);
+        }
       })
       .catch(function () {
         loadEl.hidden = true;
@@ -1511,13 +1635,83 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       });
   }
 
-  function checkRow(label, ok) {
-    return '<li><span class="box' + (ok ? ' box--done' : '') + '" aria-hidden="true">' + (ok ? '✓' : '') + '</span>' +
-      '<span class="name">' + label + '</span>' +
-      '<span class="pill ' + (ok ? 'pill--ok">Found' : 'pill--wait">Missing') + '</span></li>';
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
   }
 
-  function renderReadiness(data) {
+  function truncate(str, n) {
+    if (!str) return '';
+    return str.length > n ? str.slice(0, n - 1).trim() + '…' : str;
+  }
+
+  var REDDIT_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<circle cx="12" cy="12" r="12" fill="#FF4500"/>' +
+    '<path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/>' +
+    '<circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/>' +
+    '<circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/>' +
+    '<circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/>' +
+    '<path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg>';
+  var X_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<path fill="#E7E9EA" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>';
+  var PH_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<circle cx="12" cy="12" r="12" fill="#FF6154"/>' +
+    '<path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg>';
+
+  function platformCardsInner(meta, copy) {
+    var rawName = meta.title ? meta.title.split(/[|\-–—]/)[0].trim() : '';
+    var name = escapeHtml(truncate(rawName || 'Your product', 40));
+    var desc = truncate(meta.description || '', 120);
+    var redditBody, xBody, phTagline;
+    if (copy) {
+      redditBody = escapeHtml(truncate(copy.reddit || '', 220));
+      xBody = escapeHtml(truncate(copy.x || '', 220));
+      phTagline = escapeHtml(truncate(copy.producthunt || '', 100));
+    } else {
+      redditBody = escapeHtml(desc || ('Built ' + (rawName || 'this') + '. Would love feedback from this community.'));
+      xBody = escapeHtml(truncate('Just shipped ' + (rawName || 'this') + (desc ? '. ' + desc : '.'), 200));
+      phTagline = escapeHtml(desc || ('A new way to think about ' + (rawName || 'your workflow')));
+    }
+
+    return '<article class="pv-card pv-reddit"><p class="pv-head">' + REDDIT_SVG + ' r/SideProject</p>'
+      +   '<p class="pv-title">' + name + ' — feedback welcome</p>'
+      +   '<p class="pv-body">' + redditBody + '</p>'
+      +   '<p class="pv-reach">138K+ active communities on Reddit</p></article>'
+      + '<article class="pv-card pv-x"><p class="pv-head">' + X_SVG + ' X post</p>'
+      +   '<p class="pv-body">' + xBody + '</p>'
+      +   '<p class="pv-reach">560M+ monthly active users on X</p></article>'
+      + '<article class="pv-card pv-ph"><p class="pv-head">' + PH_SVG + ' Product Hunt</p>'
+      +   '<p class="pv-title">' + name + '</p>'
+      +   '<p class="pv-body">' + phTagline + '</p>'
+      +   '<p class="pv-reach">4.6M monthly visits to Product Hunt</p></article>';
+  }
+
+  function platformPreviews(meta, suffix) {
+    return '<div class="pv-grid" id="pv-grid-' + suffix + '">' + platformCardsInner(meta, null) + '</div>'
+      + '<p class="pv-note" id="pv-note-' + suffix + '">Built from your real page content — not posted anywhere yet. Full previews for all 25+ platforms come with your launch.</p>';
+  }
+
+  /* Progressive enhancement: templated cards render instantly above, then
+     we ask Claude for genuinely platform-distinct copy (not just the same
+     sentence reworded three times) and swap it in when it arrives. If
+     generation fails for any reason, the templated preview simply stays —
+     never fabricated, never a broken state. */
+  function fetchPlatformCopy(meta, suffix) {
+    var qs = '?title=' + encodeURIComponent(meta.title || '') + '&description=' + encodeURIComponent(meta.description || '');
+    fetch('/.netlify/functions/platform-copy' + qs)
+      .then(function (res) { return res.json(); })
+      .then(function (copy) {
+        if (!copy || !copy.ok) return;
+        var grid = document.getElementById('pv-grid-' + suffix);
+        var note = document.getElementById('pv-note-' + suffix);
+        if (grid) grid.innerHTML = platformCardsInner(meta, copy);
+        if (note) note.textContent = 'Written by our agents from your real page content — not posted anywhere yet. Full previews for all 25+ platforms come with your launch.';
+      })
+      .catch(function () { /* templated preview stays up — honest fallback */ });
+  }
+
+  function renderReadiness(data, suffix) {
     var meta = data.meta || {};
     var scores = data.scores || {};
     var known = [scores.performance, scores.seo].filter(function (v) { return typeof v === 'number'; });
@@ -1529,17 +1723,10 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     }
     if (!meta.reachable) {
       return scoreHtml +
-        '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly to check its meta tags &mdash; it may block automated requests. Real score still shown above where available.</p>' +
+        '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly to check it &mdash; it may block automated requests.</p>' +
         '<p class="ready-cta"><a href="#book">Fix it with us &mdash; book my launch →</a></p>';
     }
-    var rows =
-      checkRow('Title tag', meta.hasTitle) +
-      checkRow('Meta description', meta.hasDescription) +
-      checkRow('Open Graph title (how it looks when shared)', meta.hasOgTitle) +
-      checkRow('Open Graph image (how it looks when shared)', meta.hasOgImage);
-    return scoreHtml + '<ul class="chk">' + rows + '</ul>' +
-      '<p class="ready-cta"><a href="#book">We fix these, then broadcast you everywhere →</a></p>' +
-      '<p class="ready-note">Real data, checked live against your URL. Not a projection of what a launch with us will get you.</p>';
+    return scoreHtml + platformPreviews(meta, suffix);
   }
 
   /* Nav / sticky-banner links scroll to the bottom form and focus its URL field. */

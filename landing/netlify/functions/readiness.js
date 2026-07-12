@@ -32,15 +32,19 @@ async function fetchMeta(target) {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GetSeenReadinessBot/1.0; +https://getseen.example)' },
     });
     const html = await res.text();
+    const titleMatch = html.match(/<title>\s*([^<\s][^<]{2,})<\/title>/i);
+    const descMatch = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']{10,})["']/i);
     return {
       reachable: true,
-      hasTitle: /<title>\s*[^<\s][^<]{2,}<\/title>/i.test(html),
-      hasDescription: /<meta[^>]+name=["']description["'][^>]+content=["'][^"']{10,}["']/i.test(html),
+      hasTitle: !!titleMatch,
+      hasDescription: !!descMatch,
       hasOgImage: /<meta[^>]+property=["']og:image["']/i.test(html),
       hasOgTitle: /<meta[^>]+property=["']og:title["']/i.test(html),
+      title: titleMatch ? titleMatch[1].trim().slice(0, 160) : null,
+      description: descMatch ? descMatch[1].trim().slice(0, 300) : null,
     };
   } catch (e) {
-    return { reachable: false, hasTitle: false, hasDescription: false, hasOgImage: false, hasOgTitle: false };
+    return { reachable: false, hasTitle: false, hasDescription: false, hasOgImage: false, hasOgTitle: false, title: null, description: null };
   }
 }
 
