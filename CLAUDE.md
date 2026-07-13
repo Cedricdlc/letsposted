@@ -46,7 +46,44 @@ Deux forms enregistrés côté Netlify (vérifié via `netlify api listSiteForms
 
 Le HTML source a `data-netlify="true"` + `netlify-honeypot="bot-field"` sur les deux `<form>`, mais **Netlify retire ces attributs du HTML servi** après avoir enregistré le form au build (comportement normal, cosmétique) — ne pas prendre leur absence dans la page rendue pour un signe que la capture est cassée. Pour vérifier si un form capture vraiment, utiliser `listSiteForms`, pas `curl` + `grep` sur la page.
 
+## Reprendre après une coupure / un redémarrage — checklist
+
+À faire en tout premier dans une nouvelle session sur ce repo, avant toute modification :
+
+1. `cd ~/Documents/Github/getseen && git log --oneline -5` — si ça timeout ou plante (`unable to map index file`), voir la section iCloud ci-dessous avant toute autre chose.
+2. `git status --short` — vérifier qu'il n'y a pas de modif non committée laissée par une session précédente interrompue.
+3. Comparer le dernier commit local à ce qui tourne réellement en prod (voir "Vérifier l'état réel du site" ci-dessous) — un commit local peut très bien ne pas avoir été déployé si la session s'est arrêtée entre le `git commit` et le `netlify deploy --prod`.
+4. Lire `docs/user-research.md` — dernier état des sessions de recherche, et le rappel "à ne pas faire avant la prochaine session" qui doit rester valable tant que le pattern n'est pas confirmé sur plusieurs participants.
+
+### Vérifier l'état réel du site (indépendant de git)
+
+```
+curl -s https://graceful-marzipan-b14e6e.netlify.app/ | grep -o "Analyze my launch\|Book my launch"
+```
+Si ça affiche encore "Book my launch", la prod n'a pas le dernier code — redéployer avec `netlify deploy --prod` depuis `landing/`.
+
+## Piège récurrent : `.git` se vide via iCloud (dataless)
+
+Ce repo est dans `~/Documents/Github/`, synchronisé iCloud Drive avec "Optimiser le stockage Mac" — **iCloud évince régulièrement le contenu de `.git`** (pas juste `index`, parfois tout le dossier : `objects/`, `HEAD`, `config`...) pour libérer de la place. Symptôme : toute commande git (`status`, `add`, `commit`) reste bloquée puis timeout, avec parfois `fatal: .git/index: unable to map index file: Operation timed out`.
+
+**Ce n'est jamais une perte de données** — les fichiers de travail (`index.html`, `netlify/functions/*.js`, `docs/*.md`) ne sont quasiment jamais concernés, seule la mécanique interne de git l'est. Un commit fait avant l'éviction reste en sécurité dans iCloud, juste pas immédiatement accessible en local.
+
+**Diagnostic** :
+```
+find ~/Documents/Github/getseen/.git -type f -exec sh -c 'ls -lO "$1" | grep -q dataless && echo "$1"' _ {} \;
+```
+
+**Ce qui marche pour débloquer** (dans cet ordre, en abandonnant une étape après ~15-20s si rien ne se passe) :
+1. `brctl download ~/Documents/Github/getseen` puis retester `git status` après quelques secondes.
+2. `killall Finder` (relance le démon de communication iCloud côté Finder) puis retester.
+3. Si Finder affiche "Impossible de communiquer avec un utilitaire" en essayant "Télécharger maintenant" : **redémarrer le Mac** — c'est le seul fix fiable observé jusqu'ici pour un démon iCloud complètement planté.
+4. Pendant que git est bloqué, le travail n'est pas pour autant à l'arrêt : `netlify deploy` / `netlify deploy --prod` ne dépendent pas de git, seulement des fichiers sur disque — on peut continuer à déployer et committer plus tard une fois git débloqué.
+
+**Fix durable pas encore fait** : sortir ce repo d'iCloud Drive (le déplacer hors de `~/Documents/`, ou désactiver "Optimiser le stockage Mac" spécifiquement pour ce dossier) éliminerait le problème à la racine. Proposé au moins deux fois pendant la session du 2026-07-13, pas encore acté — à faire si ça continue de bloquer des sessions.
+
 ## État (2026-07-13)
 
-- Dernier commit local (`c9c2dce` au moment de la rédaction) : previews multi-plateformes générées par IA + lead magnet + CTA renommé ("Book my launch" → "Get my free launch analysis" / "Analyze my launch", l'ancien texte promettait une réservation qui n'avait jamais lieu). **Déployé et vérifié en prod** (`graceful-marzipan-b14e6e.netlify.app`) le 2026-07-13.
+- Dernier commit local (`a2d4e7e` au moment de la rédaction) : espacement du hero resserré (le CTA était trop bas dans le scroll) + premier log de recherche utilisateur (`docs/user-research.md`). **Déployé et vérifié en prod.**
+- Commit précédent (`c9c2dce`) : previews multi-plateformes générées par IA + lead magnet + CTA renommé ("Book my launch" → "Get my free launch analysis" / "Analyze my launch", l'ancien texte promettait une réservation qui n'avait jamais lieu). Déployé et vérifié en prod le 2026-07-13.
 - Le dossier a été renommé `sonar` → `getseen` le 2026-07-13 ; aucun impact sur le lien Netlify (`.netlify/state.json` référence le site par id, indépendant du chemin).
+- **Recherche utilisateur en cours** (voir `docs/user-research.md`) : 1ère session (n=1, à confirmer) suggère que le vrai pain est la procrastination, pas la méconnaissance des plateformes — le lead magnet actuel (previews par plateforme) répond peut-être à la mauvaise question. **Ne pas retoucher le positionnement/lead magnet avant confirmation sur 2-3 sessions de plus.**
