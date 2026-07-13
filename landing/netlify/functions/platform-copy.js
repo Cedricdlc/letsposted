@@ -1,10 +1,12 @@
-// Generates 3 short, platform-distinct launch-post previews (Reddit, X,
-// Product Hunt) from a product's real scraped title/description, using
-// Claude. This is the actual "agents write for each platform" preview —
-// a template can only reshuffle one input sentence three ways, which
-// reads as copy-paste. If generation fails for any reason (no key, rate
-// limit, malformed output), the function returns ok:false so the caller
-// can fall back to the plain scraped text instead of fabricating copy.
+// Generates 3 short, platform-distinct reasons ("why does this platform
+// matter for THIS product's niche") for Reddit, X and Product Hunt, from
+// a product's real scraped title/description, using Claude. Research
+// (2026-07-13 session, see docs/user-research.md) found that a founder
+// wants to be told directly where to focus, not shown a mock post — a
+// template can only reshuffle one input sentence three ways anyway,
+// which read as copy-paste. If generation fails for any reason (no key,
+// rate limit, malformed output), the function returns ok:false so the
+// caller falls back to generic-but-honest reasons instead of fabricating.
 
 const MODEL = 'claude-haiku-4-5-20251001';
 
@@ -35,12 +37,13 @@ exports.handler = async function (event) {
   }
 
   const prompt = `Product title: ${title || '(unknown)'}\nProduct description: ${description || '(none)'}\n\n` +
-    `Write 3 short previews of how this exact product's launch could look on different platforms. ` +
-    `Same product, genuinely different voice per platform — do not just reword one sentence three times.\n\n` +
-    `1. reddit: first-person post opener for r/SideProject, casual, asks for real feedback, max 2 short sentences.\n` +
-    `2. x: a punchy X/Twitter announcement, 1 sentence, no hashtags, no emoji.\n` +
-    `3. producthunt: a tagline under 12 words, no ending punctuation.\n\n` +
-    `Never use: game-changer, revolutionize, disrupt, seamless, unlock, cutting-edge.\n` +
+    `A founder is stuck on WHERE to post about this product — not what to write. ` +
+    `For each platform below, write ONE short, concrete reason THIS SPECIFIC product's niche/audience shows up there. ` +
+    `Be specific to the product, not generic platform boilerplate. Genuinely different angle per platform — do not reword one sentence three times.\n\n` +
+    `1. reddit: which kind of subreddit/community for this niche would actually engage with it, and why (max 1-2 short sentences).\n` +
+    `2. x: why this niche's audience is active on X specifically, tied to this product (1 sentence).\n` +
+    `3. producthunt: why PH's audience (tool-hunters, early adopters) fits this specific product (1 sentence).\n\n` +
+    `Never use: game-changer, revolutionize, disrupt, seamless, unlock, cutting-edge. Never use an em dash (—); use a period or comma instead.\n` +
     `Respond with ONLY this JSON, no markdown fences, no commentary:\n` +
     `{"reddit":"...","x":"...","producthunt":"..."}`;
 
@@ -81,9 +84,9 @@ exports.handler = async function (event) {
       headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
       body: JSON.stringify({
         ok: true,
-        reddit: String(parsed.reddit).slice(0, 300),
-        x: String(parsed.x).slice(0, 280),
-        producthunt: String(parsed.producthunt).slice(0, 120),
+        reddit: String(parsed.reddit).slice(0, 260),
+        x: String(parsed.x).slice(0, 260),
+        producthunt: String(parsed.producthunt).slice(0, 260),
       }),
     };
   } catch (e) {

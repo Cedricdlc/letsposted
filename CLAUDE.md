@@ -2,7 +2,7 @@
 
 Service de lancement de SaaS exécuté par des agents IA, supervisé par un humain. Repo local à `~/Developer/getseen` (renommé `sonar` → `getseen`, puis déplacé hors d'iCloud le 2026-07-13 — voir "Piège résolu" plus bas). Pas de remote Git configuré, repo local uniquement.
 
-**Nom de marque** : le produit s'appelle **Seen** (avec un logo dédié à créer) — `getseen` reste le nom de domaine (`getseen.com` / le site Netlify), pas forcément le nom affiché partout. Décidé le 2026-07-13, pas encore répercuté dans la copy de la landing (`landing/index.html` dit encore "GetSeen" un peu partout, ex. footer `.brand`) ni dans les docs `docs/*.md`.
+**Nom de marque** : brièvement renommé "Seen" le 2026-07-13, revenu à **GetSeen** le même jour (décision annulée). Le wordmark affiche "Get" en normal + "Seen" en italique/couleur accent (`.wordmark em`), esthétique inspirée d'une référence "mobile*first*".
 
 Contexte complet (ICP, positionnement, arbitrages, risques) : `docs/prompt-contexte-projet.md`.
 Copy de la landing page : `docs/copy-landing-value-proposition.md`.
@@ -77,5 +77,5 @@ Si ce problème réapparaît sur un autre repo dans `~/Documents/` : même remè
 - Dernier commit local (`a2d4e7e` au moment de la rédaction) : espacement du hero resserré (le CTA était trop bas dans le scroll) + premier log de recherche utilisateur (`docs/user-research.md`). **Déployé et vérifié en prod.**
 - Commit précédent (`c9c2dce`) : previews multi-plateformes générées par IA + lead magnet + CTA renommé ("Book my launch" → "Get my free launch analysis" / "Analyze my launch", l'ancien texte promettait une réservation qui n'avait jamais lieu). Déployé et vérifié en prod le 2026-07-13.
 - Le dossier a été renommé `sonar` → `getseen` puis déplacé de `~/Documents/Github/` vers `~/Developer/` le 2026-07-13 (hors iCloud, voir "Piège résolu" plus haut) ; aucun impact sur le lien Netlify (`.netlify/state.json` référence le site par id, indépendant du chemin).
-- Décision de branding le 2026-07-13 : le produit s'appellera **Seen** (logo à créer), `getseen` reste le nom de domaine. Pas encore répercuté dans la copy — todo.
 - **Recherche utilisateur en cours** (voir `docs/user-research.md`) : 1ère session (n=1, à confirmer) suggère que le vrai pain est la procrastination, pas la méconnaissance des plateformes — le lead magnet actuel (previews par plateforme) répond peut-être à la mauvaise question. **Ne pas retoucher le positionnement/lead magnet avant confirmation sur 2-3 sessions de plus.**
+- Grosse session de refonte le 2026-07-13, suite au premier feedback qualitatif : hero réécrit (pain "You still haven't posted it." nommé en premier), page réduite à 3 sections (hero / expertise / book), lead magnet passé en modale plein écran avec previews IA reframées en "pourquoi cette plateforme pour ta niche" (plus "aperçu de post"), bloc final en 2 colonnes avec un nuage de "stickers" (logos plateformes façon patch). **Identité visuelle rebrandée violet → noir/blanc/or** (`--accent`/`--grad` recolorés, plus aucun hex violet dans le fichier). Tout ça est en preview, pas encore mergé en prod — dernier `netlify deploy --prod` remonte à avant cette session.
