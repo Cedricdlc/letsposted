@@ -1,6 +1,8 @@
 # GetSeen
 
-Service de lancement de SaaS exécuté par des agents IA, supervisé par un humain. Repo local `getseen` (renommé depuis `sonar`, nom de travail interne — le produit/la marque s'est aussi renommé depuis "Boooost", commit `d46acb8`). Pas de remote Git configuré, repo local uniquement.
+Service de lancement de SaaS exécuté par des agents IA, supervisé par un humain. Repo local à `~/Developer/getseen` (renommé `sonar` → `getseen`, puis déplacé hors d'iCloud le 2026-07-13 — voir "Piège résolu" plus bas). Pas de remote Git configuré, repo local uniquement.
+
+**Nom de marque** : le produit s'appelle **Seen** (avec un logo dédié à créer) — `getseen` reste le nom de domaine (`getseen.com` / le site Netlify), pas forcément le nom affiché partout. Décidé le 2026-07-13, pas encore répercuté dans la copy de la landing (`landing/index.html` dit encore "GetSeen" un peu partout, ex. footer `.brand`) ni dans les docs `docs/*.md`.
 
 Contexte complet (ICP, positionnement, arbitrages, risques) : `docs/prompt-contexte-projet.md`.
 Copy de la landing page : `docs/copy-landing-value-proposition.md`.
@@ -50,7 +52,7 @@ Le HTML source a `data-netlify="true"` + `netlify-honeypot="bot-field"` sur les 
 
 À faire en tout premier dans une nouvelle session sur ce repo, avant toute modification :
 
-1. `cd ~/Documents/Github/getseen && git log --oneline -5` — si ça timeout ou plante (`unable to map index file`), voir la section iCloud ci-dessous avant toute autre chose.
+1. `cd ~/Developer/getseen && git log --oneline -5` — devrait toujours répondre instantanément (repo hors iCloud depuis le 2026-07-13, voir "Piège résolu" plus bas). Si jamais ça traîne, vérifier qu'on n'a pas atterri par erreur dans l'ancien dossier iCloud.
 2. `git status --short` — vérifier qu'il n'y a pas de modif non committée laissée par une session précédente interrompue.
 3. Comparer le dernier commit local à ce qui tourne réellement en prod (voir "Vérifier l'état réel du site" ci-dessous) — un commit local peut très bien ne pas avoir été déployé si la session s'est arrêtée entre le `git commit` et le `netlify deploy --prod`.
 4. Lire `docs/user-research.md` — dernier état des sessions de recherche, et le rappel "à ne pas faire avant la prochaine session" qui doit rester valable tant que le pattern n'est pas confirmé sur plusieurs participants.
@@ -62,28 +64,18 @@ curl -s https://graceful-marzipan-b14e6e.netlify.app/ | grep -o "Analyze my laun
 ```
 Si ça affiche encore "Book my launch", la prod n'a pas le dernier code — redéployer avec `netlify deploy --prod` depuis `landing/`.
 
-## Piège récurrent : `.git` se vide via iCloud (dataless)
+## Piège résolu : `.git` se vidait via iCloud (dataless)
 
-Ce repo est dans `~/Documents/Github/`, synchronisé iCloud Drive avec "Optimiser le stockage Mac" — **iCloud évince régulièrement le contenu de `.git`** (pas juste `index`, parfois tout le dossier : `objects/`, `HEAD`, `config`...) pour libérer de la place. Symptôme : toute commande git (`status`, `add`, `commit`) reste bloquée puis timeout, avec parfois `fatal: .git/index: unable to map index file: Operation timed out`.
+**Historique, pour référence si ça se reproduit ailleurs.** Le repo vivait dans `~/Documents/Github/`, synchronisé iCloud Drive avec "Optimiser le stockage Mac" — iCloud évinçait régulièrement le contenu de `.git` (pas juste `index`, parfois tout le dossier : `objects/`, `HEAD`, `config`...), causant des timeouts sur toute commande git (`fatal: .git/index: unable to map index file: Operation timed out`). Aucune perte de données à chaque fois — seule la mécanique interne de git était concernée, jamais les fichiers de travail.
 
-**Ce n'est jamais une perte de données** — les fichiers de travail (`index.html`, `netlify/functions/*.js`, `docs/*.md`) ne sont quasiment jamais concernés, seule la mécanique interne de git l'est. Un commit fait avant l'éviction reste en sécurité dans iCloud, juste pas immédiatement accessible en local.
+**Fix appliqué le 2026-07-13** : `git clone --local --no-hardlinks` du repo iCloud vers `~/Developer/getseen` (hors iCloud Drive), puis copie manuelle du seul fichier gitignored nécessaire (`landing/.netlify/state.json`, le lien vers le site Netlify). L'ancien dossier a été renommé `~/Documents/Github/getseen-OLD-icloud-copy-safe-to-delete` plutôt que supprimé, à effacer une fois qu'on est sûr de ne plus en avoir besoin.
 
-**Diagnostic** :
-```
-find ~/Documents/Github/getseen/.git -type f -exec sh -c 'ls -lO "$1" | grep -q dataless && echo "$1"' _ {} \;
-```
-
-**Ce qui marche pour débloquer** (dans cet ordre, en abandonnant une étape après ~15-20s si rien ne se passe) :
-1. `brctl download ~/Documents/Github/getseen` puis retester `git status` après quelques secondes.
-2. `killall Finder` (relance le démon de communication iCloud côté Finder) puis retester.
-3. Si Finder affiche "Impossible de communiquer avec un utilitaire" en essayant "Télécharger maintenant" : **redémarrer le Mac** — c'est le seul fix fiable observé jusqu'ici pour un démon iCloud complètement planté.
-4. Pendant que git est bloqué, le travail n'est pas pour autant à l'arrêt : `netlify deploy` / `netlify deploy --prod` ne dépendent pas de git, seulement des fichiers sur disque — on peut continuer à déployer et committer plus tard une fois git débloqué.
-
-**Fix durable pas encore fait** : sortir ce repo d'iCloud Drive (le déplacer hors de `~/Documents/`, ou désactiver "Optimiser le stockage Mac" spécifiquement pour ce dossier) éliminerait le problème à la racine. Proposé au moins deux fois pendant la session du 2026-07-13, pas encore acté — à faire si ça continue de bloquer des sessions.
+Si ce problème réapparaît sur un autre repo dans `~/Documents/` : même remède — cloner vers `~/Developer/` (ou tout dossier hors Desktop/Documents), ne pas essayer de `mv`/`cp` en place tant que le dossier iCloud est dans un état "dataless" (`ls -lO <fichier>` affiche `dataless` dans les flags) — `git clone --local` matérialise les fichiers un par un via lecture normale, ce qui contourne le blocage, alors qu'un `mv`/`cp` brut sur un dossier partiellement dataless risque de rester bloqué ou de casser le suivi iCloud du dossier source.
 
 ## État (2026-07-13)
 
 - Dernier commit local (`a2d4e7e` au moment de la rédaction) : espacement du hero resserré (le CTA était trop bas dans le scroll) + premier log de recherche utilisateur (`docs/user-research.md`). **Déployé et vérifié en prod.**
 - Commit précédent (`c9c2dce`) : previews multi-plateformes générées par IA + lead magnet + CTA renommé ("Book my launch" → "Get my free launch analysis" / "Analyze my launch", l'ancien texte promettait une réservation qui n'avait jamais lieu). Déployé et vérifié en prod le 2026-07-13.
-- Le dossier a été renommé `sonar` → `getseen` le 2026-07-13 ; aucun impact sur le lien Netlify (`.netlify/state.json` référence le site par id, indépendant du chemin).
+- Le dossier a été renommé `sonar` → `getseen` puis déplacé de `~/Documents/Github/` vers `~/Developer/` le 2026-07-13 (hors iCloud, voir "Piège résolu" plus haut) ; aucun impact sur le lien Netlify (`.netlify/state.json` référence le site par id, indépendant du chemin).
+- Décision de branding le 2026-07-13 : le produit s'appellera **Seen** (logo à créer), `getseen` reste le nom de domaine. Pas encore répercuté dans la copy — todo.
 - **Recherche utilisateur en cours** (voir `docs/user-research.md`) : 1ère session (n=1, à confirmer) suggère que le vrai pain est la procrastination, pas la méconnaissance des plateformes — le lead magnet actuel (previews par plateforme) répond peut-être à la mauvaise question. **Ne pas retoucher le positionnement/lead magnet avant confirmation sur 2-3 sessions de plus.**
