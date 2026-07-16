@@ -93,6 +93,39 @@ Si ce problème réapparaît sur un autre repo dans `~/Documents/` : même remè
 - Grosse session de refonte le 2026-07-13, suite au premier feedback qualitatif : hero réécrit (pain "You still haven't posted it." nommé en premier), page réduite à 3 sections (hero / expertise / book), lead magnet passé en modale plein écran avec previews IA reframées en "pourquoi cette plateforme pour ta niche" (plus "aperçu de post"), bloc final en 2 colonnes avec un nuage de "stickers" (logos plateformes façon patch). **Identité visuelle rebrandée violet → noir/blanc/or** (`--accent`/`--grad` recolorés, plus aucun hex violet dans le fichier).
 - Session de polish le 2026-07-13/14 : palette aplatie en jaune pâle unique (`#F2E96A`), plus aucun glow/halo, titre en effet surligneur, section "First Customers" ajoutée, bannière CTA plein écran en fin de page, lead magnet retravaillé pour la conversion (aperçu verrouillé de plateformes, livrable nommé, ligne d'urgence, email seul). **Tout ça est déployé et vérifié en prod.**
 
+## Plan de lancement Posted. — 4 semaines (démarré 2026-07-16)
+
+On applique à nous-mêmes nos propres checklists (PH / Reddit / X, voir les 3 pages de guide). Objectif : lancer sur Product Hunt le **mercredi 12 août 2026, 12:01 AM PT**, avec le post Reddit et le thread X le même jour. Pas de raccourci sur le chauffage d'audience — c'est exactement ce qu'on recommande aux autres.
+
+**Routine quotidienne (tous les jours, du 16/07 au 12/08) :**
+- Reddit : 3-5 commentaires réels sur r/SideProject, r/SaaS, r/indiehackers, r/startups — zéro lien, vraies réponses utiles.
+- Product Hunt : upvote + commentaire sincère sur 2-3 lancements du jour — devenir un vrai membre, pas un compte qui apparaît le jour J.
+- X : 1 post build in public — montrer le vrai travail (le vrai code, les vraies données, le process), jamais le pitch de vente à ce stade.
+
+**Semaine 1 (16-22 juillet) — Fondations**
+- Activer/vérifier les 3 comptes (Reddit, PH, X)
+- Démarrer la routine quotidienne
+- Build in public : ex. "on a analysé 50 lancements PH réels, voici ce qu'on a trouvé" (contenu déjà prêt depuis la page `product-hunt-launch.html`)
+
+**Semaine 2 (23-29 juillet) — Continuité**
+- Continuer la routine quotidienne
+- Build in public : démo du scan (readiness check), le plan 7 jours, les checklists Reddit/X
+- Commencer à repérer les makers PH actifs et utiles
+
+**Semaine 3 (30 juillet - 5 août) — Réciprocité + préparation des assets**
+- Continuer la routine quotidienne
+- Identifier 2-3 makers PH à qui rendre la pareille
+- Rédiger la fiche Product Hunt (tagline 60 car., description 500 car., 1er commentaire maker)
+- Build in public : commencer à teaser "on prépare quelque chose" sans révéler le produit
+
+**Semaine 4 (6-12 août) — Lancement**
+- Continuer la routine quotidienne
+- Rédiger le thread X et le post Reddit de lancement (avec disclosure)
+- **Mercredi 12 août, 12:01 AM PT : lancement Product Hunt + post Reddit + thread X**
+- Répondre à tout dans les 4h qui suivent (règle qu'on documente nous-mêmes sur nos pages)
+
+**Note** : Cédric ne veut pas utiliser le Kanban perso (`~/Developer/Todo`) pour suivre ce plan — ce fichier CLAUDE.md est la seule source de vérité pour le plan de lancement. Ne pas re-proposer le Kanban pour ce projet sauf s'il le redemande explicitement.
+
 ## État (2026-07-16)
 
 - `landing/product-hunt-launch.html` refondu en profondeur suite au feedback "il faut beaucoup plus concret, visuel, avec des screen de product hunt, une vraie analyse" :
