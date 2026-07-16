@@ -289,6 +289,23 @@ h2{
 .process-t{ font-family:var(--sans); font-weight:700; color:var(--ink); margin-bottom:.25rem; }
 .process-d{ font-family:var(--sans); font-size:.92rem; color:var(--body); line-height:1.55; }
 
+/* ---------- checklist ---------- */
+.checklist-grid{ display:grid; gap:1.1rem; margin-top:1rem; }
+@media (min-width:640px){ .checklist-grid{ grid-template-columns:repeat(2,1fr); } }
+.checklist-card{
+  background:var(--card); border:1px solid var(--line); border-top:3px solid var(--accent);
+  border-radius:12px; padding:1.35rem 1.5rem;
+  font-family:var(--sans);
+}
+.checklist-card--yellow{ border-top-color:var(--accent); }
+.checklist-card--pink{ border-top-color:var(--pink); }
+.checklist-card--mint{ border-top-color:var(--mint); }
+.checklist-card--sky{ border-top-color:var(--sky); }
+.checklist-h{ font-weight:700; color:var(--ink); font-size:.95rem; margin-bottom:.85rem; }
+.checklist-card ul{ list-style:none; display:grid; gap:.65rem; }
+.checklist-card li{ font-size:.87rem; color:var(--body); line-height:1.55; padding-left:1.3rem; position:relative; }
+.checklist-card li::before{ content:"✓"; position:absolute; left:0; top:0; color:var(--mint-ink); font-weight:700; }
+
 .cta-block{
   text-align:center;
   background:var(--ink);
@@ -349,6 +366,48 @@ footer a{ color:var(--faint); }
       <div class="stat"><p class="n">24h</p><p class="l">Full ranking reset window</p></div>
       <div class="stat"><p class="n">12:01 AM PT</p><p class="l">When every launch day starts</p></div>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow eyebrow--mint">The exact checklist</span>
+    <h2>What Product Hunt itself, and the makers who study it, actually say to do</h2>
+    <p class="section-note">Pulled straight from Product Hunt's own launch guide and Demand Curve's Product Hunt playbook — not repackaged generic advice. This is the checklist our agents score every launch against.</p>
+
+    <div class="checklist-grid">
+      <div class="checklist-card checklist-card--yellow">
+        <p class="checklist-h">Before you launch</p>
+        <ul>
+          <li>Have 400+ people warmed up before you post. Product Hunt amplifies momentum, it doesn't create it from zero.</li>
+          <li>Join the community 3-4 weeks early: comment, upvote, help other makers. Newly created accounts voting for you get penalized by the algorithm.</li>
+        </ul>
+      </div>
+      <div class="checklist-card checklist-card--pink">
+        <p class="checklist-h">Your listing</p>
+        <ul>
+          <li>Tagline: 60 characters max, no gimmicks — product name only, no emojis or marketing language.</li>
+          <li>Thumbnail 240×240px, gallery at least 2 images at 1270×760px.</li>
+          <li>Direct URL only — no bit.ly, no UTM-tagged links.</li>
+          <li>53% of Product of the Day winners since 2021 included a video.</li>
+        </ul>
+      </div>
+      <div class="checklist-card checklist-card--mint">
+        <p class="checklist-h">The first comment</p>
+        <ul>
+          <li>70% of Product of the Day / Week / Month winners posted a maker's first comment introducing the team and the problem.</li>
+          <li>Ask for feedback, never for upvotes — it's against Product Hunt's own community rules, and the algorithm can detect the pattern.</li>
+        </ul>
+      </div>
+      <div class="checklist-card checklist-card--sky">
+        <p class="checklist-h">Timing</p>
+        <ul>
+          <li>Tuesday to Thursday. Skip Monday (catch-up day) and Friday (weekend tune-out).</li>
+          <li>12:01 AM PT — Product Hunt doesn't adjust for time zones, so this is what maximizes your full 24-hour window.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="section-note" style="margin-top:1.5rem">Sources: <a href="https://www.producthunt.com/launch/preparing-for-launch" target="_blank" rel="noopener">Product Hunt's launch guide</a> and <a href="https://www.demandcurve.com/playbooks/product-hunt-launch" target="_blank" rel="noopener">Demand Curve's Product Hunt playbook</a>.</p>
   </div>
 </section>
 
@@ -454,7 +513,7 @@ footer a{ color:var(--faint); }
       </div>
       <div class="process-step">
         <span class="process-n process-n--pink">2</span>
-        <div><p class="process-t">Score</p><p class="process-d">Check each entry against the pattern: does the tagline name AI/agent, what category, how the vote-to-comment ratio breaks down.</p></div>
+        <div><p class="process-t">Score</p><p class="process-d">Check each entry against the exact checklist above: tagline length, video presence, maker-comment timing, launch day-of-week — plus the pattern (does the tagline name AI/agent, what category, vote-to-comment ratio).</p></div>
       </div>
       <div class="process-step">
         <span class="process-n process-n--mint">3</span>
