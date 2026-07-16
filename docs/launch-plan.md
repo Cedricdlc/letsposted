@@ -6,13 +6,15 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 **Lancement Product Hunt : mercredi 12 août 2026, 12:01 AM PT** (+ post Reddit + thread X le même jour).
 
+**Voix** : naturelle, fluide, comme si Cédric parlait vraiment — pas un format "build in public" performatif, pas de fragments façon indie-hacker-caricature. Phrases qui s'enchaînent normalement, première personne, honnête sur les limites, zéro jargon marketing.
+
 ---
 
 ## Routine quotidienne (tous les jours, sans exception)
 
 - **Reddit** : 3-5 commentaires réels, zéro lien, sur le subreddit du jour (rotation ci-dessous). Vraies réponses à de vraies questions.
 - **Product Hunt** : upvote + commentaire sincère sur 2-3 lancements du jour.
-- **X** : poster le brouillon du jour ci-dessous (à ajuster à ta voix avant de poster).
+- **X** : poster le brouillon du jour ci-dessous (à ajuster si besoin avant de poster).
 
 ## Rotation des subreddits
 
@@ -33,13 +35,13 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 | Date | Jour | Post X (brouillon) |
 |---|---|---|
-| Jeu 16/07 | 1 | "We analyzed the last 50 #1 Products of the Day on Product Hunt. 33 of them say 'AI' or 'agent' in the tagline. Not all — some didn't need to. Building the tool that tracks this continuously. More soon." |
-| Ven 17/07 | 2 | "Reddit blocks basically all automated access. Twitter/X too (403 on their own help pages, 402 on search). Product Hunt doesn't. That constraint alone tells you a lot about how each platform wants to be used." |
-| Sam 18/07 | 3 | "Spent today reading Product Hunt's actual published rules instead of guessing. Tagline: 60 characters max. Thumbnail: 240×240. 70% of Product of the Day winners posted a maker's first comment. None of this is secret, most people just don't read it." |
-| Dim 19/07 | 4 | "Weekend build note: the honest version of a 'launch checklist' is shorter and less exciting than the version everyone sells. That's kind of the point." |
-| Lun 20/07 | 5 | "The 90/10 rule on Reddit isn't official policy anymore — Reddit retired it years ago for being too rigid. Moderators just judge accounts on overall behavior now. Doesn't change much in practice: 100% self-promotion still reads as spam." |
-| Mar 21/07 | 6 | "X suspends 'reply networks' — accounts that always reply to each other — as a whole network, not one account at a time. One bad actor in the group can take the others down with it." |
-| Mer 22/07 | 7 | "One week in on this. No pitch yet, just reading the actual rules of every platform we're going to launch on before we launch on them. Feels obvious written down. Most launches skip it anyway." |
+| Jeu 16/07 | 1 | "Went through the last 50 #1 products on Product Hunt this week. 33 of them mention AI or agent in the tagline — a lot, but not all, some didn't need to. Building something that tracks this automatically instead of doing it by hand every time. More on that soon." |
+| Ven 17/07 | 2 | "Turns out Reddit blocks basically all automated scraping. Tried X too and got a 403. Product Hunt doesn't block it at all. Says a lot about how differently these platforms want to be approached." |
+| Sam 18/07 | 3 | "Spent today actually reading Product Hunt's published rules instead of guessing. Tagline has to be under 60 characters, thumbnail needs to be 240×240, and 70% of Product of the Day winners left a real first comment. None of this is secret, people just don't read it." |
+| Dim 19/07 | 4 | "Weekend thought: the honest version of a launch checklist is shorter and way less exciting than the version everyone tries to sell you. Kind of the whole point though." |
+| Lun 20/07 | 5 | "Reddit's old 90/10 rule isn't official policy anymore, they retired it years ago for being too rigid. Moderators just look at your overall behavior now. Doesn't change much in practice — an account that's 100% self-promotion still reads as spam either way." |
+| Mar 21/07 | 6 | "X suspends what they call reply networks — accounts that always reply to each other — as a whole group, not one at a time. One bad actor in there and everyone goes down with them." |
+| Mer 22/07 | 7 | "One week into this and I haven't pitched anything yet. Just been reading the actual rules for every platform before posting on it, which sounds obvious but almost nobody actually does it." |
 
 ## Semaine 2 — Continuité (23-29 juillet)
 
@@ -47,13 +49,13 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 | Date | Jour | Post X (brouillon) |
 |---|---|---|
-| Jeu 23/07 | 8 | "Demo: paste a product URL, and within seconds it's reading the real title/description off the page — not a template. Screenshots soon." |
-| Ven 24/07 | 9 | "PageSpeed Insights has a public quota so small it's basically unusable without your own API key. Spent an hour today just getting real performance scores to show up reliably. Unglamorous, necessary." |
-| Sam 25/07 | 10 | "If a site blocks automated scraping (a lot do), most tools just fail silently or show an error. We changed ours to still be useful even then — generic-but-honest instead of broken." |
-| Dim 26/07 | 11 | "Reading through Hacker News' actual submission guidelines this weekend — different platform, same pattern: the real rules are published, boring, and mostly ignored." |
-| Lun 27/07 | 12 | "The best Reddit marketing advice we found wasn't 'post this exact thing' — it was 'spend 2-4 weeks being a real person before you post anything with a link in it.' We're doing exactly that, in public, right now." |
-| Mar 28/07 | 13 | "A thread on X gets most of its reach in the first 4 hours. Reply volume matters more than like count — a post with 20 replies out-reaches one with 200 likes and 5 replies. Planning launch day around that fact, not around vibes." |
-| Mer 29/07 | 14 | "Two weeks of doing the unglamorous pre-launch work instead of skipping to the announcement. Here's what's actually changed: [insert 1 real number/screenshot from the week — e.g. readiness tool fix, or engagement stats]." |
+| Jeu 23/07 | 8 | "Demo of the tool: you paste a product URL and within seconds it's actually reading the real title and description off the page, not filling in a template. Screenshots coming soon." |
+| Ven 24/07 | 9 | "Spent an hour today just trying to get PageSpeed scores to show up reliably. Turns out their public API quota is basically unusable without your own key. Not exciting work, but it needed doing." |
+| Sam 25/07 | 10 | "A lot of sites block automated scraping, and most tools just fail silently or throw an error when that happens. Changed ours so it's still useful even then instead of just breaking." |
+| Dim 26/07 | 11 | "Read through Hacker News' actual submission guidelines this weekend. Different platform, same pattern as everywhere else — the real rules are published, kind of boring, and mostly ignored." |
+| Lun 27/07 | 12 | "Best piece of Reddit advice I found this month wasn't a specific thing to post. It was just: spend 2-4 weeks being a real person before you post anything with a link in it. That's literally what I'm doing right now, in public." |
+| Mar 28/07 | 13 | "A thread on X gets most of its reach in the first four hours. Replies matter more than likes too — a post with 20 replies reaches more people than one with 200 likes and barely any comments. Planning launch day around that instead of guessing." |
+| Mer 29/07 | 14 | "Two weeks now of doing the unglamorous prep work instead of jumping straight to an announcement. Here's what's actually different this week." |
 
 ## Semaine 3 — Réciprocité + préparation des assets (30 juillet - 5 août)
 
@@ -61,13 +63,13 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 | Date | Jour | Post X (brouillon) |
 |---|---|---|
-| Jeu 30/07 | 15 | "Starting to notice patterns in who actually engages back on Product Hunt vs. who doesn't. The community is smaller and more consistent than it looks from the outside." |
-| Ven 31/07 | 16 | "We're about 2 weeks out from shipping something. Not saying what yet — but everything we've been posting here is the actual research behind it, not marketing copy." |
-| Sam 01/08 | 17 | "Every 'growth hack' for Reddit we found this month has the same failure mode: it works exactly once, then the account is done. The boring version keeps working." |
-| Dim 02/08 | 18 | "Writing the Product Hunt listing today. 60 characters for the tagline is a real constraint — harder than it sounds to say what something does in that space." |
-| Lun 03/08 | 19 | "One thing nobody tells you about X's algorithm: it's actively down-ranking AI-generated and templated reply patterns now, not just detecting bots. Worth knowing if 'authentic' used to be optional." |
-| Mar 04/08 | 20 | "Launch prep update: assets drafted, first Product Hunt comment written, timing locked. About a week and a half out." |
-| Mer 05/08 | 21 | "The gap between 'what we promise' and 'what's actually built' is the thing we keep coming back to on this build. Closing a few more of those gaps this week before we show anyone." |
+| Jeu 30/07 | 15 | "Starting to notice a pattern in who actually engages back on Product Hunt versus who doesn't. The community is smaller and more consistent than it looks from the outside." |
+| Ven 31/07 | 16 | "About two weeks out from shipping something now. Not saying what yet, but everything I've been posting here has genuinely been the research behind it, not marketing copy." |
+| Sam 01/08 | 17 | "Every Reddit growth hack I came across this month has the same problem. It works exactly once, then the account is done. The boring, honest version is the one that keeps working." |
+| Dim 02/08 | 18 | "Writing the actual Product Hunt listing today. Sixty characters for the tagline is a real constraint — harder than you'd think to say what something does in that little space." |
+| Lun 03/08 | 19 | "Something not many people mention about X's algorithm: it's actively down-ranking AI-generated and templated replies now, not just detecting bots outright. Worth knowing if you thought sounding human was optional." |
+| Mar 04/08 | 20 | "Quick update: launch assets are drafted, first Product Hunt comment is written, timing is locked in. About a week and a half out now." |
+| Mer 05/08 | 21 | "The gap between what we promise on the site and what's actually built is the thing I keep coming back to on this. Closing a few more of those gaps this week before showing it to anyone." |
 
 ## Semaine 4 — Lancement (6-12 août)
 
@@ -75,12 +77,12 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 | Date | Jour | Post X (brouillon) |
 |---|---|---|
-| Jeu 06/08 | 22 | "One week out. If you've been following this build — this is the part where the research turns into a product people can actually use." |
-| Ven 07/08 | 23 | "Final round of testing before next week. Everything on the site is still true — no claim we can't back up. That was the actual hard part of building this, not the code." |
-| Sam 08/08 | 24 | "Weekend before launch week. Taking the rules we published to everyone else and applying them to ourselves, one more time, before Wednesday." |
-| Dim 09/08 | 25 | "Tomorrow starts launch week. Product Hunt goes live Wednesday, 12:01 AM PT." |
-| Lun 10/08 | 26 | "2 days. Reddit post and Product Hunt listing are both ready. This is the thread that goes out Wednesday morning — see you there." |
-| Mar 11/08 | 27 | "Tomorrow. 12:01 AM PT on Product Hunt. Everything we've posted for the last 4 weeks was the actual prep, not filler." |
+| Jeu 06/08 | 22 | "One week out. If you've been following along, this is the part where all the research turns into something people can actually use." |
+| Ven 07/08 | 23 | "Final round of testing before next week. Everything on the site still holds up — no claim we can't actually back up. That was the hard part of building this, honestly, not the code." |
+| Sam 08/08 | 24 | "Last weekend before launch week. Applying the same rules we've been telling everyone else to follow, one more time, to ourselves, before Wednesday." |
+| Dim 09/08 | 25 | "Launch week starts tomorrow. Product Hunt goes live Wednesday at 12:01am PT." |
+| Lun 10/08 | 26 | "Two days left. Reddit post and Product Hunt listing are both ready. This is the thread that goes out Wednesday morning — see you there." |
+| Mar 11/08 | 27 | "Tomorrow's the day. 12:01am PT on Product Hunt. Everything posted here for the last four weeks was the actual prep, not filler." |
 | Mer 12/08 | 28 | **LAUNCH DAY** — voir "Assets du jour J" ci-dessous. |
 
 ---
@@ -109,6 +111,6 @@ Chaque jour : valider/modifier le post du jour ci-dessous, le poster, cocher la 
 
 ## Notes
 
-- Les posts X ci-dessus sont des **brouillons** — ajuster le ton à ta voix avant de poster, pas besoin de les poster mot pour mot.
+- Les posts X ci-dessus sont des **brouillons** — relire avant de poster, ajuster un mot si quelque chose sonne faux, mais l'idée est qu'ils sont déjà postables tels quels.
 - Reddit et Product Hunt (l'engagement quotidien) ne peuvent pas être pré-écrits — ça dépend de ce qui est vivant ce jour-là. La routine (quota + subreddit du jour) reste fixe.
 - Si un jour est manqué, ne pas essayer de rattraper en doublant le lendemain — reprendre simplement le jour suivant.
