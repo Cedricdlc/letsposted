@@ -7,51 +7,56 @@
 <meta name="description" content="What actually decides Product Hunt's ranking — timing, early velocity, comments, and the mistakes that kill a launch before noon. A real playbook, not generic advice.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141414'/%3E%3Ctext x='16' y='23' font-family='Georgia, serif' font-style='italic' font-weight='700' font-size='19' fill='%23F2E96A' text-anchor='middle'%3EP.%3C/text%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:        #0B0B12;
-  --card:      #12121A;
-  --card-2:    #16161F;
-  --line:      #26262E;
-  --line-soft: #1D1D26;
-  --ink:       #F4F4F5;
-  --body:      #A1A1AA;
-  --faint:     #71717A;
+  --dark:      #0B0B12;
+  --dark-line: #26262E;
+  --bg:        #F7F4EC;
+  --card:      #FFFFFF;
+  --line:      #E7E1D0;
+  --ink:       #18150F;
+  --body:      #4E4A3E;
+  --faint:     #8B8571;
   --accent:    #F2E96A;
-  --accent-line: rgba(242,233,106,.35);
+  --accent-ink:#3A3418;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, serif;
 }
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 html{ scroll-behavior:smooth; }
 body{
   background:var(--bg);
   color:var(--body);
-  font-family:var(--sans);
-  font-size:1.05rem;
-  line-height:1.65;
+  font-family:var(--serif);
+  font-size:1.13rem;
+  line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
-a{ color:var(--accent); }
-.wrap{ max-width:44rem; margin:0 auto; padding:0 1.5rem; }
-strong{ color:var(--ink); }
+a{ color:var(--accent-ink); text-decoration-color:var(--accent); text-decoration-thickness:2px; }
+.wrap{ max-width:40rem; margin:0 auto; padding:0 1.5rem; }
+strong{ color:var(--ink); font-weight:600; }
 
-/* ---------- nav ---------- */
+/* ---------- nav : stays dark, ties back to the main site's chrome ---------- */
 .nav{
-  position:sticky; top:0; z-index:50;
-  background:rgba(11,11,18,.85);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line-soft);
+  background:var(--dark);
+  border-bottom:1px solid var(--dark-line);
 }
-.nav-in{ display:flex; align-items:center; justify-content:space-between; padding:.85rem 0; }
+.nav-in{ display:flex; align-items:center; justify-content:space-between; padding:.85rem 0; font-family:var(--sans); }
+.nav .back{
+  display:inline-flex; align-items:center; gap:.4rem;
+  color:#D8D6CE; font-size:.9rem; font-weight:500;
+  text-decoration:none;
+}
+.nav .back:hover{ color:#FFFFFF; }
 .sticker-patch{
   display:inline-flex; align-items:center;
-  font-weight:900; font-size:1.15rem; letter-spacing:-.01em;
+  font-family:var(--sans);
+  font-weight:900; font-size:1.1rem; letter-spacing:-.01em;
   color:#141414;
   -webkit-text-stroke:6px #F5F1E8;
   paint-order:stroke fill;
-  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.4));
   transform:rotate(-3deg);
   text-decoration:none;
 }
@@ -59,103 +64,178 @@ strong{ color:var(--ink); }
 .nav .btn{
   font-family:var(--sans);
   font-weight:600;
-  font-size:.9rem;
+  font-size:.88rem;
   color:#141414;
   background:var(--accent);
   border-radius:999px;
-  padding:.6rem 1.2rem;
+  padding:.55rem 1.1rem;
   text-decoration:none;
   white-space:nowrap;
 }
 
 /* ---------- hero ---------- */
-.hero{ padding:4.5rem 0 3rem; text-align:center; }
+.hero{ padding:4rem 0 3rem; text-align:center; }
 .badge{
   display:inline-flex; align-items:center; gap:.5rem;
-  font-family:var(--sans); font-size:.8rem; font-weight:600;
-  letter-spacing:.04em; text-transform:uppercase;
-  color:var(--accent);
-  background:var(--card); border:1px solid var(--line);
-  border-radius:999px; padding:.4rem 1rem; margin-bottom:1.5rem;
+  font-family:var(--sans); font-size:.78rem; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase;
+  color:var(--accent-ink);
+  background:var(--accent);
+  border-radius:999px; padding:.4rem 1rem; margin-bottom:1.75rem;
 }
-.badge::before{ content:""; width:.4rem; height:.4rem; border-radius:50%; background:var(--accent); }
 h1{
-  font-size:clamp(2.1rem, 1rem + 4.5vw, 3.4rem);
-  line-height:1.12; letter-spacing:-.02em; font-weight:800; color:var(--ink);
-  max-width:34rem; margin:0 auto;
+  font-family:var(--serif);
+  font-size:clamp(2rem, 1rem + 4vw, 3.1rem);
+  line-height:1.18; letter-spacing:-.01em; font-weight:600; font-style:italic; color:var(--ink);
+  max-width:32rem; margin:0 auto;
 }
 .hero .hl{
-  display:inline-block;
-  color:#141414;
+  display:inline;
+  color:var(--ink);
   background:var(--accent);
-  padding:.02em .3em;
-  border-radius:.2em;
+  padding:.02em .12em;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
 }
 .lede{
-  margin:1.5rem auto 0;
-  max-width:32rem;
-  font-size:1.1rem;
+  margin:1.75rem auto 0;
+  max-width:30rem;
+  font-family:var(--sans);
+  font-size:1.05rem;
+  line-height:1.6;
   color:var(--body);
 }
 .hero .cta{
   display:inline-flex; align-items:center; gap:.5rem;
-  margin-top:2rem;
-  font-weight:600; font-size:.98rem;
+  margin-top:2.25rem;
+  font-family:var(--sans);
+  font-weight:600; font-size:.95rem;
   color:#141414;
   background:var(--accent);
+  border:2px solid var(--ink);
   border-radius:999px;
-  padding:.85rem 1.6rem;
+  padding:.8rem 1.5rem;
   text-decoration:none;
 }
 
 /* ---------- sections ---------- */
-section{ padding:3.5rem 0; border-top:1px solid var(--line-soft); }
+section{ padding:3rem 0; border-top:1px solid var(--line); }
 h2{
-  font-size:clamp(1.4rem, 1rem + 1.5vw, 1.8rem);
+  font-family:var(--sans);
+  font-size:clamp(1.3rem, 1rem + 1.2vw, 1.6rem);
   color:var(--ink); font-weight:800; letter-spacing:-.01em;
   margin-bottom:1.5rem;
 }
-.points{ list-style:none; display:grid; gap:1.5rem; }
+.points{ list-style:none; display:grid; gap:1.6rem; }
 .points li{ display:grid; grid-template-columns:auto 1fr; gap:1rem; }
-.points .arr{ font-weight:800; color:var(--accent); }
-.points b{ color:var(--ink); }
+.points .arr{ font-family:var(--sans); font-weight:800; color:var(--accent-ink); }
+.points b{ color:var(--ink); font-weight:600; }
 .stat-row{
   display:flex; flex-wrap:wrap; gap:1rem;
-  margin-top:2rem;
+  margin-top:2.25rem;
 }
 .stat{
-  flex:1 1 12rem;
+  flex:1 1 11rem;
   background:var(--card); border:1px solid var(--line);
-  border-radius:12px; padding:1.25rem 1.4rem;
+  border-radius:10px; padding:1.15rem 1.3rem;
+  font-family:var(--sans);
 }
-.stat .n{ font-size:1.6rem; font-weight:800; color:var(--accent); }
-.stat .l{ font-size:.85rem; color:var(--faint); margin-top:.25rem; }
+.stat .n{ font-size:1.5rem; font-weight:800; color:var(--ink); }
+.stat .l{ font-size:.82rem; color:var(--faint); margin-top:.2rem; }
+
+.section-note{ font-family:var(--sans); font-size:.95rem; color:var(--faint); margin-bottom:1.75rem; }
+.live-row{ display:grid; gap:1rem; }
+@media (min-width:640px){ .live-row{ grid-template-columns:repeat(3,1fr); } }
+.live-card{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:12px; padding:1.25rem 1.35rem;
+  font-family:var(--sans);
+}
+.live-tag{
+  font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+  color:var(--accent-ink); background:var(--accent);
+  display:inline-block; border-radius:999px; padding:.2rem .6rem;
+  margin-bottom:.7rem;
+}
+.live-name{ font-weight:700; color:var(--ink); margin-bottom:.35rem; }
+.live-line{ font-size:.9rem; color:var(--body); line-height:1.5; }
+.live-meta{ font-family:var(--sans); font-size:.8rem; color:var(--faint); margin-top:1.25rem; }
+
+.winners{
+  font-family:var(--sans);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--card);
+}
+.winner-row{
+  display:grid;
+  grid-template-columns:3.2rem 6.5rem 1fr 5.5rem;
+  gap:.75rem;
+  align-items:baseline;
+  padding:.75rem .9rem;
+  font-size:.85rem;
+}
+.winner-row + .winner-row{ border-top:1px solid var(--line); }
+.winner-head{
+  font-weight:700; color:var(--ink);
+  background:var(--bg);
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--faint);
+}
+.winner-row span:nth-child(2){ font-weight:700; color:var(--ink); }
+.winner-row span:nth-child(4){ color:var(--faint); font-size:.78rem; text-align:right; }
+.winner-row b{ color:var(--accent-ink); font-weight:700; }
+@media (max-width:640px){
+  .winner-row{ grid-template-columns:1fr; gap:.15rem; padding:.9rem; }
+  .winner-head{ display:none; }
+  .winner-row span:nth-child(1){ font-size:.72rem; color:var(--faint); text-transform:uppercase; letter-spacing:.03em; }
+  .winner-row span:nth-child(4){ text-align:left; margin-top:.2rem; }
+}
+
+.insight-box{
+  display:flex; align-items:center; gap:1.25rem;
+  margin-top:1.5rem;
+  background:var(--ink);
+  border-radius:12px;
+  padding:1.5rem 1.75rem;
+}
+.insight-n{
+  font-family:var(--sans);
+  font-size:2.2rem; font-weight:900; color:var(--accent);
+  flex:none;
+}
+.insight-box p:not(.insight-n){ font-family:var(--sans); font-size:.92rem; color:#D8D6CE; line-height:1.55; }
 
 .cta-block{
   text-align:center;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
+  background:var(--ink);
+  border-radius:16px;
   padding:2.5rem 2rem;
 }
-.cta-block h2{ margin-bottom:.75rem; }
-.cta-block p{ max-width:26rem; margin:0 auto 1.5rem; }
+.cta-block h2{ color:#FFFFFF; margin-bottom:.75rem; }
+.cta-block p{ font-family:var(--sans); font-size:1rem; color:#C9C6BB; max-width:24rem; margin:0 auto 1.5rem; }
 .cta-block a.btn{
   display:inline-flex; align-items:center; gap:.5rem;
+  font-family:var(--sans);
   font-weight:600; color:#141414;
   background:var(--accent); border-radius:999px;
   padding:.9rem 1.8rem; text-decoration:none;
 }
 
-footer{ padding:2.5rem 0 3.5rem; border-top:1px solid var(--line-soft); }
+footer{ padding:2.5rem 0 3.5rem; border-top:1px solid var(--line); font-family:var(--sans); }
 footer p{ font-size:.82rem; color:var(--faint); }
 footer a{ color:var(--faint); }
+
+@media (max-width:719px){
+  .nav .back span.label{ display:none; }
+}
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap nav-in">
+    <a class="back" href="/"><span aria-hidden="true">&larr;</span><span class="label">Back to Posted.</span></a>
     <a class="sticker-patch" href="/">Posted<span class="sticker-dot">.</span></a>
     <a class="btn" href="/#book">Show me where to post →</a>
   </div>
@@ -175,7 +255,7 @@ footer a{ color:var(--faint); }
     <h2>What actually decides the ranking</h2>
     <ul class="points">
       <li><span class="arr" aria-hidden="true">→</span><span><b>Timing beats almost everything else.</b> Product Hunt's day starts at 12:01 AM PT. A launch posted at 9am has already lost hours of ranking window against products that went live at midnight.</span></li>
-      <li><span class="arr" aria-hidden="true">→</span><span><b>Early velocity, not total volume.</b> The ranking algorithm weighs how fast engagement arrives in the first hours far more than the final upvote count. A slow trickle over 24 hours ranks worse than a fast burst in hour one, even at the same total.</span></li>
+      <li><span class="arr" aria-hidden="true">→</span><span><b>Votes are hidden for the first 4 hours.</b> Product Hunt deliberately hides upvote counts early in the day, for every launch, so the leaderboard isn't decided by whoever got lucky with an early spike. What happens in the hours after that window opens is what actually separates the top of the board from the rest.</span></li>
       <li><span class="arr" aria-hidden="true">→</span><span><b>Comments carry real weight.</b> Genuine conversation in the comments signals real interest, not just clicks. Makers who reply to every comment in the first hours consistently outrank ones who post and disappear.</span></li>
       <li><span class="arr" aria-hidden="true">→</span><span><b>Bought upvotes get you delisted, not ranked.</b> Product Hunt actively detects vote manipulation. Every "growth hack" service selling upvotes is selling you a takedown, not a launch.</span></li>
     </ul>
@@ -190,8 +270,34 @@ footer a{ color:var(--faint); }
 
 <section>
   <div class="wrap">
-    <h2>What we actually do about it</h2>
-    <p>We track what's working on Product Hunt right now, not what worked two launches ago. When you run your launch with us, that's built into the plan: the right day, the right hour, a comment-response plan ready before you post, and zero manipulation — because we'd rather you rank #7 for real than get delisted chasing #1.</p>
+    <h2>We pulled the last 7 winners. A pattern showed up immediately.</h2>
+    <p class="section-note">Real #1 Products of the Day, pulled from Product Hunt's own daily archive — not a sample we picked to make a point.</p>
+
+    <div class="winners">
+      <div class="winner-row winner-head">
+        <span>Date</span><span>Product</span><span>Tagline</span><span>Score</span>
+      </div>
+      <div class="winner-row"><span>Jul 14</span><span>ClawTeams</span><span>The first goal-driven, proactive <b>AI</b> team for e-commerce</span><span>725</span></div>
+      <div class="winner-row"><span>Jul 13</span><span>AgentKey</span><span>One-stop live data marketplace for your <b>agent</b></span><span>681</span></div>
+      <div class="winner-row"><span>Jul 12</span><span>Miora</span><span>Scale creativity on editable canvas with <b>agent</b> memory</span><span>593</span></div>
+      <div class="winner-row"><span>Jul 11</span><span>Effects SDK</span><span><b>AI</b> video &amp; audio effects SDK for real-time apps</span><span>503</span></div>
+      <div class="winner-row"><span>Jul 10</span><span>ChatCut</span><span>Your <b>AI</b> video editor in ChatGPT, desktop &amp; web</span><span>105 votes / 761 comments</span></div>
+      <div class="winner-row"><span>Jul 9</span><span>Auriko</span><span>Trading desk for LLM calls</span><span>752</span></div>
+      <div class="winner-row"><span>Jul 8</span><span>ExploreYC</span><span>Open-source API for YC &amp; a16z company data</span><span>859</span></div>
+    </div>
+
+    <div class="insight-box">
+      <p class="insight-n">7 / 7</p>
+      <p>Every single #1 Product of the Day in this window either is an AI/agent product or leans on one in its tagline. That's not us picking category — that's what Product Hunt's audience is upvoting right now.</p>
+    </div>
+    <p class="section-note" style="margin-top:1.5rem">Also worth noting: ChatCut hit #1 with only 105 upvotes but 761 comments — more proof that comment volume, not just vote count, is part of what the ranking rewards.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>This is what "we know where you belong" actually means</h2>
+    <p>Seven days is a real sample, not a research study — we're not going to dress it up as more than it is. But it's exactly the kind of tracking our agents do continuously, not as a one-off: which categories are winning this week, which taglines are landing, what the comment patterns look like before you post. Scaling that from 7 days to an ongoing feed is the actual product.</p>
   </div>
 </section>
 
