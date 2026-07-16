@@ -33,7 +33,7 @@ docs/               → contexte projet, copy, décisions
 ### Variables d'environnement (Netlify, site `graceful-marzipan-b14e6e`)
 
 - `ANTHROPIC_API_KEY` — requis pour `platform-copy.js`. Déjà configurée.
-- `PAGESPEED_API_KEY` — optionnelle, améliore le quota PageSpeed Insights (sinon quota anonyme partagé, quasi toujours épuisé → scores `null`). Pas encore configurée.
+- `PAGESPEED_API_KEY` — **configurée le 2026-07-16**, définie pour tous les contextes (`netlify env:set ... ` sans `--context`, important — une première tentative scopée à `production` uniquement ne s'appliquait pas aux deploys preview). Clé dédiée créée sur le projet Google Cloud "Breakpoint", restreinte à "PageSpeed Insights API" uniquement — ne pas réutiliser la "Browser key (auto created by Firebase)" du même projet, elle est restreinte à 25 autres API et renvoie `API_KEY_SERVICE_BLOCKED` sur PageSpeed.
 
 ### Piège connu : `netlify deploy --prod` qui échoue avec "Forbidden"
 
@@ -44,6 +44,13 @@ Observé le 2026-07-16 : `netlify deploy --prod` échoue systématiquement avec 
 
 En local avec `netlify dev`, `process.env.ANTHROPIC_API_KEY` peut être écrasé par une valeur qui ressemble à un JWT (`eyJhbGci...`, ~400 caractères) au lieu de la vraie clé `sk-ant-...` configurée sur le site — cause exacte non identifiée (probablement une extension Netlify ou un mécanisme d'injection interne au compte). Résultat observé : `platform-copy.js` répond `{"ok":false,"error":"Anthropic API 401"}` en dev alors que la clé est correcte.
 **Ne pas perdre de temps à déboguer ça en local** — déployer un preview (`netlify deploy`) et tester directement dessus ; l'environnement Lambda réel n'a pas ce problème (vérifié le 2026-07-12, fonctionne correctement une fois déployé).
+
+### Piège résolu : scores PageSpeed toujours `null` dans `readiness.js`
+
+Deux bugs distincts trouvés et corrigés le 2026-07-16 :
+1. `strategy=mobile` simule un throttling CPU/réseau qui pousse PSI à 14s+ de réponse — bien au-delà du budget d'exécution utilisable de la fonction Netlify. Passé à `strategy=desktop` (~8-13s en usage réel, parfois quasi instantané si PSI a déjà en cache un résultat récent pour la même URL).
+2. Le timeout interne (`withTimeout`) était à 8000ms, plus court que la réponse réelle de PSI même en desktop — passé à 20000ms.
+`netlify env:set` sans `--context` (donc "all") est nécessaire pour que la clé soit disponible aussi bien en preview qu'en prod — un premier essai scopé `--context production` ne s'appliquait pas aux deploys preview, ce qui a fait perdre du temps à déboguer le mauvais problème.
 
 ## Formulaires (Netlify Forms)
 
