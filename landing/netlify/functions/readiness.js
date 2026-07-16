@@ -54,8 +54,14 @@ async function fetchScores(target) {
     // every anonymous caller worldwide — it's exhausted almost immediately.
     // Set PAGESPEED_API_KEY (free, from Google Cloud Console) as a Netlify
     // env var to get a real per-project quota instead.
+    //
+    // strategy=desktop, not mobile: mobile Lighthouse runs simulate CPU/network
+    // throttling, which routinely pushes PSI past 14s — well over Netlify's
+    // ~10s synchronous function ceiling, so mobile runs almost always got
+    // killed before returning. desktop runs land around 8s (verified
+    // 2026-07-16), comfortably inside that budget.
     const key = process.env.PAGESPEED_API_KEY;
-    const api = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(target.href)}&category=performance&category=seo&strategy=mobile` + (key ? `&key=${key}` : '');
+    const api = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(target.href)}&category=performance&category=seo&strategy=desktop` + (key ? `&key=${key}` : '');
     const res = await fetch(api);
     if (!res.ok) return { performance: null, seo: null };
     const json = await res.json();
@@ -82,12 +88,13 @@ exports.handler = async function (event) {
     };
   }
 
-  // PSI's full Lighthouse run can take 10-20s; Netlify Functions have a
-  // hard ceiling well under that on most plans. Race it against a timeout
-  // so a slow PSI response never sinks the meta-tag findings we already have.
+  // desktop-strategy PSI ran ~8s from a local test but took ~9.2s+ from
+  // inside the deployed function (Lambda's network path to Google adds
+  // latency a local curl doesn't see) — bumped from an initial 9s once that
+  // showed up truncating real responses in the function logs (2026-07-16).
   const [meta, scores] = await Promise.all([
     fetchMeta(target),
-    withTimeout(fetchScores(target), 8000).then((r) => r || { performance: null, seo: null }),
+    withTimeout(fetchScores(target), 20000).then((r) => r || { performance: null, seo: null }),
   ]);
 
   return {
