@@ -4,23 +4,63 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to Get #1 Product of the Day on Product Hunt | Posted.</title>
-<meta name="description" content="What actually decides Product Hunt's ranking — timing, early velocity, comments, and the mistakes that kill a launch before noon. A real playbook, not generic advice.">
+<meta name="description" content="We tracked the last 50 #1 Products of the Day on Product Hunt — real dates, real scores, real patterns. What actually decides the ranking, and how to launch like the winners.">
+<link rel="canonical" href="https://letsgetposted.com/product-hunt-launch.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Get #1 Product of the Day on Product Hunt">
+<meta property="og:description" content="We tracked the last 50 #1 Products of the Day on Product Hunt — real dates, real scores, real patterns. What actually decides the ranking.">
+<meta property="og:url" content="https://letsgetposted.com/product-hunt-launch.html">
+<meta property="og:site_name" content="Posted.">
+<meta property="og:image" content="https://letsgetposted.com/assets/case-study-cafe-ph-launch.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Get #1 Product of the Day on Product Hunt">
+<meta name="twitter:description" content="We tracked the last 50 #1 Products of the Day on Product Hunt — real dates, real scores, real patterns.">
+<meta name="twitter:image" content="https://letsgetposted.com/assets/case-study-cafe-ph-launch.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141414'/%3E%3Ctext x='16' y='23' font-family='Georgia, serif' font-style='italic' font-weight='700' font-size='19' fill='%23F2E96A' text-anchor='middle'%3EP.%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Get #1 Product of the Day on Product Hunt",
+  "description": "We tracked the last 50 #1 Products of the Day on Product Hunt — real dates, real scores, real patterns. What actually decides the ranking, and how to launch like the winners.",
+  "image": "https://letsgetposted.com/assets/case-study-cafe-ph-launch.png",
+  "author": { "@type": "Organization", "name": "Posted." },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Posted.",
+    "logo": { "@type": "ImageObject", "url": "https://letsgetposted.com/favicon.svg" }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://letsgetposted.com/product-hunt-launch.html" },
+  "datePublished": "2026-07-15",
+  "dateModified": "2026-07-16"
+}
+</script>
+
 <style>
 :root{
   --dark:      #0B0B12;
   --dark-line: #26262E;
-  --bg:        #F7F4EC;
+  --bg:        #FBF8F1;
   --card:      #FFFFFF;
-  --line:      #E7E1D0;
+  --line:      #ECE6D6;
   --ink:       #18150F;
   --body:      #4E4A3E;
   --faint:     #8B8571;
   --accent:    #F2E96A;
   --accent-ink:#3A3418;
+  --pink:      #F6C6CE;
+  --pink-ink:  #7A2F3B;
+  --mint:      #C3E4D6;
+  --mint-ink:  #1F4C3D;
+  --sky:       #C7DCF2;
+  --sky-ink:   #1E3A5C;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   --serif: "Source Serif 4", Georgia, serif;
 }
@@ -38,7 +78,7 @@ a{ color:var(--accent-ink); text-decoration-color:var(--accent); text-decoration
 .wrap{ max-width:40rem; margin:0 auto; padding:0 1.5rem; }
 strong{ color:var(--ink); font-weight:600; }
 
-/* ---------- nav : stays dark, ties back to the main site's chrome ---------- */
+/* ---------- nav ---------- */
 .nav{
   background:var(--dark);
   border-bottom:1px solid var(--dark-line);
@@ -120,6 +160,16 @@ h1{
 
 /* ---------- sections ---------- */
 section{ padding:3rem 0; border-top:1px solid var(--line); }
+.eyebrow{
+  display:inline-block;
+  font-family:var(--sans); font-size:.72rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  border-radius:999px; padding:.3rem .8rem;
+  margin-bottom:1rem;
+}
+.eyebrow--pink{ background:var(--pink); color:var(--pink-ink); }
+.eyebrow--mint{ background:var(--mint); color:var(--mint-ink); }
+.eyebrow--sky{ background:var(--sky); color:var(--sky-ink); }
 h2{
   font-family:var(--sans);
   font-size:clamp(1.3rem, 1rem + 1.2vw, 1.6rem);
@@ -136,30 +186,16 @@ h2{
 }
 .stat{
   flex:1 1 11rem;
-  background:var(--card); border:1px solid var(--line);
+  background:var(--card); border:1px solid var(--line); border-top:3px solid var(--accent);
   border-radius:10px; padding:1.15rem 1.3rem;
   font-family:var(--sans);
 }
+.stat:nth-child(2){ border-top-color:var(--pink); }
+.stat:nth-child(3){ border-top-color:var(--sky); }
 .stat .n{ font-size:1.5rem; font-weight:800; color:var(--ink); }
 .stat .l{ font-size:.82rem; color:var(--faint); margin-top:.2rem; }
 
 .section-note{ font-family:var(--sans); font-size:.95rem; color:var(--faint); margin-bottom:1.75rem; }
-.live-row{ display:grid; gap:1rem; }
-@media (min-width:640px){ .live-row{ grid-template-columns:repeat(3,1fr); } }
-.live-card{
-  background:var(--card); border:1px solid var(--line);
-  border-radius:12px; padding:1.25rem 1.35rem;
-  font-family:var(--sans);
-}
-.live-tag{
-  font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
-  color:var(--accent-ink); background:var(--accent);
-  display:inline-block; border-radius:999px; padding:.2rem .6rem;
-  margin-bottom:.7rem;
-}
-.live-name{ font-weight:700; color:var(--ink); margin-bottom:.35rem; }
-.live-line{ font-size:.9rem; color:var(--body); line-height:1.5; }
-.live-meta{ font-family:var(--sans); font-size:.8rem; color:var(--faint); margin-top:1.25rem; }
 
 .winners{
   font-family:var(--sans);
@@ -168,23 +204,28 @@ h2{
   overflow:hidden;
   background:var(--card);
 }
+.winners-scroll{
+  max-height:28rem;
+  overflow-y:auto;
+}
 .winner-row{
   display:grid;
   grid-template-columns:3.2rem 6.5rem 1fr 5.5rem;
   gap:.75rem;
   align-items:baseline;
-  padding:.75rem .9rem;
-  font-size:.85rem;
+  padding:.7rem .9rem;
+  font-size:.83rem;
 }
 .winner-row + .winner-row{ border-top:1px solid var(--line); }
 .winner-head{
   font-weight:700; color:var(--ink);
   background:var(--bg);
   font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--faint);
+  position:sticky; top:0; z-index:1;
 }
 .winner-row span:nth-child(2){ font-weight:700; color:var(--ink); }
 .winner-row span:nth-child(4){ color:var(--faint); font-size:.78rem; text-align:right; }
-.winner-row b{ color:var(--accent-ink); font-weight:700; }
+.winner-row b{ color:var(--accent-ink); font-weight:700; background:var(--accent); padding:0 .15em; border-radius:3px; }
 @media (max-width:640px){
   .winner-row{ grid-template-columns:1fr; gap:.15rem; padding:.9rem; }
   .winner-head{ display:none; }
@@ -205,6 +246,31 @@ h2{
   flex:none;
 }
 .insight-box p:not(.insight-n){ font-family:var(--sans); font-size:.92rem; color:#D8D6CE; line-height:1.55; }
+
+/* ---------- case study ---------- */
+.case-study{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.case-study img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-bottom:1px solid var(--line);
+}
+.case-study-in{ padding:1.75rem 1.75rem 2rem; }
+.case-tag{
+  display:inline-block;
+  font-family:var(--sans); font-size:.72rem; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase;
+  background:var(--mint); color:var(--mint-ink);
+  border-radius:999px; padding:.3rem .8rem; margin-bottom:1rem;
+}
+.case-stats{ display:flex; gap:1.75rem; margin:1.25rem 0; font-family:var(--sans); }
+.case-stats div .n{ font-size:1.4rem; font-weight:800; color:var(--ink); }
+.case-stats div .l{ font-size:.78rem; color:var(--faint); }
 
 .cta-block{
   text-align:center;
@@ -245,17 +311,18 @@ footer a{ color:var(--faint); }
   <div class="wrap">
     <span class="badge">Product Hunt Playbook</span>
     <h1>Get <span class="hl">#1 Product of the Day</span> on Product Hunt.</h1>
-    <p class="lede">Product Hunt gets 4.6M visits a month, and its ranking resets every 24 hours. Most launches lose before lunch — not because the product is weak, but because of when and how they posted. Here's what actually decides the outcome.</p>
+    <p class="lede">Product Hunt gets 4.6M visits a month, and its ranking resets every 24 hours. Most launches lose before lunch — not because the product is weak, but because of when and how they posted. We tracked the last 50 winners to find out what actually works.</p>
     <a class="cta" href="/#book">Get my platform priorities <span aria-hidden="true">→</span></a>
   </div>
 </header>
 
 <section>
   <div class="wrap">
+    <span class="eyebrow eyebrow--sky">The mechanics</span>
     <h2>What actually decides the ranking</h2>
     <ul class="points">
       <li><span class="arr" aria-hidden="true">→</span><span><b>Timing beats almost everything else.</b> Product Hunt's day starts at 12:01 AM PT. A launch posted at 9am has already lost hours of ranking window against products that went live at midnight.</span></li>
-      <li><span class="arr" aria-hidden="true">→</span><span><b>Votes are hidden for the first 4 hours.</b> Product Hunt deliberately hides upvote counts early in the day, for every launch, so the leaderboard isn't decided by whoever got lucky with an early spike. What happens in the hours after that window opens is what actually separates the top of the board from the rest.</span></li>
+      <li><span class="arr" aria-hidden="true">→</span><span><b>Votes are hidden for the first 4 hours.</b> Product Hunt deliberately hides upvote counts early in the day, for every launch, so the leaderboard isn't decided by whoever got lucky with an early spike. What happens after that window opens is what actually separates the top of the board from the rest.</span></li>
       <li><span class="arr" aria-hidden="true">→</span><span><b>Comments carry real weight.</b> Genuine conversation in the comments signals real interest, not just clicks. Makers who reply to every comment in the first hours consistently outrank ones who post and disappear.</span></li>
       <li><span class="arr" aria-hidden="true">→</span><span><b>Bought upvotes get you delisted, not ranked.</b> Product Hunt actively detects vote manipulation. Every "growth hack" service selling upvotes is selling you a takedown, not a launch.</span></li>
     </ul>
@@ -270,10 +337,12 @@ footer a{ color:var(--faint); }
 
 <section>
   <div class="wrap">
-    <h2>We pulled the last 7 winners. A pattern showed up immediately.</h2>
-    <p class="section-note">Real #1 Products of the Day, pulled from Product Hunt's own daily archive — not a sample we picked to make a point.</p>
+    <span class="eyebrow eyebrow--pink">The data</span>
+    <h2>We pulled the last 50 winners. Here's the real pattern.</h2>
+    <p class="section-note">Every #1 Product of the Day from May 26 to Jul 14, 2026, pulled directly from Product Hunt's own daily archive — scroll the table, every row is checkable. Not a curated sample.</p>
 
     <div class="winners">
+      <div class="winners-scroll">
       <div class="winner-row winner-head">
         <span>Date</span><span>Product</span><span>Tagline</span><span>Score</span>
       </div>
@@ -281,23 +350,86 @@ footer a{ color:var(--faint); }
       <div class="winner-row"><span>Jul 13</span><span>AgentKey</span><span>One-stop live data marketplace for your <b>agent</b></span><span>681</span></div>
       <div class="winner-row"><span>Jul 12</span><span>Miora</span><span>Scale creativity on editable canvas with <b>agent</b> memory</span><span>593</span></div>
       <div class="winner-row"><span>Jul 11</span><span>Effects SDK</span><span><b>AI</b> video &amp; audio effects SDK for real-time apps</span><span>503</span></div>
-      <div class="winner-row"><span>Jul 10</span><span>ChatCut</span><span>Your <b>AI</b> video editor in ChatGPT, desktop &amp; web</span><span>105 votes / 761 comments</span></div>
+      <div class="winner-row"><span>Jul 10</span><span>ChatCut</span><span>Your <b>AI</b> video editor in ChatGPT, desktop &amp; web</span><span>105v / 761c</span></div>
       <div class="winner-row"><span>Jul 9</span><span>Auriko</span><span>Trading desk for LLM calls</span><span>752</span></div>
       <div class="winner-row"><span>Jul 8</span><span>ExploreYC</span><span>Open-source API for YC &amp; a16z company data</span><span>859</span></div>
+      <div class="winner-row"><span>Jul 7</span><span>Badge</span><span><b>AI</b> <b>agents</b> collect peer reviews to generate proof of work</span><span>488</span></div>
+      <div class="winner-row"><span>Jul 6</span><span>AnySearch</span><span>Real-time structured search trusted by <b>agents</b> and developers</span><span>924</span></div>
+      <div class="winner-row"><span>Jul 5</span><span>WorkBuddy</span><span>Produce sharpened results faster with a team of <b>AI</b> experts</span><span>443</span></div>
+      <div class="winner-row"><span>Jul 4</span><span>Vida</span><span>Clone yourself. Let <b>AI</b> do the work before you ask</span><span>473</span></div>
+      <div class="winner-row"><span>Jul 3</span><span>Glaze by Raycast</span><span>Create your own Mac apps by chatting with <b>AI</b></span><span>673</span></div>
+      <div class="winner-row"><span>Jul 2</span><span>Context.dev</span><span>One API to scrape, enrich, and extract the internet</span><span>1148</span></div>
+      <div class="winner-row"><span>Jul 1</span><span>Acti</span><span><b>Agentic</b> keyboard for mobile commands and search</span><span>1490</span></div>
+      <div class="winner-row"><span>Jun 30</span><span>Cursor for iOS</span><span>Build with coding <b>agents</b> from anywhere</span><span>644</span></div>
+      <div class="winner-row"><span>Jun 29</span><span>Spira</span><span>Social media growth <b>agents</b> that build your momentum</span><span>487</span></div>
+      <div class="winner-row"><span>Jun 28</span><span>discode.ai</span><span>100+ <b>AI</b> models, one interface. ECO friendly.</span><span>408</span></div>
+      <div class="winner-row"><span>Jun 27</span><span>Folio AI</span><span>Claude for PowerPoint, on steroids</span><span>362</span></div>
+      <div class="winner-row"><span>Jun 26</span><span>Agent Arena</span><span>The first public arena for <b>AI</b> <b>agents</b></span><span>407</span></div>
+      <div class="winner-row"><span>Jun 25</span><span>BrowserAct</span><span>Web browser automation for <b>AI</b> <b>agents</b></span><span>746</span></div>
+      <div class="winner-row"><span>Jun 24</span><span>Tencent EdgeOne Makers</span><span>Ship <b>AI</b> <b>agents</b> like web apps, in minutes</span><span>1210</span></div>
+      <div class="winner-row"><span>Jun 23</span><span>Bluerails Discovery</span><span>The rails <b>AI</b> <b>agents</b> use to find and pay you</span><span>705</span></div>
+      <div class="winner-row"><span>Jun 22</span><span>AgentX</span><span>Evaluate <b>AI</b> <b>agent</b>, pinpoint issues, fix with one click</span><span>668</span></div>
+      <div class="winner-row"><span>Jun 21</span><span>Agent 37 Cloud</span><span>Give every customer their own Hermes or OpenClaw <b>agent</b></span><span>450</span></div>
+      <div class="winner-row"><span>Jun 20</span><span>WorkClaw</span><span>Collaborative, proactive <b>AI</b> coworkers who work in Slack</span><span>405</span></div>
+      <div class="winner-row"><span>Jun 19</span><span>Claude Code Artifacts</span><span>Preview and share your coding work live</span><span>519</span></div>
+      <div class="winner-row"><span>Jun 18</span><span>Upstream</span><span>The inbox designed for humans and <b>agents</b></span><span>970</span></div>
+      <div class="winner-row"><span>Jun 17</span><span>Framer 3.0</span><span>With <b>Agents</b>, Branching, Community...</span><span>703</span></div>
+      <div class="winner-row"><span>Jun 16</span><span>Goldfish</span><span>Press Option. It knows your work and replies like you</span><span>989</span></div>
+      <div class="winner-row"><span>Jun 15</span><span>Novu Connect</span><span>Ship <b>agents</b> where your users already work</span><span>442</span></div>
+      <div class="winner-row"><span>Jun 14</span><span>Slashy</span><span>The <b>AI</b> assistant that does email for you</span><span>506</span></div>
+      <div class="winner-row"><span>Jun 13</span><span>Vercel Drop</span><span>Drop it. It's live.</span><span>483</span></div>
+      <div class="winner-row"><span>Jun 12</span><span>Firma.dev</span><span>E-signatures API, ~3&cent; per envelope</span><span>380</span></div>
+      <div class="winner-row"><span>Jun 11</span><span>Bond</span><span>The <b>AI</b> to-do list that does itself</span><span>815</span></div>
+      <div class="winner-row"><span>Jun 10</span><span>Publora</span><span>A publishing API for <b>agents</b> to post on 10 social platforms</span><span>686</span></div>
+      <div class="winner-row"><span>Jun 9</span><span>VC Boom</span><span>Score your deck, meet investors, raise more</span><span>555</span></div>
+      <div class="winner-row"><span>Jun 8</span><span>Honen</span><span>Automated teaching + learning infrastructure</span><span>587</span></div>
+      <div class="winner-row"><span>Jun 7</span><span>Dreambeans</span><span>Daily <b>AI</b> stories personalised to you, by Google Labs</span><span>401</span></div>
+      <div class="winner-row"><span>Jun 6</span><span>Google Search Profiles</span><span>Profile for publishers/creators to highlight work on Search</span><span>413</span></div>
+      <div class="winner-row"><span>Jun 5</span><span>SellerClaw</span><span>A team of <b>AI</b> <b>agents</b> that runs your stores</span><span>606</span></div>
+      <div class="winner-row"><span>Jun 4</span><span>Mailwarm 2.0</span><span>The email warmup tool, upgraded</span><span>719</span></div>
+      <div class="winner-row"><span>Jun 3</span><span>Elentaria</span><span>Your GTM: from diagnosis to execution</span><span>614</span></div>
+      <div class="winner-row"><span>Jun 2</span><span>Fundraisly</span><span><b>AI</b> fundraising <b>agent</b> that finds investors</span><span>1554</span></div>
+      <div class="winner-row"><span>Jun 1</span><span>Mina Meeting Assistant</span><span>Your <b>AI</b> Teammate now responds during calls</span><span>505</span></div>
+      <div class="winner-row"><span>May 31</span><span>Clipto</span><span>Fully local, natural language search over terabytes</span><span>493</span></div>
+      <div class="winner-row"><span>May 30</span><span>Wandesk</span><span>Build the apps you need by describing them</span><span>509</span></div>
+      <div class="winner-row"><span>May 29</span><span>Ava 2.0</span><span>Your <b>AI</b> BDR that runs outbound sales autonomously</span><span>379</span></div>
+      <div class="winner-row"><span>May 28</span><span>Pancake</span><span>OpenClaw in Slack that makes your company autonomous</span><span>634</span></div>
+      <div class="winner-row"><span>May 27</span><span>Powabase</span><span>Build <b>AI</b> apps with Postgres, RAG, and <b>agents</b></span><span>472</span></div>
+      <div class="winner-row"><span>May 26</span><span>Brew</span><span>Like Claude design for email marketing</span><span>990</span></div>
+      </div>
     </div>
 
     <div class="insight-box">
-      <p class="insight-n">7 / 7</p>
-      <p>Every single #1 Product of the Day in this window either is an AI/agent product or leans on one in its tagline. That's not us picking category — that's what Product Hunt's audience is upvoting right now.</p>
+      <p class="insight-n">33 / 50</p>
+      <p>33 of the last 50 #1 Products of the Day say "AI" or "agent" directly in their tagline — two out of three. Not all of them (Vercel Drop, Firma.dev, Google Search Profiles didn't need to), so it's a real signal, not a rule. That's the difference between a category to chase and a pattern to read.</p>
     </div>
-    <p class="section-note" style="margin-top:1.5rem">Also worth noting: ChatCut hit #1 with only 105 upvotes but 761 comments — more proof that comment volume, not just vote count, is part of what the ranking rewards.</p>
+    <p class="section-note" style="margin-top:1.5rem">Also worth noting: ChatCut hit #1 with only 105 upvotes but 761 comments on Jul 10 — proof that comment volume, not just vote count, is part of what the ranking rewards.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
+    <span class="eyebrow eyebrow--mint">Real launch, real numbers</span>
+    <h2>We've done this before</h2>
+    <div class="case-study">
+      <img src="/assets/case-study-cafe-ph-launch.png" alt="Café 2.0 Product Hunt launch page showing 417 upvotes" loading="lazy">
+      <div class="case-study-in">
+        <span class="case-tag">YC-backed launch</span>
+        <p>This is Café 2.0, a YC company we launched on Product Hunt. No paid upvotes, no growth hack — just the timing and comment-response pattern above, applied on the day.</p>
+        <div class="case-stats">
+          <div><p class="n">417</p><p class="l">Upvotes</p></div>
+          <div><p class="n">YC</p><p class="l">Backed company</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow eyebrow--sky">Why this matters for you</span>
     <h2>This is what "we know where you belong" actually means</h2>
-    <p>Seven days is a real sample, not a research study — we're not going to dress it up as more than it is. But it's exactly the kind of tracking our agents do continuously, not as a one-off: which categories are winning this week, which taglines are landing, what the comment patterns look like before you post. Scaling that from 7 days to an ongoing feed is the actual product.</p>
+    <p>50 real days is a pattern, not a research study — we're not going to dress it up as more than it is. But it's exactly the kind of tracking our agents do continuously, not as a one-off: which categories are winning this week, which taglines are landing, what the comment patterns look like before you post. Scaling that from 50 days of manual pulling to an always-on feed is the actual product.</p>
   </div>
 </section>
 
