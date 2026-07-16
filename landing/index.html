@@ -1359,48 +1359,56 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   color:var(--faint);
   margin-bottom:.8rem;
 }
-.lm-timeline{ display:grid; gap:.65rem; margin-bottom:.85rem; }
-.lm-day{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:.75rem;
-  align-items:start;
+.lm-frise{ position:relative; margin-bottom:1.1rem; }
+.lm-frise::before{
+  content:"";
+  position:absolute;
+  left:.9rem;
+  top:.9rem;
+  bottom:.9rem;
+  width:2px;
+  background:linear-gradient(to bottom, var(--accent) 0%, var(--accent) 36%, var(--line) 36%, var(--line) 100%);
+}
+.frise-node{
+  position:relative;
+  display:flex;
+  gap:.85rem;
+  align-items:flex-start;
+  margin-bottom:.85rem;
+}
+.frise-node:last-child{ margin-bottom:0; }
+.frise-dot{
+  flex:none;
+  width:1.8rem;
+  height:1.8rem;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.66rem;
+  font-weight:800;
+  background:var(--accent);
+  color:#141414;
+  position:relative;
+  z-index:1;
+}
+.frise-dot--locked{
+  background:var(--card-2);
+  color:var(--faint);
+  border:1px dashed var(--line);
+}
+.frise-card{
+  flex:1;
   background:var(--card-2);
   border:1px solid var(--line);
   border-radius:10px;
-  padding:.7rem .9rem;
+  padding:.55rem .85rem;
+  margin-top:.05rem;
 }
-.lm-day-n{
-  font-size:.7rem;
-  font-weight:700;
-  letter-spacing:.03em;
-  text-transform:uppercase;
-  color:#141414;
-  background:var(--accent);
-  border-radius:999px;
-  padding:.2rem .55rem;
-  white-space:nowrap;
-}
+.frise-card--locked{ filter:blur(.4px); opacity:.68; border-style:dashed; }
+.frise-card--locked .lm-day-p{ margin-bottom:0; }
 .lm-day-p{ font-size:.86rem; font-weight:700; color:var(--ink); margin-bottom:.15rem; }
 .lm-day-d{ font-size:.8rem; color:var(--body); line-height:1.42; }
-.lm-locked{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.5rem;
-  margin-bottom:1.1rem;
-  filter:blur(.35px);
-}
-.lm-locked-chip{
-  font-size:.76rem;
-  font-weight:600;
-  color:var(--faint);
-  background:var(--card-2);
-  border:1px dashed var(--line);
-  border-radius:999px;
-  padding:.3rem .75rem;
-  opacity:.7;
-}
-.lm-locked-more{ opacity:1; color:var(--accent); border-style:solid; border-color:var(--accent-line); }
 .lm-head{ font-size:.9rem; font-weight:700; color:var(--ink); margin-bottom:.5rem; }
 .lm-urgency{ font-size:.8rem; font-weight:600; color:var(--accent); margin-bottom:.85rem; }
 .lm-bar{
@@ -1811,21 +1819,31 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       <div class="ready-result" id="ready-result-modal" hidden></div>
       <div class="lm-zone" id="leadmagnet-modal" hidden>
         <p class="lm-timeline-tag">Example 7-day plan — yours is built around your niche</p>
-        <div class="lm-timeline" aria-hidden="true">
-          <div class="lm-day">
-            <span class="lm-day-n">Day 1</span>
-            <div><p class="lm-day-p">Product Hunt</p><p class="lm-day-d">Listing built and timed for 12:01 AM PT. You just approve it.</p></div>
+        <div class="lm-frise" aria-hidden="true">
+          <div class="frise-node">
+            <span class="frise-dot">1</span>
+            <div class="frise-card"><p class="lm-day-p">Product Hunt</p><p class="lm-day-d">Listing built and timed for 12:01 AM PT. You just approve it.</p></div>
           </div>
-          <div class="lm-day">
-            <span class="lm-day-n">Day 2</span>
-            <div><p class="lm-day-p">Reddit</p><p class="lm-day-d">3 subreddits matched to your niche, comments drafted. You just create the accounts.</p></div>
+          <div class="frise-node">
+            <span class="frise-dot">2</span>
+            <div class="frise-card"><p class="lm-day-p">Reddit</p><p class="lm-day-d">3 subreddits matched to your niche, comments drafted. You just create the accounts.</p></div>
           </div>
-        </div>
-        <div class="lm-locked" aria-hidden="true">
-          <span class="lm-locked-chip">Day 3 · Hacker News</span>
-          <span class="lm-locked-chip">Day 4 · X</span>
-          <span class="lm-locked-chip">Day 5 · Indie Hackers</span>
-          <span class="lm-locked-chip lm-locked-more">+ 2 more days</span>
+          <div class="frise-node frise-node--locked">
+            <span class="frise-dot frise-dot--locked">3</span>
+            <div class="frise-card frise-card--locked"><p class="lm-day-p">Hacker News</p></div>
+          </div>
+          <div class="frise-node frise-node--locked">
+            <span class="frise-dot frise-dot--locked">4</span>
+            <div class="frise-card frise-card--locked"><p class="lm-day-p">X</p></div>
+          </div>
+          <div class="frise-node frise-node--locked">
+            <span class="frise-dot frise-dot--locked">5</span>
+            <div class="frise-card frise-card--locked"><p class="lm-day-p">Indie Hackers</p></div>
+          </div>
+          <div class="frise-node frise-node--locked">
+            <span class="frise-dot frise-dot--locked">···</span>
+            <div class="frise-card frise-card--locked"><p class="lm-day-p">+ 2 more days</p></div>
+          </div>
         </div>
         <p class="lm-head">Get your full platform-by-platform launch plan, ranked for your niche.</p>
         <p class="lm-urgency">Only 2 launch slots left this month at pilot price.</p>
