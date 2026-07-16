@@ -272,6 +272,23 @@ h2{
 .case-stats div .n{ font-size:1.4rem; font-weight:800; color:var(--ink); }
 .case-stats div .l{ font-size:.78rem; color:var(--faint); }
 
+/* ---------- process steps ---------- */
+.process{ display:grid; gap:1.5rem; margin-top:.5rem; }
+.process-step{ display:grid; grid-template-columns:auto 1fr; gap:1.1rem; align-items:start; }
+.process-n{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:2.25rem; height:2.25rem; flex:none;
+  border-radius:999px;
+  font-family:var(--sans); font-weight:800; font-size:.95rem;
+  color:var(--ink);
+}
+.process-n--yellow{ background:var(--accent); }
+.process-n--pink{ background:var(--pink); }
+.process-n--mint{ background:var(--mint); }
+.process-n--sky{ background:var(--sky); }
+.process-t{ font-family:var(--sans); font-weight:700; color:var(--ink); margin-bottom:.25rem; }
+.process-d{ font-family:var(--sans); font-size:.92rem; color:var(--body); line-height:1.55; }
+
 .cta-block{
   text-align:center;
   background:var(--ink);
@@ -420,6 +437,32 @@ footer a{ color:var(--faint); }
           <div><p class="n">417</p><p class="l">Upvotes</p></div>
           <div><p class="n">YC</p><p class="l">Backed company</p></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow eyebrow--pink">How we build this</span>
+    <h2>This is the process behind the table above</h2>
+    <p class="section-note">The 50 days above weren't pulled by hand for show — this is the actual method, running continuously. No dashboard screenshot here, because we're not going to show you a product screen that doesn't exist yet. This is the honest version: what happens, in order.</p>
+    <div class="process">
+      <div class="process-step">
+        <span class="process-n process-n--yellow">1</span>
+        <div><p class="process-t">Scan</p><p class="process-d">Pull every day's #1 Product of the Day, its tagline, category, and score, straight from Product Hunt's own archive.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="process-n process-n--pink">2</span>
+        <div><p class="process-t">Score</p><p class="process-d">Check each entry against the pattern: does the tagline name AI/agent, what category, how the vote-to-comment ratio breaks down.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="process-n process-n--mint">3</span>
+        <div><p class="process-t">Cross-reference</p><p class="process-d">Compare against your product's own niche and positioning, so the pattern isn't generic PH advice — it's specific to what you're launching.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="process-n process-n--sky">4</span>
+        <div><p class="process-t">Alert</p><p class="process-d">Surface what's actually shifting this week, before your launch day, not a static playbook written once and never touched again.</p></div>
       </div>
     </div>
   </div>
