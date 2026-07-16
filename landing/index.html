@@ -158,6 +158,31 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 .lede{ font-size:clamp(1.05rem, 1.6vw, 1.2rem); max-width:38rem; }
 
+.mark-word{
+  position:relative;
+  display:inline-block;
+  font-weight:600;
+  color:var(--ink);
+}
+.mark-word::after{
+  content:"";
+  position:absolute;
+  left:-.06em;
+  right:-.06em;
+  bottom:-.1em;
+  height:.38em;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23F2E96A' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  transform-origin:left center;
+  transform:scaleX(0);
+  animation:mark-draw .5s cubic-bezier(.25,.8,.4,1) .95s forwards;
+}
+@keyframes mark-draw{ to{ transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce){
+  .mark-word::after{ animation:none; transform:scaleX(1); }
+}
+
 /* pill badge — every section opens with one */
 .badge{
   display:inline-flex;
@@ -1498,7 +1523,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     <div class="hero-copy">
       <span class="badge">Built for Solo SaaS Founders</span>
       <h1><span class="pain-line">You still haven't</span><br><span class="pain-line">posted it!</span></h1>
-      <p class="lede">You built it. That was the easy part. We post it for you. 25+ platforms, and we know exactly which ones work for you.</p>
+      <p class="lede">You built it. That was the easy part. <span class="mark-word">We post it for you.</span> 25+ platforms, and we know exactly which ones work for you.</p>
       <div class="hero-cta">
         <div class="capzone capzone--hero">
           <div class="vf">
