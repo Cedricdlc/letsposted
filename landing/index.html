@@ -123,9 +123,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   border:3px solid #141414;
   box-shadow:5px 6px 0 rgba(0,0,0,.5);
   margin-bottom:.22em;
+  animation:sticker-slap .55s cubic-bezier(.34,1.56,.64,1) backwards;
 }
-.hero h1 .pain-line:nth-of-type(1){ transform:rotate(-1.5deg); }
-.hero h1 .pain-line:nth-of-type(2){ transform:rotate(1deg); }
+.hero h1 .pain-line:nth-of-type(1){ --slap-rot:-1.5deg; animation-delay:.05s; }
+.hero h1 .pain-line:nth-of-type(2){ --slap-rot:1deg; animation-delay:.28s; }
+@keyframes sticker-slap{
+  0%{ opacity:0; transform:scale(.5) rotate(-18deg) translateY(-14px); }
+  65%{ opacity:1; transform:scale(1.07) rotate(var(--slap-rot)) translateY(0); }
+  100%{ opacity:1; transform:scale(1) rotate(var(--slap-rot)) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero h1 .pain-line{ animation:none; transform:rotate(var(--slap-rot)); }
+}
 .hero-reassure{
   margin-top:1.1rem;
   font-size:.82rem;
@@ -1488,7 +1497,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="badge">Built for Solo SaaS Founders</span>
-      <h1><span class="pain-line">You still haven't</span><br><span class="pain-line">posted it.</span></h1>
+      <h1><span class="pain-line">You still haven't</span><br><span class="pain-line">posted it!</span></h1>
       <p class="lede">You built it. That was the easy part. We post it for you. 25+ platforms, and we know exactly which ones work for you.</p>
       <div class="hero-cta">
         <div class="capzone capzone--hero">
