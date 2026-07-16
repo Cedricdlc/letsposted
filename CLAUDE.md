@@ -35,6 +35,11 @@ docs/               → contexte projet, copy, décisions
 - `ANTHROPIC_API_KEY` — requis pour `platform-copy.js`. Déjà configurée.
 - `PAGESPEED_API_KEY` — optionnelle, améliore le quota PageSpeed Insights (sinon quota anonyme partagé, quasi toujours épuisé → scores `null`). Pas encore configurée.
 
+### Piège connu : `netlify deploy --prod` qui échoue avec "Forbidden"
+
+Observé le 2026-07-16 : `netlify deploy --prod` échoue systématiquement avec `JSONHTTPError: Forbidden` alors que `netlify status`, `netlify api getSite` et un `netlify deploy` (preview, sans `--prod`) fonctionnent normalement — donc pas un problème d'auth générale, juste sur l'action de publication prod via le CLI. Cause exacte non identifiée (probablement transitoire côté API Netlify).
+**Contournement qui marche** : faire un `netlify deploy` (preview) normal, récupérer son `deploy_id` dans la sortie, puis promouvoir ce deploy en prod directement via `netlify api restoreSiteDeploy --data '{"site_id":"d4a26bd1-7f35-41c7-bf41-b4e83b981e0d","deploy_id":"<ID>"}'`. Vérifier ensuite avec `curl https://letsgetposted.com/` que le contenu attendu est bien servi.
+
 ### Piège connu : `netlify dev` en local
 
 En local avec `netlify dev`, `process.env.ANTHROPIC_API_KEY` peut être écrasé par une valeur qui ressemble à un JWT (`eyJhbGci...`, ~400 caractères) au lieu de la vraie clé `sk-ant-...` configurée sur le site — cause exacte non identifiée (probablement une extension Netlify ou un mécanisme d'injection interne au compte). Résultat observé : `platform-copy.js` répond `{"ok":false,"error":"Anthropic API 401"}` en dev alors que la clé est correcte.
