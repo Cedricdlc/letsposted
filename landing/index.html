@@ -2006,10 +2006,14 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         modalResult.hidden = false;
         modalResult.innerHTML = renderReadiness(data);
         var meta = data.meta || {};
+        // Show the lead magnet either way — even when we couldn't scrape
+        // the page, the generic per-platform reasons (platformCardsInner's
+        // fallback text) still hold up and the email capture shouldn't be
+        // lost just because a site blocks automated requests.
+        var lmUrl = document.getElementById('lm-url-modal');
+        if (lmUrl) lmUrl.value = data.url || url;
+        modalLeadmagnet.hidden = false;
         if (meta.reachable && (meta.title || meta.description)) {
-          var lmUrl = document.getElementById('lm-url-modal');
-          if (lmUrl) lmUrl.value = data.url || url;
-          modalLeadmagnet.hidden = false;
           fetchPlatformCopy(meta);
         }
       })
@@ -2018,8 +2022,11 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         modalLoad.hidden = true;
         modalResult.hidden = false;
         modalResult.innerHTML =
-          '<p style="font-size:.86rem;color:var(--faint)">Couldn\'t reach your site to check it right now. ' +
-          '<a href="#book">Book your launch</a> and we\'ll dig in by hand.</p>';
+          '<p style="font-size:.86rem;color:var(--faint)">Couldn\'t reach your site to check it right now — here\'s what we can still tell you:</p>' +
+          platformPreviews({});
+        var lmUrl = document.getElementById('lm-url-modal');
+        if (lmUrl) lmUrl.value = url;
+        modalLeadmagnet.hidden = false;
       });
   }
 
@@ -2106,9 +2113,8 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         '<span class="ready-score-lbl">/ 100 &middot; Launch Readiness (PageSpeed)</span></div>';
     }
     if (!meta.reachable) {
-      return scoreHtml +
-        '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly to check it. It may block automated requests.</p>' +
-        '<p class="ready-cta"><a href="#book">Fix it with us. Book my launch →</a></p>';
+      return '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly — some sites block automated requests. Here\'s what we can still tell you:</p>' +
+        platformPreviews(meta);
     }
     return scoreHtml + platformPreviews(meta);
   }
