@@ -40,9 +40,9 @@ Au moment de ce design, Cédric est à J2 de son propre lancement manuel (le pre
 | 2 | HTTP Request | Appelle l'API GraphQL Product Hunt (`api.producthunt.com/v2/api/graphql`), interroge les posts de la veille triés par votes, récupère le #1 |
 | 3 | Code | Extrait nom, tagline, score, catégories. Calcule `mentionsAI` (tagline/catégorie contient "AI" ou "agent", insensible à la casse) |
 | 4 | IF | Le #1 a bien été trouvé et les champs requis sont présents ? Sinon → nœud 9 |
-| 5 | HTTP Request (GitHub) | `GET /repos/{owner}/getseen/contents/landing/data/ph-winners.json` — récupère le JSON actuel + son SHA |
+| 5 | HTTP Request (GitHub) | `GET /repos/Cedricdlc/letsposted/contents/landing/data/ph-winners.json` — récupère le JSON actuel + son SHA |
 | 6 | Code | Vérifie que la date du jour n'existe pas déjà dans le tableau (idempotence si le cron se déclenche deux fois) ; ajoute la nouvelle entrée si absente |
-| 7 | HTTP Request (GitHub) | `PUT /repos/{owner}/getseen/contents/landing/data/ph-winners.json` avec le SHA du nœud 5 — commit le JSON mis à jour, message `"Add PH winner for {date} (automated)"` |
+| 7 | HTTP Request (GitHub) | `PUT /repos/Cedricdlc/letsposted/contents/landing/data/ph-winners.json` avec le SHA du nœud 5 — commit le JSON mis à jour, message `"Add PH winner for {date} (automated)"` |
 | 8 | HTTP Request (Netlify) | POST vers le Build Hook Netlify (body vide) — déclenche un nouveau build + déploiement |
 | 9 | Notification (branche erreur) | Si le nœud 4 échoue : notifier Cédric (Telegram ou email — au choix, à définir au moment de construire) que la sync du {date} a échoué et doit être vérifiée à la main. **Jamais de donnée devinée ou fabriquée en remplacement.** |
 
@@ -52,10 +52,10 @@ Au moment de ce design, Cédric est à J2 de son propre lancement manuel (le pre
 
 ## Prérequis à préparer par Cédric avant de construire
 
-1. **Un vrai remote GitHub pour le repo `getseen`.** Vérifié le 2026-07-17 : `git remote -v` montre que "origin" pointe vers un chemin local (`/Users/cedricdlc/Documents/Github/getseen`, l'ancienne copie iCloud), pas vers github.com — il n'existe donc actuellement aucun repo GitHub en ligne sur lequel l'API GitHub pourrait committer. À créer (repo privé recommandé) avant de construire les nœuds 5/7, puis mettre à jour le remote local (`git remote set-url origin <url-github>`) ou ajouter un second remote dédié.
-2. Token API Product Hunt (créer une app sur `api.producthunt.com/v2/oauth/applications`)
-3. Personal Access Token GitHub avec accès écriture sur ce nouveau repo
-4. Build Hook Netlify (Site settings → Build & deploy → Build hooks → "Add build hook")
+1. ~~Un vrai remote GitHub pour le repo.~~ **Fait le 2026-07-17** : repo créé sur `github.com/Cedricdlc/letsposted` (privé), remote local reconnecté, historique complet poussé.
+2. ~~Personal Access Token GitHub avec accès écriture.~~ **Fait le 2026-07-17** : token classic, scope `repo`, stocké dans le trousseau macOS (git credential helper `osxkeychain`) — réutilisable tel quel pour les nœuds GitHub du workflow n8n (5 et 7).
+3. Token API Product Hunt (créer une app sur `api.producthunt.com/v2/oauth/applications`) — **reste à faire**
+4. Build Hook Netlify (Site settings → Build & deploy → Build hooks → "Add build hook") — **reste à faire**
 
 ## Hors scope (explicitement, pour cette itération)
 
