@@ -93,6 +93,12 @@ Si ce problème réapparaît sur un autre repo dans `~/Documents/` : même remè
 - Grosse session de refonte le 2026-07-13, suite au premier feedback qualitatif : hero réécrit (pain "You still haven't posted it." nommé en premier), page réduite à 3 sections (hero / expertise / book), lead magnet passé en modale plein écran avec previews IA reframées en "pourquoi cette plateforme pour ta niche" (plus "aperçu de post"), bloc final en 2 colonnes avec un nuage de "stickers" (logos plateformes façon patch). **Identité visuelle rebrandée violet → noir/blanc/or** (`--accent`/`--grad` recolorés, plus aucun hex violet dans le fichier).
 - Session de polish le 2026-07-13/14 : palette aplatie en jaune pâle unique (`#F2E96A`), plus aucun glow/halo, titre en effet surligneur, section "First Customers" ajoutée, bannière CTA plein écran en fin de page, lead magnet retravaillé pour la conversion (aperçu verrouillé de plateformes, livrable nommé, ligne d'urgence, email seul). **Tout ça est déployé et vérifié en prod.**
 
+## Infra automatisation — n8n (2026-07-17)
+
+Premier vrai workflow n8n du projet en cours de cadrage (spec superpowers : `docs/superpowers/specs/2026-07-17-n8n-agent-workflow-design.md`) : "Posted — PH Daily Winner Sync", garde à jour automatiquement `landing/data/ph-winners.json` (le dataset des #1 Product of the Day) via l'API officielle Product Hunt + commit GitHub + Netlify Build Hook.
+
+**Compte n8n** : l'ancien compte `breakpoint77.app.n8n.cloud` (utilisé pour le pipeline LinkedIn Hack) n'est plus accessible (accès perdu le 2026-07-17). Décision : **ne pas essayer de le récupérer**, repartir sur un **nouveau compte n8n Cloud dédié à Posted/GetSeen**, séparé des autres projets — cloisonnement volontaire puisque ce sera l'infra centrale des automatisations du projet. Toujours du managed hosting (pas de serveur perso), Cédric ne connaît pas l'infra serveur. Cédric construit le workflow lui-même dans n8n ; Claude fournit la spec nœud par nœud + le code côté site (JSON + rendu dynamique de la page).
+
 ## Plan de lancement Posted. — 4 semaines (démarré 2026-07-16)
 
 On applique à nous-mêmes nos propres checklists (PH / Reddit / X, voir les 3 pages de guide). Objectif : lancer sur Product Hunt le **mercredi 12 août 2026, 12:01 AM PT**, avec le post Reddit et le thread X le même jour. Pas de raccourci sur le chauffage d'audience — c'est exactement ce qu'on recommande aux autres.
