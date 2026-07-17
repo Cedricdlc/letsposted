@@ -39,6 +39,8 @@ Cette conversation est dédiée uniquement au contenu (voir `docs/prompt-context
 
 **Format hebdo spécial** : un post supplémentaire une fois par semaine (proposition : dimanche soir ou lundi matin) sert d'update chiffré transparent (followers/vues/clients réels) — remplace le post du pilier du jour ce jour-là plutôt que de s'ajouter en 3e post.
 
+**Format additionnel : threads longs (ponctuel)** — ajouté le 2026-07-17. En plus des 2 posts/jour, des threads longs (histoire complète/le pourquoi du comment, deep-dive sur un sujet) peuvent sortir occasionnellement, quand il y a assez de matière — pas de rythme fixe, pas d'emplacement dédié dans la rotation, décidé au cas par cas plutôt qu'imposé chaque semaine.
+
 ## Voix
 
 Inchangée, s'applique identiquement aux deux couches. Référence : page Notion "Guide de voix — Posts X (Posted)" (créée le 2026-07-17) et les 28 brouillons déjà calibrés dans `docs/launch-plan.md`.
