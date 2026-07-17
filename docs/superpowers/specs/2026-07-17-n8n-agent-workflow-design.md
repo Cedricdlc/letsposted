@@ -50,11 +50,25 @@ Au moment de ce design, Cédric est à J2 de son propre lancement manuel (le pre
 
 **Pourquoi l'API officielle Product Hunt plutôt que du scraping HTML** : Product Hunt documente et autorise cet accès (contrairement à Reddit/X qui bloquent tout accès automatisé, constaté cette semaine). Le scraping HTML est fragile face aux changements de frontend ; l'API est un contrat stable. Donne une donnée déjà structurée sans avoir besoin d'un nœud IA pour interpréter du HTML brut.
 
+**Requête GraphQL nœud 2 — testée et confirmée fonctionnelle le 2026-07-17** (a bien renvoyé le vrai #1 du jour, "Paradigm", 610 votes) :
+
+Configuration du nœud HTTP Request dans n8n :
+- Méthode : `POST`
+- URL : `https://api.producthunt.com/v2/api/graphql`
+- Headers : `Authorization: Bearer {{ $credentials.productHuntToken }}` (stocker le Developer Token dans les credentials n8n, jamais en clair dans le nœud), `Content-Type: application/json`
+- Body (JSON), avec `postedAfter`/`postedBefore` calculés dynamiquement sur la veille (à faire avec une expression n8n type `{{ $now.minus(1, 'day').startOf('day').toISO() }}` / `{{ $now.startOf('day').toISO() }}`) :
+```json
+{
+  "query": "{ posts(first: 5, order: VOTES, postedAfter: \"<veille 00:00 UTC>\", postedBefore: \"<aujourd'hui 00:00 UTC>\") { edges { node { name tagline votesCount createdAt } } } }"
+}
+```
+- Le nœud 3 (Code) prend `data.posts.edges[0].node` comme le #1 du jour (le tableau est déjà trié par `order: VOTES`, premier élément = premier).
+
 ## Prérequis à préparer par Cédric avant de construire
 
 1. ~~Un vrai remote GitHub pour le repo.~~ **Fait le 2026-07-17** : repo créé sur `github.com/Cedricdlc/letsposted` (privé), remote local reconnecté, historique complet poussé.
 2. ~~Personal Access Token GitHub avec accès écriture.~~ **Fait le 2026-07-17** : token classic, scope `repo`, stocké dans le trousseau macOS (git credential helper `osxkeychain`) — réutilisable tel quel pour les nœuds GitHub du workflow n8n (5 et 7).
-3. Token API Product Hunt (créer une app sur `api.producthunt.com/v2/oauth/applications`) — **reste à faire**
+3. ~~Token API Product Hunt.~~ **Fait le 2026-07-17** : app "Posted PH Sync" créée, Developer Token généré (n'expire jamais, verrouillé au compte perso), testé en direct contre l'API — a bien renvoyé le #1 du jour réel. À stocker dans les credentials n8n, jamais en clair dans un nœud.
 4. Build Hook Netlify (Site settings → Build & deploy → Build hooks → "Add build hook") — **reste à faire**
 
 ## Hors scope (explicitement, pour cette itération)
