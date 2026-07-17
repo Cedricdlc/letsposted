@@ -69,7 +69,9 @@ Configuration du nœud HTTP Request dans n8n :
 1. ~~Un vrai remote GitHub pour le repo.~~ **Fait le 2026-07-17** : repo créé sur `github.com/Cedricdlc/letsposted` (privé), remote local reconnecté, historique complet poussé.
 2. ~~Personal Access Token GitHub avec accès écriture.~~ **Fait le 2026-07-17** : token classic, scope `repo`, stocké dans le trousseau macOS (git credential helper `osxkeychain`) — réutilisable tel quel pour les nœuds GitHub du workflow n8n (5 et 7).
 3. ~~Token API Product Hunt.~~ **Fait le 2026-07-17** : app "Posted PH Sync" créée, Developer Token généré (n'expire jamais, verrouillé au compte perso), testé en direct contre l'API — a bien renvoyé le #1 du jour réel. À stocker dans les credentials n8n, jamais en clair dans un nœud.
-4. Build Hook Netlify (Site settings → Build & deploy → Build hooks → "Add build hook") — **reste à faire**
+4. ~~Build Hook Netlify.~~ **Fait le 2026-07-17** (créé via l'API Netlify) : `https://api.netlify.com/build_hooks/6a5a00b8254dbe6e9a3bb8b9`. Un simple POST (body vide) déclenche un build + déploiement — c'est l'URL à utiliser dans le nœud 8.
+
+**Tous les prérequis sont maintenant réunis. Le workflow peut être construit intégralement dans n8n.**
 
 ## Hors scope (explicitement, pour cette itération)
 
