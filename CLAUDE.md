@@ -132,6 +132,30 @@ On applique à nous-mêmes nos propres checklists (PH / Reddit / X, voir les 3 p
 
 **Note** : Cédric ne veut pas utiliser le Kanban perso (`~/Developer/Todo`) pour suivre ce plan — ce fichier CLAUDE.md est la seule source de vérité pour le plan de lancement. Ne pas re-proposer le Kanban pour ce projet sauf s'il le redemande explicitement.
 
+### Stratégie de contenu X — base Notion "Contenu" (depuis le 2026-07-17)
+
+Le suivi éditorial du contenu X (posts courts + threads longs) vit dans une base Notion dédiée **"Contenu"**, sous la page racine "🧠 Second Cerveau" (workspace "Cedric"), séparée de la base générale "Tâches". Migration faite le 2026-07-17 depuis Tâches (qui servait initialement, cf. historique dans `docs/superpowers/specs/2026-07-17-content-strategy-tofu-design.md`) — les anciennes entrées Tâches ont été renommées `[Déplacé → Contenu]` plutôt que supprimées.
+
+Schéma de la base "Contenu" :
+
+| Propriété | Type / valeurs |
+|---|---|
+| Titre | texte |
+| Canal | select : X / Reddit / Product Hunt / Autre |
+| Entonnoir | select : TOFU / MOFU / BOFU |
+| Statut éditorial | select : Idée → Backlog → À rédiger → Prêt → Publié |
+| Texte du post | texte (le post complet, threads = tweets numérotés dans le même champ) |
+| Date de publication | date |
+| Projet | relation vers la base Projets |
+
+Vues : Default (table), "📅 Calendrier" (par Date de publication), "Board" (groupé par Statut éditorial), "🗂️ Par entonnoir" (groupé par Entonnoir).
+
+**Stratégie éditoriale (design complet dans `docs/superpowers/specs/2026-07-17-content-strategy-tofu-design.md`)** : 2 posts/jour sur X pendant la fenêtre de lancement (16/07 → 12/08) — toujours 1 TOFU (récit perso : douleur de distribution après 10+ projets lancés en 8 mois sans visibilité/clients/preuve sociale) + 1 MOFU (process de construction, les 28 brouillons déjà calibrés). Rotation des piliers TOFU par jour de semaine : Lundi=le pain, Mardi=le cimetière (échecs nommés, ex: Breakpoint — 100 DM, 1 call, 0€), Mercredi=le déclic (agents IA autonomes), Jeudi=construire depuis zéro, Vendredi=prises de position distribution, weekend=libre. Un post hebdo remplace le pilier du jour par un update chiffré transparent (followers/vues/clients réels). Pas de BOFU avant le 12/08. Des threads longs (origin story, deep-dives) s'ajoutent ponctuellement, sans rythme fixe, en plus des 2 posts/jour.
+
+Avant de rédiger un post : consulter la page Notion "Guide de voix — Posts X (Posted)" (voix naturelle, première personne, zéro superlatif, honnête sur les limites) et proposer le texte à Cédric — il choisit l'angle (souvent 2-3 options) avant tout enregistrement dans la base Contenu.
+
+Backlog d'idées brutes (bonnes ou mauvaises) séparé : base Notion "Notes / Idées", Statut de maturité = Brute, liées au projet Posted — matière à développer en post plus tard, pas rédigées immédiatement sauf demande explicite.
+
 ## État (2026-07-16)
 
 - `landing/product-hunt-launch.html` refondu en profondeur suite au feedback "il faut beaucoup plus concret, visuel, avec des screen de product hunt, une vraie analyse" :
