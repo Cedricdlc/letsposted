@@ -1,52 +1,359 @@
 [
-  { "date": "2026-07-14", "product": "ClawTeams", "tagline": "The first goal-driven, proactive AI team for e-commerce", "score": "725", "mentionsAI": true },
-  { "date": "2026-07-13", "product": "AgentKey", "tagline": "One-stop live data marketplace for your agent", "score": "681", "mentionsAI": true },
-  { "date": "2026-07-12", "product": "Miora", "tagline": "Scale creativity on editable canvas with agent memory", "score": "593", "mentionsAI": true },
-  { "date": "2026-07-11", "product": "Effects SDK", "tagline": "AI video & audio effects SDK for real-time apps", "score": "503", "mentionsAI": true },
-  { "date": "2026-07-10", "product": "ChatCut", "tagline": "Your AI video editor in ChatGPT, desktop & web", "score": "105v / 761c", "mentionsAI": true },
-  { "date": "2026-07-09", "product": "Auriko", "tagline": "Trading desk for LLM calls", "score": "752", "mentionsAI": false },
-  { "date": "2026-07-08", "product": "ExploreYC", "tagline": "Open-source API for YC & a16z company data", "score": "859", "mentionsAI": false },
-  { "date": "2026-07-07", "product": "Badge", "tagline": "AI agents collect peer reviews to generate proof of work", "score": "488", "mentionsAI": true },
-  { "date": "2026-07-06", "product": "AnySearch", "tagline": "Real-time structured search trusted by agents and developers", "score": "924", "mentionsAI": true },
-  { "date": "2026-07-05", "product": "WorkBuddy", "tagline": "Produce sharpened results faster with a team of AI experts", "score": "443", "mentionsAI": true },
-  { "date": "2026-07-04", "product": "Vida", "tagline": "Clone yourself. Let AI do the work before you ask", "score": "473", "mentionsAI": true },
-  { "date": "2026-07-03", "product": "Glaze by Raycast", "tagline": "Create your own Mac apps by chatting with AI", "score": "673", "mentionsAI": true },
-  { "date": "2026-07-02", "product": "Context.dev", "tagline": "One API to scrape, enrich, and extract the internet", "score": "1148", "mentionsAI": false },
-  { "date": "2026-07-01", "product": "Acti", "tagline": "Agentic keyboard for mobile commands and search", "score": "1490", "mentionsAI": true },
-  { "date": "2026-06-30", "product": "Cursor for iOS", "tagline": "Build with coding agents from anywhere", "score": "644", "mentionsAI": true },
-  { "date": "2026-06-29", "product": "Spira", "tagline": "Social media growth agents that build your momentum", "score": "487", "mentionsAI": true },
-  { "date": "2026-06-28", "product": "discode.ai", "tagline": "100+ AI models, one interface. ECO friendly.", "score": "408", "mentionsAI": true },
-  { "date": "2026-06-27", "product": "Folio AI", "tagline": "Claude for PowerPoint, on steroids", "score": "362", "mentionsAI": false },
-  { "date": "2026-06-26", "product": "Agent Arena", "tagline": "The first public arena for AI agents", "score": "407", "mentionsAI": true },
-  { "date": "2026-06-25", "product": "BrowserAct", "tagline": "Web browser automation for AI agents", "score": "746", "mentionsAI": true },
-  { "date": "2026-06-24", "product": "Tencent EdgeOne Makers", "tagline": "Ship AI agents like web apps, in minutes", "score": "1210", "mentionsAI": true },
-  { "date": "2026-06-23", "product": "Bluerails Discovery", "tagline": "The rails AI agents use to find and pay you", "score": "705", "mentionsAI": true },
-  { "date": "2026-06-22", "product": "AgentX", "tagline": "Evaluate AI agent, pinpoint issues, fix with one click", "score": "668", "mentionsAI": true },
-  { "date": "2026-06-21", "product": "Agent 37 Cloud", "tagline": "Give every customer their own Hermes or OpenClaw agent", "score": "450", "mentionsAI": true },
-  { "date": "2026-06-20", "product": "WorkClaw", "tagline": "Collaborative, proactive AI coworkers who work in Slack", "score": "405", "mentionsAI": true },
-  { "date": "2026-06-19", "product": "Claude Code Artifacts", "tagline": "Preview and share your coding work live", "score": "519", "mentionsAI": false },
-  { "date": "2026-06-18", "product": "Upstream", "tagline": "The inbox designed for humans and agents", "score": "970", "mentionsAI": true },
-  { "date": "2026-06-17", "product": "Framer 3.0", "tagline": "With Agents, Branching, Community...", "score": "703", "mentionsAI": true },
-  { "date": "2026-06-16", "product": "Goldfish", "tagline": "Press Option. It knows your work and replies like you", "score": "989", "mentionsAI": false },
-  { "date": "2026-06-15", "product": "Novu Connect", "tagline": "Ship agents where your users already work", "score": "442", "mentionsAI": true },
-  { "date": "2026-06-14", "product": "Slashy", "tagline": "The AI assistant that does email for you", "score": "506", "mentionsAI": true },
-  { "date": "2026-06-13", "product": "Vercel Drop", "tagline": "Drop it. It's live.", "score": "483", "mentionsAI": false },
-  { "date": "2026-06-12", "product": "Firma.dev", "tagline": "E-signatures API, ~3¢ per envelope", "score": "380", "mentionsAI": false },
-  { "date": "2026-06-11", "product": "Bond", "tagline": "The AI to-do list that does itself", "score": "815", "mentionsAI": true },
-  { "date": "2026-06-10", "product": "Publora", "tagline": "A publishing API for agents to post on 10 social platforms", "score": "686", "mentionsAI": true },
-  { "date": "2026-06-09", "product": "VC Boom", "tagline": "Score your deck, meet investors, raise more", "score": "555", "mentionsAI": false },
-  { "date": "2026-06-08", "product": "Honen", "tagline": "Automated teaching + learning infrastructure", "score": "587", "mentionsAI": false },
-  { "date": "2026-06-07", "product": "Dreambeans", "tagline": "Daily AI stories personalised to you, by Google Labs", "score": "401", "mentionsAI": true },
-  { "date": "2026-06-06", "product": "Google Search Profiles", "tagline": "Profile for publishers/creators to highlight work on Search", "score": "413", "mentionsAI": false },
-  { "date": "2026-06-05", "product": "SellerClaw", "tagline": "A team of AI agents that runs your stores", "score": "606", "mentionsAI": true },
-  { "date": "2026-06-04", "product": "Mailwarm 2.0", "tagline": "The email warmup tool, upgraded", "score": "719", "mentionsAI": false },
-  { "date": "2026-06-03", "product": "Elentaria", "tagline": "Your GTM: from diagnosis to execution", "score": "614", "mentionsAI": false },
-  { "date": "2026-06-02", "product": "Fundraisly", "tagline": "AI fundraising agent that finds investors", "score": "1554", "mentionsAI": true },
-  { "date": "2026-06-01", "product": "Mina Meeting Assistant", "tagline": "Your AI Teammate now responds during calls", "score": "505", "mentionsAI": true },
-  { "date": "2026-05-31", "product": "Clipto", "tagline": "Fully local, natural language search over terabytes", "score": "493", "mentionsAI": false },
-  { "date": "2026-05-30", "product": "Wandesk", "tagline": "Build the apps you need by describing them", "score": "509", "mentionsAI": false },
-  { "date": "2026-05-29", "product": "Ava 2.0", "tagline": "Your AI BDR that runs outbound sales autonomously", "score": "379", "mentionsAI": true },
-  { "date": "2026-05-28", "product": "Pancake", "tagline": "OpenClaw in Slack that makes your company autonomous", "score": "634", "mentionsAI": false },
-  { "date": "2026-05-27", "product": "Powabase", "tagline": "Build AI apps with Postgres, RAG, and agents", "score": "472", "mentionsAI": true },
-  { "date": "2026-05-26", "product": "Brew", "tagline": "Like Claude design for email marketing", "score": "990", "mentionsAI": false }
+  {
+    "date": "2026-07-14",
+    "product": "ClawTeams",
+    "tagline": "The first goal-driven, proactive AI team for e-commerce",
+    "score": "725",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-13",
+    "product": "AgentKey",
+    "tagline": "One-stop live data marketplace for your agent",
+    "score": "681",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-12",
+    "product": "Miora",
+    "tagline": "Scale creativity on editable canvas with agent memory",
+    "score": "593",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-11",
+    "product": "Effects SDK",
+    "tagline": "AI video & audio effects SDK for real-time apps",
+    "score": "503",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-10",
+    "product": "ChatCut",
+    "tagline": "Your AI video editor in ChatGPT, desktop & web",
+    "score": "105v / 761c",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-09",
+    "product": "Auriko",
+    "tagline": "Trading desk for LLM calls",
+    "score": "752",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-07-08",
+    "product": "ExploreYC",
+    "tagline": "Open-source API for YC & a16z company data",
+    "score": "859",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-07-07",
+    "product": "Badge",
+    "tagline": "AI agents collect peer reviews to generate proof of work",
+    "score": "488",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-06",
+    "product": "AnySearch",
+    "tagline": "Real-time structured search trusted by agents and developers",
+    "score": "924",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-05",
+    "product": "WorkBuddy",
+    "tagline": "Produce sharpened results faster with a team of AI experts",
+    "score": "443",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-04",
+    "product": "Vida",
+    "tagline": "Clone yourself. Let AI do the work before you ask",
+    "score": "473",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-03",
+    "product": "Glaze by Raycast",
+    "tagline": "Create your own Mac apps by chatting with AI",
+    "score": "673",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-07-02",
+    "product": "Context.dev",
+    "tagline": "One API to scrape, enrich, and extract the internet",
+    "score": "1148",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-07-01",
+    "product": "Acti",
+    "tagline": "Agentic keyboard for mobile commands and search",
+    "score": "1490",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-30",
+    "product": "Cursor for iOS",
+    "tagline": "Build with coding agents from anywhere",
+    "score": "644",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-29",
+    "product": "Spira",
+    "tagline": "Social media growth agents that build your momentum",
+    "score": "487",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-28",
+    "product": "discode.ai",
+    "tagline": "100+ AI models, one interface. ECO friendly.",
+    "score": "408",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-27",
+    "product": "Folio AI",
+    "tagline": "Claude for PowerPoint, on steroids",
+    "score": "362",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-26",
+    "product": "Agent Arena",
+    "tagline": "The first public arena for AI agents",
+    "score": "407",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-25",
+    "product": "BrowserAct",
+    "tagline": "Web browser automation for AI agents",
+    "score": "746",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-24",
+    "product": "Tencent EdgeOne Makers",
+    "tagline": "Ship AI agents like web apps, in minutes",
+    "score": "1210",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-23",
+    "product": "Bluerails Discovery",
+    "tagline": "The rails AI agents use to find and pay you",
+    "score": "705",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-22",
+    "product": "AgentX",
+    "tagline": "Evaluate AI agent, pinpoint issues, fix with one click",
+    "score": "668",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-21",
+    "product": "Agent 37 Cloud",
+    "tagline": "Give every customer their own Hermes or OpenClaw agent",
+    "score": "450",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-20",
+    "product": "WorkClaw",
+    "tagline": "Collaborative, proactive AI coworkers who work in Slack",
+    "score": "405",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-19",
+    "product": "Claude Code Artifacts",
+    "tagline": "Preview and share your coding work live",
+    "score": "519",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-18",
+    "product": "Upstream",
+    "tagline": "The inbox designed for humans and agents",
+    "score": "970",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-17",
+    "product": "Framer 3.0",
+    "tagline": "With Agents, Branching, Community...",
+    "score": "703",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-16",
+    "product": "Goldfish",
+    "tagline": "Press Option. It knows your work and replies like you",
+    "score": "989",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-15",
+    "product": "Novu Connect",
+    "tagline": "Ship agents where your users already work",
+    "score": "442",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-14",
+    "product": "Slashy",
+    "tagline": "The AI assistant that does email for you",
+    "score": "506",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-13",
+    "product": "Vercel Drop",
+    "tagline": "Drop it. It's live.",
+    "score": "483",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-12",
+    "product": "Firma.dev",
+    "tagline": "E-signatures API, ~3¢ per envelope",
+    "score": "380",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-11",
+    "product": "Bond",
+    "tagline": "The AI to-do list that does itself",
+    "score": "815",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-10",
+    "product": "Publora",
+    "tagline": "A publishing API for agents to post on 10 social platforms",
+    "score": "686",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-09",
+    "product": "VC Boom",
+    "tagline": "Score your deck, meet investors, raise more",
+    "score": "555",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-08",
+    "product": "Honen",
+    "tagline": "Automated teaching + learning infrastructure",
+    "score": "587",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-07",
+    "product": "Dreambeans",
+    "tagline": "Daily AI stories personalised to you, by Google Labs",
+    "score": "401",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-06",
+    "product": "Google Search Profiles",
+    "tagline": "Profile for publishers/creators to highlight work on Search",
+    "score": "413",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-05",
+    "product": "SellerClaw",
+    "tagline": "A team of AI agents that runs your stores",
+    "score": "606",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-04",
+    "product": "Mailwarm 2.0",
+    "tagline": "The email warmup tool, upgraded",
+    "score": "719",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-03",
+    "product": "Elentaria",
+    "tagline": "Your GTM: from diagnosis to execution",
+    "score": "614",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-06-02",
+    "product": "Fundraisly",
+    "tagline": "AI fundraising agent that finds investors",
+    "score": "1554",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-06-01",
+    "product": "Mina Meeting Assistant",
+    "tagline": "Your AI Teammate now responds during calls",
+    "score": "505",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-05-31",
+    "product": "Clipto",
+    "tagline": "Fully local, natural language search over terabytes",
+    "score": "493",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-05-30",
+    "product": "Wandesk",
+    "tagline": "Build the apps you need by describing them",
+    "score": "509",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-05-29",
+    "product": "Ava 2.0",
+    "tagline": "Your AI BDR that runs outbound sales autonomously",
+    "score": "379",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-05-28",
+    "product": "Pancake",
+    "tagline": "OpenClaw in Slack that makes your company autonomous",
+    "score": "634",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-05-27",
+    "product": "Powabase",
+    "tagline": "Build AI apps with Postgres, RAG, and agents",
+    "score": "472",
+    "mentionsAI": true
+  },
+  {
+    "date": "2026-05-26",
+    "product": "Brew",
+    "tagline": "Like Claude design for email marketing",
+    "score": "990",
+    "mentionsAI": false
+  },
+  {
+    "date": "2026-07-19",
+    "product": "OpenSEO",
+    "tagline": "The open source Ahrefs alternative",
+    "score": "697",
+    "mentionsAI": false
+  }
 ]
