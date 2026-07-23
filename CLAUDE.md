@@ -185,6 +185,21 @@ Backlog d'idées brutes (bonnes ou mauvaises) séparé : base Notion "Notes / Id
 
 Reproduit plusieurs fois de suite le 2026-07-16 sur toute la session (pas un cas isolé) : `netlify deploy --prod` échoue systématiquement, `netlify deploy` (preview) fonctionne toujours. Contournement utilisé à chaque fois avec succès : `netlify api restoreSiteDeploy --data '{"site_id":"d4a26bd1-7f35-41c7-bf41-b4e83b981e0d","deploy_id":"<ID du preview>"}'`. Voir détail plus haut dans ce fichier — considérer ce contournement comme la méthode par défaut pour publier en prod tant que `--prod` ne remarche pas, plutôt que de réessayer `--prod` en boucle.
 
+## Landing v2 — refonte complète du 2026-07-23 (post-retour prospect réel)
+
+Un vrai prospect B2B (testé sur `jumpia.club`) a donné un retour qui converge avec la session de recherche du 13/07 (n=1 → n=2 sur 2 points : page trop longue, lead magnet montre trop avant l'email). Design + plan détaillés dans `docs/superpowers/specs/2026-07-23-landing-relaunch-v2-design.md` et `docs/superpowers/plans/2026-07-23-landing-relaunch-v2.md`. Exécuté en Subagent-Driven Development (implémenteur + reviewer par tâche + revue finale sur l'ensemble), toutes les tâches approuvées, mis en prod le 2026-07-23.
+
+Ce qui a changé :
+- **Nav** : logo + "How it works" + "Guides" (regroupe les 3 guides, déplacés en footer) + bouton "Get access to the beta"
+- **Hero** : séquence scroll-animée plein écran (4 phrases, diagramme SVG à pulsations réutilisant la technique de l'ancien `#expertise`) au lieu du hero statique. **Phrase 1 = "Stop procrastinating on your business launch."** — test délibéré : le mot "procrastinating" est exactement celui que le prospect du 23/07 a rejeté pour lui-même en tant que headline statique ; hypothèse que le même mot dans une séquence animée immersive peut fonctionner différemment. À surveiller sur le prochain retour utilisateur — si rejeté à nouveau, variante de repli déjà écrite : "You don't do it. We do it for you." (phrase validée en recherche le 13/07)
+- **Sections fusionnées** : `#expertise` + `#pipeline` absorbées dans `#how`, qui passe de 4 à 5 étapes — coupe la redondance, raccourcit nettement la page
+- **Lead magnet** : ne montre plus les 3 previews de plateforme générées par IA ni la frise 7 jours à plateformes fixes avant l'email (c'était exactement ce qui donnait l'impression "on m'a déjà tout donné" au prospect) — remplacé par "We'll send your priority launch plan within 24h", un vrai triage manuel par Cédric derrière (pas une génération automatique). `platform-copy.js`/`fetchPlatformCopy`/`platformPreviews` restent dans le code mais dormants (plus aucun point d'appel), pour un futur vrai moteur de génération
+- **Plateformes** : plus de liste fixe Reddit/X/PH dans le texte — cadrage "on trouve les bons canaux selon ta niche" (LinkedIn inclus si pertinent pour du B2B)
+
+**Bug trouvé après coup, corrigé le jour même** : sous `prefers-reduced-motion` sur desktop, le JS du hero ne tourne jamais (comportement voulu), mais le CSS cachait quand même les phrases 2-4 derrière `display:none` en attendant l'activation JS — donc les utilisateurs "réduire les animations" ne voyaient que la phrase 1, épinglée sur ~400vh de scroll mort, sans jamais voir la proposition de valeur réelle. Aucune des 3 revues de code par tâche ne pouvait le voir (elles lisaient des diffs, pas le rendu composité) ; trouvé par la revue finale sur l'ensemble de la branche. Corrigé en reprenant le même fallback statique empilé que mobile.
+
+**Piste "commentaires sur influenceurs de niche"** (idée du prospect du 23/07, écho direct du mécanisme du projet frère LinkedIn Hack) : pas annoncée sur la page (n=1, pas encore testée), mais à intégrer dans le triage manuel du lead magnet quand pertinent — teste l'idée en vrai sans l'engager publiquement.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
