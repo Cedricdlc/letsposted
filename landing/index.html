@@ -247,6 +247,23 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* ---------- how it works ---------- */
 
+#how{
+  position:relative;
+  overflow:clip;
+  background:var(--card-2);
+}
+#how::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-radial-gradient(circle at 50% 0%, rgba(255,255,255,.02) 0 1.5px, transparent 1.5px 60px),
+    radial-gradient(46rem 26rem at 50% -6%, rgba(242,233,106,.14), transparent 70%);
+}
+#how > .wrap{ position:relative; }
+.hw-cta{ margin-top:2.4rem; text-align:center; }
+
 .hw-grid{
   display:grid;
   gap:1.1rem;
@@ -1795,6 +1812,9 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         <p class="hw-t">You approve, it goes live</p>
         <p class="hw-d">Nothing posts without your OK. Ever. We track the replies and follow up so you don't have to.</p>
       </div>
+    </div>
+    <div class="hw-cta">
+      <a class="btn" href="#book">Show me the plan <span class="a" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
