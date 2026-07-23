@@ -1198,8 +1198,16 @@ body{ overflow:hidden; height:100vh; }
   (function () {
     var scroller = document.getElementById('h-scroll');
     if (!scroller) return;
-    var desktop = window.matchMedia('(min-width:900px)');
-    if (!desktop.matches) return;
+    // No viewport-width gate here : a 'wheel' event only ever fires from an
+    // actual mouse wheel or trackpad gesture (touch swipe fires touch/scroll
+    // events instead, never 'wheel', in every modern mobile browser), so
+    // gating this on window width was wrong — it borrowed the min-width:900px
+    // breakpoint used elsewhere on the site for layout, but a narrower
+    // desktop browser window (not maximized, zoomed in, smaller laptop
+    // screen) still has a real wheel/trackpad and got stuck with no way to
+    // scroll at all once that gate was false. Fixed 2026-07-24 after a real
+    // report that the page was unscrollable — narrow desktop windows are
+    // exactly what this bug hit.
     scroller.addEventListener('wheel', function (e) {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
