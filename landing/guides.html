@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platform Guides — Posted.</title>
+<meta name="description" content="Real, sourced launch guides for Product Hunt, Reddit, and X — not generic advice.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:        #FBF8F1;
+  --card:      #F3EEE0;
+  --line:      #E2DBC8;
+  --line-soft: #EAE4D3;
+  --ink:       #1A1917;
+  --body:      #57534A;
+  --faint:     #8A8478;
+  --accent-2:  #C9A800;
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ background:var(--bg); color:var(--body); font-family:var(--sans); font-size:1.0625rem; line-height:1.65; -webkit-font-smoothing:antialiased; }
+.wrap{ max-width:46rem; margin:0 auto; padding:0 1.375rem; }
+h1{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:clamp(1.85rem, 1.1rem + 3.1vw, 3.1rem); letter-spacing:-.035em; margin-bottom:.6rem; }
+nav.nav{ padding:1.2rem 0; }
+.brand{ font-family:var(--display); font-weight:800; font-size:1.2rem; color:var(--ink); text-decoration:none; }
+main{ padding:3rem 0 5rem; }
+.lede{ color:var(--body); margin-bottom:2.5rem; max-width:34rem; }
+.guide-list{ display:grid; gap:1.1rem; }
+.guide-card{ display:block; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.6rem; text-decoration:none; }
+.guide-card h2{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:1.15rem; margin-bottom:.4rem; }
+.guide-card p{ color:var(--body); font-size:.92rem; }
+footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:center; }
+.foot-privacy{ font-size:.82rem; color:var(--faint); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap"><a class="brand" href="/">Posted.</a></div>
+</nav>
+
+<main class="wrap">
+  <h1>Platform Guides</h1>
+  <p class="lede">Real, sourced checklists — pulled from each platform's actual rules and real launch data, not generic advice.</p>
+  <div class="guide-list">
+    <a class="guide-card" href="/product-hunt-launch.html">
+      <h2>Product Hunt</h2>
+      <p>51 days of real #1 Product of the Day data, and the exact checklist behind it.</p>
+    </a>
+    <a class="guide-card" href="/reddit-launch.html">
+      <h2>Reddit</h2>
+      <p>The 90/10 rule and the real community norms most launches break.</p>
+    </a>
+    <a class="guide-card" href="/x-launch.html">
+      <h2>X</h2>
+      <p>What actually gets a launch thread seen, and the anti-engagement-farming rules to know first.</p>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <a href="/privacy.html" class="foot-privacy">Privacy Policy</a>
+</footer>
+</body>
+</html>
