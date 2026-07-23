@@ -327,7 +327,15 @@ body{ overflow:hidden; height:100vh; }
   height:100vh;
   overflow-x:auto;
   overflow-y:hidden;
-  scroll-snap-type:x mandatory;
+  /* proximity, not mandatory : the wheel-redirect script below calls
+     scrollBy() on every small wheel tick a real trackpad/mouse fires
+     (not one big jump) — with mandatory, the browser aggressively
+     re-snaps back to the nearest point between ticks before enough
+     distance accumulates to cross to the next screen, so scrolling
+     visibly creeps forward then bounces back. proximity only snaps
+     once the gesture actually settles near a boundary. Fixed
+     2026-07-24 after Cédric reported exactly this bounce behavior. */
+  scroll-snap-type:x proximity;
   -webkit-overflow-scrolling:touch;
 }
 .h-screen{
