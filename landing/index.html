@@ -264,19 +264,24 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 #how > .wrap{ position:relative; }
 .hw-cta{ margin-top:2.4rem; text-align:center; }
 
-.hw-grid{
+/* Mobile-first : plain stacked cards, identical to the original static
+   version. The pinned-scroll experience only switches on at the desktop
+   breakpoint below — mobile scroll is too unreliable for scroll-linked
+   effects, so it deliberately never attempts one. */
+.hw-scroll{
   display:grid;
   gap:1.1rem;
   margin-top:2.4rem;
 }
-@media (min-width:760px){
-  .hw-grid{ grid-template-columns:repeat(4,1fr); gap:1rem; }
-}
+.hw-steps{ display:grid; gap:1.1rem; }
+.hw-visual{ display:none; }
+
 .hw-step{
   background:var(--card);
   border:1px solid var(--line);
   border-radius:16px;
   padding:1.5rem 1.4rem;
+  transition:opacity .3s ease;
 }
 .hw-n{
   display:inline-flex;
@@ -304,6 +309,78 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   font-size:.92rem;
   line-height:1.55;
   color:var(--body);
+}
+
+/* ---------- how it works : pinned scroll (desktop only) ---------- */
+
+@media (min-width:900px){
+  .hw-scroll{ grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
+  .hw-steps{ gap:9rem; padding:2rem 0; }
+  .hw-step{ opacity:.4; }
+  .hw-step.is-active{ opacity:1; }
+  .hw-visual{
+    display:block;
+    position:sticky;
+    top:7rem;
+    height:23rem;
+  }
+  .hw-frame{
+    position:absolute;
+    inset:0;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:1.6rem;
+    opacity:0;
+    transition:opacity .45s ease;
+  }
+  .hw-frame.is-active{ opacity:1; }
+}
+@media (min-width:900px) and (prefers-reduced-motion: reduce){
+  .hw-step{ opacity:1; transition:none; }
+  .hw-frame{ transition:none; }
+}
+
+/* ---------- how it works : mockup contents ---------- */
+
+.hwm-url{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  background:var(--card-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:.6rem .9rem;
+  font-size:.85rem;
+  color:var(--faint);
+  margin-bottom:1.3rem;
+}
+.hwm-url b{ color:var(--ink); font-weight:600; }
+.hwm-scan{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  font-size:.82rem;
+  color:var(--accent-2);
+}
+.hwm-scan .dot{
+  width:.42rem; height:.42rem; border-radius:50%;
+  background:var(--accent); box-shadow:0 0 8px rgba(255,188,0,.8);
+}
+.hwm-badges{ display:flex; gap:.8rem; margin-top:1.4rem; }
+.hwm-badge{
+  width:2.8rem; height:2.8rem; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--card-2); border:1px solid var(--line);
+}
+.hwm-lines{ display:grid; gap:.55rem; margin-top:.4rem; }
+.hwm-line{ height:.6rem; border-radius:999px; background:var(--line); }
+.hwm-line--short{ width:55%; }
+.hwm-approve{
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:var(--grad); color:#141414; font-weight:700;
+  font-size:.85rem; padding:.6rem 1.1rem; border-radius:999px;
+  margin-top:1.5rem;
 }
 
 /* ---------- CTA buttons ---------- */
@@ -1791,26 +1868,61 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   <div class="wrap wrap--narrow">
     <span class="badge">How It Works</span>
     <h2>From submission to live, in one flow.</h2>
-    <div class="hw-grid">
-      <div class="hw-step">
-        <span class="hw-n" aria-hidden="true">1</span>
-        <p class="hw-t">Submit your product</p>
-        <p class="hw-d">Drop your URL. We check what's already there: meta tags, load speed, what a launch post needs to look right.</p>
+    <div class="hw-scroll" id="hw-scroll">
+      <div class="hw-steps">
+        <div class="hw-step is-active" data-hw-step="1">
+          <span class="hw-n" aria-hidden="true">1</span>
+          <p class="hw-t">Submit your product</p>
+          <p class="hw-d">Drop your URL. We check what's already there: meta tags, load speed, what a launch post needs to look right.</p>
+        </div>
+        <div class="hw-step" data-hw-step="2">
+          <span class="hw-n" aria-hidden="true">2</span>
+          <p class="hw-t">We match your platforms</p>
+          <p class="hw-d">8 years of research on which niche fits which platform, so you land in the right rooms, not just any room.</p>
+        </div>
+        <div class="hw-step" data-hw-step="3">
+          <span class="hw-n" aria-hidden="true">3</span>
+          <p class="hw-t">We draft everything, in your voice</p>
+          <p class="hw-d">Posts, comments, DMs. Written to sound like you, not a template.</p>
+        </div>
+        <div class="hw-step" data-hw-step="4">
+          <span class="hw-n" aria-hidden="true">4</span>
+          <p class="hw-t">You approve, it goes live</p>
+          <p class="hw-d">Nothing posts without your OK. Ever. We track the replies and follow up so you don't have to.</p>
+        </div>
       </div>
-      <div class="hw-step">
-        <span class="hw-n" aria-hidden="true">2</span>
-        <p class="hw-t">We match your platforms</p>
-        <p class="hw-d">8 years of research on which niche fits which platform, so you land in the right rooms, not just any room.</p>
-      </div>
-      <div class="hw-step">
-        <span class="hw-n" aria-hidden="true">3</span>
-        <p class="hw-t">We draft everything, in your voice</p>
-        <p class="hw-d">Posts, comments, DMs. Written to sound like you, not a template.</p>
-      </div>
-      <div class="hw-step">
-        <span class="hw-n" aria-hidden="true">4</span>
-        <p class="hw-t">You approve, it goes live</p>
-        <p class="hw-d">Nothing posts without your OK. Ever. We track the replies and follow up so you don't have to.</p>
+
+      <!-- Illustrative mockups only — not real product screenshots, same
+           honest-decoration treatment as the hero's broadcast diagram. -->
+      <div class="hw-visual" aria-hidden="true">
+        <div class="hw-frame is-active" data-hw-frame="1">
+          <div class="hwm-url">🔗 <b>yourproduct.com</b></div>
+          <div class="hwm-scan"><span class="dot"></span>Reading your page…</div>
+        </div>
+        <div class="hw-frame" data-hw-frame="2">
+          <div class="hwm-scan"><span class="dot"></span>Ranking for your niche…</div>
+          <div class="hwm-badges">
+            <span class="hwm-badge"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></span>
+            <span class="hwm-badge"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#E7E9EA" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
+            <span class="hwm-badge"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></span>
+          </div>
+        </div>
+        <div class="hw-frame" data-hw-frame="3">
+          <div class="hwm-scan"><span class="dot"></span>Drafting in your voice…</div>
+          <div class="hwm-lines">
+            <div class="hwm-line"></div>
+            <div class="hwm-line"></div>
+            <div class="hwm-line hwm-line--short"></div>
+          </div>
+        </div>
+        <div class="hw-frame" data-hw-frame="4">
+          <div class="hwm-scan"><span class="dot"></span>Ready for your review</div>
+          <div class="hwm-lines">
+            <div class="hwm-line"></div>
+            <div class="hwm-line hwm-line--short"></div>
+          </div>
+          <span class="hwm-approve">✓ Approve &amp; post</span>
+        </div>
       </div>
     </div>
     <div class="hw-cta">
@@ -2061,6 +2173,49 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     if (!urlField || !cloud) return;
     urlField.addEventListener('focus', function () { cloud.classList.add('is-active'); });
     urlField.addEventListener('blur', function () { cloud.classList.remove('is-active'); });
+  })();
+
+  /* "How it works" pinned scroll : classic scrollspy, not a thin
+     trigger band. rootMargin bottom:-50% means a step counts as
+     "current" for as long as any part of it is still above the
+     viewport's vertical middle — so there's no dead zone between
+     steps where nothing is marked active (a thin center-band
+     approach left gaps at fast scroll speeds, tested 2026-07-23).
+     When several steps are simultaneously "above middle" (the
+     ones already scrolled past), the last one in document order
+     wins — i.e. the one closest to (but still above) the middle.
+     Desktop only (min-width:900px, matches the CSS breakpoint that
+     turns on sticky positioning) and skipped entirely under
+     prefers-reduced-motion — steps/frames just keep their default
+     is-active state from the HTML (step 1 / frame 1) with no motion. */
+  (function () {
+    var scroll = document.getElementById('hw-scroll');
+    if (!scroll) return;
+    var desktop = window.matchMedia('(min-width:900px)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!desktop.matches || reduced.matches) return;
+
+    var steps = Array.prototype.slice.call(scroll.querySelectorAll('[data-hw-step]'));
+    var frames = Array.prototype.slice.call(scroll.querySelectorAll('[data-hw-frame]'));
+    var above = new Set();
+
+    function applyActive() {
+      var current = null;
+      steps.forEach(function (s) { if (above.has(s)) current = s; });
+      if (!current) current = steps[0];
+      var n = current.getAttribute('data-hw-step');
+      steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
+      frames.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hw-frame') === n); });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) above.add(entry.target);
+        else above.delete(entry.target);
+      });
+      applyActive();
+    }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+    steps.forEach(function (s) { observer.observe(s); });
   })();
 
   /* Real launch-readiness check : calls our own Netlify Function, which
