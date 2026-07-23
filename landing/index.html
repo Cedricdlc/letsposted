@@ -245,6 +245,50 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .punchline em{ font-style:normal; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
 
+/* ---------- how it works ---------- */
+
+.hw-grid{
+  display:grid;
+  gap:1.1rem;
+  margin-top:2.4rem;
+}
+@media (min-width:760px){
+  .hw-grid{ grid-template-columns:repeat(4,1fr); gap:1rem; }
+}
+.hw-step{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:1.5rem 1.4rem;
+}
+.hw-n{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:2rem;
+  height:2rem;
+  border-radius:50%;
+  background:var(--accent-soft);
+  border:1px solid var(--accent-line);
+  color:var(--accent-2);
+  font-family:var(--display);
+  font-weight:700;
+  font-size:.9rem;
+  margin-bottom:1rem;
+}
+.hw-t{
+  font-family:var(--display);
+  font-weight:700;
+  color:var(--ink);
+  font-size:1rem;
+  margin-bottom:.4rem;
+}
+.hw-d{
+  font-size:.92rem;
+  line-height:1.55;
+  color:var(--body);
+}
+
 /* ---------- CTA buttons ---------- */
 
 .btn{
@@ -1721,6 +1765,36 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         <p class="more-note">+ 20 more platforms</p>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how">
+  <div class="wrap wrap--narrow">
+    <span class="badge">How It Works</span>
+    <h2>From submission to live, in one flow.</h2>
+    <div class="hw-grid">
+      <div class="hw-step">
+        <span class="hw-n" aria-hidden="true">1</span>
+        <p class="hw-t">Submit your product</p>
+        <p class="hw-d">Drop your URL. We check what's already there: meta tags, load speed, what a launch post needs to look right.</p>
+      </div>
+      <div class="hw-step">
+        <span class="hw-n" aria-hidden="true">2</span>
+        <p class="hw-t">We match your platforms</p>
+        <p class="hw-d">8 years of research on which niche fits which platform, so you land in the right rooms, not just any room.</p>
+      </div>
+      <div class="hw-step">
+        <span class="hw-n" aria-hidden="true">3</span>
+        <p class="hw-t">We draft everything, in your voice</p>
+        <p class="hw-d">Posts, comments, DMs. Written to sound like you, not a template.</p>
+      </div>
+      <div class="hw-step">
+        <span class="hw-n" aria-hidden="true">4</span>
+        <p class="hw-t">You approve, it goes live</p>
+        <p class="hw-d">Nothing posts without your OK. Ever. We track the replies and follow up so you don't have to.</p>
+      </div>
     </div>
   </div>
 </section>
