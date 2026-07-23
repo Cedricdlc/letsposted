@@ -239,21 +239,30 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* ---------- header ---------- */
 
-.nav{
-  position:sticky;
-  top:0;
-  z-index:60;
-  background:rgba(11,11,18,.82);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line-soft);
-}
-.nav-in{
+body{ overflow:hidden; height:100vh; }
+
+.nav-pill{
+  position:fixed;
+  top:1.2rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:1.25rem;
-  padding:.75rem 0;
+  gap:1.8rem;
+  background:#FFFFFF;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.6rem .7rem .6rem 1.1rem;
+  box-shadow:0 8px 24px rgba(26,25,23,.08);
+}
+.nav-links{ display:flex; gap:1.4rem; }
+.nav-links a{ font-size:.88rem; font-weight:500; color:var(--body); text-decoration:none; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-cta{ padding:.55rem 1.2rem; font-size:.85rem; }
+@media (max-width:640px){
+  .nav-links{ display:none; }
+  .nav-pill{ gap:.8rem; }
 }
 .brand{
   display:inline-flex;
@@ -292,19 +301,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     50%{ stroke-opacity:.65; }
   }
 }
-.nav-links{ display:none; gap:1.9rem; }
-@media (min-width:860px){ .nav-links{ display:flex; } }
-.nav-links a{
-  font-size:.9rem;
-  font-weight:500;
-  color:var(--body);
-  text-decoration:none;
-  transition:color .15s ease;
-}
-.nav-links a:hover{ color:var(--ink); }
-.nav .btn{ padding:.55rem 1.15rem; font-size:.88rem; }
-@media (max-width:419px){ .nav .btn{ padding:.5rem .9rem; font-size:.82rem; } }
-
 /* ---------- viewfinder brackets (signature, kept from v5) ---------- */
 
 .vf{ position:relative; padding:.9rem; min-width:0; }
@@ -323,136 +319,51 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .vf .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
 .vf .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
 
-/* decorative-only corner brackets (not tied to a form, so wire() never
-   targets it via closest('.vf')) */
-.banner-frame{ position:relative; }
-.banner-frame .fr{ position:absolute; inset:0; pointer-events:none; }
-.banner-frame::before, .banner-frame::after,
-.banner-frame .fr::before, .banner-frame .fr::after{
-  content:"";
-  position:absolute;
-  width:1.4rem;
-  height:1.4rem;
-  border:0 solid var(--accent-line);
-  opacity:.8;
-}
-.banner-frame::before{ top:0; left:0; border-top-width:2px; border-left-width:2px; }
-.banner-frame::after{ top:0; right:0; border-top-width:2px; border-right-width:2px; }
-.banner-frame .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
-.banner-frame .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
-
 /* ---------- hero ---------- */
 
-.hero{
-  position:relative;
-  background:var(--bg);
+#h-scroll{
+  display:flex;
+  width:100vw;
+  height:100vh;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
 }
-.hero-triggers{
-  display:grid;
-}
-
-.hero-pin{
-  position:relative;
+.h-screen{
+  flex:0 0 100vw;
+  width:100vw;
+  height:100vh;
+  scroll-snap-align:start;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+  padding:0 1.375rem;
 }
-.hero-pin-badge{ position:relative; z-index:2; margin-bottom:1.6rem; }
-
-.hero-bcast{
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%, 18%);
+.h-badge{ margin-bottom:1.6rem; }
+.hb-diagram{
   width:min(70vw, 460px);
   height:auto;
   opacity:.5;
-  z-index:1;
-  pointer-events:none;
+  margin-bottom:1rem;
 }
-.hb-wire{ fill:none; stroke:rgba(255,188,0,.28); stroke-width:1.5; stroke-linecap:round; }
-.hb-badge circle{ filter:drop-shadow(2px 3px 0 rgba(0,0,0,.5)); transition:opacity .4s ease; opacity:.3; }
+.hb-wire{ fill:none; stroke:rgba(201,168,0,.32); stroke-width:1.5; stroke-linecap:round; }
+.hb-badge circle{ filter:drop-shadow(2px 3px 0 rgba(0,0,0,.25)); opacity:.3; }
 .hb-badge.is-lit circle{ opacity:1; }
-.hb-comment{ opacity:0; transition:opacity .4s ease; }
+.hb-comment{ opacity:0; }
 .hb-comment.is-lit{ opacity:1; }
-
-.hero-phase-zone{
-  position:relative;
-  z-index:2;
-  max-width:44rem;
-}
-.hero-phase{
-  display:none;
+.h-phrase{
   font-family:var(--display);
   font-weight:800;
   font-size:clamp(1.9rem, 1rem + 4vw, 3.4rem);
   line-height:1.15;
   letter-spacing:-.03em;
   color:var(--ink);
+  max-width:44rem;
 }
-.hero-phase.is-active{ display:block; animation:hero-phase-in .5s ease both; }
-@keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
-@media (prefers-reduced-motion: reduce){
-  .hero-phase.is-active{ animation:none; }
-}
-
-.hero-cta-zone{
-  padding:3.5rem 1.375rem 4rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:.9rem;
-}
-.hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
-
-/* Mobile-first default: no pinning, no scroll-jacking. All 4 phases
-   render stacked and visible, triggers collapse to zero height.
-   .hero-pin sizes to its content (not 100vh) here — the full-viewport
-   height + hidden overflow only make sense once it's pinned via
-   position:sticky at desktop width; left at 100vh on mobile it would
-   vertically center the much-shorter stacked copy inside an empty
-   full-viewport box. */
-.hero-trigger{ height:0; }
-.hero-pin{ height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
-.hero-phase{ display:block; margin-bottom:1.1rem; font-size:clamp(1.5rem,4vw,2rem); }
-.hero-phase:last-child{ margin-bottom:0; }
-.hero-bcast{ display:none; }
-
-@media (min-width:900px){
-  #hero-scroll{ display:grid; grid-template-columns:1fr; }
-  .hero-triggers{ grid-column:1; grid-row:1; }
-  .hero-trigger{ height:100vh; }
-  .hero-pin{
-    grid-column:1; grid-row:1;
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    overflow:hidden;
-    padding:0 1.375rem;
-  }
-  .hero-phase{ display:none; }
-  .hero-phase.is-active{ display:block; }
-  .hero-bcast{ display:block; }
-}
-@media (min-width:900px) and (prefers-reduced-motion: reduce){
-  .hb-badge circle, .hb-comment{ transition:none; }
-  /* reduced motion : the curved threads stay, the traveling pulses go
-     (SMIL ignores the global animation:none rule, so hide them here) */
-  .hb-dots{ display:none; }
-  /* The desktop scroll-pin block above hides phases 2-4 behind
-     display:none until JS marks them .is-active — but the hero JS
-     bails out entirely under reduced motion (never runs the
-     observer), so without this override only phrase 1 would ever
-     show, pinned across ~400vh of dead scroll. Fall back to the
-     same static stacked layout the mobile default already uses. */
-  .hero-trigger{ height:0; }
-  .hero-pin{ position:static; height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
-  .hero-phase{ display:block; margin-bottom:1.1rem; }
-  .hero-phase:last-child{ margin-bottom:0; }
-}
+.h-screen--form .hero-reassure{ margin-top:.9rem; font-size:.82rem; color:var(--faint); }
 
 /* ---------- generic dark panel (mockups) ---------- */
 
@@ -507,93 +418,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .pill--wait{ color:var(--faint); background:var(--card-2); border:1px solid var(--line); }
 .pill--hot{ color:#FFFFFF; background:var(--grad); border:1px solid transparent; }
 .pill--mid{ color:var(--accent-2); background:var(--accent-soft); border:1px solid var(--accent-line); }
-
-/* ---------- section grids ---------- */
-
-.split{
-  display:grid;
-  gap:2.75rem;
-  align-items:center;
-}
-@media (min-width:940px){
-  .split{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:4.5rem; }
-  .split--flip > .split-txt{ order:2; }
-  .split--flip > .split-art{ order:1; }
-}
-
-/* ---------- sticker cloud (final CTA visual) ---------- */
-
-.sticker-zone{
-  position:relative;
-  height:22rem;
-  max-width:26rem;
-  margin:0 auto;
-}
-.sticker-device{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:60%;
-  height:88%;
-  border:1.5px solid rgba(255,255,255,.08);
-  border-radius:2.5rem;
-  background:radial-gradient(ellipse at 50% 20%, rgba(255,188,0,.07), transparent 60%);
-}
-.sticker{
-  position:absolute;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.55rem;
-}
-.sticker-badge{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:3.6rem;
-  height:3.6rem;
-  padding:.55rem;
-  background:#F5F1E8;
-  box-shadow:0 0 0 3px #F5F1E8, 0 10px 22px rgba(0,0,0,.5);
-}
-.sticker--circle .sticker-badge{ border-radius:50%; }
-.sticker--square .sticker-badge{ border-radius:.9rem; }
-.sticker--dark .sticker-badge{ background:#141414; box-shadow:0 0 0 3px #141414, 0 10px 22px rgba(0,0,0,.5); }
-.sticker-label{
-  font-family:var(--sans);
-  font-size:.66rem;
-  font-weight:700;
-  letter-spacing:.03em;
-  text-transform:uppercase;
-  color:#141414;
-  background:#F5F1E8;
-  padding:.22rem .6rem;
-  border-radius:999px;
-  white-space:nowrap;
-  box-shadow:0 6px 14px rgba(0,0,0,.35);
-}
-.sticker--dark .sticker-label{ background:#141414; color:#F5F1E8; border:1px solid rgba(255,255,255,.1); }
-.sticker-1{ left:2%; top:12%; transform:rotate(-8deg); }
-.sticker-2{ right:4%; top:6%; transform:rotate(6deg); }
-.sticker-3{ left:8%; bottom:20%; transform:rotate(5deg); }
-.sticker-4{ right:0; bottom:28%; transform:rotate(-6deg); }
-.sticker-5{ left:50%; bottom:2%; transform:translateX(-50%) rotate(-3deg); }
-.sticker-note{
-  position:absolute;
-  left:50%;
-  bottom:-1.8rem;
-  transform:translateX(-50%);
-  font-size:.76rem;
-  color:var(--faint);
-  white-space:nowrap;
-}
-@media (max-width:719px){
-  .sticker-zone{ height:19rem; margin-bottom:2.5rem; }
-  .sticker-badge{ width:2.9rem; height:2.9rem; }
-  .sticker-label{ font-size:.6rem; }
-  .sticker-5{ display:none; }
-}
 
 
 /* — checklist mockup (dark) — */
@@ -910,167 +734,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   margin-right:auto;
 }
 
-/* ---------- sticky CTA banner (appears past the hero) ---------- */
-
-.bar{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:70;
-  background:rgba(18,18,26,.92);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-top:1px solid var(--line);
-  padding:.7rem 0 calc(.7rem + env(safe-area-inset-bottom, 0px));
-  transform:translateY(110%);
-  visibility:hidden;
-  transition:transform .3s cubic-bezier(.2,.7,.2,1), visibility .3s;
-}
-.bar.on{ transform:none; visibility:visible; }
-@media (prefers-reduced-motion: reduce){
-  .bar{ transition:none; }
-}
-.bar-in{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
-}
-.bar-txt{
-  min-width:0;
-  font-size:.92rem;
-  font-weight:600;
-  color:var(--ink);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.bar-txt .soft{ color:var(--body); font-weight:500; }
-.bar .btn{ padding:.55rem 1.15rem; font-size:.88rem; flex:none; }
-@media (max-width:659px){
-  .bar-txt .soft{ display:none; }
-}
-@media (max-width:419px){
-  .bar-txt{ font-size:.82rem; }
-  .bar .btn{ font-size:.8rem; padding:.5rem .9rem; }
-}
-
-/* ---------- final CTA + capture form ---------- */
-
-.final{
-  position:relative;
-  overflow:clip;
-}
-.final::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    repeating-radial-gradient(circle at 50% 120%, rgba(255,188,0,.05) 0 1.5px, transparent 1.5px 60px),
-    radial-gradient(50rem 32rem at 50% 115%, rgba(255,188,0,.22), transparent 70%);
-}
-.final > .wrap{ position:relative; }
-.final h2{ max-width:38rem; }
-.final .lede{ max-width:34rem; }
-
-.cta-banner{
-  position:relative;
-  overflow:clip;
-  padding:5rem 0;
-}
-.cta-banner::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    repeating-radial-gradient(circle at 50% 38%, rgba(255,255,255,.025) 0 1.5px, transparent 1.5px 64px),
-    radial-gradient(50rem 30rem at 50% 28%, rgba(242,233,106,.13), transparent 70%);
-}
-.cta-banner-in{
-  position:relative;
-  text-align:center;
-  max-width:40rem;
-  margin:0 auto;
-  padding:3rem 2.5rem 2.5rem;
-}
-.cta-tagline{
-  font-family:var(--display);
-  font-size:1rem;
-  color:var(--body);
-  margin-bottom:1.5rem;
-}
-.cta-tagline-b{ font-weight:800; color:var(--ink); }
-.cta-banner-headline{
-  font-family:var(--display);
-  font-weight:800;
-  font-size:clamp(1.75rem, 1rem + 2.6vw, 2.6rem);
-  line-height:1.22;
-  letter-spacing:-.02em;
-  color:var(--ink);
-}
-.cta-hl{ color:var(--accent); }
-.cta-banner-headline .cta-hl{
-  display:inline-block;
-  font-style:italic;
-  color:#141414;
-  background:var(--accent);
-  padding:.01em .32em;
-  border-radius:.2em;
-  border:3px solid #141414;
-  box-shadow:4px 5px 0 rgba(0,0,0,.4);
-  transform:rotate(-1.5deg);
-}
-.cta-banner-sub{
-  margin-top:.9rem;
-  font-size:1.05rem;
-  color:var(--body);
-}
-.cta-banner-form{ margin:1.75rem auto 0; max-width:32rem; }
-.cta-banner-reassure{
-  margin-top:1.1rem;
-  font-size:.82rem;
-  color:var(--faint);
-}
-@media (max-width:719px){
-  .cta-banner{ padding:3.5rem 0; }
-  .cta-banner-in{ padding:2.25rem 1.5rem 2rem; }
-}
-
-.gain-box{
-  margin-top:2.2rem;
-  padding:1.6rem 1.75rem;
-  max-width:34rem;
-  background:rgba(255,188,0,.07);
-  border:1px solid rgba(255,188,0,.3);
-  border-radius:12px;
-}
-.gain-eyebrow{
-  font-size:.78rem;
-  font-weight:700;
-  letter-spacing:.05em;
-  text-transform:uppercase;
-  color:#FFBC00;
-  margin-bottom:1rem;
-}
-.gain-list{ list-style:none; display:grid; gap:.8rem; }
-.gain-list li{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:.75rem;
-  align-items:baseline;
-  font-size:.95rem;
-  line-height:1.5;
-  color:var(--body);
-}
-.gain-list .g-ico{
-  font-family:var(--display);
-  font-weight:800;
-  color:#FFBC00;
-}
-
 .capzone{ margin-top:2.4rem; max-width:42rem; }
 .capbar-in{
   display:flex;
@@ -1322,114 +985,81 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .modal-panel .ready-result{ padding:0; border:0; background:transparent; }
 .modal-panel .pv-grid{ margin-top:0; }
 
-/* ---------- footer ---------- */
 
-footer{
-  border-top:1px solid var(--line-soft);
-  padding:2.5rem 0 5.5rem; /* extra bottom room under the sticky bar */
-}
-footer .foot-in{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.75rem 2rem;
-  align-items:center;
-  justify-content:space-between;
-}
-footer p{
-  font-size:.82rem;
-  color:var(--faint);
-}
-footer .brand{ font-size:.92rem; color:var(--body); }
-.foot-guides{ display:flex; gap:1.2rem; flex-wrap:wrap; margin:.6rem 0; }
-.foot-guides a{ font-size:.82rem; color:var(--faint); text-decoration:none; }
-.foot-guides a:hover{ color:var(--ink); }
-.foot-privacy{ font-size:.82rem; color:var(--faint); text-decoration:none; }
-.foot-privacy:hover{ color:var(--ink); }
 </style>
 </head>
 <body>
 
 <!-- ================= HEADER ================= -->
-<nav class="nav" aria-label="Main navigation">
-  <div class="wrap nav-in">
-    <a class="brand brand-sticker" href="#">
-      <span class="sticker-patch">Posted<span class="sticker-dot">.</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="#how">How it works</a>
-      <a href="#guides">Guides</a>
-    </div>
-    <a class="btn" href="#book">Get access to the beta <span class="a" aria-hidden="true">→</span></a>
+<nav class="nav-pill" aria-label="Main navigation">
+  <a class="brand brand-sticker" href="/">
+    <span class="sticker-patch sticker-patch--sm">Posted<span class="sticker-dot">.</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/guides.html">Guides</a>
   </div>
+  <a class="btn nav-cta" href="#h-scroll" id="nav-beta-cta">Get access to the beta <span class="a" aria-hidden="true">→</span></a>
 </nav>
 
-<!-- ================= HERO : scroll-animated sequence ================= -->
-<header class="hero" id="hero-scroll">
-  <div class="hero-triggers">
-    <div class="hero-trigger is-active" data-hero-step="1"></div>
-    <div class="hero-trigger" data-hero-step="2"></div>
-    <div class="hero-trigger" data-hero-step="3"></div>
-    <div class="hero-trigger" data-hero-step="4"></div>
-  </div>
-  <div class="hero-pin">
-    <span class="badge hero-pin-badge">Built for Solo SaaS Founders</span>
-
-    <!-- Illustrative animation only — a "you" hub pulsing toward
-         platform badges, adapted from the same broadcast/pulse SVG
-         technique used elsewhere on the page. Not tied to real data,
-         not naming "the platforms we cover" (see landing v2 spec §5). -->
-    <svg class="hero-bcast" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path id="hb-wire-1" class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path id="hb-wire-2" class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path id="hb-wire-3" class="hb-wire" d="M210 130 Q210 90 330 60"/>
-      <g class="hb-dots">
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".3s" fill="freeze"/>
-          <animateMotion dur="2.2s" begin=".3s" repeatCount="indefinite"><mpath href="#hb-wire-1"/></animateMotion>
-        </g>
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".9s" fill="freeze"/>
-          <animateMotion dur="2s" begin=".9s" repeatCount="indefinite"><mpath href="#hb-wire-2"/></animateMotion>
-        </g>
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".6s" fill="freeze"/>
-          <animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#hb-wire-3"/></animateMotion>
-        </g>
-      </g>
-      <g class="hb-hub">
-        <circle cx="210" cy="130" r="26" fill="#F2E96A"/>
-        <text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text>
-      </g>
-      <g class="hb-badge" data-hb-badge="1">
-        <circle cx="90" cy="52" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
-        <svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg>
-      </g>
-      <g class="hb-badge" data-hb-badge="2">
-        <circle cx="210" cy="30" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
-        <svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg>
-      </g>
-      <g class="hb-badge" data-hb-badge="3">
-        <circle cx="330" cy="52" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
-        <svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg>
-      </g>
-      <g class="hb-comment" data-hb-badge="3">
-        <circle cx="352" cy="34" r="9" fill="#F2E96A"/>
-        <text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text>
-      </g>
+<!-- ================= HERO : horizontal-scroll sequence ================= -->
+<div id="h-scroll" tabindex="0">
+  <section class="h-screen">
+    <span class="badge h-badge">Built for Solo SaaS Founders</span>
+    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
+      <g class="hb-badge"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
+      <g class="hb-badge"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
+      <g class="hb-badge"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
     </svg>
+    <p class="h-phrase">Stop procrastinating on your business launch.</p>
+  </section>
 
-    <div class="hero-phase-zone">
-      <p class="hero-phase is-active" data-hero-frame="1">Stop procrastinating on your business launch.</p>
-      <p class="hero-phase" data-hero-frame="2">No posts. No leads. And you know it.</p>
-      <p class="hero-phase" data-hero-frame="3">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
-      <p class="hero-phase" data-hero-frame="4">Get your <span class="mark-word">first customers</span>. Not just views.</p>
-    </div>
-  </div>
+  <section class="h-screen">
+    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
+      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
+      <g class="hb-badge"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
+      <g class="hb-badge"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
+    </svg>
+    <p class="h-phrase">No posts. No leads. And you know it.</p>
+  </section>
 
-  <div class="wrap hero-cta-zone">
+  <section class="h-screen">
+    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
+      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
+      <g class="hb-badge is-lit"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
+      <g class="hb-badge is-lit"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
+      <g class="hb-comment is-lit"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
+    </svg>
+    <p class="h-phrase">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
+  </section>
+
+  <section class="h-screen">
+    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
+      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
+      <g class="hb-badge is-lit"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
+      <g class="hb-badge is-lit"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
+      <g class="hb-comment is-lit"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
+    </svg>
+    <p class="h-phrase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+  </section>
+
+  <section class="h-screen h-screen--form">
     <div class="capzone capzone--hero">
       <div class="vf">
         <span class="fr" aria-hidden="true"></span>
@@ -1445,72 +1075,10 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       </div>
     </div>
     <p class="hero-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
-  </div>
-</header>
+  </section>
+</div>
 
-<!-- ================= FINAL CTA + CAPTURE FORM ================= -->
-<section id="book" class="final">
-  <div class="wrap split split--flip">
-    <div class="split-txt">
-      <h2>You didn't build for six weeks to end at 3 likes.</h2>
-      <p class="lede">Your entire market can know you exist. Or you can refresh your analytics for another month.</p>
-
-      <div class="gain-box">
-        <p class="gain-eyebrow">What you get</p>
-        <ul class="gain-list">
-          <li><span class="g-ico" aria-hidden="true">+</span><span>40+ hours back. The posting, the research, the follow-ups: done for you.</span></li>
-          <li><span class="g-ico" aria-hidden="true">+</span><span>Live on 25+ platforms, not just the one you'd have gotten around to.</span></li>
-          <li><span class="g-ico" aria-hidden="true">+</span><span>Real conversations with people who could buy. Not likes.</span></li>
-          <li><span class="g-ico" aria-hidden="true">+</span><span>Nothing posts without your OK. Ever.</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Sticker cloud : illustrative, not tied to real data. -->
-    <div class="split-art sticker-zone" aria-hidden="true">
-      <div class="sticker-device"></div>
-      <div class="sticker sticker-1 sticker--circle"><span class="sticker-badge"><svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></span><span class="sticker-label">Product Hunt</span></div>
-      <div class="sticker sticker-2 sticker--dark sticker--square"><span class="sticker-badge"><svg width="26" height="26" viewBox="0 0 24 24"><path fill="#F5F5F5" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span><span class="sticker-label">X</span></div>
-      <div class="sticker sticker-3 sticker--circle"><span class="sticker-badge"><svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></span><span class="sticker-label">Reddit</span></div>
-      <div class="sticker sticker-4 sticker--dark sticker--square"><span class="sticker-badge"><svg width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></span><span class="sticker-label">LinkedIn</span></div>
-      <div class="sticker sticker-5 sticker--square"><span class="sticker-badge"><svg width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FFBC00"/><path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="sticker-label">AppSumo</span></div>
-      <p class="sticker-note">+ 20 more, matched to your niche</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FULL-WIDTH FINAL CTA BANNER ================= -->
-<section id="cta" class="cta-banner">
-  <div class="wrap cta-banner-in banner-frame">
-    <span class="fr" aria-hidden="true"></span>
-
-    <p class="cta-tagline">The <span class="cta-tagline-b">Posted</span><span class="cta-hl">.</span> way to launch</p>
-
-    <p class="cta-banner-headline">Your <span class="cta-hl">first customers</span> are already out there.</p>
-    <p class="cta-banner-sub">Paste your link. We'll send your priority plan within 24h.</p>
-    <div class="capzone capzone--gold cta-banner-form">
-      <div class="vf">
-        <span class="fr" aria-hidden="true"></span>
-        <form action='/' id='capture-form-banner' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="liste-attente" />
-          <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <div class="capbar-in">
-            <label class="sr-only" for="cap-url-banner">Product URL</label>
-            <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-banner" name="url" required placeholder="https://yourproduct.com">
-            <button type="submit" class="cap-btn cap-btn--gold">Show me the plan <span class="a" aria-hidden="true">→</span></button>
-          </div>
-        </form>
-      </div>
-      <div class="cap-success" id="cap-success-banner" hidden>
-        <p>Got it. We're looking at your product.</p>
-        <p>We'll find you.</p>
-      </div>
-    </div>
-    <p class="cta-banner-reassure">No card needed &middot; Free platform check &middot; Nothing posts without your OK</p>
-  </div>
-</section>
-
-<!-- ================= PLATFORM MODAL — shared by hero + book forms ================= -->
+<!-- ================= PLATFORM MODAL — shared by hero form ================= -->
 <div class="modal-backdrop" id="platform-modal-backdrop" hidden>
   <div class="modal-panel" id="platform-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
@@ -1540,29 +1108,6 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<footer id="guides">
-  <div class="wrap foot-in">
-    <span class="brand brand-sticker">
-      <span class="sticker-patch sticker-patch--sm">Posted<span class="sticker-dot">.</span></span>
-    </span>
-    <p>Done-for-you launches + human approval. No bots, no spam, no bought upvotes.</p>
-    <div class="foot-guides">
-      <a href="/product-hunt-launch.html">Product Hunt Guide</a>
-      <a href="/reddit-launch.html">Reddit Guide</a>
-      <a href="/x-launch.html">X Guide</a>
-    </div>
-    <a href="/privacy.html" class="foot-privacy">Privacy Policy</a>
-  </div>
-</footer>
-
-<!-- ================= STICKY CTA BANNER ================= -->
-<div class="bar" id="ctabar" role="complementary" aria-label="Analyze your launch">
-  <div class="wrap bar-in">
-    <p class="bar-txt"><span class="soft">Your product deserves customers. </span>Launched for you, end to end.</p>
-    <a class="btn" href="#book">Show me the plan <span class="a" aria-hidden="true">→</span></a>
   </div>
 </div>
 
@@ -1642,49 +1187,25 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   }
   wire('capture-form', 'cap-success-1', 'cap-note-1', true);
   wire('capture-form-hero', 'cap-success-hero', null, true);
-  wire('capture-form-banner', 'cap-success-banner', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
-  /* Hero scroll sequence : same scrollspy technique as "How It Works"
-     below (invisible tall trigger blocks drive which phase/badge is
-     active while the visual stays pinned). Desktop only, disabled
-     under prefers-reduced-motion — mobile/reduced-motion users just
-     see all 4 phases stacked statically (CSS default, no JS needed). */
+  /* Horizontal-only landing : desktop wheel/trackpad scroll is
+     vertical by default, so redirect it into horizontal movement on
+     #h-scroll. Mobile needs nothing — touch drag is already the
+     right axis on a horizontally-scrollable container. behavior:'auto'
+     (never 'smooth') means this is already reduced-motion-safe by
+     construction, no extra media query needed. */
   (function () {
-    var root = document.getElementById('hero-scroll');
-    if (!root) return;
+    var scroller = document.getElementById('h-scroll');
+    if (!scroller) return;
     var desktop = window.matchMedia('(min-width:900px)');
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!desktop.matches || reduced.matches) return;
-
-    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
-    var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
-    var badges = Array.prototype.slice.call(root.querySelectorAll('[data-hb-badge]'));
-    var above = new Set();
-
-    function applyActive() {
-      var current = null;
-      steps.forEach(function (s) { if (above.has(s)) current = s; });
-      if (!current) current = steps[0];
-      var n = current.getAttribute('data-hero-step');
-      steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
-      phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
-      // Badges light up progressively: phase 2 lights badge 1, phase 3
-      // lights all 3 (including the comment bubble), phase 4 holds.
-      var lit = { '1': [], '2': ['1'], '3': ['1','2','3'], '4': ['1','2','3'] }[n] || [];
-      badges.forEach(function (b) {
-        b.classList.toggle('is-lit', lit.indexOf(b.getAttribute('data-hb-badge')) !== -1);
-      });
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) above.add(entry.target);
-        else above.delete(entry.target);
-      });
-      applyActive();
-    }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
-    steps.forEach(function (s) { observer.observe(s); });
+    if (!desktop.matches) return;
+    scroller.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        scroller.scrollBy({ left: e.deltaY, behavior: 'auto' });
+      }
+    }, { passive: false });
   })();
 
   /* Real launch-readiness check : calls our own Netlify Function, which
@@ -1831,34 +1352,16 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     return scoreHtml;
   }
 
-  /* Nav / sticky-banner links scroll to the bottom form and focus its URL field. */
-  function focusUrl() {
-    var url = document.getElementById('cap-url');
-    if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 450);
-  }
-  document.querySelectorAll('a[href="#book"]').forEach(function (a) {
-    a.addEventListener('click', focusUrl);
-  });
-
-  /* Sticky CTA banner : visible once the hero has scrolled past,
-     hidden again while the final CTA (which holds the form) is on
-     screen so it never covers the submit button. */
-  var bar = document.getElementById('ctabar');
-  var hero = document.querySelector('.hero');
-  var book = document.getElementById('book');
-  if (bar && hero && book && 'IntersectionObserver' in window) {
-    var pastHero = false, onForm = false;
-    function update() {
-      bar.classList.toggle('on', pastHero && !onForm);
-    }
-    new IntersectionObserver(function (entries) {
-      pastHero = !entries[0].isIntersecting && entries[0].boundingClientRect.bottom < 0;
-      update();
-    }, { threshold: 0 }).observe(hero);
-    new IntersectionObserver(function (entries) {
-      onForm = entries[0].isIntersecting;
-      update();
-    }, { threshold: 0.15 }).observe(book);
+  /* Nav CTA jumps straight to the form screen and focuses its input. */
+  var navCta = document.getElementById('nav-beta-cta');
+  if (navCta) {
+    navCta.addEventListener('click', function (e) {
+      e.preventDefault();
+      var formScreen = document.querySelector('.h-screen--form');
+      if (formScreen) formScreen.scrollIntoView({ behavior: 'auto', inline: 'start' });
+      var url = document.getElementById('cap-url-hero');
+      if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 300);
+    });
   }
 })();
 </script>
