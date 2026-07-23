@@ -1662,6 +1662,9 @@ footer p{
   color:var(--faint);
 }
 footer .brand{ font-size:.92rem; color:var(--body); }
+.foot-guides{ display:flex; gap:1.2rem; flex-wrap:wrap; margin:.6rem 0; }
+.foot-guides a{ font-size:.82rem; color:var(--faint); text-decoration:none; }
+.foot-guides a:hover{ color:var(--ink); }
 .foot-privacy{ font-size:.82rem; color:var(--faint); text-decoration:none; }
 .foot-privacy:hover{ color:var(--ink); }
 </style>
@@ -1675,11 +1678,10 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       <span class="sticker-patch">Posted<span class="sticker-dot">.</span></span>
     </a>
     <div class="nav-links">
-      <a href="/product-hunt-launch.html">Product Hunt Guide</a>
-      <a href="/reddit-launch.html">Reddit Guide</a>
-      <a href="/x-launch.html">X Guide</a>
+      <a href="#how">How it works</a>
+      <a href="#guides">Guides</a>
     </div>
-    <a class="btn" href="#book">Show me the plan <span class="a" aria-hidden="true">→</span></a>
+    <a class="btn" href="#book">Get access to the beta <span class="a" aria-hidden="true">→</span></a>
   </div>
 </nav>
 
@@ -2072,12 +2074,17 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   </div>
 </div>
 
-<footer>
+<footer id="guides">
   <div class="wrap foot-in">
     <span class="brand brand-sticker">
       <span class="sticker-patch sticker-patch--sm">Posted<span class="sticker-dot">.</span></span>
     </span>
     <p>Done-for-you launches + human approval. No bots, no spam, no bought upvotes.</p>
+    <div class="foot-guides">
+      <a href="/product-hunt-launch.html">Product Hunt Guide</a>
+      <a href="/reddit-launch.html">Reddit Guide</a>
+      <a href="/x-launch.html">X Guide</a>
+    </div>
     <a href="/privacy.html" class="foot-privacy">Privacy Policy</a>
   </div>
 </footer>
