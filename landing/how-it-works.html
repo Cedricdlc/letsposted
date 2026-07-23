@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Works — Posted.</title>
+<meta name="description" content="From submission to live, in one flow — how Posted. gets your launch in front of real buyers.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:        #FBF8F1;
+  --card:      #F3EEE0;
+  --card-2:    #EFE9D8;
+  --line:      #E2DBC8;
+  --line-soft: #EAE4D3;
+  --ink:       #1A1917;
+  --body:      #57534A;
+  --faint:     #8A8478;
+  --accent:    #F2E96A;
+  --accent-2:  #C9A800;
+  --accent-soft: rgba(201,168,0,.14);
+  --accent-line: rgba(201,168,0,.4);
+  --grad:      #F2E96A;
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+body{ background:var(--bg); color:var(--body); font-family:var(--sans); font-size:1.0625rem; line-height:1.65; -webkit-font-smoothing:antialiased; }
+.wrap{ max-width:70rem; margin:0 auto; padding:0 1.375rem; }
+.wrap--narrow{ max-width:46rem; }
+h1,h2{ font-family:var(--display); color:var(--ink); font-weight:700; text-wrap:balance; }
+h2{ font-size:clamp(1.85rem, 1.1rem + 3.1vw, 3.1rem); line-height:1.06; letter-spacing:-.035em; margin-bottom:1.35rem; max-width:44rem; }
+a{ color:var(--accent-2); }
+.badge{ display:inline-flex; align-items:center; gap:.5rem; font-size:.74rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:999px; padding:.32rem .9rem; margin-bottom:1.4rem; }
+.badge::before{ content:""; width:.42rem; height:.42rem; border-radius:50%; background:var(--accent-2); }
+.mark-word{ position:relative; display:inline-block; font-weight:600; color:var(--ink); }
+.mark-word::after{ content:""; position:absolute; left:-.06em; right:-.06em; bottom:-.1em; height:.38em; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23C9A800' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:100% 100%; }
+nav.nav{ padding:1.2rem 0; }
+.nav-in{ display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--display); font-weight:800; font-size:1.2rem; color:var(--ink); text-decoration:none; }
+section{ padding:5rem 0; }
+@media (min-width:760px){ section{ padding:6.5rem 0; } }
+
+/* ---------- how it works (verbatim from index.html pre-split) ---------- */
+.hw-scroll{ display:grid; gap:1.1rem; margin-top:2.4rem; }
+.hw-steps{ display:grid; gap:1.1rem; }
+.hw-visual{ display:none; }
+.hw-step{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.5rem 1.4rem; transition:opacity .3s ease; }
+.hw-n{ display:inline-flex; align-items:center; justify-content:center; width:2.1rem; height:2.1rem; border-radius:50%; background:var(--accent); border:3px solid #141414; box-shadow:3px 4px 0 rgba(0,0,0,.5); color:#141414; font-family:var(--display); font-weight:800; font-size:.92rem; margin-bottom:1.1rem; }
+.hw-step:nth-of-type(odd) .hw-n{ transform:rotate(-6deg); }
+.hw-step:nth-of-type(even) .hw-n{ transform:rotate(5deg); }
+.hw-t{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:1rem; margin-bottom:.4rem; }
+.hw-d{ font-size:.92rem; line-height:1.55; color:var(--body); }
+@media (min-width:900px){
+  .hw-scroll{ grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
+  .hw-steps{ gap:9rem; padding:2rem 0; }
+  .hw-step{ opacity:.4; }
+  .hw-step.is-active{ opacity:1; }
+  .hw-visual{ display:block; position:sticky; top:7rem; height:23rem; }
+  .hw-frame{ position:absolute; inset:0; background:var(--card); border:3px solid #141414; box-shadow:6px 8px 0 rgba(0,0,0,.45); border-radius:20px; padding:1.6rem; opacity:0; transition:opacity .45s ease; }
+  .hw-frame.is-active{ opacity:1; }
+}
+.hwm-url{ display:flex; align-items:center; gap:.6rem; background:var(--card-2); border:1px solid var(--line); border-radius:10px; padding:.6rem .9rem; font-size:.85rem; color:var(--faint); margin-bottom:1.3rem; }
+.hwm-url b{ color:var(--ink); font-weight:600; }
+.hwm-scan{ display:flex; align-items:center; gap:.5rem; font-size:.82rem; color:var(--accent-2); }
+.hwm-scan .dot{ width:.42rem; height:.42rem; border-radius:50%; background:var(--accent-2); }
+.hwm-badges{ display:flex; gap:.8rem; margin-top:1.4rem; }
+.hwm-badge{ width:2.8rem; height:2.8rem; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--card-2); border:1px solid var(--line); }
+.hwm-badge--generic::after{ content:""; width:.6rem; height:.6rem; border-radius:50%; background:var(--accent-2); }
+.hwm-lines{ display:grid; gap:.55rem; margin-top:.4rem; }
+.hwm-line{ height:.6rem; border-radius:999px; background:var(--line); }
+.hwm-line--short{ width:55%; }
+.hwm-approve{ display:inline-flex; align-items:center; gap:.5rem; background:var(--grad); color:#141414; font-weight:700; font-size:.85rem; padding:.6rem 1.1rem; border-radius:999px; margin-top:1.5rem; }
+.hw-cta{ margin-top:2.4rem; text-align:center; }
+.btn{ display:inline-flex; align-items:center; gap:.55rem; border:0; cursor:pointer; text-decoration:none; font-family:var(--sans); font-weight:600; font-size:.95rem; color:#141414; background:var(--grad); border-radius:999px; padding:.72rem 1.5rem; }
+
+/* ---------- closing pitch, folded in from the retired #book/#cta ---------- */
+.closing{ text-align:center; }
+.closing h2{ margin-left:auto; margin-right:auto; }
+.gain-box{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.6rem; max-width:34rem; margin:2rem auto 0; text-align:left; }
+.gain-list{ list-style:none; display:grid; gap:.9rem; }
+.gain-list li{ display:grid; grid-template-columns:auto 1fr; gap:.7rem; font-size:.95rem; }
+.g-ico{ color:var(--accent-2); font-weight:700; }
+
+footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:center; }
+.foot-privacy{ font-size:.82rem; color:var(--faint); text-decoration:none; }
+.foot-privacy:hover{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/">Posted.</a>
+  </div>
+</nav>
+
+<section id="how">
+  <div class="wrap wrap--narrow">
+    <span class="badge">How It Works</span>
+    <h2>From submission to live, in one flow.</h2>
+    <div class="hw-scroll" id="hw-scroll">
+      <div class="hw-steps">
+        <div class="hw-step is-active" data-hw-step="1">
+          <span class="hw-n" aria-hidden="true">1</span>
+          <p class="hw-t">Submit <span class="mark-word">your product</span></p>
+          <p class="hw-d">Drop your URL. We check what's already there: meta tags, load speed, what a launch post needs to look right.</p>
+        </div>
+        <div class="hw-step" data-hw-step="2">
+          <span class="hw-n" aria-hidden="true">2</span>
+          <p class="hw-t">We match <span class="mark-word">your platforms</span></p>
+          <p class="hw-d">8 years of research on which niche fits which platform, so you land in the right rooms, not just any room.</p>
+        </div>
+        <div class="hw-step" data-hw-step="3">
+          <span class="hw-n" aria-hidden="true">3</span>
+          <p class="hw-t">We draft everything, in <span class="mark-word">your voice</span></p>
+          <p class="hw-d">Posts, comments, DMs. Written to sound like you, not a template.</p>
+        </div>
+        <div class="hw-step" data-hw-step="4">
+          <span class="hw-n" aria-hidden="true">4</span>
+          <p class="hw-t"><span class="mark-word">You approve</span>, it goes live</p>
+          <p class="hw-d">Nothing posts without your OK. Ever. We track the replies and follow up so you don't have to.</p>
+        </div>
+        <div class="hw-step" data-hw-step="5">
+          <span class="hw-n" aria-hidden="true">5</span>
+          <p class="hw-t">Real <span class="mark-word">conversations</span>, not just views</p>
+          <p class="hw-d">Buying signals, not bought lists — every DM drafted and ready to send, with follow-ups for the silent ones.</p>
+        </div>
+      </div>
+      <div class="hw-visual" aria-hidden="true">
+        <div class="hw-frame is-active" data-hw-frame="1">
+          <div class="hwm-url">🔗 <b>yourproduct.com</b></div>
+          <div class="hwm-scan"><span class="dot"></span>Reading your page…</div>
+        </div>
+        <div class="hw-frame" data-hw-frame="2">
+          <div class="hwm-scan"><span class="dot"></span>Ranking for your niche…</div>
+          <div class="hwm-badges">
+            <span class="hwm-badge hwm-badge--generic"></span>
+            <span class="hwm-badge hwm-badge--generic"></span>
+            <span class="hwm-badge hwm-badge--generic"></span>
+          </div>
+        </div>
+        <div class="hw-frame" data-hw-frame="3">
+          <div class="hwm-scan"><span class="dot"></span>Drafting in your voice…</div>
+          <div class="hwm-lines">
+            <div class="hwm-line"></div>
+            <div class="hwm-line"></div>
+            <div class="hwm-line hwm-line--short"></div>
+          </div>
+        </div>
+        <div class="hw-frame" data-hw-frame="4">
+          <div class="hwm-scan"><span class="dot"></span>Ready for your review</div>
+          <div class="hwm-lines">
+            <div class="hwm-line"></div>
+            <div class="hwm-line hwm-line--short"></div>
+          </div>
+          <span class="hwm-approve">✓ Approve &amp; post</span>
+        </div>
+        <div class="hw-frame" data-hw-frame="5">
+          <div class="hwm-scan"><span class="dot"></span>New reply</div>
+          <div class="hwm-lines">
+            <div class="hwm-line"></div>
+            <div class="hwm-line hwm-line--short"></div>
+          </div>
+          <span class="hwm-approve">💬 Real conversation started</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap wrap--narrow">
+    <h2>You didn't build for six weeks to end at 3 likes.</h2>
+    <p>Your entire market can know you exist. Or you can refresh your analytics for another month.</p>
+    <div class="gain-box">
+      <ul class="gain-list">
+        <li><span class="g-ico" aria-hidden="true">+</span><span>40+ hours back. The posting, the research, the follow-ups: done for you.</span></li>
+        <li><span class="g-ico" aria-hidden="true">+</span><span>Live on 25+ platforms, not just the one you'd have gotten around to.</span></li>
+        <li><span class="g-ico" aria-hidden="true">+</span><span>Real conversations with people who could buy. Not likes.</span></li>
+        <li><span class="g-ico" aria-hidden="true">+</span><span>Nothing posts without your OK. Ever.</span></li>
+      </ul>
+    </div>
+    <div class="hw-cta">
+      <a class="btn" href="/#h-scroll">Get access to the beta <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="/privacy.html" class="foot-privacy">Privacy Policy</a>
+</footer>
+
+<script>
+(function () {
+  var scroll = document.getElementById('hw-scroll');
+  if (!scroll) return;
+  var desktop = window.matchMedia('(min-width:900px)');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!desktop.matches || reduced.matches) return;
+
+  var steps = Array.prototype.slice.call(scroll.querySelectorAll('[data-hw-step]'));
+  var frames = Array.prototype.slice.call(scroll.querySelectorAll('[data-hw-frame]'));
+  var above = new Set();
+
+  function applyActive() {
+    var current = null;
+    steps.forEach(function (s) { if (above.has(s)) current = s; });
+    if (!current) current = steps[0];
+    var n = current.getAttribute('data-hw-step');
+    steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
+    frames.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hw-frame') === n); });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) above.add(entry.target);
+      else above.delete(entry.target);
+    });
+    applyActive();
+  }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+  steps.forEach(function (s) { observer.observe(s); });
+})();
+</script>
+</body>
+</html>
