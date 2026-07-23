@@ -200,26 +200,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   box-shadow:0 0 8px rgba(255,188,0,.8);
 }
 
-/* bullets : bold lead-in + one supporting line */
-.bullets{ list-style:none; display:grid; gap:1.15rem; margin-top:2.1rem; max-width:38rem; }
-.bullets li{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:.85rem;
-  align-items:baseline;
-  font-size:1rem;
-  line-height:1.55;
-}
-.bullets .arr{
-  font-family:var(--display);
-  font-weight:700;
-  color:var(--accent);
-  transform:translateY(-1px);
-}
-.bullets b{
-  font-weight:700;
-  color:var(--ink);
-}
 .punchline{
   display:block;
   margin-top:2.2rem;
@@ -608,82 +588,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
   .hb-badge circle, .hb-comment{ transition:none; }
   /* reduced motion : the curved threads stay, the traveling pulses go
-     (SMIL ignores the global animation:none rule, so hide them here —
-     same fix as .b-dots in the #expertise broadcast diagram below) */
+     (SMIL ignores the global animation:none rule, so hide them here) */
   .hb-dots{ display:none; }
-}
-
-/* ---------- hero artefact : broadcast hub-and-spoke ---------- */
-
-.stack-zone{ position:relative; }
-.stack{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:1.1rem;
-  padding:1.5rem .25rem .5rem;
-}
-/* the warm(-violet) glow behind the diagram */
-.stack::before{
-  content:"";
-  position:absolute;
-  inset:-3rem;
-  pointer-events:none;
-  background:radial-gradient(closest-side, rgba(255,188,0,.28), rgba(255,188,0,.08) 55%, transparent 75%);
-  filter:blur(6px);
-}
-
-/* the whole diagram is one SVG : hub, threads and badges scale together,
-   so the composition can never misalign or overflow horizontally */
-.bcast{
-  position:relative;
-  display:block;
-  width:100%;
-  max-width:30rem;
-  height:auto;
-  overflow:visible;
-}
-
-.b-hub-tile{ filter:drop-shadow(0 16px 34px rgba(255,188,0,.45)); }
-
-.b-wire{
-  fill:none;
-  stroke:rgba(255,188,0,.25);
-  stroke-width:1.25;
-  stroke-linecap:round;
-}
-
-.b-badge{ filter:drop-shadow(3px 4px 0 rgba(0,0,0,.5)); }
-.b-badge .bg{
-  fill:var(--card);
-  stroke:#141414;
-  stroke-width:3;
-}
-
-.more-note{
-  position:relative;
-  font-size:.72rem;
-  font-weight:600;
-  color:var(--faint);
-  white-space:nowrap;
-}
-
-@media (prefers-reduced-motion: no-preference){
-  .stack{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay:.25s; }
-  .b-badge{ animation:bpop .55s cubic-bezier(.2,.7,.2,1) both; }
-  .b-badges > .b-badge:nth-child(1){ animation-delay:.4s; }
-  .b-badges > .b-badge:nth-child(2){ animation-delay:.5s; }
-  .b-badges > .b-badge:nth-child(3){ animation-delay:.6s; }
-  .b-badges > .b-badge:nth-child(4){ animation-delay:.7s; }
-  .b-badges > .b-badge:nth-child(5){ animation-delay:.8s; }
-  .b-badges > .b-badge:nth-child(6){ animation-delay:.9s; }
-  @keyframes bpop{ from{ opacity:0; } }
-}
-/* reduced motion : the curved threads stay, the traveling pulses go
-   (SMIL ignores the global animation:none rule, so hide them here) */
-@media (prefers-reduced-motion: reduce){
-  .b-dots{ display:none; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1847,8 +1753,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       </div>
     </div>
 
-    <!-- Sticker cloud : illustrative, not tied to real data. Platform
-         brand marks reused verbatim from the expertise-section diagram. -->
+    <!-- Sticker cloud : illustrative, not tied to real data. -->
     <div class="split-art sticker-zone" aria-hidden="true">
       <div class="sticker-device"></div>
       <div class="sticker sticker-1 sticker--circle"><span class="sticker-badge"><svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></span><span class="sticker-label">Product Hunt</span></div>
