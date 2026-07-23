@@ -187,6 +187,8 @@ Reproduit plusieurs fois de suite le 2026-07-16 sur toute la session (pas un cas
 
 ## Landing v2 — refonte complète du 2026-07-23 (post-retour prospect réel)
 
+**⚠️ Partiellement remplacée le même jour** par le pivot scroll horizontal ci-dessous (nav, hero, et structure de page changent à nouveau) — voir la section suivante pour l'état actuel réel. Section gardée pour l'historique de la décision lead magnet/plateformes (toujours valide) et le contexte de recherche (toujours valide).
+
 Un vrai prospect B2B (testé sur `jumpia.club`) a donné un retour qui converge avec la session de recherche du 13/07 (n=1 → n=2 sur 2 points : page trop longue, lead magnet montre trop avant l'email). Design + plan détaillés dans `docs/superpowers/specs/2026-07-23-landing-relaunch-v2-design.md` et `docs/superpowers/plans/2026-07-23-landing-relaunch-v2.md`. Exécuté en Subagent-Driven Development (implémenteur + reviewer par tâche + revue finale sur l'ensemble), toutes les tâches approuvées, mis en prod le 2026-07-23.
 
 Ce qui a changé :
@@ -199,6 +201,20 @@ Ce qui a changé :
 **Bug trouvé après coup, corrigé le jour même** : sous `prefers-reduced-motion` sur desktop, le JS du hero ne tourne jamais (comportement voulu), mais le CSS cachait quand même les phrases 2-4 derrière `display:none` en attendant l'activation JS — donc les utilisateurs "réduire les animations" ne voyaient que la phrase 1, épinglée sur ~400vh de scroll mort, sans jamais voir la proposition de valeur réelle. Aucune des 3 revues de code par tâche ne pouvait le voir (elles lisaient des diffs, pas le rendu composité) ; trouvé par la revue finale sur l'ensemble de la branche. Corrigé en reprenant le même fallback statique empilé que mobile.
 
 **Piste "commentaires sur influenceurs de niche"** (idée du prospect du 23/07, écho direct du mécanisme du projet frère LinkedIn Hack) : pas annoncée sur la page (n=1, pas encore testée), mais à intégrer dans le triage manuel du lead magnet quand pertinent — teste l'idée en vrai sans l'engager publiquement.
+
+## Landing horizontale + éclatement multi-pages — pivot du 2026-07-23 (même jour, retour à chaud de Cédric)
+
+Juste après la mise en prod de la landing v2 ci-dessus, premier retour direct de Cédric en la regardant : fond noir "esthétique IA générique" rejeté, et il veut que la landing principale n'ait **aucun scroll vertical** — juste une nav compacte + un scroll horizontal. Design + plan : `docs/superpowers/specs/2026-07-23-landing-horizontal-scroll-design.md` et `docs/superpowers/plans/2026-07-23-landing-horizontal-scroll.md`. Exécuté en Subagent-Driven Development (cycle séparé, ledger dans `.superpowers/sdd/progress.md` sous sa propre section), toutes les tâches approuvées, mis en prod le 2026-07-23.
+
+**État réel actuel de `landing/` (remplace les descriptions du bloc "Landing v2" ci-dessus) :**
+- **`index.html`** : nav flottante compacte (logo + "How it works" + "Guides" + bouton "Get access to the beta"), puis un unique conteneur `#h-scroll` à scroll horizontal natif (`overflow-x:auto; scroll-snap-type:x mandatory`) contenant 5 écrans plein-écran : les 4 phrases du hero (`Stop procrastinating on your business launch.` toujours en phrase 1, cf. test délibéré noté plus haut — pas encore invalidé) + le formulaire de capture en dernier écran. `body{overflow:hidden;height:100vh}` interdit tout scroll vertical. Desktop : la molette/trackpad vertical est interceptée en JS et redirigée en scroll horizontal (`scrollBy({left:deltaY})`) ; mobile : swipe tactile natif, aucun JS. Les badges de plateforme (diagramme SVG à pulsations) sont maintenant des états statiques par écran (`is-lit` ou pas) au lieu d'être calculés en JS — l'ancien système de scrollspy (IntersectionObserver + classes togglées) a été supprimé, remplacé par du vrai scroll natif du navigateur, plus simple et plus robuste.
+- **`how-it-works.html`** (nouveau) : récupère intégralement l'ancienne section `#how` à 5 étapes (même scrollspy JS, inchangé), plus le contenu de `#book`/`#cta` (l'argumentaire "40+ hours back" etc.) replié en section de clôture plutôt que supprimé.
+- **`guides.html`** (nouveau) : page hub listant les 3 guides existants (PH/Reddit/X) avec titre + description + lien.
+- Footer et bannière CTA sticky retirés de `index.html` (plus de place sans scroll vertical) ; `how-it-works.html`/`guides.html` gardent chacun un footer classique avec le lien Privacy Policy.
+- **Palette** : fond noir remplacé par une base claire/crème (`--bg:#FBF8F1`, `--ink:#1A1917`, accent jaune de marque inchangé). Cédric a explicitement dit que ce n'est **pas** la DA finale — juste une base neutre réversible en attendant d'autres références visuelles à explorer ensemble.
+- Chaque page reste self-contained (pas de feuille de style partagée), pattern déjà utilisé par les 3 guides plateforme.
+
+**Revue finale (2026-07-23)** : Ready to merge, aucun Critical/Important. 4 points mineurs restants, aucun bloquant : jeton CSS `--accent-2` mort dans `guides.html`, police Space Grotesk chargée mais jamais utilisée sur les 3 pages, `index.html` n'a plus aucun `<h1>` (vrai petit défaut SEO/accessibilité, correctif trivial si on y retouche), et du CSS `scroll-behavior`/`scroll-padding-top` désormais mort sur `index.html`. Pas corrigés immédiatement — à regrouper dans un futur commit de nettoyage si on retouche ces fichiers.
 
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
