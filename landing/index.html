@@ -147,20 +147,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   color:var(--faint);
   letter-spacing:.01em;
 }
-.hero-platforms{
-  display:flex;
-  align-items:center;
-  gap:.65rem;
-  margin-top:1.3rem;
-  opacity:.72;
-}
-.hero-platforms svg{ display:block; border-radius:50%; }
-.hero-platforms-more{
-  font-size:.72rem;
-  font-weight:600;
-  color:var(--faint);
-  margin-left:.15rem;
-}
 
 .lede{ font-size:clamp(1.05rem, 1.6vw, 1.2rem); max-width:38rem; }
 
@@ -522,117 +508,105 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 .hero{
   position:relative;
-  overflow:clip;
-  padding:3.4rem 0 4rem;
+  background:var(--bg);
 }
-@media (min-width:980px){ .hero{ padding:5rem 0 6rem; } }
+.hero-triggers{
+  display:grid;
+}
+.hero-trigger{ height:100vh; }
 
-/* sonar rings + violet glow, both very quiet */
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    repeating-radial-gradient(circle at 50% 24%, rgba(255,255,255,.03) 0 1.5px, transparent 1.5px 64px);
-}
-@media (max-width:979px){
-  .hero::before{
-    background:
-      repeating-radial-gradient(circle at 50% 10%, rgba(255,255,255,.025) 0 1.5px, transparent 1.5px 58px);
-  }
-}
-
-.hero-grid{
+.hero-pin{
   position:relative;
-  z-index:1;
-}
-.hero-sticker-cloud{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  overflow:hidden;
-}
-.hsc{
-  position:absolute;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:2.6rem;
-  height:2.6rem;
-  border-radius:.75rem;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.16);
-  opacity:.9;
-  transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s ease, box-shadow .5s ease, border-color .5s ease;
-}
-.hsc svg{ display:block; }
-.hsc-1{ left:7%; top:20%; transform:rotate(-8deg); }
-.hsc-2{ right:9%; top:16%; transform:rotate(6deg); }
-.hsc-3{ left:12%; bottom:18%; transform:rotate(5deg); }
-.hsc-4{ right:6%; bottom:24%; transform:rotate(-6deg); }
-.hsc-5{ right:17%; top:46%; transform:rotate(4deg); }
-@media (max-width:900px){ .hero-sticker-cloud{ display:none; } }
-
-/* converge toward the URL field while it's focused */
-.hero-sticker-cloud.is-active .hsc{
-  opacity:1;
-  border-color:var(--accent-line);
-  box-shadow:0 0 16px rgba(242,233,106,.35);
-}
-.hero-sticker-cloud.is-active .hsc-1{ transform:translate(7rem, 4.5rem) rotate(-8deg) scale(1.12); }
-.hero-sticker-cloud.is-active .hsc-2{ transform:translate(-7rem, 5.5rem) rotate(6deg) scale(1.12); }
-.hero-sticker-cloud.is-active .hsc-3{ transform:translate(6rem, -3rem) rotate(5deg) scale(1.12); }
-.hero-sticker-cloud.is-active .hsc-4{ transform:translate(-6rem, -4rem) rotate(-6deg) scale(1.12); }
-.hero-sticker-cloud.is-active .hsc-5{ transform:translate(-8rem, 1.5rem) rotate(4deg) scale(1.12); }
-.hero-copy{
-  max-width:52rem;
-  margin:0 auto;
-  text-align:center;
+  height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  padding:0 1.375rem;
 }
-.hero-copy .badge{ margin-bottom:.5rem; }
-.hero-copy .lede{ max-width:38rem; }
-.hero-copy .hero-cta{ align-items:center; }
-.hero-copy .capzone--hero{ margin:0 auto; }
+.hero-pin-badge{ position:relative; z-index:2; margin-bottom:1.6rem; }
 
-.hero .lede{
-  margin-top:1rem;
+.hero-bcast{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-58%);
+  width:min(90vw, 640px);
+  height:auto;
+  opacity:.55;
+  z-index:1;
+  pointer-events:none;
+}
+.hb-wire{ fill:none; stroke:rgba(255,188,0,.28); stroke-width:1.5; stroke-linecap:round; }
+.hb-badge circle{ filter:drop-shadow(2px 3px 0 rgba(0,0,0,.5)); transition:opacity .4s ease; opacity:.3; }
+.hb-badge.is-lit circle{ opacity:1; }
+.hb-comment{ opacity:0; transition:opacity .4s ease; }
+.hb-comment.is-lit{ opacity:1; }
+
+.hero-phase-zone{
+  position:relative;
+  z-index:2;
+  max-width:44rem;
+}
+.hero-phase{
+  display:none;
   font-family:var(--display);
-  font-weight:500;
-  font-size:clamp(1.25rem, 1rem + 1.6vw, 1.65rem);
-  letter-spacing:-.02em;
-  line-height:1.3;
+  font-weight:800;
+  font-size:clamp(1.9rem, 1rem + 4vw, 3.4rem);
+  line-height:1.15;
+  letter-spacing:-.03em;
   color:var(--ink);
 }
-.hero .sub{
-  margin-top:.85rem;
-  max-width:34rem;
+.hero-phase.is-active{ display:block; animation:hero-phase-in .5s ease both; }
+@keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion: reduce){
+  .hero-phase.is-active{ animation:none; }
 }
-.hero .punchline{ margin-top:1.1rem; }
-.hero-cta{ margin-top:1.4rem; display:flex; flex-direction:column; align-items:flex-start; gap:.85rem; }
-.capzone--hero{ margin-top:0; max-width:30rem; width:100%; }
-.spots{
-  font-size:.86rem;
-  font-weight:600;
-  color:var(--faint);
-  letter-spacing:.02em;
-}
-.spots b{ color:var(--accent-2); font-weight:700; }
 
-@media (prefers-reduced-motion: no-preference){
-  .hero-copy > *{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; }
-  .hero .lede{ animation-delay:.06s; }
-  .hero .sub{ animation-delay:.12s; }
-  .hero .punchline{ animation-delay:.16s; }
-  .hero-cta{ animation-delay:.2s; }
-  @keyframes rise{
-    from{ opacity:0; transform:translateY(14px); }
-    to{ opacity:1; transform:none; }
+.hero-cta-zone{
+  padding:3.5rem 1.375rem 4rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:.9rem;
+}
+.hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
+
+/* Mobile-first default: no pinning, no scroll-jacking. All 4 phases
+   render stacked and visible, triggers collapse to zero height.
+   .hero-pin also drops its 100vh/overflow:hidden here — those only
+   make sense once it's pinned via position:sticky at desktop width;
+   left at 100vh on mobile it vertically centers the (much shorter)
+   stacked copy inside a full-viewport-tall box, producing a large
+   empty gap above/below the phrases (verified in preview: fixed
+   below, not present in the brief's literal CSS). */
+.hero-trigger{ height:0; }
+.hero-pin{ height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
+.hero-phase{ display:block; margin-bottom:1.1rem; font-size:clamp(1.5rem,4vw,2rem); }
+.hero-phase:last-child{ margin-bottom:0; }
+.hero-bcast{ display:none; }
+
+@media (min-width:900px){
+  #hero-scroll{ display:grid; grid-template-columns:1fr; }
+  .hero-triggers{ grid-column:1; grid-row:1; }
+  .hero-trigger{ height:100vh; }
+  .hero-pin{
+    grid-column:1; grid-row:1;
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow:hidden;
+    padding:0 1.375rem;
   }
+  .hero-phase{ display:none; }
+  .hero-phase.is-active{ display:block; }
+  .hero-bcast{ display:block; }
+}
+@media (min-width:900px) and (prefers-reduced-motion: reduce){
+  .hb-badge circle, .hb-comment{ transition:none; }
 }
 
 /* ---------- hero artefact : broadcast hub-and-spoke ---------- */
@@ -1685,47 +1659,88 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   </div>
 </nav>
 
-<!-- ================= HERO ================= -->
-<header class="hero">
-  <div class="hero-sticker-cloud" aria-hidden="true">
-    <span class="hsc hsc-1"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></span>
-    <span class="hsc hsc-2"><svg width="17" height="17" viewBox="0 0 24 24"><path fill="#F5F5F5" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
-    <span class="hsc hsc-3"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></span>
-    <span class="hsc hsc-4"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></span>
-    <span class="hsc hsc-5"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FFBC00"/><path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<!-- ================= HERO : scroll-animated sequence ================= -->
+<header class="hero" id="hero-scroll">
+  <div class="hero-triggers">
+    <div class="hero-trigger is-active" data-hero-step="1"></div>
+    <div class="hero-trigger" data-hero-step="2"></div>
+    <div class="hero-trigger" data-hero-step="3"></div>
+    <div class="hero-trigger" data-hero-step="4"></div>
   </div>
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <span class="badge">Built for Solo SaaS Founders</span>
-      <h1><span class="pain-line">You still haven't</span><br><span class="pain-line">posted it!</span></h1>
-      <p class="lede">You built it. That was the easy part. <span class="mark-word">We post it for you.</span> 25+ platforms, and we know exactly which ones work for you.</p>
-      <div class="hero-cta">
-        <div class="capzone capzone--hero">
-          <div class="vf">
-            <span class="fr" aria-hidden="true"></span>
-            <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
-              <input type="hidden" name="form-name" value="liste-attente" />
-              <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-              <div class="capbar-in">
-                <label class="sr-only" for="cap-url-hero">Product URL</label>
-                <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
-                <button type="submit" class="cap-btn">Show me the plan <span class="a" aria-hidden="true">→</span></button>
-              </div>
-            </form>
+  <div class="hero-pin">
+    <span class="badge hero-pin-badge">Built for Solo SaaS Founders</span>
+
+    <!-- Illustrative animation only — a "you" hub pulsing toward
+         platform badges, adapted from the same broadcast/pulse SVG
+         technique used elsewhere on the page. Not tied to real data,
+         not naming "the platforms we cover" (see landing v2 spec §5). -->
+    <svg class="hero-bcast" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path id="hb-wire-1" class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path id="hb-wire-2" class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path id="hb-wire-3" class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-dots">
+        <g visibility="hidden" data-hb-pulse="1">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".3s" fill="freeze"/>
+          <animateMotion dur="2.2s" begin=".3s" repeatCount="indefinite"><mpath href="#hb-wire-1"/></animateMotion>
+        </g>
+        <g visibility="hidden" data-hb-pulse="2">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".9s" fill="freeze"/>
+          <animateMotion dur="2s" begin=".9s" repeatCount="indefinite"><mpath href="#hb-wire-2"/></animateMotion>
+        </g>
+        <g visibility="hidden" data-hb-pulse="3">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".6s" fill="freeze"/>
+          <animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#hb-wire-3"/></animateMotion>
+        </g>
+      </g>
+      <g class="hb-hub">
+        <circle cx="210" cy="130" r="26" fill="#F2E96A"/>
+        <text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text>
+      </g>
+      <g class="hb-badge" data-hb-badge="1">
+        <circle cx="90" cy="52" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
+        <svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg>
+      </g>
+      <g class="hb-badge" data-hb-badge="2">
+        <circle cx="210" cy="30" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
+        <svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg>
+      </g>
+      <g class="hb-badge" data-hb-badge="3">
+        <circle cx="330" cy="52" r="22" fill="#12121A" stroke="#141414" stroke-width="3"/>
+        <svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg>
+      </g>
+      <g class="hb-comment" data-hb-badge="3">
+        <circle cx="352" cy="34" r="9" fill="#F2E96A"/>
+        <text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text>
+      </g>
+    </svg>
+
+    <div class="hero-phase-zone">
+      <p class="hero-phase is-active" data-hero-frame="1">Stop procrastinating on your business launch.</p>
+      <p class="hero-phase" data-hero-frame="2">No posts. No leads. And you know it.</p>
+      <p class="hero-phase" data-hero-frame="3">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
+      <p class="hero-phase" data-hero-frame="4">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+    </div>
+  </div>
+
+  <div class="wrap hero-cta-zone">
+    <div class="capzone capzone--hero">
+      <div class="vf">
+        <span class="fr" aria-hidden="true"></span>
+        <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="liste-attente" />
+          <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+          <div class="capbar-in">
+            <label class="sr-only" for="cap-url-hero">Product URL</label>
+            <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
+            <button type="submit" class="cap-btn">Get my plan <span class="a" aria-hidden="true">→</span></button>
           </div>
-        </div>
-        <p class="hero-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
-        <div class="hero-platforms" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg>
-          <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#E7E9EA" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FFBC00"/><path d="M8.2 17.5 12 6.5l3.8 11M9.7 13.6h4.6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="hero-platforms-more">+20 more</span>
-        </div>
+        </form>
       </div>
     </div>
-
+    <p class="hero-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
   </div>
 </header>
 
@@ -2176,15 +2191,46 @@ footer .brand{ font-size:.92rem; color:var(--body); }
   wire('capture-form-banner', 'cap-success-banner', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
-  /* Scattered platform chips converge toward the URL field while it's
-     focused — a small hint that this field is what connects to all of
-     them, without needing a permanent (and noisier) animation. */
+  /* Hero scroll sequence : same scrollspy technique as "How It Works"
+     below (invisible tall trigger blocks drive which phase/badge is
+     active while the visual stays pinned). Desktop only, disabled
+     under prefers-reduced-motion — mobile/reduced-motion users just
+     see all 4 phases stacked statically (CSS default, no JS needed). */
   (function () {
-    var urlField = document.getElementById('cap-url-hero');
-    var cloud = document.querySelector('.hero-sticker-cloud');
-    if (!urlField || !cloud) return;
-    urlField.addEventListener('focus', function () { cloud.classList.add('is-active'); });
-    urlField.addEventListener('blur', function () { cloud.classList.remove('is-active'); });
+    var root = document.getElementById('hero-scroll');
+    if (!root) return;
+    var desktop = window.matchMedia('(min-width:900px)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!desktop.matches || reduced.matches) return;
+
+    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
+    var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
+    var badges = Array.prototype.slice.call(root.querySelectorAll('[data-hb-badge]'));
+    var above = new Set();
+
+    function applyActive() {
+      var current = null;
+      steps.forEach(function (s) { if (above.has(s)) current = s; });
+      if (!current) current = steps[0];
+      var n = current.getAttribute('data-hero-step');
+      steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
+      phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
+      // Badges light up progressively: phase 2 lights badge 1, phase 3
+      // lights badges 1-2 + the comment bubble, phase 4 lights all 3.
+      var lit = { '1': [], '2': ['1'], '3': ['1','2','3'], '4': ['1','2','3'] }[n] || [];
+      badges.forEach(function (b) {
+        b.classList.toggle('is-lit', lit.indexOf(b.getAttribute('data-hb-badge')) !== -1);
+      });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) above.add(entry.target);
+        else above.delete(entry.target);
+      });
+      applyActive();
+    }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+    steps.forEach(function (s) { observer.observe(s); });
   })();
 
   /* "How it works" pinned scroll : classic scrollspy, not a thin
