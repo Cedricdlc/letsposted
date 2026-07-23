@@ -1366,62 +1366,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 /* ---------- lead magnet (email + first name capture) ---------- */
 
 .lm-zone{ margin-top:1.4rem; }
-.lm-timeline-tag{
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  color:var(--faint);
-  margin-bottom:.8rem;
-}
-.lm-frise{ position:relative; margin-bottom:1.1rem; }
-.lm-frise::before{
-  content:"";
-  position:absolute;
-  left:.9rem;
-  top:.9rem;
-  bottom:.9rem;
-  width:2px;
-  background:linear-gradient(to bottom, var(--accent) 0%, var(--accent) 36%, var(--line) 36%, var(--line) 100%);
-}
-.frise-node{
-  position:relative;
-  display:flex;
-  gap:.85rem;
-  align-items:flex-start;
-  margin-bottom:.85rem;
-}
-.frise-node:last-child{ margin-bottom:0; }
-.frise-dot{
-  flex:none;
-  width:1.8rem;
-  height:1.8rem;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:.66rem;
-  font-weight:800;
-  background:var(--accent);
-  color:#141414;
-  position:relative;
-  z-index:1;
-}
-.frise-dot--locked{
-  background:var(--card-2);
-  color:var(--faint);
-  border:1px dashed var(--line);
-}
-.frise-card{
-  flex:1;
-  background:var(--card-2);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:.55rem .85rem;
-  margin-top:.05rem;
-}
-.frise-card--locked{ filter:blur(.4px); opacity:.68; border-style:dashed; }
-.frise-card--locked .lm-day-p{ margin-bottom:0; }
 .lm-day-p{ font-size:.86rem; font-weight:700; color:var(--ink); margin-bottom:.15rem; }
 .lm-day-d{ font-size:.8rem; color:var(--body); line-height:1.42; }
 .lm-head{ font-size:.9rem; font-weight:700; color:var(--ink); margin-bottom:.5rem; }
@@ -1774,7 +1718,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
     <p class="cta-tagline">The <span class="cta-tagline-b">Posted</span><span class="cta-hl">.</span> way to launch</p>
 
     <p class="cta-banner-headline">Your <span class="cta-hl">first customers</span> are already out there.</p>
-    <p class="cta-banner-sub">Paste your link. We'll show you exactly where to post, in 30 seconds.</p>
+    <p class="cta-banner-sub">Paste your link. We'll send your priority plan within 24h.</p>
     <div class="capzone capzone--gold cta-banner-form">
       <div class="vf">
         <span class="fr" aria-hidden="true"></span>
@@ -1806,34 +1750,7 @@ footer .brand{ font-size:.92rem; color:var(--body); }
       <p class="ready-load" id="ready-load-modal"><span class="dot" aria-hidden="true"></span><span id="ready-load-text-modal">Reading your page…</span></p>
       <div class="ready-result" id="ready-result-modal" hidden></div>
       <div class="lm-zone" id="leadmagnet-modal" hidden>
-        <p class="lm-timeline-tag">Example 7-day plan — yours is built around your niche</p>
-        <div class="lm-frise" aria-hidden="true">
-          <div class="frise-node">
-            <span class="frise-dot">1</span>
-            <div class="frise-card"><p class="lm-day-p">Product Hunt</p><p class="lm-day-d">Listing built and timed for 12:01 AM PT. You just approve it.</p></div>
-          </div>
-          <div class="frise-node">
-            <span class="frise-dot">2</span>
-            <div class="frise-card"><p class="lm-day-p">Reddit</p><p class="lm-day-d">3 subreddits matched to your niche, comments drafted. You just create the accounts.</p></div>
-          </div>
-          <div class="frise-node frise-node--locked">
-            <span class="frise-dot frise-dot--locked">3</span>
-            <div class="frise-card frise-card--locked"><p class="lm-day-p">Hacker News</p></div>
-          </div>
-          <div class="frise-node frise-node--locked">
-            <span class="frise-dot frise-dot--locked">4</span>
-            <div class="frise-card frise-card--locked"><p class="lm-day-p">X</p></div>
-          </div>
-          <div class="frise-node frise-node--locked">
-            <span class="frise-dot frise-dot--locked">5</span>
-            <div class="frise-card frise-card--locked"><p class="lm-day-p">Indie Hackers</p></div>
-          </div>
-          <div class="frise-node frise-node--locked">
-            <span class="frise-dot frise-dot--locked">···</span>
-            <div class="frise-card frise-card--locked"><p class="lm-day-p">+ 2 more days</p></div>
-          </div>
-        </div>
-        <p class="lm-head">Get your full platform-by-platform launch plan, ranked for your niche.</p>
+        <p class="lm-head">We'll send your priority launch plan <span class="mark-word">within 24h</span> — real channels for your niche, picked by hand, not generated.</p>
         <p class="lm-urgency">In beta — taking 2 founders this round to get it right.</p>
         <div class="vf">
           <span class="fr" aria-hidden="true"></span>
@@ -1842,15 +1759,15 @@ footer .brand{ font-size:.92rem; color:var(--body); }
             <input type="hidden" name="url" id="lm-url-modal" />
             <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div class="lm-bar">
-              <label class="sr-only" for="lm-email-modal">Enter your email to unlock your full launch plan</label>
-              <input class="seg-email" type="email" autocomplete="email" id="lm-email-modal" name="email" required placeholder="Enter your email to unlock →">
-              <button type="submit" class="cap-btn">Show me the full plan <span class="a" aria-hidden="true">→</span></button>
+              <label class="sr-only" for="lm-email-modal">Enter your email to get your priority plan</label>
+              <input class="seg-email" type="email" autocomplete="email" id="lm-email-modal" name="email" required placeholder="Enter your email →">
+              <button type="submit" class="cap-btn">Get my plan <span class="a" aria-hidden="true">→</span></button>
             </div>
           </form>
         </div>
         <div class="cap-success" id="lm-success-modal" hidden>
-          <p>Sent. Check your inbox.</p>
-          <p>We'll also reach out within 24h to book your launch slot.</p>
+          <p>Got it. We're looking at your product.</p>
+          <p>Your priority launch plan lands in your inbox within 24h.</p>
         </div>
       </div>
     </div>
@@ -2081,24 +1998,20 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         modalResult.hidden = false;
         modalResult.innerHTML = renderReadiness(data);
         var meta = data.meta || {};
-        // Show the lead magnet either way — even when we couldn't scrape
-        // the page, the generic per-platform reasons (platformCardsInner's
-        // fallback text) still hold up and the email capture shouldn't be
-        // lost just because a site blocks automated requests.
+        // Show the lead magnet either way — the 24h manual triage promise
+        // holds up regardless of whether we could scrape the page, and the
+        // email capture shouldn't be lost just because a site blocks
+        // automated requests.
         var lmUrl = document.getElementById('lm-url-modal');
         if (lmUrl) lmUrl.value = data.url || url;
         modalLeadmagnet.hidden = false;
-        if (meta.reachable && (meta.title || meta.description)) {
-          fetchPlatformCopy(meta);
-        }
       })
       .catch(function () {
         stopLoadingCycle();
         modalLoad.hidden = true;
         modalResult.hidden = false;
         modalResult.innerHTML =
-          '<p style="font-size:.86rem;color:var(--faint)">Couldn\'t reach your site to check it right now — here\'s what we can still tell you:</p>' +
-          platformPreviews({});
+          '<p style="font-size:.86rem;color:var(--faint)">Couldn\'t reach your site to check it right now — that\'s fine, we\'ll still put together your priority plan by hand.</p>';
         var lmUrl = document.getElementById('lm-url-modal');
         if (lmUrl) lmUrl.value = url;
         modalLeadmagnet.hidden = false;
@@ -2188,10 +2101,9 @@ footer .brand{ font-size:.92rem; color:var(--body); }
         '<span class="ready-score-lbl">/ 100 &middot; Launch Readiness (PageSpeed)</span></div>';
     }
     if (!meta.reachable) {
-      return '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly — some sites block automated requests. Here\'s what we can still tell you:</p>' +
-        platformPreviews(meta);
+      return '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly — some sites block automated requests. That\'s fine, we\'ll still put together your priority plan by hand.</p>';
     }
-    return scoreHtml + platformPreviews(meta);
+    return scoreHtml;
   }
 
   /* Nav / sticky-banner links scroll to the bottom form and focus its URL field. */
