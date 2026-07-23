@@ -513,18 +513,14 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hero-triggers{
   display:grid;
 }
-.hero-trigger{ height:100vh; }
 
 .hero-pin{
   position:relative;
-  height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  overflow:hidden;
-  padding:0 1.375rem;
 }
 .hero-pin-badge{ position:relative; z-index:2; margin-bottom:1.6rem; }
 
@@ -576,12 +572,11 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* Mobile-first default: no pinning, no scroll-jacking. All 4 phases
    render stacked and visible, triggers collapse to zero height.
-   .hero-pin also drops its 100vh/overflow:hidden here — those only
-   make sense once it's pinned via position:sticky at desktop width;
-   left at 100vh on mobile it vertically centers the (much shorter)
-   stacked copy inside a full-viewport-tall box, producing a large
-   empty gap above/below the phrases (verified in preview: fixed
-   below, not present in the brief's literal CSS). */
+   .hero-pin sizes to its content (not 100vh) here — the full-viewport
+   height + hidden overflow only make sense once it's pinned via
+   position:sticky at desktop width; left at 100vh on mobile it would
+   vertically center the much-shorter stacked copy inside an empty
+   full-viewport box. */
 .hero-trigger{ height:0; }
 .hero-pin{ height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
 .hero-phase{ display:block; margin-bottom:1.1rem; font-size:clamp(1.5rem,4vw,2rem); }
@@ -607,6 +602,10 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
   .hb-badge circle, .hb-comment{ transition:none; }
+  /* reduced motion : the curved threads stay, the traveling pulses go
+     (SMIL ignores the global animation:none rule, so hide them here —
+     same fix as .b-dots in the #expertise broadcast diagram below) */
+  .hb-dots{ display:none; }
 }
 
 /* ---------- hero artefact : broadcast hub-and-spoke ---------- */
