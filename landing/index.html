@@ -400,38 +400,47 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
+/* Idle scan (state 1) */
 .hs-panel--idle{
   position:relative;
   aspect-ratio:4/3;
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
 }
-.hs-idle-glow{
-  width:34%;
-  aspect-ratio:1;
-  border-radius:50%;
-  background:radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity:.5;
-  animation:hs-idle-pulse 2.4s ease-in-out infinite;
+.hs-scanbeam{
+  position:absolute;
+  left:0; right:0; top:-35%;
+  height:35%;
+  background:linear-gradient(180deg, transparent, rgba(201,168,0,.22), transparent);
+  animation:hs-scan-sweep 2.6s ease-in-out infinite;
 }
-@keyframes hs-idle-pulse{ 0%,100%{ opacity:.35; transform:scale(.94); } 50%{ opacity:.6; transform:scale(1); } }
+@keyframes hs-scan-sweep{ 0%{ top:-35%; } 100%{ top:100%; } }
+.hs-idle-label{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--faint);
+}
+.hs-idle-dots span{ animation:hs-idle-dot 1.4s ease-in-out infinite; opacity:.2; }
+.hs-idle-dots span:nth-child(2){ animation-delay:.2s; }
+.hs-idle-dots span:nth-child(3){ animation-delay:.4s; }
+@keyframes hs-idle-dot{ 0%,60%,100%{ opacity:.2; } 30%{ opacity:1; } }
 
 .hs-card{ padding:1.3rem 1.4rem; font-size:.86rem; }
 
-/* AI Outreach Agent card */
-.hs-outreach-head{ display:flex; align-items:center; gap:.5rem; margin-bottom:1.1rem; }
-.hs-outreach-icon{ font-size:.95rem; }
-.hs-outreach-label{ font-weight:700; color:var(--ink); flex:1; }
-.hs-toggle{ display:flex; align-items:center; gap:.4rem; font-size:.72rem; color:var(--ok); font-weight:600; }
-.hs-toggle-pill{ width:1.6rem; height:.9rem; border-radius:999px; background:rgba(74,222,128,.25); position:relative; display:inline-block; }
-.hs-toggle-dot{ position:absolute; top:1px; right:1px; width:.7rem; height:.7rem; border-radius:50%; background:var(--ok); }
-.hs-bubble{ border-radius:12px; padding:.75rem .9rem; margin-bottom:.7rem; max-width:92%; }
-.hs-bubble p{ margin:0; line-height:1.45; }
-.hs-bubble--out{ background:rgba(74,222,128,.12); border:1px solid rgba(74,222,128,.25); color:var(--ink); margin-left:auto; }
-.hs-bubble--in{ background:var(--card-2); border:1px solid var(--line); color:var(--ink); }
-.hs-bubble-from{ display:block; font-size:.72rem; color:var(--faint); margin-bottom:.3rem; }
-.hs-bubble-time{ display:block; font-size:.68rem; color:var(--faint); margin-top:.35rem; }
+/* Empty stats (state 2) */
+.hs-empty{ display:flex; flex-direction:column; gap:.9rem; }
+.hs-empty-row{ display:flex; align-items:baseline; justify-content:space-between; padding-bottom:.9rem; border-bottom:1px solid var(--line-soft); }
+.hs-empty-row:last-of-type{ border-bottom:0; padding-bottom:0; }
+.hs-empty-label{ font-size:.86rem; color:var(--body); }
+.hs-empty-num{ font-family:var(--display); font-weight:800; font-size:1.6rem; color:var(--faint); }
+.hs-empty-note{ margin-top:.2rem; font-size:.78rem; color:var(--faint); font-style:italic; }
 
 /* Scanning platforms card */
 .hs-scan-head{ display:flex; align-items:center; gap:.5rem; font-size:.78rem; color:var(--faint); font-weight:600; margin-bottom:1rem; }
@@ -509,7 +518,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-scroll-cue{ display:none; }
   .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
-  .hs-idle-glow{ animation:none; opacity:.5; }
+  .hs-scanbeam{ animation:none; opacity:.6; }
+  .hs-idle-dots span{ animation:none; opacity:1; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1228,26 +1238,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-panel--idle">
-            <div class="hs-idle-glow"></div>
+            <div class="hs-scanbeam" aria-hidden="true"></div>
+            <p class="hs-idle-label"><span class="hs-scan-dot"></span>Analyzing your product<span class="hs-idle-dots"><span>.</span><span>.</span><span>.</span></span></p>
           </div>
         </div>
 
         <div class="hs-state" data-hero-screen-state="2">
-          <div class="hs-card hs-outreach">
-            <div class="hs-outreach-head">
-              <span class="hs-outreach-icon">💬</span>
-              <span class="hs-outreach-label">AI Outreach Agent</span>
-              <span class="hs-toggle"><span class="hs-toggle-label">Enabled</span><span class="hs-toggle-pill"><span class="hs-toggle-dot"></span></span></span>
-            </div>
-            <div class="hs-bubble hs-bubble--out">
-              <p>hey, saw your post about struggling to get your first clients .. there's a tool that does exactly what you're looking for .. just thought you might find it useful :)</p>
-              <span class="hs-bubble-time">2:31 PM</span>
-            </div>
-            <div class="hs-bubble hs-bubble--in">
-              <span class="hs-bubble-from">Lead</span>
-              <p>Hey. Yeah I'll be happy to get any suggestions</p>
-              <span class="hs-bubble-time">2:33 PM</span>
-            </div>
+          <div class="hs-card hs-empty">
+            <div class="hs-empty-row"><span class="hs-empty-label">Posts this week</span><span class="hs-empty-num">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num">0</span></div>
+            <p class="hs-empty-note">Nobody's posting. Nobody's finding you.</p>
           </div>
         </div>
 
