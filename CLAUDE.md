@@ -216,6 +216,21 @@ Juste après la mise en prod de la landing v2 ci-dessus, premier retour direct d
 
 **Revue finale (2026-07-23)** : Ready to merge, aucun Critical/Important. 4 points mineurs restants, aucun bloquant : jeton CSS `--accent-2` mort dans `guides.html`, police Space Grotesk chargée mais jamais utilisée sur les 3 pages, `index.html` n'a plus aucun `<h1>` (vrai petit défaut SEO/accessibilité, correctif trivial si on y retouche), et du CSS `scroll-behavior`/`scroll-padding-top` désormais mort sur `index.html`. Pas corrigés immédiatement — à regrouper dans un futur commit de nettoyage si on retouche ces fichiers.
 
+**⚠️ Mécanique du hero remplacée le lendemain** par le retour scroll vertical ci-dessous — le reste de cette section (nav compacte, `how-it-works.html`, `guides.html`, palette claire, absence de footer/CTA sticky sur `index.html`) reste valide, seul le scroll horizontal de `index.html` est abandonné.
+
+## Retour au scroll vertical épinglé — pivot du 2026-07-24
+
+Après avoir testé le scroll horizontal en vrai, Cédric l'a rejeté sur la mécanique elle-même (indépendamment des 2 bugs de prod déjà corrigés le 23/07) : il veut que la page défile normalement **vers le bas**, avec le hero qui reste visuellement épinglé (`position:sticky`) pendant que les phrases s'enchaînent en fondu — la mécanique exacte de la toute première version du hero (celle encore en thème sombre), simplement réappliquée à la palette claire actuelle. La direction artistique reste explicitement ouverte — Cédric doit envoyer d'autres références visuelles pour une future passe DA séparée ; seule la mécanique de scroll a été retravaillée ici.
+
+**Changements dans `index.html`** :
+- `#h-scroll` (scroll horizontal, `scroll-snap-type:x`, interception JS du wheel) supprimé, remplacé par la structure `.hero-triggers` (4 blocs invisibles de 100vh) + `.hero-pin` (`position:sticky`) dans la même cellule de grille CSS — le pin reste visuellement fixe pendant que les triggers défilent dessous.
+- Scrollspy JS restauré : un `IntersectionObserver` sur les triggers détermine la phrase active et bascule les classes `.is-active` sur `[data-hero-frame]`/`[data-hb-badge]` (fondu de phrase + allumage progressif des badges plateforme).
+- Le CTA nav pointe vers `#hero-form` (le formulaire de capture, maintenant à la fin du flux vertical normal, plus dernier "écran" d'un scroll horizontal) et fait un `scrollIntoView` + focus sur `#cap-url-hero`.
+- **Bug trouvé et corrigé pendant la restauration** : un `body{overflow-x:clip}` hérité de l'ère scroll horizontal bloquait silencieusement tout le scroll vertical de la page — retiré. C'était un résidu de nettoyage incomplet, pas un problème du nouveau mécanisme.
+- `how-it-works.html` et `guides.html` ne sont pas affectés — restent des pages séparées, inchangées par ce pivot.
+
+Déployé en preview, revérifié via scroll réel (pas seulement `scrollTo`/`scrollIntoView` en JS — dans l'environnement d'automatisation navigateur utilisé ce jour-là, ces appels programmatiques n'affectaient pas visuellement le viewport, contrairement au scroll molette/trackpad réel qui fonctionnait correctement ; probable limitation de l'outil, pas un bug de la page), puis promu en prod le 2026-07-24.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
