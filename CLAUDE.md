@@ -318,7 +318,9 @@ Jusqu'ici le mobile était toujours resté un simple fallback statique (les 4 ph
 
 Vérifié : mécanique desktop toujours intacte après suppression de la restriction JS (aucune régression), formulaire mobile testé (soumission → ouvre la modal), styles de base mobile confirmés via inspection des règles CSS (impossible de tester un vrai viewport étroit dans cet environnement — limitation déjà rencontrée plusieurs fois cette session). Poussé en prod le 2026-07-24.
 
-**Sujet encore ouvert, pas traité** : Cédric a aussi demandé de repenser les états 1 ("animation plus dynamique") et 2 ("ne correspond pas, on veut montrer la valeur directement") de `.hero-screen` — pas de direction précise donnée, en attente de ses retours avant d'y toucher.
+**Suivi, traité le même jour** : Cédric a validé une proposition pour les états 1 et 2. État 1 = lueur idle remplacée par un balayage animé + label "Analyzing your product..." (point vert qui pulse, ellipse animée). État 2 = carte "AI Outreach Agent" remplacée par un mini-dashboard vide ("Posts this week 0 / New leads 0 / Replies 0" + "Nobody's posting. Nobody's finding you.") — rend la douleur concrète au lieu de sauter direct à la solution, prépare l'état 3 ("we find platforms") comme le vrai tournant. CSS mort (`.hs-outreach-*`/`.hs-bubble-*`/`.hs-toggle-*`/`.hs-idle-glow`) nettoyé au passage.
+
+Également ce jour : phrase 3 du hero raccourcie ("We find your platforms. We post for you." — était 2x plus longue que les 3 autres phrases) et `.mark-word` (le "surligné" sur "posting for you"/"first customers") passé d'un soulignement à un vrai effet surligneur (aplat de couleur derrière le texte, légèrement penché) — plus lisible, et évite par construction le bug de wrap multi-ligne rencontré plus tôt.
 
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
