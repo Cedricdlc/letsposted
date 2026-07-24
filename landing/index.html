@@ -990,6 +990,35 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .ready-cta a{ font-weight:700; }
 .ready-note{ margin-top:.7rem; font-size:.76rem; color:var(--faint); }
 
+/* ---------- readiness teaser (blurred, pre-email) ---------- */
+
+.ready-teaser{
+  position:relative;
+  margin-top:1rem;
+  background:var(--card-2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:1.3rem 1.4rem;
+  overflow:hidden;
+}
+.ready-teaser-blur{ filter:blur(5px); user-select:none; }
+.ready-teaser-row{ display:flex; align-items:baseline; justify-content:space-between; padding:.4rem 0; font-size:.86rem; color:var(--ink); }
+.ready-teaser-row + .ready-teaser-row{ border-top:1px dashed var(--line); }
+.ready-teaser-row strong{ color:var(--accent); }
+.ready-teaser-lock{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  background:rgba(22,20,18,.55);
+  font-size:.8rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.ready-teaser-lock svg{ flex:none; }
+
 /* ---------- platform preview cards (in-context mockups) ---------- */
 
 .pv-grid{
@@ -1531,7 +1560,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     if (!meta.reachable) {
       return '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly — some sites block automated requests. That\'s fine, we\'ll still put together your priority plan by hand.</p>';
     }
-    return scoreHtml;
+    var teaserHtml = '<div class="ready-teaser">' +
+      '<div class="ready-teaser-blur">' +
+        '<div class="ready-teaser-row"><span>Best platforms to post on</span><strong>2 identified</strong></div>' +
+        '<div class="ready-teaser-row"><span>Matching posts this week</span><strong>23 identified</strong></div>' +
+      '</div>' +
+      '<div class="ready-teaser-lock">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>' +
+        '<span>Unlocks with your email below</span>' +
+      '</div>' +
+    '</div>';
+    return scoreHtml + teaserHtml;
   }
 
   /* Nav CTA jumps straight to the form and focuses its input. */
