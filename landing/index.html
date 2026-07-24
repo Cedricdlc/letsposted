@@ -64,7 +64,6 @@ body{
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  overflow-x:clip;
 }
 
 ::selection{ background:var(--accent); color:#FFFFFF; }
@@ -239,8 +238,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* ---------- header ---------- */
 
-body{ overflow:hidden; height:100vh; }
-
 .nav-pill{
   position:fixed;
   top:1.2rem;
@@ -319,59 +316,106 @@ body{ overflow:hidden; height:100vh; }
 .vf .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
 .vf .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
 
-/* ---------- hero ---------- */
+/* ---------- hero : vertical pinned-scroll sequence ----------
+   Restored 2026-07-24 : the horizontal-scroll version (built earlier
+   the same day) tested badly for Cédric in real use — two real bugs
+   found (a width-gated listener leaving some window sizes with no
+   way to scroll at all, then a scroll-snap/scrollBy fight causing a
+   bounce-back) on top of Cédric disliking the mechanic itself once
+   he could actually try it live. This restores the original vertical
+   mechanic from earlier the same day (page scrolls normally, the
+   hero content stays visually pinned via position:sticky while the
+   active phrase crossfades), adapted to the new light palette. Visual
+   design (colors/style beyond this base) is an open, separate topic —
+   Cédric is sending reference assets to build a more distinct DA. */
 
-#h-scroll{
-  display:flex;
-  width:100vw;
-  height:100vh;
-  overflow-x:auto;
-  overflow-y:hidden;
-  /* proximity, not mandatory : the wheel-redirect script below calls
-     scrollBy() on every small wheel tick a real trackpad/mouse fires
-     (not one big jump) — with mandatory, the browser aggressively
-     re-snaps back to the nearest point between ticks before enough
-     distance accumulates to cross to the next screen, so scrolling
-     visibly creeps forward then bounces back. proximity only snaps
-     once the gesture actually settles near a boundary. Fixed
-     2026-07-24 after Cédric reported exactly this bounce behavior. */
-  scroll-snap-type:x proximity;
-  -webkit-overflow-scrolling:touch;
+.hero{
+  position:relative;
+  background:var(--bg);
 }
-.h-screen{
-  flex:0 0 100vw;
-  width:100vw;
-  height:100vh;
-  scroll-snap-align:start;
+.hero-triggers{ display:grid; }
+.hero-trigger{ height:0; }
+
+.hero-pin{
+  position:relative;
+  height:auto;
+  overflow:visible;
+  padding:3.5rem 1.375rem 1rem;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:0 1.375rem;
 }
-.h-badge{ margin-bottom:1.6rem; }
-.hb-diagram{
-  width:min(70vw, 460px);
-  height:auto;
-  opacity:.5;
-  margin-bottom:1rem;
-}
+.hero-pin-badge{ position:relative; z-index:2; margin-bottom:1.6rem; }
+
+.hero-bcast{ display:none; }
 .hb-wire{ fill:none; stroke:rgba(201,168,0,.32); stroke-width:1.5; stroke-linecap:round; }
 .hb-badge circle{ filter:drop-shadow(2px 3px 0 rgba(0,0,0,.25)); opacity:.3; }
-.hb-badge.is-lit circle{ opacity:1; }
+.hb-badge.is-lit circle{ opacity:1; transition:opacity .4s ease; }
 .hb-comment{ opacity:0; }
-.hb-comment.is-lit{ opacity:1; }
-.h-phrase{
+.hb-comment.is-lit{ opacity:1; transition:opacity .4s ease; }
+
+.hero-phase-zone{ position:relative; z-index:2; max-width:44rem; }
+.hero-phase{
+  display:block;
+  margin-bottom:1.1rem;
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(1.9rem, 1rem + 4vw, 3.4rem);
+  font-size:clamp(1.5rem,4vw,2rem);
   line-height:1.15;
   letter-spacing:-.03em;
   color:var(--ink);
-  max-width:44rem;
 }
-.h-screen--form .hero-reassure{ margin-top:.9rem; font-size:.82rem; color:var(--faint); }
+.hero-phase:last-child{ margin-bottom:0; }
+
+.hero-cta-zone{
+  padding:2rem 1.375rem 3.5rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:.9rem;
+}
+.hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
+
+@media (min-width:900px){
+  .hero{ display:grid; grid-template-columns:1fr; }
+  .hero-triggers{ grid-column:1; grid-row:1; }
+  .hero-trigger{ height:100vh; }
+  .hero-pin{
+    grid-column:1; grid-row:1;
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow:hidden;
+    padding:0 1.375rem;
+  }
+  .hero-phase{ display:none; }
+  .hero-phase.is-active{ display:block; animation:hero-phase-in .5s ease both; }
+  @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+  .hero-bcast{
+    display:block;
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, 18%);
+    width:min(70vw, 460px);
+    height:auto;
+    opacity:.5;
+    z-index:1;
+    pointer-events:none;
+  }
+}
+@media (min-width:900px) and (prefers-reduced-motion: reduce){
+  .hero-trigger{ height:0; }
+  .hero-pin{ position:static; height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
+  .hero-phase{ display:block; margin-bottom:1.1rem; }
+  .hero-phase:last-child{ margin-bottom:0; }
+  .hero-phase.is-active{ animation:none; }
+  .hb-dots{ display:none; }
+  .hb-badge circle, .hb-comment{ transition:none; }
+}
 
 /* ---------- generic dark panel (mockups) ---------- */
 
@@ -1007,67 +1051,58 @@ body{ overflow:hidden; height:100vh; }
     <a href="/how-it-works.html">How it works</a>
     <a href="/guides.html">Guides</a>
   </div>
-  <a class="btn nav-cta" href="#h-scroll" id="nav-beta-cta">Get access to the beta <span class="a" aria-hidden="true">→</span></a>
+  <a class="btn nav-cta" href="#hero-form" id="nav-beta-cta">Get access to the beta <span class="a" aria-hidden="true">→</span></a>
 </nav>
 
-<!-- ================= HERO : horizontal-scroll sequence ================= -->
-<div id="h-scroll" tabindex="0">
-  <section class="h-screen">
-    <span class="badge h-badge">Built for Solo SaaS Founders</span>
-    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
-      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
-      <g class="hb-badge"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
-      <g class="hb-badge"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
-      <g class="hb-badge"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
-    </svg>
-    <p class="h-phrase">Stop procrastinating on your business launch.</p>
-  </section>
+<!-- ================= HERO : vertical pinned-scroll sequence ================= -->
+<header class="hero" id="hero-scroll">
+  <div class="hero-triggers">
+    <div class="hero-trigger is-active" data-hero-step="1"></div>
+    <div class="hero-trigger" data-hero-step="2"></div>
+    <div class="hero-trigger" data-hero-step="3"></div>
+    <div class="hero-trigger" data-hero-step="4"></div>
+  </div>
+  <div class="hero-pin">
+    <span class="badge hero-pin-badge">Built for Solo SaaS Founders</span>
 
-  <section class="h-screen">
-    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
+    <!-- Illustrative animation only — not real product screenshots. -->
+    <svg class="hero-bcast" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
+      <path id="hb-wire-1" class="hb-wire" d="M210 130 Q210 90 90 60"/>
+      <path id="hb-wire-2" class="hb-wire" d="M210 130 Q210 100 210 40"/>
+      <path id="hb-wire-3" class="hb-wire" d="M210 130 Q210 90 330 60"/>
+      <g class="hb-dots">
+        <g visibility="hidden">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".3s" fill="freeze"/>
+          <animateMotion dur="2.2s" begin=".3s" repeatCount="indefinite"><mpath href="#hb-wire-1"/></animateMotion>
+        </g>
+        <g visibility="hidden">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".9s" fill="freeze"/>
+          <animateMotion dur="2s" begin=".9s" repeatCount="indefinite"><mpath href="#hb-wire-2"/></animateMotion>
+        </g>
+        <g visibility="hidden">
+          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
+          <set attributeName="visibility" to="visible" begin=".6s" fill="freeze"/>
+          <animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#hb-wire-3"/></animateMotion>
+        </g>
+      </g>
       <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
-      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
-      <g class="hb-badge"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
-      <g class="hb-badge"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
+      <g class="hb-badge" data-hb-badge="1"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
+      <g class="hb-badge" data-hb-badge="2"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
+      <g class="hb-badge" data-hb-badge="3"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
+      <g class="hb-comment" data-hb-badge="3"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
     </svg>
-    <p class="h-phrase">No posts. No leads. And you know it.</p>
-  </section>
 
-  <section class="h-screen">
-    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
-      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
-      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
-      <g class="hb-badge is-lit"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
-      <g class="hb-badge is-lit"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
-      <g class="hb-comment is-lit"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
-    </svg>
-    <p class="h-phrase">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
-  </section>
+    <div class="hero-phase-zone">
+      <p class="hero-phase is-active" data-hero-frame="1">Stop procrastinating on your business launch.</p>
+      <p class="hero-phase" data-hero-frame="2">No posts. No leads. And you know it.</p>
+      <p class="hero-phase" data-hero-frame="3">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
+      <p class="hero-phase" data-hero-frame="4">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+    </div>
+  </div>
 
-  <section class="h-screen">
-    <svg class="hb-diagram" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path class="hb-wire" d="M210 130 Q210 90 330 60"/>
-      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
-      <g class="hb-badge is-lit"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
-      <g class="hb-badge is-lit"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
-      <g class="hb-badge is-lit"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
-      <g class="hb-comment is-lit"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
-    </svg>
-    <p class="h-phrase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
-  </section>
-
-  <section class="h-screen h-screen--form">
+  <div class="wrap hero-cta-zone" id="hero-form">
     <div class="capzone capzone--hero">
       <div class="vf">
         <span class="fr" aria-hidden="true"></span>
@@ -1083,8 +1118,8 @@ body{ overflow:hidden; height:100vh; }
       </div>
     </div>
     <p class="hero-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
-  </section>
-</div>
+  </div>
+</header>
 
 <!-- ================= PLATFORM MODAL — shared by hero form ================= -->
 <div class="modal-backdrop" id="platform-modal-backdrop" hidden>
@@ -1197,31 +1232,47 @@ body{ overflow:hidden; height:100vh; }
   wire('capture-form-hero', 'cap-success-hero', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
-  /* Horizontal-only landing : desktop wheel/trackpad scroll is
-     vertical by default, so redirect it into horizontal movement on
-     #h-scroll. Mobile needs nothing — touch drag is already the
-     right axis on a horizontally-scrollable container. behavior:'auto'
-     (never 'smooth') means this is already reduced-motion-safe by
-     construction, no extra media query needed. */
+  /* Hero scroll sequence : the page scrolls normally (vertically); the
+     pinned box (position:sticky, desktop only) stays visually fixed
+     while 4 tall invisible trigger blocks pass underneath it, and
+     whichever trigger is currently crossing the viewport's vertical
+     middle decides which phrase/badge state is active. Same technique
+     as the (still-standalone) how-it-works.html scrollspy. Desktop
+     only, disabled under prefers-reduced-motion — mobile/reduced-motion
+     users just see all 4 phrases stacked statically (CSS default). */
   (function () {
-    var scroller = document.getElementById('h-scroll');
-    if (!scroller) return;
-    // No viewport-width gate here : a 'wheel' event only ever fires from an
-    // actual mouse wheel or trackpad gesture (touch swipe fires touch/scroll
-    // events instead, never 'wheel', in every modern mobile browser), so
-    // gating this on window width was wrong — it borrowed the min-width:900px
-    // breakpoint used elsewhere on the site for layout, but a narrower
-    // desktop browser window (not maximized, zoomed in, smaller laptop
-    // screen) still has a real wheel/trackpad and got stuck with no way to
-    // scroll at all once that gate was false. Fixed 2026-07-24 after a real
-    // report that the page was unscrollable — narrow desktop windows are
-    // exactly what this bug hit.
-    scroller.addEventListener('wheel', function (e) {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        scroller.scrollBy({ left: e.deltaY, behavior: 'auto' });
-      }
-    }, { passive: false });
+    var root = document.getElementById('hero-scroll');
+    if (!root) return;
+    var desktop = window.matchMedia('(min-width:900px)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!desktop.matches || reduced.matches) return;
+
+    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
+    var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
+    var badges = Array.prototype.slice.call(root.querySelectorAll('[data-hb-badge]'));
+    var above = new Set();
+
+    function applyActive() {
+      var current = null;
+      steps.forEach(function (s) { if (above.has(s)) current = s; });
+      if (!current) current = steps[0];
+      var n = current.getAttribute('data-hero-step');
+      steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
+      phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
+      var lit = { '1': [], '2': ['1'], '3': ['1','2','3'], '4': ['1','2','3'] }[n] || [];
+      badges.forEach(function (b) {
+        b.classList.toggle('is-lit', lit.indexOf(b.getAttribute('data-hb-badge')) !== -1);
+      });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) above.add(entry.target);
+        else above.delete(entry.target);
+      });
+      applyActive();
+    }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+    steps.forEach(function (s) { observer.observe(s); });
   })();
 
   /* Real launch-readiness check : calls our own Netlify Function, which
@@ -1368,13 +1419,13 @@ body{ overflow:hidden; height:100vh; }
     return scoreHtml;
   }
 
-  /* Nav CTA jumps straight to the form screen and focuses its input. */
+  /* Nav CTA jumps straight to the form and focuses its input. */
   var navCta = document.getElementById('nav-beta-cta');
   if (navCta) {
     navCta.addEventListener('click', function (e) {
       e.preventDefault();
-      var formScreen = document.querySelector('.h-screen--form');
-      if (formScreen) formScreen.scrollIntoView({ behavior: 'auto', inline: 'start' });
+      var formZone = document.getElementById('hero-form');
+      if (formZone) formZone.scrollIntoView({ behavior: 'auto', block: 'start' });
       var url = document.getElementById('cap-url-hero');
       if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 300);
     });
