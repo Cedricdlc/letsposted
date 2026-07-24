@@ -379,6 +379,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
 
+.hero-scroll-cue{ display:none; }
+
 @media (min-width:900px){
   .hero{ display:grid; grid-template-columns:1fr; }
   .hero-triggers{ grid-column:1; grid-row:1; }
@@ -406,6 +408,20 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     z-index:1;
     pointer-events:none;
   }
+  .hero-scroll-cue{
+    display:flex;
+    position:absolute;
+    left:50%; bottom:2rem;
+    transform:translateX(-50%);
+    z-index:2;
+    color:var(--faint);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+    animation:hero-cue-bounce 1.8s ease-in-out infinite;
+  }
+  .hero-scroll-cue.is-active{ opacity:.6; }
+  @keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
 }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
   .hero-trigger{ height:0; }
@@ -415,6 +431,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-phase.is-active{ animation:none; }
   .hb-dots{ display:none; }
   .hb-badge circle, .hb-comment{ transition:none; }
+  .hero-scroll-cue{ display:none; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1049,9 +1066,10 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   </a>
   <div class="nav-links">
     <a href="/how-it-works.html">How it works</a>
+    <a href="/use-case.html">Use case</a>
     <a href="/guides.html">Guides</a>
   </div>
-  <a class="btn nav-cta" href="#hero-form" id="nav-beta-cta">Get my launch plan <span class="a" aria-hidden="true">→</span></a>
+  <a class="btn nav-cta" href="#hero-form" id="nav-beta-cta">Get my platform plan <span class="a" aria-hidden="true">→</span></a>
 </nav>
 
 <!-- ================= HERO : vertical pinned-scroll sequence ================= -->
@@ -1099,6 +1117,10 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       <p class="hero-phase" data-hero-frame="2">No posts. No leads. And you know it.</p>
       <p class="hero-phase" data-hero-frame="3">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
       <p class="hero-phase" data-hero-frame="4">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+    </div>
+
+    <div class="hero-scroll-cue is-active" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
     </div>
   </div>
 
@@ -1250,6 +1272,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
     var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
     var badges = Array.prototype.slice.call(root.querySelectorAll('[data-hb-badge]'));
+    var cue = root.querySelector('.hero-scroll-cue');
     var above = new Set();
 
     function applyActive() {
@@ -1263,6 +1286,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       badges.forEach(function (b) {
         b.classList.toggle('is-lit', lit.indexOf(b.getAttribute('data-hb-badge')) !== -1);
       });
+      if (cue) cue.classList.toggle('is-active', n === '1');
     }
 
     var observer = new IntersectionObserver(function (entries) {

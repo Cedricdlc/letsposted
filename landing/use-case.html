@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use Cases — Posted.</title>
+<meta name="description" content="No matter your niche, we find where your buyers actually are and post there for you.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:        #FBF8F1;
+  --card:      #F3EEE0;
+  --line:      #E2DBC8;
+  --line-soft: #EAE4D3;
+  --ink:       #1A1917;
+  --body:      #57534A;
+  --faint:     #8A8478;
+  --accent:    #F2E96A;
+  --accent-2:  #C9A800;
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ background:var(--bg); color:var(--body); font-family:var(--sans); font-size:1.0625rem; line-height:1.65; -webkit-font-smoothing:antialiased; }
+.wrap{ max-width:46rem; margin:0 auto; padding:0 1.375rem; }
+h1{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:clamp(1.85rem, 1.1rem + 3.1vw, 3.1rem); letter-spacing:-.035em; margin-bottom:.6rem; }
+nav.nav{ padding:1.2rem 0; }
+.brand{ font-family:var(--display); font-weight:800; font-size:1.2rem; color:var(--ink); text-decoration:none; }
+main{ padding:3rem 0 5rem; }
+.lede{ color:var(--body); margin-bottom:2.5rem; max-width:34rem; }
+.badge{ display:inline-flex; align-items:center; gap:.4rem; background:rgba(201,168,0,.14); color:var(--accent-2); border-radius:999px; padding:.3rem .75rem; font-size:.78rem; font-weight:600; letter-spacing:.02em; margin-bottom:1rem; }
+.case-list{ display:grid; gap:1.1rem; margin-bottom:2.5rem; }
+.case-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.6rem; }
+.case-card h2{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:1.15rem; margin-bottom:.4rem; }
+.case-card p{ color:var(--body); font-size:.92rem; margin-bottom:.7rem; }
+.case-platforms{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.case-platforms span{ font-size:.78rem; font-weight:600; color:var(--accent-2); background:rgba(201,168,0,.1); border:1px solid var(--line); border-radius:999px; padding:.2rem .6rem; }
+.btn{ display:inline-flex; align-items:center; gap:.5rem; background:var(--accent); color:var(--ink); font-weight:700; font-size:.92rem; text-decoration:none; border-radius:999px; padding:.75rem 1.3rem; }
+footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:center; }
+.foot-privacy{ font-size:.82rem; color:var(--faint); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap"><a class="brand" href="/">Posted.</a></div>
+</nav>
+
+<main class="wrap">
+  <span class="badge">Use cases</span>
+  <h1>Wherever your buyers are, we find it.</h1>
+  <p class="lede">There's no single "best platform." The right channel depends on what you're building and who you're selling to — so we pick it per client, not off a fixed list.</p>
+
+  <div class="case-list">
+    <div class="case-card">
+      <h2>SaaS founders</h2>
+      <p>Technical buyers who research before they trust. Usually means communities where people already compare tools.</p>
+      <div class="case-platforms"><span>Reddit</span><span>Product Hunt</span><span>X</span></div>
+    </div>
+    <div class="case-card">
+      <h2>Agencies &amp; freelancers</h2>
+      <p>Selling a service, not a product — visibility and relationships matter more than a single launch moment.</p>
+      <div class="case-platforms"><span>LinkedIn</span><span>X</span></div>
+    </div>
+    <div class="case-card">
+      <h2>Indie &amp; side-project builders</h2>
+      <p>Small, engaged audiences who like discovering things early beat broad reach every time.</p>
+      <div class="case-platforms"><span>Product Hunt</span><span>Reddit</span><span>Indie Hackers</span></div>
+    </div>
+    <div class="case-card">
+      <h2>Content &amp; newsletter creators</h2>
+      <p>Growth comes from being where the conversation already happens, not from posting into a void.</p>
+      <div class="case-platforms"><span>X</span><span>LinkedIn</span></div>
+    </div>
+  </div>
+
+  <a class="btn" href="/#hero-form">Get my platform plan <span aria-hidden="true">→</span></a>
+</main>
+
+<footer>
+  <a href="/privacy.html" class="foot-privacy">Privacy Policy</a>
+</footer>
+</body>
+</html>
