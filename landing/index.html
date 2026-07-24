@@ -47,7 +47,8 @@
 
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 
-html{ scroll-behavior:smooth; scroll-padding-top:5.5rem; }
+html{ scroll-behavior:smooth; scroll-padding-top:5.5rem; scrollbar-width:none; -ms-overflow-style:none; }
+html::-webkit-scrollbar{ display:none; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *,*::before,*::after{ animation:none !important; transition:none !important; }
@@ -157,8 +158,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   position:absolute;
   left:-.06em;
   right:-.06em;
-  bottom:-.1em;
-  height:.38em;
+  bottom:-.12em;
+  height:.2em;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23F2E96A' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
   background-size:100% 100%;
@@ -432,7 +433,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* Embedded capture panel (last screen state) */
 .hs-capture{ display:flex; flex-direction:column; justify-content:center; gap:1rem; min-height:100%; }
-.hs-capture .vf{ padding:.5rem; }
+.hs-capture-head{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--ink); line-height:1.35; }
 .hs-capture .capbar-in{ flex-direction:column; border-radius:18px; }
 .hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
 .hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
@@ -1195,7 +1196,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         <p class="hero-phase-sub">You built something real. Nobody's seen it yet, and that's what happens when nobody's doing the outreach.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="3">
-        <p class="hero-phase">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
+        <p class="hero-phase">We find the right platforms for your niche and do the <span class="mark-word">posting for you</span>.</p>
         <p class="hero-phase-sub">Not a generic blast. The exact communities where your niche already hangs out, in your voice.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="4">
@@ -1248,18 +1249,16 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
         <div class="hs-state" data-hero-screen-state="4">
           <div class="hs-card hs-capture">
-            <div class="vf">
-              <span class="fr" aria-hidden="true"></span>
-              <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="liste-attente" />
-                <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-                <div class="capbar-in">
-                  <label class="sr-only" for="cap-url-hero">Product URL</label>
-                  <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
-                  <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
-                </div>
-              </form>
-            </div>
+            <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
+            <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="liste-attente" />
+              <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+              <div class="capbar-in">
+                <label class="sr-only" for="cap-url-hero">Product URL</label>
+                <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
+                <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+              </div>
+            </form>
             <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
           </div>
         </div>
