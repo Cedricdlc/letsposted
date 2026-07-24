@@ -248,7 +248,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   border:1px solid var(--line);
   border-radius:999px;
   padding:.6rem .7rem .6rem 1.1rem;
-  box-shadow:0 14px 34px rgba(0,0,0,.55);
+  box-shadow:0 8px 24px rgba(26,25,23,.08);
 }
 .nav-links{ display:flex; gap:1.4rem; }
 .nav-links a{ font-size:.88rem; font-weight:500; color:var(--body); text-decoration:none; }
@@ -274,19 +274,15 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   display:inline-flex;
   align-items:center;
   font-family:var(--display);
-  font-weight:900;
+  font-weight:800;
   font-style:normal;
   font-size:1.35rem;
   letter-spacing:-.01em;
-  color:#141414;
-  -webkit-text-stroke:7px #F5F1E8;
-  paint-order:stroke fill;
-  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.4));
-  transform:rotate(-3deg);
-  transition:transform .2s ease;
+  color:var(--ink);
+  transition:opacity .2s ease;
 }
-.sticker-patch--sm{ font-size:1.1rem; -webkit-text-stroke-width:5px; }
-.brand-sticker:hover .sticker-patch{ transform:rotate(-1deg) scale(1.04); }
+.sticker-patch--sm{ font-size:1.1rem; }
+.brand-sticker:hover .sticker-patch{ opacity:.75; }
 .sticker-dot{ color:var(--accent); }
 @media (prefers-reduced-motion: no-preference){
   .mark-outer{ animation:ringpulse 2.8s ease-in-out infinite; }
@@ -434,26 +430,13 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-scan-txt{ grid-column:1; color:var(--ink); line-height:1.4; }
 .hs-scan-score{ grid-column:2; grid-row:1 / span 2; align-self:center; font-weight:700; font-size:.78rem; color:var(--bg); background:var(--ok); border-radius:999px; padding:.15rem .55rem; height:fit-content; }
 
-/* New Lead / Not Relevant card */
-.hs-leads-list{ list-style:none; display:flex; flex-direction:column; gap:.9rem; }
-.hs-leads-list li{ padding-bottom:.9rem; border-bottom:1px solid var(--line-soft); }
-.hs-leads-list li:last-child{ border-bottom:0; padding-bottom:0; }
-.hs-leads-list p{ margin-top:.4rem; color:var(--ink); line-height:1.4; }
-.hs-leads-tag{ font-size:.68rem; font-weight:700; letter-spacing:.02em; border-radius:999px; padding:.15rem .55rem; }
-.hs-leads-tag--hit{ color:var(--ok); background:rgba(74,222,128,.14); }
-.hs-leads-tag--skip{ color:var(--faint); background:var(--card-2); }
-.hs-leads-meta{ margin-left:.5rem; font-size:.7rem; color:var(--faint); }
-.hs-leads-skip p{ color:var(--faint); text-decoration:line-through; }
-
-.hero-cta-zone{
-  padding:2rem 1.375rem 3.5rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:.9rem;
-}
-.hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
+/* Embedded capture panel (last screen state) */
+.hs-capture{ display:flex; flex-direction:column; justify-content:center; gap:1rem; min-height:100%; }
+.hs-capture .vf{ padding:.5rem; }
+.hs-capture .capbar-in{ flex-direction:column; border-radius:18px; }
+.hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
+.hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+.hs-capture-reassure{ font-size:.74rem; color:var(--faint); text-align:center; letter-spacing:.01em; }
 
 .hero-scroll-cue{ display:none; }
 
@@ -468,21 +451,24 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     align-self:start;
     height:100vh;
     overflow:hidden;
-    padding:0 3vw;
+    padding:0 1.5rem;
     display:grid;
-    grid-template-columns:minmax(280px, 1fr) minmax(320px, 1fr);
+    grid-template-columns:minmax(240px,25rem) minmax(220px,19rem);
     align-items:center;
-    gap:4vw;
+    justify-content:center;
+    gap:2.75rem;
+    max-width:56rem;
+    margin:0 auto;
     text-align:left;
   }
   .hero-phase-zone{ text-align:left; }
-  .hero-phase{ font-size:clamp(2rem,3.2vw,3.1rem); line-height:1.12; }
-  .hero-phase-sub{ font-size:1.05rem; }
+  .hero-phase{ font-size:clamp(1.7rem,2.6vw,2.4rem); line-height:1.15; }
+  .hero-phase-sub{ font-size:.98rem; }
   .hero-phase-pair{ display:none; }
   .hero-phase-pair.is-active{ display:block; animation:hero-phase-in .5s ease both; }
   @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
 
-  .hero-screen{ display:block; position:relative; min-height:22rem; }
+  .hero-screen{ display:block; position:relative; min-height:18rem; }
   .hs-state{ display:none; }
   .hs-state.is-active{ display:block; animation:hero-phase-in .5s ease both; }
 
@@ -1187,7 +1173,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     <a href="/use-case.html">Use case</a>
     <a href="/guides.html">Guides</a>
   </div>
-  <a class="btn nav-cta" href="#hero-form" id="nav-beta-cta">Get my platform plan <span class="a" aria-hidden="true">→</span></a>
+  <a class="btn nav-cta" href="#hero-scroll" id="nav-beta-cta">Where should I post? <span class="a" aria-hidden="true">→</span></a>
 </nav>
 
 <!-- ================= HERO : static title + 4-step scrollspy (mirrors how-it-works.html) ================= -->
@@ -1202,15 +1188,15 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     <div class="hero-phase-zone">
       <div class="hero-phase-pair is-active" data-hero-frame="1">
         <p class="hero-phase">Stop procrastinating on your business launch.</p>
-        <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes — and neither do your first customers.</p>
+        <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="2">
         <p class="hero-phase">No posts. No leads. And you know it.</p>
-        <p class="hero-phase-sub">You built something real. Nobody's seen it yet — that's what happens when nobody's doing the outreach.</p>
+        <p class="hero-phase-sub">You built something real. Nobody's seen it yet, and that's what happens when nobody's doing the outreach.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="3">
         <p class="hero-phase">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
-        <p class="hero-phase-sub">Not a generic blast — the exact communities where your niche already hangs out, in your voice.</p>
+        <p class="hero-phase-sub">Not a generic blast. The exact communities where your niche already hangs out, in your voice.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="4">
         <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
@@ -1261,33 +1247,23 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         </div>
 
         <div class="hs-state" data-hero-screen-state="4">
-          <div class="hs-card hs-leads">
-            <ul class="hs-leads-list">
-              <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Searching for a UX designer who's worked with B2B tools. DM me!</p></li>
-              <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Trying to boost MRR - what's worked best for you?</p></li>
-              <li class="hs-leads-skip"><span class="hs-leads-tag hs-leads-tag--skip">Not Relevant</span><span class="hs-leads-meta">Right now</span><p>Just crossed $10K MRR! Not looking for growth tips, just celebrating!</p></li>
-            </ul>
+          <div class="hs-card hs-capture">
+            <div class="vf">
+              <span class="fr" aria-hidden="true"></span>
+              <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="liste-attente" />
+                <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+                <div class="capbar-in">
+                  <label class="sr-only" for="cap-url-hero">Product URL</label>
+                  <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
+                  <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+                </div>
+              </form>
+            </div>
+            <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
           </div>
         </div>
       </div>
-  </div>
-
-  <div class="wrap hero-cta-zone" id="hero-form">
-    <div class="capzone capzone--hero">
-      <div class="vf">
-        <span class="fr" aria-hidden="true"></span>
-        <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="liste-attente" />
-          <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <div class="capbar-in">
-            <label class="sr-only" for="cap-url-hero">Product URL</label>
-            <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
-            <button type="submit" class="cap-btn">Get my plan <span class="a" aria-hidden="true">→</span></button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <p class="hero-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
   </div>
 </header>
 
@@ -1598,13 +1574,14 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     return scoreHtml + teaserHtml;
   }
 
-  /* Nav CTA jumps straight to the form and focuses its input. */
+  /* Nav CTA jumps straight to the last hero step (the embedded capture
+     panel lives inside .hero-screen's 4th state) and focuses its input. */
   var navCta = document.getElementById('nav-beta-cta');
   if (navCta) {
     navCta.addEventListener('click', function (e) {
       e.preventDefault();
-      var formZone = document.getElementById('hero-form');
-      if (formZone) formZone.scrollIntoView({ behavior: 'auto', block: 'start' });
+      var lastStep = document.querySelector('[data-hero-step="4"]');
+      if (lastStep) lastStep.scrollIntoView({ behavior: 'auto', block: 'start' });
       var url = document.getElementById('cap-url-hero');
       if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 300);
     });
