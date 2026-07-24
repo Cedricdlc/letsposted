@@ -313,46 +313,54 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .vf .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
 .vf .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
 
-/* ---------- hero : static title + 4-step scrollspy row ----------
-   Light "steps" pivot (2026-07-24): reuses how-it-works.html's own
-   proven .hw-scroll/.hw-steps/.hw-visual pattern verbatim (renamed
-   hero-/hs- to match this file's existing prefixes), replacing the
-   dark pivot's sticky-pin/invisible-trigger-block system entirely. */
+/* ---------- hero : vertical pinned-scroll sequence ----------
+   Reverted 2026-07-24 (2nd time this day): the "static title + steps"
+   pivot was itself a misunderstanding of what Cédric asked for — he
+   wanted the pinned-scroll mechanic from earlier the same day back
+   (page scrolls normally, hero content stays visually pinned via
+   position:sticky while the active phrase+subtext crossfade), just
+   with a new subtext line added under each big phrase for context.
+   .hero-screen/.hs-* (the evolving screen mockup) is unchanged —
+   Cédric explicitly said that part was already right. */
 
 .hero{
   position:relative;
   background:var(--bg);
 }
+.hero-triggers{ display:grid; }
+.hero-trigger{ height:0; }
 
-.hero-scroll{ display:grid; gap:1.1rem; margin-top:2.4rem; }
-.hero-steps{ display:grid; gap:1.1rem; }
-.hero-step{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:1.5rem 1.4rem;
-  transition:opacity .3s ease;
-}
-.hero-n{
-  display:inline-flex;
+.hero-pin{
+  position:relative;
+  height:auto;
+  overflow:visible;
+  padding:3.5rem 1.375rem 1rem;
+  display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  width:2.1rem;
-  height:2.1rem;
-  border-radius:50%;
-  background:var(--accent);
-  border:3px solid #141414;
-  box-shadow:3px 4px 0 rgba(0,0,0,.5);
-  color:#141414;
+  text-align:center;
+}
+
+.hero-phase-zone{ position:relative; z-index:2; max-width:44rem; }
+.hero-phase-pair:not(:last-child){ margin-bottom:1.1rem; }
+.hero-phase{
+  display:block;
   font-family:var(--display);
   font-weight:800;
-  font-size:.92rem;
-  margin-bottom:1.1rem;
+  font-size:clamp(1.5rem,4vw,2rem);
+  line-height:1.15;
+  letter-spacing:-.03em;
+  color:var(--ink);
 }
-.hero-step:nth-of-type(odd) .hero-n{ transform:rotate(-6deg); }
-.hero-step:nth-of-type(even) .hero-n{ transform:rotate(5deg); }
-.hero-t{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:1rem; margin-bottom:.4rem; }
-.hero-d{ font-size:.92rem; line-height:1.55; color:var(--body); }
+.hero-phase-sub{
+  display:block;
+  margin-top:.6rem;
+  font-size:1rem;
+  line-height:1.5;
+  color:var(--body);
+  max-width:36rem;
+}
 
 /* ---------- hero screen mockup (evolves per active step) ---------- */
 
@@ -381,8 +389,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   color:var(--faint);
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
-
-.hs-body{ position:relative; }
 
 .hs-panel--idle{
   position:relative;
@@ -449,20 +455,70 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
 
-@media (min-width:900px){
-  .hero-scroll{ grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
-  .hero-steps{ gap:9rem; padding:2rem 0; }
-  .hero-step{ opacity:.4; }
-  .hero-step.is-active{ opacity:1; }
+.hero-scroll-cue{ display:none; }
 
-  .hero-screen{ display:flex; flex-direction:column; position:sticky; top:7rem; min-height:22rem; }
-  .hs-body{ flex:1; min-height:0; }
-  .hs-state{ display:none; position:absolute; inset:0; opacity:0; transition:opacity .45s ease; }
-  .hs-state.is-active{ display:block; opacity:1; }
+@media (min-width:900px){
+  .hero{ display:grid; grid-template-columns:1fr; }
+  .hero-triggers{ grid-column:1; grid-row:1; }
+  .hero-trigger{ height:100vh; }
+  .hero-pin{
+    grid-column:1; grid-row:1;
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow:hidden;
+    padding:0 3vw;
+    display:grid;
+    grid-template-columns:minmax(280px, 1fr) minmax(320px, 1fr);
+    align-items:center;
+    gap:4vw;
+    text-align:left;
+  }
+  .hero-phase-zone{ text-align:left; }
+  .hero-phase{ font-size:clamp(2rem,3.2vw,3.1rem); line-height:1.12; }
+  .hero-phase-sub{ font-size:1.05rem; }
+  .hero-phase-pair{ display:none; }
+  .hero-phase-pair.is-active{ display:block; animation:hero-phase-in .5s ease both; }
+  @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+
+  .hero-screen{ display:block; position:relative; min-height:22rem; }
+  .hs-state{ display:none; }
+  .hs-state.is-active{ display:block; animation:hero-phase-in .5s ease both; }
+
+  .hero-scroll-cue{
+    display:flex;
+    position:absolute;
+    left:50%; bottom:2rem;
+    transform:translateX(-50%);
+    z-index:2;
+    color:var(--faint);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+    animation:hero-cue-bounce 1.8s ease-in-out infinite;
+  }
+  .hero-scroll-cue.is-active{ opacity:.6; }
+  @keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
 }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
-  .hero-step{ opacity:1; }
-  .hs-state{ position:static; display:none; opacity:1; transition:none; }
+  .hero-trigger{ height:0; }
+  .hero-pin{
+    position:static;
+    height:auto;
+    overflow:visible;
+    padding:3.5rem 1.375rem 1rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .hero-phase-pair{ display:block; }
+  .hero-phase-pair:not(:last-child){ margin-bottom:1.1rem; }
+  .hero-phase-pair.is-active{ animation:none; }
+  .hero-scroll-cue{ display:none; }
+  .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
   .hs-idle-glow{ animation:none; opacity:.5; }
 }
@@ -1135,36 +1191,39 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 </nav>
 
 <!-- ================= HERO : static title + 4-step scrollspy (mirrors how-it-works.html) ================= -->
-<header class="hero">
-  <div class="wrap wrap--narrow">
-    <span class="badge">Built for Solo SaaS Founders</span>
-    <h1>You don't do it. <span class="mark-word">We do it for you</span>.</h1>
-    <div class="hero-scroll" id="hero-scroll">
-      <div class="hero-steps">
-        <div class="hero-step is-active" data-hero-step="1">
-          <span class="hero-n" aria-hidden="true">1</span>
-          <p class="hero-t">Stop procrastinating</p>
-          <p class="hero-d">No posts. No leads. And you know it. The longer you wait, the more it costs you.</p>
-        </div>
-        <div class="hero-step" data-hero-step="2">
-          <span class="hero-n" aria-hidden="true">2</span>
-          <p class="hero-t">We find your platforms</p>
-          <p class="hero-d">The right channels for your niche, not a generic blast.</p>
-        </div>
-        <div class="hero-step" data-hero-step="3">
-          <span class="hero-n" aria-hidden="true">3</span>
-          <p class="hero-t">We post for you</p>
-          <p class="hero-d">Real copy, written in your voice — not templated spam.</p>
-        </div>
-        <div class="hero-step" data-hero-step="4">
-          <span class="hero-n" aria-hidden="true">4</span>
-          <p class="hero-t">Get real customers</p>
-          <p class="hero-d">Not just views. Actual conversations with people who could buy.</p>
-        </div>
+<header class="hero" id="hero-scroll">
+  <div class="hero-triggers">
+    <div class="hero-trigger is-active" data-hero-step="1"></div>
+    <div class="hero-trigger" data-hero-step="2"></div>
+    <div class="hero-trigger" data-hero-step="3"></div>
+    <div class="hero-trigger" data-hero-step="4"></div>
+  </div>
+  <div class="hero-pin">
+    <div class="hero-phase-zone">
+      <div class="hero-phase-pair is-active" data-hero-frame="1">
+        <p class="hero-phase">Stop procrastinating on your business launch.</p>
+        <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes — and neither do your first customers.</p>
       </div>
+      <div class="hero-phase-pair" data-hero-frame="2">
+        <p class="hero-phase">No posts. No leads. And you know it.</p>
+        <p class="hero-phase-sub">You built something real. Nobody's seen it yet — that's what happens when nobody's doing the outreach.</p>
+      </div>
+      <div class="hero-phase-pair" data-hero-frame="3">
+        <p class="hero-phase">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
+        <p class="hero-phase-sub">Not a generic blast — the exact communities where your niche already hangs out, in your voice.</p>
+      </div>
+      <div class="hero-phase-pair" data-hero-frame="4">
+        <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+        <p class="hero-phase-sub">Real replies from real people who need what you built. Not vanity metrics.</p>
+      </div>
+    </div>
+
+    <div class="hero-scroll-cue is-active" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </div>
+
       <div class="hero-screen" aria-hidden="true">
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
-        <div class="hs-body">
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-panel--idle">
             <div class="hs-idle-glow"></div>
@@ -1210,9 +1269,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
             </ul>
           </div>
         </div>
-        </div>
       </div>
-    </div>
   </div>
 
   <div class="wrap hero-cta-zone" id="hero-form">
@@ -1345,22 +1402,25 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   wire('capture-form-hero', 'cap-success-hero', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
-  /* Hero scroll sequence : same technique as how-it-works.html's own
-     scrollspy — the 4 real .hero-step blocks (not separate invisible
-     triggers) are the IntersectionObserver targets; whichever one is
-     currently crossing the viewport's vertical middle decides which
-     step/screen-state is active. Desktop only, disabled under
-     prefers-reduced-motion — mobile/reduced-motion users just see
-     step 1 and the idle screen state statically (CSS default). */
+  /* Hero scroll sequence : the page scrolls normally (vertically); the
+     pinned box (position:sticky, desktop only) stays visually fixed
+     while 4 tall invisible trigger blocks pass underneath it, and
+     whichever trigger is currently crossing the viewport's vertical
+     middle decides which phrase+subtext/screen-state is active.
+     Desktop only, disabled under prefers-reduced-motion —
+     mobile/reduced-motion users just see all 4 phrase+subtext pairs
+     stacked statically (CSS default). */
   (function () {
-    var scroll = document.getElementById('hero-scroll');
-    if (!scroll) return;
+    var root = document.getElementById('hero-scroll');
+    if (!root) return;
     var desktop = window.matchMedia('(min-width:900px)');
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!desktop.matches || reduced.matches) return;
 
-    var steps = Array.prototype.slice.call(scroll.querySelectorAll('[data-hero-step]'));
-    var screens = Array.prototype.slice.call(scroll.querySelectorAll('[data-hero-screen-state]'));
+    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
+    var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
+    var screens = Array.prototype.slice.call(root.querySelectorAll('[data-hero-screen-state]'));
+    var cue = root.querySelector('.hero-scroll-cue');
     var above = new Set();
 
     function applyActive() {
@@ -1369,7 +1429,9 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       if (!current) current = steps[0];
       var n = current.getAttribute('data-hero-step');
       steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
+      phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
       screens.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hero-screen-state') === n); });
+      if (cue) cue.classList.toggle('is-active', n === '1');
     }
 
     var observer = new IntersectionObserver(function (entries) {
