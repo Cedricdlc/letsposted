@@ -150,26 +150,25 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .mark-word{
   position:relative;
   display:inline-block;
-  font-weight:600;
+  font-weight:700;
   color:var(--ink);
 }
-.mark-word::after{
+.mark-word::before{
   content:"";
   position:absolute;
-  left:-.06em;
-  right:-.06em;
-  bottom:-.12em;
-  height:.2em;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23F2E96A' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-size:100% 100%;
+  left:-.14em;
+  right:-.14em;
+  top:.06em;
+  bottom:0;
+  z-index:-1;
+  background:var(--accent);
+  transform:skewX(-3deg) scaleX(0);
   transform-origin:left center;
-  transform:scaleX(0);
   animation:mark-draw .5s cubic-bezier(.25,.8,.4,1) .95s forwards;
 }
-@keyframes mark-draw{ to{ transform:scaleX(1); } }
+@keyframes mark-draw{ to{ transform:skewX(-3deg) scaleX(1); } }
 @media (prefers-reduced-motion: reduce){
-  .mark-word::after{ animation:none; transform:scaleX(1); }
+  .mark-word::before{ animation:none; transform:skewX(-3deg) scaleX(1); }
 }
 
 /* pill badge — every section opens with one */
@@ -1199,7 +1198,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         <p class="hero-phase-sub">You built something real. Nobody's seen it yet, and that's what happens when nobody's doing the outreach.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="3">
-        <p class="hero-phase">We find the right platforms for your niche and do the <span class="mark-word">posting for you</span>.</p>
+        <p class="hero-phase">We find your platforms. <span class="mark-word">We post for you</span>.</p>
         <p class="hero-phase-sub">Not a generic blast. The exact communities where your niche already hangs out, in your voice.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="4">
