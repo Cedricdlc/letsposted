@@ -303,6 +303,8 @@ Cédric a testé le hero sur un écran plus petit et trouvé le layout "trop dis
 
 Vérifié en scroll réel sur les 4 phases + soumission du formulaire (ouvre bien la modal lead magnet) avant mise en prod le 2026-07-24.
 
+**Suivi immédiat** : bug mobile réel trouvé par Cédric (capture d'écran sur son téléphone) — la nav fixe cachait le titre du hero, `padding-top` de `.hero-pin` insuffisant (3.5rem vs ~80px de hauteur réelle de la nav). Corrigé à 6.5rem. Puis testé sur un écran plus petit : "c'est trop petit", tailles réaugmentées modérément (max-width 56rem→66rem, colonnes et texte élargis) sans revenir au format étalé d'origine. Les deux correctifs poussés en prod le 2026-07-24.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
