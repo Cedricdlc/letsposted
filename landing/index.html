@@ -414,7 +414,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
   .hero-trigger{ height:0; }
-  .hero-pin{ position:static; height:auto; overflow:visible; padding:3.5rem 1.375rem 1rem; }
+  .hero-pin{
+    position:static;
+    height:auto;
+    overflow:visible;
+    padding:3.5rem 1.375rem 1rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
   .hero-phase{ display:block; margin-bottom:1.1rem; }
   .hero-phase:last-child{ margin-bottom:0; }
   .hero-phase.is-active{ animation:none; }
