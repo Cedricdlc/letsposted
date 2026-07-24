@@ -349,15 +349,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   justify-content:center;
   text-align:center;
 }
-.hero-pin-badge{ position:relative; z-index:2; margin-bottom:1.6rem; }
-
-.hero-bcast{ display:none; }
-.hb-wire{ fill:none; stroke:rgba(201,168,0,.32); stroke-width:1.5; stroke-linecap:round; }
-.hb-badge circle{ filter:drop-shadow(2px 3px 0 rgba(0,0,0,.25)); opacity:.3; }
-.hb-badge.is-lit circle{ opacity:1; transition:opacity .4s ease; }
-.hb-comment{ opacity:0; }
-.hb-comment.is-lit{ opacity:1; transition:opacity .4s ease; }
-
 .hero-phase-zone{ position:relative; z-index:2; max-width:44rem; }
 .hero-phase{
   display:block;
@@ -394,22 +385,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     align-self:start;
     height:100vh;
     overflow:hidden;
-    padding:0 1.375rem;
+    padding:0 3vw;
+    display:grid;
+    grid-template-columns:minmax(280px, 1fr) minmax(320px, 1fr);
+    align-items:center;
+    gap:4vw;
+    text-align:left;
   }
+  .hero-phase-zone{ text-align:left; }
+  .hero-phase{ font-size:clamp(2rem,3.2vw,3.1rem); line-height:1.12; }
   .hero-phase{ display:none; }
   .hero-phase.is-active{ display:block; animation:hero-phase-in .5s ease both; }
   @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
-  .hero-bcast{
-    display:block;
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%, 18%);
-    width:min(70vw, 460px);
-    height:auto;
-    opacity:.5;
-    z-index:1;
-    pointer-events:none;
-  }
   .hero-scroll-cue{
     display:flex;
     position:absolute;
@@ -1083,36 +1070,9 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     <div class="hero-trigger" data-hero-step="4"></div>
   </div>
   <div class="hero-pin">
-    <span class="badge hero-pin-badge">Built for Solo SaaS Founders</span>
-
-    <!-- Illustrative animation only — not real product screenshots. -->
-    <svg class="hero-bcast" viewBox="0 0 420 260" aria-hidden="true" focusable="false">
-      <path id="hb-wire-1" class="hb-wire" d="M210 130 Q210 90 90 60"/>
-      <path id="hb-wire-2" class="hb-wire" d="M210 130 Q210 100 210 40"/>
-      <path id="hb-wire-3" class="hb-wire" d="M210 130 Q210 90 330 60"/>
-      <g class="hb-dots">
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".3s" fill="freeze"/>
-          <animateMotion dur="2.2s" begin=".3s" repeatCount="indefinite"><mpath href="#hb-wire-1"/></animateMotion>
-        </g>
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".9s" fill="freeze"/>
-          <animateMotion dur="2s" begin=".9s" repeatCount="indefinite"><mpath href="#hb-wire-2"/></animateMotion>
-        </g>
-        <g visibility="hidden">
-          <circle r="4.5" fill="#F2E96A" opacity=".3"/>
-          <set attributeName="visibility" to="visible" begin=".6s" fill="freeze"/>
-          <animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#hb-wire-3"/></animateMotion>
-        </g>
-      </g>
-      <g class="hb-hub"><circle cx="210" cy="130" r="26" fill="#F2E96A"/><text x="210" y="137" text-anchor="middle" font-size="15" font-weight="800" fill="#141414">You</text></g>
-      <g class="hb-badge" data-hb-badge="1"><circle cx="90" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="79" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF6154"/><path fill="#FFFFFF" fill-rule="evenodd" d="M9.3 17.4V6.6h4a3.7 3.7 0 0 1 0 7.4h-1.8v3.4H9.3zm2.2-8.6v3h1.8a1.5 1.5 0 0 0 0-3h-1.8z"/></svg></g>
-      <g class="hb-badge" data-hb-badge="2"><circle cx="210" cy="30" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="200" y="20" width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="4.5" fill="#0A66C2"/><path fill="#FFFFFF" d="M7.94 18.5H5.2V9.85h2.74v8.65zM6.57 8.67a1.59 1.59 0 1 1 0-3.17 1.59 1.59 0 0 1 0 3.17zM18.8 18.5h-2.73v-4.21c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22v4.29H10.3V9.85h2.62v1.18h.04c.36-.69 1.25-1.42 2.58-1.42 2.76 0 3.26 1.82 3.26 4.18v4.71z"/></svg></g>
-      <g class="hb-badge" data-hb-badge="3"><circle cx="330" cy="52" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="3"/><svg x="319" y="41" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M12 8.2c.1-1.9 1.1-3.2 2.9-3.4" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round"/><circle cx="15.3" cy="4.6" r="1.15" fill="#FFFFFF"/><circle cx="5.5" cy="12.6" r="1.5" fill="#FFFFFF"/><circle cx="18.5" cy="12.6" r="1.5" fill="#FFFFFF"/><ellipse cx="12" cy="13.8" rx="5.7" ry="4.3" fill="#FFFFFF"/><circle cx="9.7" cy="13.3" r="1.05" fill="#FF4500"/><circle cx="14.3" cy="13.3" r="1.05" fill="#FF4500"/><path d="M9.6 15.8c1.55 1.15 3.25 1.15 4.8 0" fill="none" stroke="#FF4500" stroke-width="1" stroke-linecap="round"/></svg></g>
-      <g class="hb-comment" data-hb-badge="3"><circle cx="352" cy="34" r="9" fill="#F2E96A"/><text x="352" y="38" text-anchor="middle" font-size="11" fill="#141414">💬</text></g>
-    </svg>
+    <div class="hero-screen" aria-hidden="true">
+      <!-- Task 3 fills this in — 4 evolving states -->
+    </div>
 
     <div class="hero-phase-zone">
       <p class="hero-phase is-active" data-hero-frame="1">Stop procrastinating on your business launch.</p>
