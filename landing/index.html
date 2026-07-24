@@ -432,7 +432,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-scan-list li:last-child{ border-bottom:0; padding-bottom:0; }
 .hs-scan-src{ font-size:.72rem; color:var(--faint); grid-column:1; }
 .hs-scan-txt{ grid-column:1; color:var(--ink); line-height:1.4; }
-.hs-scan-score{ grid-column:2; grid-row:1 / span 2; align-self:center; font-weight:700; font-size:.78rem; color:#161412; background:var(--ok); border-radius:999px; padding:.15rem .55rem; height:fit-content; }
+.hs-scan-score{ grid-column:2; grid-row:1 / span 2; align-self:center; font-weight:700; font-size:.78rem; color:var(--bg); background:var(--ok); border-radius:999px; padding:.15rem .55rem; height:fit-content; }
 
 /* New Lead / Not Relevant card */
 .hs-leads-list{ list-style:none; display:flex; flex-direction:column; gap:.9rem; }
@@ -514,8 +514,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-phase{ display:block; margin-bottom:1.1rem; }
   .hero-phase:last-child{ margin-bottom:0; }
   .hero-phase.is-active{ animation:none; }
-  .hb-dots{ display:none; }
-  .hb-badge circle, .hb-comment{ transition:none; }
   .hero-scroll-cue{ display:none; }
   .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
@@ -1202,13 +1200,13 @@ h1 .hush, h2 .hush{ color:var(--faint); }
     <div class="hero-screen" aria-hidden="true">
       <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
       <div class="hs-state is-active" data-hero-screen-state="1">
-        <div class="hs-panel hs-panel--idle">
+        <div class="hs-panel--idle">
           <div class="hs-idle-glow"></div>
         </div>
       </div>
 
       <div class="hs-state" data-hero-screen-state="2">
-        <div class="hs-panel hs-card hs-outreach">
+        <div class="hs-card hs-outreach">
           <div class="hs-outreach-head">
             <span class="hs-outreach-icon">💬</span>
             <span class="hs-outreach-label">AI Outreach Agent</span>
@@ -1227,7 +1225,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       </div>
 
       <div class="hs-state" data-hero-screen-state="3">
-        <div class="hs-panel hs-card hs-scan">
+        <div class="hs-card hs-scan">
           <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
           <ul class="hs-scan-list">
             <li><span class="hs-scan-src">r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
@@ -1238,7 +1236,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       </div>
 
       <div class="hs-state" data-hero-screen-state="4">
-        <div class="hs-panel hs-card hs-leads">
+        <div class="hs-card hs-leads">
           <ul class="hs-leads-list">
             <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Searching for a UX designer who's worked with B2B tools. DM me!</p></li>
             <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Trying to boost MRR - what's worked best for you?</p></li>
@@ -1574,7 +1572,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       return '<p style="font-size:.86rem;color:var(--faint)">We couldn\'t load your page directly — some sites block automated requests. That\'s fine, we\'ll still put together your priority plan by hand.</p>';
     }
     var teaserHtml = '<div class="ready-teaser">' +
-      '<div class="ready-teaser-blur">' +
+      '<div class="ready-teaser-blur" aria-hidden="true">' +
         '<div class="ready-teaser-row"><span>Best platforms to post on</span><strong>2 identified</strong></div>' +
         '<div class="ready-teaser-row"><span>Matching posts this week</span><strong>23 identified</strong></div>' +
       '</div>' +
