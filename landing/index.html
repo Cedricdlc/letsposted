@@ -313,51 +313,48 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .vf .fr::before{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px; }
 .vf .fr::after{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px; }
 
-/* ---------- hero : vertical pinned-scroll sequence ----------
-   Restored 2026-07-24 : the horizontal-scroll version (built earlier
-   the same day) tested badly for Cédric in real use — two real bugs
-   found (a width-gated listener leaving some window sizes with no
-   way to scroll at all, then a scroll-snap/scrollBy fight causing a
-   bounce-back) on top of Cédric disliking the mechanic itself once
-   he could actually try it live. This restores the original vertical
-   mechanic from earlier the same day (page scrolls normally, the
-   hero content stays visually pinned via position:sticky while the
-   active phrase crossfades), adapted to the new light palette. Visual
-   design (colors/style beyond this base) is an open, separate topic —
-   Cédric is sending reference assets to build a more distinct DA. */
+/* ---------- hero : static title + 4-step scrollspy row ----------
+   Light "steps" pivot (2026-07-24): reuses how-it-works.html's own
+   proven .hw-scroll/.hw-steps/.hw-visual pattern verbatim (renamed
+   hero-/hs- to match this file's existing prefixes), replacing the
+   dark pivot's sticky-pin/invisible-trigger-block system entirely. */
 
 .hero{
   position:relative;
   background:var(--bg);
 }
-.hero-triggers{ display:grid; }
-.hero-trigger{ height:0; }
 
-.hero-pin{
-  position:relative;
-  height:auto;
-  overflow:visible;
-  padding:3.5rem 1.375rem 1rem;
-  display:flex;
-  flex-direction:column;
+.hero-scroll{ display:grid; gap:1.1rem; margin-top:2.4rem; }
+.hero-steps{ display:grid; gap:1.1rem; }
+.hero-step{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:1.5rem 1.4rem;
+  transition:opacity .3s ease;
+}
+.hero-n{
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-}
-.hero-phase-zone{ position:relative; z-index:2; max-width:44rem; }
-.hero-phase{
-  display:block;
-  margin-bottom:1.1rem;
+  width:2.1rem;
+  height:2.1rem;
+  border-radius:50%;
+  background:var(--accent);
+  border:3px solid #141414;
+  box-shadow:3px 4px 0 rgba(0,0,0,.5);
+  color:#141414;
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(1.5rem,4vw,2rem);
-  line-height:1.15;
-  letter-spacing:-.03em;
-  color:var(--ink);
+  font-size:.92rem;
+  margin-bottom:1.1rem;
 }
-.hero-phase:last-child{ margin-bottom:0; }
+.hero-step:nth-of-type(odd) .hero-n{ transform:rotate(-6deg); }
+.hero-step:nth-of-type(even) .hero-n{ transform:rotate(5deg); }
+.hero-t{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:1rem; margin-bottom:.4rem; }
+.hero-d{ font-size:.92rem; line-height:1.55; color:var(--body); }
 
-/* ---------- hero screen mockup (evolves per active phrase) ---------- */
+/* ---------- hero screen mockup (evolves per active step) ---------- */
 
 .hero-screen{
   display:none;
@@ -450,69 +447,20 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hero-reassure{ font-size:.82rem; color:var(--faint); letter-spacing:.01em; }
 
-.hero-scroll-cue{ display:none; }
-
 @media (min-width:900px){
-  .hero{ display:grid; grid-template-columns:1fr; }
-  .hero-triggers{ grid-column:1; grid-row:1; }
-  .hero-trigger{ height:100vh; }
-  .hero-pin{
-    grid-column:1; grid-row:1;
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    overflow:hidden;
-    padding:0 3vw;
-    display:grid;
-    grid-template-columns:minmax(280px, 1fr) minmax(320px, 1fr);
-    align-items:center;
-    gap:4vw;
-    text-align:left;
-  }
-  .hero-phase-zone{ text-align:left; }
-  .hero-phase{ font-size:clamp(2rem,3.2vw,3.1rem); line-height:1.12; }
-  .hero-phase{ display:none; }
-  .hero-phase.is-active{ display:block; animation:hero-phase-in .5s ease both; }
-  @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
-  .hero-screen{ display:block; position:relative; min-height:22rem; }
-  .hs-state{ display:none; }
-  .hs-state.is-active{ display:block; animation:hero-phase-in .5s ease both; }
-  .hero-scroll-cue{
-    display:flex;
-    position:absolute;
-    left:50%; bottom:2rem;
-    transform:translateX(-50%);
-    z-index:2;
-    color:var(--faint);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .4s ease;
-    animation:hero-cue-bounce 1.8s ease-in-out infinite;
-  }
-  .hero-scroll-cue.is-active{ opacity:.6; }
-  @keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
+  .hero-scroll{ grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
+  .hero-steps{ gap:9rem; padding:2rem 0; }
+  .hero-step{ opacity:.4; }
+  .hero-step.is-active{ opacity:1; }
+
+  .hero-screen{ display:block; position:sticky; top:7rem; min-height:22rem; }
+  .hs-state{ display:none; position:absolute; inset:0; opacity:0; transition:opacity .45s ease; }
+  .hs-state.is-active{ display:block; opacity:1; }
 }
 @media (min-width:900px) and (prefers-reduced-motion: reduce){
-  .hero-trigger{ height:0; }
-  .hero-pin{
-    position:static;
-    height:auto;
-    overflow:visible;
-    padding:3.5rem 1.375rem 1rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-  }
-  .hero-phase{ display:block; margin-bottom:1.1rem; }
-  .hero-phase:last-child{ margin-bottom:0; }
-  .hero-phase.is-active{ animation:none; }
-  .hero-scroll-cue{ display:none; }
-  .hs-state{ display:none; }
+  .hero-step{ opacity:1; }
+  .hs-state{ position:static; display:none; opacity:1; transition:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
-  .hs-state.is-active{ animation:none; }
   .hs-idle-glow{ animation:none; opacity:.5; }
 }
 
