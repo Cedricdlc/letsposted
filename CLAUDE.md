@@ -289,6 +289,20 @@ Cédric a vu le hero "4 étapes" ci-dessus en prod et signalé un "problème maj
 
 Exécuté directement (pas de nouveau cycle SDD complet — design déjà validé en conversation, code de référence disponible dans l'historique git du pivot sombre du matin), vérifié en scroll réel sur les 4 phases avant mise en prod le 2026-07-24.
 
+**⚠️ Formulaire/CTA modifiés le jour même** — voir la section suivante : le "Nav CTA, formulaire... inchangés" ci-dessus ne tient plus, `#hero-form` a été supprimé et le formulaire déplacé dans `.hero-screen`.
+
+## Compactage du layout + formulaire intégré dans `.hero-screen` — 2026-07-24 (même jour, 5e passe)
+
+Cédric a testé le hero sur un écran plus petit et trouvé le layout "trop dispersé" (colonnes étirées plein écran sur grand desktop) — retour groupé avec plusieurs corrections, toutes appliquées directement (pas de cycle SDD, ajustements ciblés) :
+
+- **`.hero-pin` compacté** : ajout de `max-width:56rem; margin:0 auto` + colonnes resserrées (`minmax(240px,25rem) minmax(220px,19rem)`, gap réduit) au lieu de `1fr`/`1fr` qui s'étirait sans limite sur les grands écrans. Texte hero réduit (`clamp(1.7rem,2.6vw,2.4rem)` au lieu de `3.1rem`) — Cédric a explicitement dit que c'est OK si ça passe sur 2 lignes. `.hero-screen` moins haut (`min-height:18rem` au lieu de `22rem`).
+- **Nav et logo nettoyés** : la pill de nav avait encore l'ombre forte du pivot sombre (`rgba(0,0,0,.55)`), jamais revertie lors des retours à la palette claire — remise à la valeur claire d'origine, bien plus discrète. Le logo "Posted." avait un contour épais de 7px en style "sticker" (`-webkit-text-stroke`) qui se fondait mal dans le fond crème de la pill — simplifié en wordmark plein, sans contour ni rotation.
+- **Suppression des "—"** dans les 3 sous-textes ajoutés à la passe précédente.
+- **Formulaire de capture déplacé dans `.hero-screen`** : la section `#hero-form` séparée sous le hero épinglé est supprimée. Le formulaire (`#capture-form-hero`/`#cap-url-hero`, IDs et wiring JS inchangés) vit maintenant à l'intérieur de l'état 4 de `.hero-screen` (`.hs-capture`), à la place de l'ancienne carte "New Lead / Not Relevant" (retirée). Le CTA nav scrolle maintenant vers `[data-hero-step="4"]` au lieu de `#hero-form` (qui n'existe plus) avant de focus l'input. Texte du bouton et du CTA nav changés en **"Where should I post?"** (au lieu de "Get my platform plan"/"Get my plan") — reflète mieux la promesse réelle du lead magnet. `how-it-works.html` et `use-case.html` avaient aussi des liens vers `/#hero-form` (cassés depuis la suppression) — mis à jour vers `/#hero-scroll` avec le même nouveau texte de CTA.
+- Nettoyage CSS mort en cascade : `.hs-leads-*` (carte retirée), `.hero-cta-zone`/`.hero-reassure` dupliqué (zone retirée).
+
+Vérifié en scroll réel sur les 4 phases + soumission du formulaire (ouvre bien la modal lead magnet) avant mise en prod le 2026-07-24.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
