@@ -1,6 +1,6 @@
 # Hero dark DA pivot — design
 
-**Status:** Two inputs still pending from Cédric before this is implementation-ready (flagged inline below). Do not start implementation until both are resolved.
+**Status:** Both previously-open inputs (palette, phase-2 content) are now resolved below with Cédric's reference images. Ready for the implementation plan pending his final read of this doc.
 
 ## Context
 
@@ -23,7 +23,23 @@ Replace the current light hero (centered text + pulsing SVG "hub" diagram) with 
 
 `index.html` today is entirely the nav + hero + capture zone — no sections below it (How It Works and Guides were split out in the prior pivot). So the dark theme applies by changing the `:root` token *values* directly (not a scoped override), and everything on the page — including the platform-readiness modal, which reuses `var(--card)`/`var(--ink)`/etc. — inherits it automatically. `how-it-works.html`, `guides.html`, and `use-case.html` keep their own light token copies (self-contained per page, per existing convention) — this pivot does not touch them.
 
-**⚠️ Open item 1:** Cédric is sending exact dark palette values ("je vais te montrer les guidelines"). Until they arrive, this spec assumes: near-black background, off-white text, existing yellow accent (`--accent`/`--accent-2`) kept as the one warm/brand color against the dark field — consistent with 3 of his 4 reference images, which all use a yellow/green accent on black. The implementation plan will use placeholder values that are trivial to swap once real values arrive (all in one `:root` block).
+**Resolved.** Cédric sent a reference mockup ("The mobile first company") for tone/palette. Proposed values below are read off that screenshot by eye, not pixel-sampled — close enough to build with; easy to nudge later since they all live in one `:root` block:
+
+```
+--bg:        #0B0B0A   /* near-black page background */
+--card:      #171613   /* card / screen-frame surface, one step up from bg */
+--card-2:    #1E1D19   /* nested surface (e.g. inner rows inside a card) */
+--line:      #2C2A25   /* card borders */
+--line-soft: #221F1B
+--ink:       #F5F3EC   /* headline text */
+--body:      #A8A399   /* secondary/body text */
+--faint:     #6E6A60   /* placeholder/meta text */
+--accent:    #F2E96A   /* unchanged — existing brand yellow already matches */
+--accent-2:  #C9A800   /* unchanged */
+--ok:        #4ADE80   /* unchanged token, now actually used: outreach-card green (image 106) */
+```
+
+The existing yellow accent tokens carry over unchanged — they already match the reference. Solid-yellow-fill + black-text buttons (as in the reference's "Contact us" button) are a nice-to-have visual note but not required: the current `.btn`/`.cap-btn` styling already does yellow-fill-dark-text, so this falls out for free.
 
 ### 2. Hero layout: left animation column / right text column
 
@@ -42,7 +58,7 @@ A single persistent device/screen frame (dark rounded rectangle with a corner gl
 | Phrase | Screen state |
 |---|---|
 | 1. "Stop procrastinating on your business launch." | Empty frame, single soft glow rotating/pulsing in one corner. Minimal — establishes the frame before anything happens. |
-| 2. "No posts. No leads. And you know it." | **⚠️ Open item 2 — content not yet defined.** Cédric wants something conveying "analyzing your niche and platforms" but hasn't found a reference yet ("je vais chercher en attendant"). Placeholder for the plan: reuse the phase-1 empty frame a beat longer (no new asset needed) — swap in the real content once Cédric provides it, without needing to touch the scroll mechanic. |
+| 2. "No posts. No leads. And you know it." | **Resolved.** "AI Outreach Agent" chat card (Cédric's reference image): a dark DM-thread mockup — small header with a chat icon, label "AI Outreach Agent", and an "Enabled" toggle lit in `--ok` green top-right; below it, one outbound message bubble (green-tinted, "you") referencing a lead's own post and offering the tool, then one inbound reply bubble ("Lead", neutral gray) showing interest. Static content, fades/slides in on activation like the phase-3/4 cards — same non-live-data caveat as the rest of the hero. |
 | 3. "We find the right platforms for your niche and do the posting for you." | Frame fills with the "Scanning platforms…" card: a static list of 3-4 scored posts (source badge, timestamp, snippet, score chip), fading/sliding in when this phrase becomes active — matching Cédric's reference image. Not an auto-scrolling ticker; it appears once and holds. |
 | 4. "Get your first customers. Not just views." | Frame swaps to the "New Lead / Not Relevant" card: tagged messages, irrelevant ones shown struck-through, matching Cédric's reference image. |
 
@@ -69,9 +85,6 @@ What's added: a new static, generic teaser element inside `#ready-result-modal`,
 - `how-it-works.html`, `guides.html`, `use-case.html` — untouched, stay light-themed.
 - Nav CTA text, link target, and click-to-scroll/focus behavior.
 
-## Open items blocking implementation
+## Open items
 
-1. **Exact dark palette values** — Cédric is sending guidelines separately.
-2. **Phase-2 screen-state content** — Cédric is still searching for a reference image.
-
-The implementation plan will carry both as explicit placeholders (a `:root` token block for #1, a documented "reuses phase-1 markup for now" note for #2) so the bulk of the work (layout restructure, phase-3/4 cards, modal teaser) can proceed without blocking on either, and both can be swapped in with a small follow-up task once Cédric provides them.
+None blocking. The `:root` palette values above are read by eye off Cédric's reference screenshot, not pixel-sampled — if he has exact hex codes from a design tool, swapping them in later is a one-block edit with no structural impact.
