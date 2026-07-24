@@ -273,6 +273,22 @@ Cédric a revu le hero sombre en prod et préféré revenir au style clair déj�
 
 **Nav** : la pill redevient claire automatiquement (elle utilisait déjà `var(--card)`, pas une couleur codée en dur) — aucune retouche nécessaire.
 
+**⚠️ Mécanique remplacée le jour même — malentendu identifié par Cédric.** Le titre fixe + colonne d'étapes ci-dessus était une mauvaise lecture de sa demande. Voir la section suivante pour l'état réel actuel — la palette claire et `.hero-screen` (contenu des 4 états) restent valides, seule la mécanique de scroll + structure du texte sont de nouveau différentes.
+
+## Retour au hero épinglé + ajout d'un sous-texte — correction du 2026-07-24 (même jour, 4e revirement)
+
+Cédric a vu le hero "4 étapes" ci-dessus en prod et signalé un "problème majeur" avant d'aller plus loin : mauvaise lecture de sa demande de brainstorming. Ce qu'il voulait en fait : garder **exactement** la mécanique `position:sticky` + `IntersectionObserver` du pivot sombre du matin (page qui défile normalement, hero visuellement épinglé, le gros texte qui crossfade) — pas le système "titre fixe + étapes qui défilent en dessous" repris de `how-it-works.html`. Il a explicitement approuvé `.hero-screen` (le mockup à droite) tel quel : "le design que tu as fait là, il est top aussi" — donc uniquement la colonne de texte à gauche et la mécanique de scroll ont changé, pas le visuel.
+
+**Ce qui revient** : `.hero-triggers` (4 blocs invisibles de 100vh) + `.hero-pin` (`position:sticky`) exactement comme avant le pivot "étapes" — le gros titre reprend les 4 phrases complètes d'origine ("Stop procrastinating on your business launch.", "No posts. No leads. And you know it.", etc.), pas les versions courtes de 2-3 mots inventées pour les cartes d'étapes.
+
+**Ce qui est nouveau** : chaque phrase a maintenant un **sous-texte** en dessous (`.hero-phase-sub`), plus petit, qui apporte du contexte — demande explicite de Cédric, absent de toutes les versions précédentes du hero. Structure HTML : `.hero-phase-zone` contient 4 `.hero-phase-pair[data-hero-frame="1..4"]`, chacun avec un `<p class="hero-phase">` (titre) + `<p class="hero-phase-sub">` (contexte), togglés ensemble par le même JS scrollspy qu'avant.
+
+**`.hero-screen` simplifié en repassant sur cette mécanique** : la revue finale du pivot "étapes" avait trouvé un bug réel — la barre de chrome (`🔗 yourproduct.com`) chevauchait la carte active à cause du `position:absolute` utilisé pour le fondu entre états, nécessitant un correctif (`.hs-body` + flexbox). Ce correctif n'est plus nécessaire du tout avec la mécanique épinglée restaurée : `.hs-state` repasse sur un simple toggle `display:none/block` (comme dans la toute première version du pivot sombre, avant même l'ajout de la barre de chrome) — plus de position absolue, donc plus de risque de chevauchement par construction, pas seulement corrigé.
+
+**Nav CTA, formulaire, modal lead magnet** : tous inchangés, comme à chaque pivot du hero depuis le début de la session.
+
+Exécuté directement (pas de nouveau cycle SDD complet — design déjà validé en conversation, code de référence disponible dans l'historique git du pivot sombre du matin), vérifié en scroll réel sur les 4 phases avant mise en prod le 2026-07-24.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
