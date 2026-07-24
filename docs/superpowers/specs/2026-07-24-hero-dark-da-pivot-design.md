@@ -23,23 +23,25 @@ Replace the current light hero (centered text + pulsing SVG "hub" diagram) with 
 
 `index.html` today is entirely the nav + hero + capture zone — no sections below it (How It Works and Guides were split out in the prior pivot). So the dark theme applies by changing the `:root` token *values* directly (not a scoped override), and everything on the page — including the platform-readiness modal, which reuses `var(--card)`/`var(--ink)`/etc. — inherits it automatically. `how-it-works.html`, `guides.html`, and `use-case.html` keep their own light token copies (self-contained per page, per existing convention) — this pivot does not touch them.
 
-**Resolved.** Cédric sent a reference mockup ("The mobile first company") for tone/palette. Proposed values below are read off that screenshot by eye, not pixel-sampled — close enough to build with; easy to nudge later since they all live in one `:root` block:
+**Resolved, exact values from Cédric.** Black is `#161412`, yellow is `#FCF05F`. Everything else below is derived from those two by eye (lighter/darker steps for cards, borders, text) — fine to nudge later, all in one `:root` block:
 
 ```
---bg:        #0B0B0A   /* near-black page background */
---card:      #171613   /* card / screen-frame surface, one step up from bg */
---card-2:    #1E1D19   /* nested surface (e.g. inner rows inside a card) */
---line:      #2C2A25   /* card borders */
---line-soft: #221F1B
+--bg:        #161412   /* exact, from Cédric */
+--card:      #201D19   /* card / screen-frame surface, one step up from bg */
+--card-2:    #29251F   /* nested surface (e.g. inner rows inside a card) */
+--line:      #38332B   /* card borders */
+--line-soft: #2A251F
 --ink:       #F5F3EC   /* headline text */
 --body:      #A8A399   /* secondary/body text */
 --faint:     #6E6A60   /* placeholder/meta text */
---accent:    #F2E96A   /* unchanged — existing brand yellow already matches */
---accent-2:  #C9A800   /* unchanged */
+--accent:    #FCF05F   /* exact, from Cédric */
+--accent-2:  #D4C700   /* derived: darker step of --accent, for hover/secondary use */
 --ok:        #4ADE80   /* unchanged token, now actually used: outreach-card green (image 106) */
 ```
 
-The existing yellow accent tokens carry over unchanged — they already match the reference. Solid-yellow-fill + black-text buttons (as in the reference's "Contact us" button) are a nice-to-have visual note but not required: the current `.btn`/`.cap-btn` styling already does yellow-fill-dark-text, so this falls out for free.
+Solid-yellow-fill + black-text buttons (as in the reference's "Contact us" button) are a nice-to-have visual note but not required: the current `.btn`/`.cap-btn` styling already does yellow-fill-dark-text, so this falls out for free.
+
+**Background texture:** Cédric's reference has a faint grid visible in the dark background (barely-there rectangular grid lines, not a bold pattern). Add a subtle repeating grid via CSS background-image on `body` (two thin `linear-gradient` lines, e.g. `rgba(255,255,255,.03)`, tiled ~40px), no image asset needed.
 
 ### 2. Hero layout: left animation column / right text column
 
@@ -53,7 +55,7 @@ Replaces today's centered `.hero-pin` (badge above headline above SVG diagram). 
 
 ### 3. `.hero-screen`: one evolving mockup, not four separate illustrations
 
-A single persistent device/screen frame (dark rounded rectangle with a corner glow, styled after Cédric's "device skeleton" reference) whose *inner content* changes per active phrase — not four unrelated graphics. Reuses the existing `[data-hero-frame]`/scrollspy wiring: add a parallel set of `[data-hero-screen-state]` elements inside `.hero-screen`, toggled by the same `applyActive()` step number the phrase text already uses.
+Cédric's reference used a phone-shaped skeleton (notch, home-indicator dots); he then simplified this to a plain, lightweight screen panel instead — a simple rounded rectangle (like a card/browser pane, no phone bezel/notch details), which is also less to build. A single persistent `.hero-screen` panel whose *inner content* changes per active phrase — not four unrelated graphics. Reuses the existing `[data-hero-frame]`/scrollspy wiring: add a parallel set of `[data-hero-screen-state]` elements inside `.hero-screen`, toggled by the same `applyActive()` step number the phrase text already uses.
 
 | Phrase | Screen state |
 |---|---|
