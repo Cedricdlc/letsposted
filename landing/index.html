@@ -1340,25 +1340,22 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   wire('capture-form-hero', 'cap-success-hero', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
-  /* Hero scroll sequence : the page scrolls normally (vertically); the
-     pinned box (position:sticky, desktop only) stays visually fixed
-     while 4 tall invisible trigger blocks pass underneath it, and
-     whichever trigger is currently crossing the viewport's vertical
-     middle decides which phrase/badge state is active. Same technique
-     as the (still-standalone) how-it-works.html scrollspy. Desktop
-     only, disabled under prefers-reduced-motion — mobile/reduced-motion
-     users just see all 4 phrases stacked statically (CSS default). */
+  /* Hero scroll sequence : same technique as how-it-works.html's own
+     scrollspy — the 4 real .hero-step blocks (not separate invisible
+     triggers) are the IntersectionObserver targets; whichever one is
+     currently crossing the viewport's vertical middle decides which
+     step/screen-state is active. Desktop only, disabled under
+     prefers-reduced-motion — mobile/reduced-motion users just see
+     step 1 and the idle screen state statically (CSS default). */
   (function () {
-    var root = document.getElementById('hero-scroll');
-    if (!root) return;
+    var scroll = document.getElementById('hero-scroll');
+    if (!scroll) return;
     var desktop = window.matchMedia('(min-width:900px)');
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!desktop.matches || reduced.matches) return;
 
-    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
-    var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
-    var screens = Array.prototype.slice.call(root.querySelectorAll('[data-hero-screen-state]'));
-    var cue = root.querySelector('.hero-scroll-cue');
+    var steps = Array.prototype.slice.call(scroll.querySelectorAll('[data-hero-step]'));
+    var screens = Array.prototype.slice.call(scroll.querySelectorAll('[data-hero-screen-state]'));
     var above = new Set();
 
     function applyActive() {
@@ -1367,9 +1364,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       if (!current) current = steps[0];
       var n = current.getAttribute('data-hero-step');
       steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
-      phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
-      screens.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-hero-screen-state') === n); });
-      if (cue) cue.classList.toggle('is-active', n === '1');
+      screens.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hero-screen-state') === n); });
     }
 
     var observer = new IntersectionObserver(function (entries) {
