@@ -364,20 +364,32 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
 /* ---------- hero screen mockup (evolves per active phrase) ---------- */
 
-.hero-screen{ display:none; }
+.hero-screen{
+  display:none;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 24px 56px rgba(0,0,0,.45);
+}
 @media (max-width:899.98px){
   .hero-screen{ display:block; margin-bottom:2rem; }
   .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
 }
 
-.hs-panel{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 24px 56px rgba(0,0,0,.45);
+.hs-chrome{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.8rem 1.1rem;
+  background:var(--card-2);
+  border-bottom:1px solid var(--line);
+  font-size:.82rem;
+  color:var(--faint);
 }
+.hs-chrome b{ color:var(--ink); font-weight:600; }
+
 .hs-panel--idle{
   position:relative;
   aspect-ratio:4/3;
@@ -1188,6 +1200,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   </div>
   <div class="hero-pin">
     <div class="hero-screen" aria-hidden="true">
+      <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
       <div class="hs-state is-active" data-hero-screen-state="1">
         <div class="hs-panel hs-panel--idle">
           <div class="hs-idle-glow"></div>
