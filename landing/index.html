@@ -382,6 +382,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
+.hs-body{ position:relative; }
+
 .hs-panel--idle{
   position:relative;
   aspect-ratio:4/3;
@@ -453,7 +455,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-step{ opacity:.4; }
   .hero-step.is-active{ opacity:1; }
 
-  .hero-screen{ display:block; position:sticky; top:7rem; min-height:22rem; }
+  .hero-screen{ display:flex; flex-direction:column; position:sticky; top:7rem; min-height:22rem; }
+  .hs-body{ flex:1; min-height:0; }
   .hs-state{ display:none; position:absolute; inset:0; opacity:0; transition:opacity .45s ease; }
   .hs-state.is-active{ display:block; opacity:1; }
 }
@@ -1161,6 +1164,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       </div>
       <div class="hero-screen" aria-hidden="true">
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
+        <div class="hs-body">
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-panel--idle">
             <div class="hs-idle-glow"></div>
@@ -1205,6 +1209,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
               <li class="hs-leads-skip"><span class="hs-leads-tag hs-leads-tag--skip">Not Relevant</span><span class="hs-leads-meta">Right now</span><p>Just crossed $10K MRR! Not looking for growth tips, just celebrating!</p></li>
             </ul>
           </div>
+        </div>
         </div>
       </div>
     </div>
