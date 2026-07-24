@@ -18,29 +18,28 @@
 <style>
 /* ============================================================
    POSTED. — LANDING
-   Dark hero pivot (2026-07-24): split-screen hero, evolving
-   "screen" mockup left / phrase text right, driven by the same
-   position:sticky + IntersectionObserver scroll mechanic restored
-   earlier the same day. See docs/superpowers/specs/2026-07-24-hero-dark-da-pivot-design.md.
+   Hero light "steps" pivot (2026-07-24): static title, 4-step
+   scrollspy row reusing how-it-works.html's own proven CSS/JS
+   pattern verbatim. See docs/superpowers/specs/2026-07-24-hero-light-steps-pivot-design.md.
    Netlify form name="liste-attente" (fields url) on the hero
    capture form, "lead-magnet" (fields url + email) in the modal.
    Only external request: Google Fonts above.
    ============================================================ */
 
 :root{
-  --bg:        #161412;
-  --card:      #201D19;
-  --card-2:    #29251F;
-  --line:      #38332B;
-  --line-soft: #2A251F;
-  --ink:       #F5F3EC;
-  --body:      #A8A399;
-  --faint:     #6E6A60;
-  --accent:    #FCF05F;
-  --accent-2:  #D4C700;
-  --accent-soft: rgba(252,240,95,.14);
-  --accent-line: rgba(252,240,95,.4);
-  --grad:      #FCF05F;
+  --bg:        #FBF8F1;
+  --card:      #F3EEE0;
+  --card-2:    #EFE9D8;
+  --line:      #E2DBC8;
+  --line-soft: #EAE4D3;
+  --ink:       #1A1917;
+  --body:      #57534A;
+  --faint:     #8A8478;
+  --accent:    #F2E96A;
+  --accent-2:  #C9A800;
+  --accent-soft: rgba(201,168,0,.14);
+  --accent-line: rgba(201,168,0,.4);
+  --grad:      #F2E96A;
   --ok:        #4ADE80;
   --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -56,10 +55,6 @@ html{ scroll-behavior:smooth; scroll-padding-top:5.5rem; }
 
 body{
   background-color:var(--bg);
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:42px 42px;
   color:var(--body);
   font-family:var(--sans);
   font-size:1.0625rem;
@@ -164,7 +159,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   right:-.06em;
   bottom:-.1em;
   height:.38em;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23FCF05F' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23F2E96A' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
   background-size:100% 100%;
   transform-origin:left center;
