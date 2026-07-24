@@ -1183,73 +1183,82 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   <a class="btn nav-cta" href="#hero-form" id="nav-beta-cta">Get my platform plan <span class="a" aria-hidden="true">→</span></a>
 </nav>
 
-<!-- ================= HERO : vertical pinned-scroll sequence ================= -->
-<header class="hero" id="hero-scroll">
-  <div class="hero-triggers">
-    <div class="hero-trigger is-active" data-hero-step="1"></div>
-    <div class="hero-trigger" data-hero-step="2"></div>
-    <div class="hero-trigger" data-hero-step="3"></div>
-    <div class="hero-trigger" data-hero-step="4"></div>
-  </div>
-  <div class="hero-pin">
-    <div class="hero-screen" aria-hidden="true">
-      <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
-      <div class="hs-state is-active" data-hero-screen-state="1">
-        <div class="hs-panel--idle">
-          <div class="hs-idle-glow"></div>
+<!-- ================= HERO : static title + 4-step scrollspy (mirrors how-it-works.html) ================= -->
+<header class="hero">
+  <div class="wrap wrap--narrow">
+    <span class="badge">Built for Solo SaaS Founders</span>
+    <h1>You don't do it. <span class="mark-word">We do it for you</span>.</h1>
+    <div class="hero-scroll" id="hero-scroll">
+      <div class="hero-steps">
+        <div class="hero-step is-active" data-hero-step="1">
+          <span class="hero-n" aria-hidden="true">1</span>
+          <p class="hero-t">Stop procrastinating</p>
+          <p class="hero-d">No posts. No leads. And you know it. The longer you wait, the more it costs you.</p>
+        </div>
+        <div class="hero-step" data-hero-step="2">
+          <span class="hero-n" aria-hidden="true">2</span>
+          <p class="hero-t">We find your platforms</p>
+          <p class="hero-d">The right channels for your niche, not a generic blast.</p>
+        </div>
+        <div class="hero-step" data-hero-step="3">
+          <span class="hero-n" aria-hidden="true">3</span>
+          <p class="hero-t">We post for you</p>
+          <p class="hero-d">Real copy, written in your voice — not templated spam.</p>
+        </div>
+        <div class="hero-step" data-hero-step="4">
+          <span class="hero-n" aria-hidden="true">4</span>
+          <p class="hero-t">Get real customers</p>
+          <p class="hero-d">Not just views. Actual conversations with people who could buy.</p>
         </div>
       </div>
-
-      <div class="hs-state" data-hero-screen-state="2">
-        <div class="hs-card hs-outreach">
-          <div class="hs-outreach-head">
-            <span class="hs-outreach-icon">💬</span>
-            <span class="hs-outreach-label">AI Outreach Agent</span>
-            <span class="hs-toggle"><span class="hs-toggle-label">Enabled</span><span class="hs-toggle-pill"><span class="hs-toggle-dot"></span></span></span>
+      <div class="hero-screen" aria-hidden="true">
+        <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
+        <div class="hs-state is-active" data-hero-screen-state="1">
+          <div class="hs-panel--idle">
+            <div class="hs-idle-glow"></div>
           </div>
-          <div class="hs-bubble hs-bubble--out">
-            <p>hey, saw your post about struggling to get your first clients .. there's a tool that does exactly what you're looking for .. just thought you might find it useful :)</p>
-            <span class="hs-bubble-time">2:31 PM</span>
+        </div>
+
+        <div class="hs-state" data-hero-screen-state="2">
+          <div class="hs-card hs-outreach">
+            <div class="hs-outreach-head">
+              <span class="hs-outreach-icon">💬</span>
+              <span class="hs-outreach-label">AI Outreach Agent</span>
+              <span class="hs-toggle"><span class="hs-toggle-label">Enabled</span><span class="hs-toggle-pill"><span class="hs-toggle-dot"></span></span></span>
+            </div>
+            <div class="hs-bubble hs-bubble--out">
+              <p>hey, saw your post about struggling to get your first clients .. there's a tool that does exactly what you're looking for .. just thought you might find it useful :)</p>
+              <span class="hs-bubble-time">2:31 PM</span>
+            </div>
+            <div class="hs-bubble hs-bubble--in">
+              <span class="hs-bubble-from">Lead</span>
+              <p>Hey. Yeah I'll be happy to get any suggestions</p>
+              <span class="hs-bubble-time">2:33 PM</span>
+            </div>
           </div>
-          <div class="hs-bubble hs-bubble--in">
-            <span class="hs-bubble-from">Lead</span>
-            <p>Hey. Yeah I'll be happy to get any suggestions</p>
-            <span class="hs-bubble-time">2:33 PM</span>
+        </div>
+
+        <div class="hs-state" data-hero-screen-state="3">
+          <div class="hs-card hs-scan">
+            <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
+            <ul class="hs-scan-list">
+              <li><span class="hs-scan-src">r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
+              <li><span class="hs-scan-src">r/smallbusiness &middot; 8m ago</span><span class="hs-scan-txt">Any recommendations for a lightweight CRM? HubSpot is overkill for us</span><span class="hs-scan-score">9.0</span></li>
+              <li><span class="hs-scan-src">X &middot; 14m ago</span><span class="hs-scan-txt">Need a no-code tool to build internal dashboards. Budget is tight.</span><span class="hs-scan-score">8.0</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hs-state" data-hero-screen-state="4">
+          <div class="hs-card hs-leads">
+            <ul class="hs-leads-list">
+              <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Searching for a UX designer who's worked with B2B tools. DM me!</p></li>
+              <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Trying to boost MRR - what's worked best for you?</p></li>
+              <li class="hs-leads-skip"><span class="hs-leads-tag hs-leads-tag--skip">Not Relevant</span><span class="hs-leads-meta">Right now</span><p>Just crossed $10K MRR! Not looking for growth tips, just celebrating!</p></li>
+            </ul>
           </div>
         </div>
       </div>
-
-      <div class="hs-state" data-hero-screen-state="3">
-        <div class="hs-card hs-scan">
-          <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
-          <ul class="hs-scan-list">
-            <li><span class="hs-scan-src">r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
-            <li><span class="hs-scan-src">r/smallbusiness &middot; 8m ago</span><span class="hs-scan-txt">Any recommendations for a lightweight CRM? HubSpot is overkill for us</span><span class="hs-scan-score">9.0</span></li>
-            <li><span class="hs-scan-src">X &middot; 14m ago</span><span class="hs-scan-txt">Need a no-code tool to build internal dashboards. Budget is tight.</span><span class="hs-scan-score">8.0</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="hs-state" data-hero-screen-state="4">
-        <div class="hs-card hs-leads">
-          <ul class="hs-leads-list">
-            <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Searching for a UX designer who's worked with B2B tools. DM me!</p></li>
-            <li class="hs-leads-hit"><span class="hs-leads-tag hs-leads-tag--hit">New Lead</span><span class="hs-leads-meta">Right now</span><p>Trying to boost MRR - what's worked best for you?</p></li>
-            <li class="hs-leads-skip"><span class="hs-leads-tag hs-leads-tag--skip">Not Relevant</span><span class="hs-leads-meta">Right now</span><p>Just crossed $10K MRR! Not looking for growth tips, just celebrating!</p></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-phase-zone">
-      <p class="hero-phase is-active" data-hero-frame="1">Stop procrastinating on your business launch.</p>
-      <p class="hero-phase" data-hero-frame="2">No posts. No leads. And you know it.</p>
-      <p class="hero-phase" data-hero-frame="3">We find the right platforms for your niche <span class="mark-word">and do the posting for you</span>.</p>
-      <p class="hero-phase" data-hero-frame="4">Get your <span class="mark-word">first customers</span>. Not just views.</p>
-    </div>
-
-    <div class="hero-scroll-cue is-active" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
     </div>
   </div>
 
