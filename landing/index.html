@@ -323,14 +323,19 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hero{
   position:relative;
   background:var(--bg);
+  display:grid;
+  grid-template-columns:1fr;
 }
-.hero-triggers{ display:grid; }
-.hero-trigger{ height:0; }
+.hero-triggers{ display:grid; grid-column:1; grid-row:1; }
+.hero-trigger{ height:100vh; }
 
 .hero-pin{
-  position:relative;
-  height:auto;
-  overflow:visible;
+  grid-column:1; grid-row:1;
+  position:sticky;
+  top:0;
+  align-self:start;
+  height:100vh;
+  overflow:hidden;
   padding:6.5rem 1.375rem 1rem;
   display:flex;
   flex-direction:column;
@@ -340,12 +345,14 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 
 .hero-phase-zone{ position:relative; z-index:2; max-width:44rem; }
-.hero-phase-pair:not(:last-child){ margin-bottom:1.1rem; }
+.hero-phase-pair{ display:none; }
+.hero-phase-pair.is-active{ display:block; animation:hero-phase-in .5s ease both; }
+@keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
 .hero-phase{
   display:block;
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(1.5rem,4vw,2rem);
+  font-size:clamp(1.8rem,7vw,2.3rem);
   line-height:1.15;
   letter-spacing:-.03em;
   color:var(--ink);
@@ -359,7 +366,19 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   max-width:36rem;
 }
 
-/* ---------- hero screen mockup (evolves per active step) ---------- */
+/* Mobile-only capture block, riding along with the last phrase (no
+   .hero-screen mockup on mobile — Cédric asked to drop the visuals
+   there and just scroll text ending in the lead magnet). Separate
+   form/ids from the desktop one inside .hero-screen to avoid DOM id
+   collisions; both post to the same Netlify form name. */
+.hero-phase-capture{ display:block; margin-top:1.5rem; width:100%; max-width:24rem; }
+.hero-phase-capture .hs-capture-head{ margin-bottom:.7rem; }
+.hero-phase-capture .capbar-in{ flex-direction:column; border-radius:18px; }
+.hero-phase-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
+.hero-phase-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+.hero-phase-capture .hs-capture-reassure{ margin-top:.7rem; }
+
+/* ---------- hero screen mockup (desktop only, evolves per active step) ---------- */
 
 .hero-screen{
   display:none;
@@ -368,11 +387,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   border-radius:20px;
   overflow:hidden;
   box-shadow:6px 8px 0 rgba(0,0,0,.5);
-}
-@media (max-width:899.98px){
-  .hero-screen{ display:block; margin-bottom:2rem; }
-  .hs-state{ display:none; }
-  .hs-state[data-hero-screen-state="1"]{ display:block; }
 }
 
 .hs-chrome{
@@ -442,16 +456,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hero-scroll-cue{ display:none; }
 
 @media (min-width:900px){
-  .hero{ display:grid; grid-template-columns:1fr; }
-  .hero-triggers{ grid-column:1; grid-row:1; }
-  .hero-trigger{ height:100vh; }
   .hero-pin{
-    grid-column:1; grid-row:1;
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    overflow:hidden;
     padding:0 1.5rem;
     display:grid;
     grid-template-columns:minmax(260px,28rem) minmax(240px,22rem);
@@ -465,9 +470,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-phase-zone{ text-align:left; }
   .hero-phase{ font-size:clamp(2rem,3vw,2.9rem); line-height:1.13; }
   .hero-phase-sub{ font-size:1.08rem; }
-  .hero-phase-pair{ display:none; }
-  .hero-phase-pair.is-active{ display:block; animation:hero-phase-in .5s ease both; }
-  @keyframes hero-phase-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+  .hero-phase-capture{ display:none; }
 
   .hero-screen{ display:block; position:relative; min-height:21rem; }
   .hs-state{ display:none; }
@@ -488,7 +491,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-scroll-cue.is-active{ opacity:.6; }
   @keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
 }
-@media (min-width:900px) and (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce){
   .hero-trigger{ height:0; }
   .hero-pin{
     position:static;
@@ -1202,6 +1205,19 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       <div class="hero-phase-pair" data-hero-frame="4">
         <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
         <p class="hero-phase-sub">Real replies from real people who need what you built. Not vanity metrics.</p>
+        <div class="hero-phase-capture">
+          <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
+          <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="liste-attente" />
+            <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+            <div class="capbar-in">
+              <label class="sr-only" for="cap-url-hero-mobile">Product URL</label>
+              <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero-mobile" name="url" required placeholder="https://yourproduct.com">
+              <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+            </div>
+          </form>
+          <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
+        </div>
       </div>
     </div>
 
@@ -1375,22 +1391,23 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   }
   wire('capture-form', 'cap-success-1', 'cap-note-1', true);
   wire('capture-form-hero', 'cap-success-hero', null, true);
+  wire('capture-form-hero-mobile', 'cap-success-hero-mobile', null, true);
   wire('lm-form-modal', 'lm-success-modal', null, false);
 
   /* Hero scroll sequence : the page scrolls normally (vertically); the
-     pinned box (position:sticky, desktop only) stays visually fixed
-     while 4 tall invisible trigger blocks pass underneath it, and
-     whichever trigger is currently crossing the viewport's vertical
-     middle decides which phrase+subtext/screen-state is active.
-     Desktop only, disabled under prefers-reduced-motion —
-     mobile/reduced-motion users just see all 4 phrase+subtext pairs
-     stacked statically (CSS default). */
+     pinned box (position:sticky) stays visually fixed while 4 tall
+     invisible trigger blocks pass underneath it, and whichever trigger
+     is currently crossing the viewport's vertical middle decides which
+     phrase+subtext/screen-state is active. Runs at every viewport
+     width now (mobile included, per Cédric — same scroll-driven
+     behavior everywhere, just without the .hero-screen mockup on
+     mobile). Disabled under prefers-reduced-motion — those users just
+     see all 4 phrase+subtext pairs stacked statically (CSS default). */
   (function () {
     var root = document.getElementById('hero-scroll');
     if (!root) return;
-    var desktop = window.matchMedia('(min-width:900px)');
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!desktop.matches || reduced.matches) return;
+    if (reduced.matches) return;
 
     var steps = Array.prototype.slice.call(root.querySelectorAll('[data-hero-step]'));
     var phases = Array.prototype.slice.call(root.querySelectorAll('[data-hero-frame]'));
