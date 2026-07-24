@@ -231,6 +231,30 @@ Après avoir testé le scroll horizontal en vrai, Cédric l'a rejeté sur la mé
 
 Déployé en preview, revérifié via scroll réel (pas seulement `scrollTo`/`scrollIntoView` en JS — dans l'environnement d'automatisation navigateur utilisé ce jour-là, ces appels programmatiques n'affectaient pas visuellement le viewport, contrairement au scroll molette/trackpad réel qui fonctionnait correctement ; probable limitation de l'outil, pas un bug de la page), puis promu en prod le 2026-07-24.
 
+**⚠️ DA remplacée le même jour** par le pivot sombre ci-dessous — la mécanique de scroll décrite ci-dessus reste inchangée et valide, seule l'habillage visuel (palette claire, diagramme SVG "You") a été remplacé.
+
+## Hero en thème sombre + mockup "écran" évolutif — pivot du 2026-07-24
+
+Cédric a envoyé ses références DA (couleurs exactes + mockups d'illustration) et validé un brief complet en brainstorming avant exécution : spec `docs/superpowers/specs/2026-07-24-hero-dark-da-pivot-design.md`, plan `docs/superpowers/plans/2026-07-24-hero-dark-da-pivot.md`. Exécuté en Subagent-Driven Development (ledger dans `.superpowers/sdd/progress.md`, section séparée), 4 tâches + 1 fix round chacune sur les tâches 2 et 4, toutes revues clean, mis en prod le 2026-07-24. La mécanique de scroll (`position:sticky` + `IntersectionObserver`, restaurée plus tôt le même jour) n'a pas changé — seul l'habillage visuel à l'intérieur de `.hero-pin` est nouveau.
+
+**Palette** (`:root` dans `index.html`, s'applique à toute la page y compris la modal du lead magnet qui réutilise les mêmes tokens) : `--bg:#161412`, `--accent:#FCF05F` — valeurs exactes données par Cédric. Le reste (`--card`, `--line`, `--ink`, `--body`, etc.) est dérivé à l'œil, documenté comme tel dans la spec. Légère texture de grille en fond (2 `linear-gradient` répétés, quasi invisible).
+
+**Layout hero desktop (≥900px)** : `.hero-pin` passe d'une colonne centrée (badge + phrase + diagramme) à une grille 2 colonnes — `.hero-screen` à gauche, `.hero-phase-zone` à droite avec un texte nettement agrandi. Le badge "Built for Solo SaaS Founders" et l'ancien diagramme SVG "You" (hub + badges pulsants) sont supprimés. Mobile (<900px) et `prefers-reduced-motion` : fallback statique conservé, `.hero-screen` n'affiche que son état 1 sans animation.
+
+**`.hero-screen`** : un seul "écran" persistant avec une barre de chrome navigateur fixe en haut (`🔗 yourproduct.com`) — ajoutée après coup suite au retour de Cédric qui a repéré ce traitement sur le mockup de `how-it-works.html` et voulait le même esprit "fenêtre d'appli" dans le hero sombre. Le contenu sous la barre change selon la phrase active (même wiring `applyActive()`/`[data-hero-step]` que le texte) :
+1. Phrase 1 ("Stop procrastinating…") → écran vide, lueur douce qui pulse
+2. Phrase 2 ("No posts. No leads…") → carte "AI Outreach Agent" (thread DM, toggle vert "Enabled")
+3. Phrase 3 ("We find the right platforms…") → carte "Scanning platforms…" (liste de posts scorés)
+4. Phrase 4 ("Get your first customers…") → carte "New Lead / Not Relevant" (leads filtrés, les non-pertinents barrés)
+
+Tout le contenu de ces cartes est illustratif/statique — aucune donnée réelle, même logique que le reste du hero depuis le début.
+
+**Modal lead magnet** : mécanisme JS inchangé (`runReadinessCheck()`, `openPlatformModal()`, formulaires). Ajout d'une carte teaser floutée/verrouillée dans `#ready-result-modal`, à côté du score PageSpeed réel existant — texte fixe ("2 platforms to post on", "23 posts identified"), pas de nouveau calcul, juste un effet visuel "on a déjà trouvé des choses, débloque avec ton email".
+
+**Nav** : pill flottante passée de blanc à noir (`var(--card)`) avec une ombre plus marquée — retour à chaud de Cédric juste après avoir vu le hero sombre en prod, appliqué directement sans cycle SDD complet (changement d'une ligne CSS).
+
+**Revue finale** : 2 items Minor restants, non bloquants — `.hs-scan-score` hardcode `#161412` au lieu de `var(--bg)` (duplication littérale d'un token) ; quelques `rgba()` décomposant `--ok` au lieu d'un token dédié (`--ok` n'a pas d'équivalent `--accent-soft`/`--accent-line`, écart déjà présent ailleurs dans le fichier avant ce pivot) ; et un point d'accessibilité mineur sur la carte teaser de la modal (chiffres factices non `aria-hidden`).
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
