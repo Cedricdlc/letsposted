@@ -351,7 +351,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   display:block;
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(1.8rem,7vw,2.3rem);
+  font-size:clamp(2rem,8vw,2.6rem);
   line-height:1.15;
   letter-spacing:-.03em;
   color:var(--ink);
@@ -370,9 +370,9 @@ h1 .hush, h2 .hush{ color:var(--faint); }
    there and just scroll text ending in the lead magnet). Separate
    form/ids from the desktop one inside .hero-screen to avoid DOM id
    collisions; both post to the same Netlify form name. */
-.hero-phase-capture{ display:block; margin-top:1.5rem; width:100%; max-width:24rem; }
+.hero-phase-capture{ display:block; margin-top:1.5rem; width:100%; max-width:27rem; }
 .hero-phase-capture .hs-capture-head{ margin-bottom:.7rem; }
-.hero-phase-capture .capbar-in{ flex-direction:column; border-radius:18px; }
+.hero-phase-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
 .hero-phase-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
 .hero-phase-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
 .hero-phase-capture .hs-capture-reassure{ margin-top:.7rem; }
@@ -400,37 +400,21 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
-/* Idle scan (state 1) */
+/* Empty state (state 1) — no animation, deliberately "nothing has
+   happened yet" per Cédric: a blank post skeleton, not a diagram. */
 .hs-panel--idle{
   position:relative;
   aspect-ratio:4/3;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  padding:0 1.6rem;
 }
-.hs-scanbeam{
-  position:absolute;
-  left:0; right:0; top:-35%;
-  height:35%;
-  background:linear-gradient(180deg, transparent, rgba(201,168,0,.22), transparent);
-  animation:hs-scan-sweep 2.6s ease-in-out infinite;
-}
-@keyframes hs-scan-sweep{ 0%{ top:-35%; } 100%{ top:100%; } }
-.hs-idle-label{
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  gap:.45rem;
-  font-size:.82rem;
-  font-weight:600;
-  color:var(--faint);
-}
-.hs-idle-dots span{ animation:hs-idle-dot 1.4s ease-in-out infinite; opacity:.2; }
-.hs-idle-dots span:nth-child(2){ animation-delay:.2s; }
-.hs-idle-dots span:nth-child(3){ animation-delay:.4s; }
-@keyframes hs-idle-dot{ 0%,60%,100%{ opacity:.2; } 30%{ opacity:1; } }
+.hs-empty-post{ display:flex; align-items:center; gap:.9rem; width:100%; opacity:.5; }
+.hs-empty-post-avatar{ width:2.6rem; height:2.6rem; border-radius:50%; background:var(--line); flex:none; }
+.hs-empty-post-lines{ flex:1; display:flex; flex-direction:column; gap:.55rem; }
+.hs-empty-post-line{ height:.6rem; border-radius:999px; background:var(--line); }
+.hs-empty-post-line--short{ width:55%; }
 
 .hs-card{ padding:1.3rem 1.4rem; font-size:.86rem; }
 
@@ -443,6 +427,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-empty-note{ margin-top:.2rem; font-size:.78rem; color:var(--faint); font-style:italic; }
 
 /* Scanning platforms card */
+.hs-scan-analyzed{ display:flex; align-items:center; gap:.4rem; font-size:.72rem; color:var(--ok); font-weight:600; margin-bottom:.7rem; }
+.hs-scan-check{ display:inline-flex; align-items:center; justify-content:center; width:1rem; height:1rem; border-radius:50%; background:rgba(74,222,128,.18); font-size:.6rem; flex:none; }
 .hs-scan-head{ display:flex; align-items:center; gap:.5rem; font-size:.78rem; color:var(--faint); font-weight:600; margin-bottom:1rem; }
 .hs-scan-dot{ width:.5rem; height:.5rem; border-radius:50%; background:var(--ok); flex:none; }
 .hs-scan-count{ margin-left:auto; }
@@ -456,7 +442,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 /* Embedded capture panel (last screen state) */
 .hs-capture{ display:flex; flex-direction:column; justify-content:center; gap:1rem; min-height:100%; }
 .hs-capture-head{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--ink); line-height:1.35; }
-.hs-capture .capbar-in{ flex-direction:column; border-radius:18px; }
+.hs-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
 .hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
 .hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
 .hs-capture-reassure{ font-size:.74rem; color:var(--faint); text-align:center; letter-spacing:.01em; }
@@ -467,20 +453,20 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-pin{
     padding:0 1.5rem;
     display:grid;
-    grid-template-columns:minmax(260px,28rem) minmax(240px,22rem);
+    grid-template-columns:minmax(280px,30rem) minmax(260px,24rem);
     align-items:center;
     justify-content:center;
-    gap:3.25rem;
-    max-width:66rem;
+    gap:3.5rem;
+    max-width:70rem;
     margin:0 auto;
     text-align:left;
   }
   .hero-phase-zone{ text-align:left; }
-  .hero-phase{ font-size:clamp(2rem,3vw,2.9rem); line-height:1.13; }
-  .hero-phase-sub{ font-size:1.08rem; }
+  .hero-phase{ font-size:clamp(2.2rem,3.3vw,3.1rem); line-height:1.13; }
+  .hero-phase-sub{ font-size:1.12rem; }
   .hero-phase-capture{ display:none; }
 
-  .hero-screen{ display:block; position:relative; min-height:21rem; }
+  .hero-screen{ display:block; position:relative; min-height:23rem; }
   .hs-state{ display:none; }
   .hs-state.is-active{ display:block; animation:hero-phase-in .5s ease both; }
 
@@ -518,8 +504,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-scroll-cue{ display:none; }
   .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
-  .hs-scanbeam{ animation:none; opacity:.6; }
-  .hs-idle-dots span{ animation:none; opacity:1; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1200,7 +1184,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   <div class="hero-pin">
     <div class="hero-phase-zone">
       <div class="hero-phase-pair is-active" data-hero-frame="1">
-        <p class="hero-phase">Stop procrastinating on your business launch.</p>
+        <p class="hero-phase">Stop creating content nobody sees.</p>
         <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="2">
@@ -1238,8 +1222,13 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-panel--idle">
-            <div class="hs-scanbeam" aria-hidden="true"></div>
-            <p class="hs-idle-label"><span class="hs-scan-dot"></span>Analyzing your product<span class="hs-idle-dots"><span>.</span><span>.</span><span>.</span></span></p>
+            <div class="hs-empty-post" aria-hidden="true">
+              <div class="hs-empty-post-avatar"></div>
+              <div class="hs-empty-post-lines">
+                <div class="hs-empty-post-line"></div>
+                <div class="hs-empty-post-line hs-empty-post-line--short"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1254,6 +1243,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 
         <div class="hs-state" data-hero-screen-state="3">
           <div class="hs-card hs-scan">
+            <div class="hs-scan-analyzed"><span class="hs-scan-check">✓</span>Product &amp; niche analyzed</div>
             <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
             <ul class="hs-scan-list">
               <li><span class="hs-scan-src">r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
