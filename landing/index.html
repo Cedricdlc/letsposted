@@ -279,11 +279,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   font-size:1.35rem;
   letter-spacing:-.01em;
   color:var(--ink);
-  transition:opacity .2s ease;
+  background:var(--accent);
+  border:2.5px solid var(--ink);
+  border-radius:8px;
+  padding:.15rem .6rem;
+  transform:rotate(-2deg);
+  box-shadow:3px 4px 0 rgba(0,0,0,.5);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
-.sticker-patch--sm{ font-size:1.1rem; }
-.brand-sticker:hover .sticker-patch{ opacity:.75; }
-.sticker-dot{ color:var(--accent); }
+.sticker-patch--sm{ font-size:1.05rem; padding:.05rem .5rem; border-width:2px; box-shadow:2px 3px 0 rgba(0,0,0,.45); }
+.brand-sticker:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
+.sticker-dot{ color:var(--ink); }
 @media (prefers-reduced-motion: no-preference){
   .mark-outer{ animation:ringpulse 2.8s ease-in-out infinite; }
   @keyframes ringpulse{
@@ -400,17 +406,17 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
-/* Procrastination loop (state 1) — "Post" gets skipped for "Post
-   tomorrow", every day, on repeat. Matches phrase 1 directly. */
-.hs-panel--idle{
-  position:relative;
-  aspect-ratio:4/3;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 1.6rem;
-}
-.hs-procrastinate{ display:flex; flex-direction:column; align-items:center; gap:.9rem; }
+/* Draft post + procrastination loop (state 1) — a real-looking post
+   draft sits ready to go, but "Post" gets skipped for "Post tomorrow",
+   every day, on repeat. Matches phrase 1 directly. */
+.hs-panel--idle{ display:flex; flex-direction:column; gap:1.3rem; }
+.hs-idle-post{ display:flex; flex-direction:column; gap:.6rem; padding-bottom:1.1rem; border-bottom:1px solid var(--line-soft); }
+.hs-idle-post-head{ display:flex; align-items:center; gap:.6rem; }
+.hs-idle-post-avatar{ width:1.9rem; height:1.9rem; border-radius:50%; background:var(--card-2); flex:none; }
+.hs-idle-post-name{ font-size:.82rem; font-weight:600; color:var(--faint); }
+.hs-idle-post-line{ display:block; height:.6rem; border-radius:999px; background:var(--card-2); }
+.hs-idle-post-line--short{ width:55%; }
+.hs-procrastinate{ display:flex; flex-direction:column; align-items:flex-start; gap:.7rem; }
 .hs-procrastinate-row{ display:flex; align-items:center; gap:.6rem; }
 .hs-procrastinate-btn{
   display:inline-flex;
@@ -1207,7 +1213,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   <div class="hero-pin">
     <div class="hero-phase-zone">
       <div class="hero-phase-pair is-active" data-hero-frame="1">
-        <p class="hero-phase">Stop procrastinating on posting for customers.</p>
+        <p class="hero-phase">Stop procrastinating on posting for <span class="mark-word">your business</span>.</p>
         <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="2">
@@ -1244,7 +1250,15 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       <div class="hero-screen" aria-hidden="true">
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
         <div class="hs-state is-active" data-hero-screen-state="1">
-          <div class="hs-panel--idle">
+          <div class="hs-card hs-panel--idle">
+            <div class="hs-idle-post" aria-hidden="true">
+              <div class="hs-idle-post-head">
+                <span class="hs-idle-post-avatar"></span>
+                <span class="hs-idle-post-name">Your business</span>
+              </div>
+              <span class="hs-idle-post-line"></span>
+              <span class="hs-idle-post-line hs-idle-post-line--short"></span>
+            </div>
             <div class="hs-procrastinate" aria-hidden="true">
               <div class="hs-procrastinate-row">
                 <span class="hs-procrastinate-btn hs-procrastinate-btn--skip">Post</span>
