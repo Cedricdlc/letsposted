@@ -330,6 +330,12 @@ Vérifié : mécanique desktop toujours intacte après suppression de la restric
 - **Taille du texte et de `.hero-screen`** réaugmentée une nouvelle fois (desktop et mobile) — restait petit après la passe de compactage.
 - Flèche de scroll en bas (`.hero-scroll-cue`) : déjà présente et fonctionnelle, confirmée visuellement, pas de changement nécessaire.
 
+**2e suivi, même jour (2026-07-25)** : après avoir vu "Stop creating content nobody sees." en vrai, Cédric est revenu dessus — le hook "Stop procrastinating" tacle le bon problème (procrastiner à poster), c'est la partie "business launch" qui était trop étroite/générique. Itéré en 3 passes rapides jusqu'à validation (AskUserQuestion) : "Stop procrastinating on your business launch." → "Stop procrastinating on posting." (manquait le "pour quoi") → **"Stop procrastinating on posting for customers."** (texte final, en prod).
+
+En cohérence directe avec cette phrase 1, l'état 1 de `.hero-screen` (le squelette de post vide statique, ajouté la veille) a été remplacé par un visuel "Post vs Post tomorrow" : un pill "Post" barré/grisé → flèche animée → pill "Post tomorrow" en accent, suivi d'une ligne "tomorrow · tomorrow · tomorrow…" — illustre littéralement la boucle de procrastination quotidienne. Nouveau bloc `.hs-procrastinate*` (remplace `.hs-empty-post*`, supprimé). Vérifié visuellement sur le preview Netlify avant mise en prod.
+
+Question encore ouverte, posée à Cédric sans réponse pour l'instant : le formulaire `liste-attente` (capture URL principale du hero, 36 soumissions) n'a aucune notification email configurée côté Netlify (contrairement au formulaire `lead-magnet` qui alerte déjà `delachaise.cedric@gmail.com`) — proposé de configurer la même alerte, en attente de sa décision.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
