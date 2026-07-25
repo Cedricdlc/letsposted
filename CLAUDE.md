@@ -322,6 +322,14 @@ Vérifié : mécanique desktop toujours intacte après suppression de la restric
 
 Également ce jour : phrase 3 du hero raccourcie ("We find your platforms. We post for you." — était 2x plus longue que les 3 autres phrases) et `.mark-word` (le "surligné" sur "posting for you"/"first customers") passé d'un soulignement à un vrai effet surligneur (aplat de couleur derrière le texte, légèrement penché) — plus lisible, et évite par construction le bug de wrap multi-ligne rencontré plus tôt.
 
+**Suivi, même jour (2026-07-25)** : nouveau retour de Cédric après avoir testé en vrai, tout appliqué directement (brainstorming léger avec confirmations rapides, pas de nouveau cycle SDD) :
+- **Phrase 1** : "Stop procrastinating on your business launch." → "Stop creating content nobody sees." — Cédric ne voulait plus parler de "business launch" mais recadrer sur contenu/visibilité ; validé pour rester distinct de la phrase 2 ("No posts. No leads...").
+- **État 1** : le balayage animé + label "Analyzing..." (ajouté la veille) ne convenait pas — Cédric voulait "comme si rien ne se passait". Remplacé par un squelette de post vide (avatar rond + barres grises), complètement statique, aucune animation.
+- **État 3** : ajout d'une ligne "✓ Product & niche analyzed" au-dessus de "Scanning platforms…" pour donner une vraie séquence (analyse d'abord, puis recherche de plateformes) dans une seule carte plutôt qu'une sous-animation à plusieurs étapes.
+- **Ombre du panneau de capture** (état 4) : `.capbar-in` gardait encore une ombre sombre héritée du thème sombre (`rgba(0,0,0,.4)`), créant un effet de double ombre une fois imbriqué dans la carte `.hero-screen` déjà ombrée — mise à `none` sur les deux variantes (desktop `.hs-capture` et mobile `.hero-phase-capture`).
+- **Taille du texte et de `.hero-screen`** réaugmentée une nouvelle fois (desktop et mobile) — restait petit après la passe de compactage.
+- Flèche de scroll en bas (`.hero-scroll-cue`) : déjà présente et fonctionnelle, confirmée visuellement, pas de changement nécessaire.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
