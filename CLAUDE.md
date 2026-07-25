@@ -336,6 +336,13 @@ En cohérence directe avec cette phrase 1, l'état 1 de `.hero-screen` (le squel
 
 Question encore ouverte, posée à Cédric sans réponse pour l'instant : le formulaire `liste-attente` (capture URL principale du hero, 36 soumissions) n'a aucune notification email configurée côté Netlify (contrairement au formulaire `lead-magnet` qui alerte déjà `delachaise.cedric@gmail.com`) — proposé de configurer la même alerte, en attente de sa décision.
 
+**3e suivi, même jour (2026-07-25)** : retour sur capture d'écran du rendu en prod, 3 corrections groupées, appliquées directement :
+- **Phrase 1** : "for customers" → "**for your business**" (texte final actuel), et mise en `.mark-word` (le surlignage jaune type surligneur) sur "your business" — Cédric a explicitement demandé d'étendre ce traitement, qu'il aime sur les phrases 3/4, à la phrase 1 aussi.
+- **État 1 de `.hero-screen`** : le visuel "Post/Post tomorrow" paraissait trop vide ("on voit pas vraiment l'image à droite"). Ajout d'un squelette de post au-dessus de la rangée de boutons (avatar rond + nom "Your business" + 2 barres de texte grises, nouveau bloc `.hs-idle-post*`) pour que la carte se lise comme un vrai screenshot de brouillon de post plutôt qu'un pill flottant sur fond vide. `.hs-panel--idle` n'a plus de `aspect-ratio:4/3` fixe (remplacé par `.hs-card` + `display:flex;flex-direction:column`, même famille que les états 2/3), la hauteur est maintenant portée par le contenu comme les autres états.
+- **Logo nav (`.sticker-patch`)** : Cédric regrettait l'identité "sticker" perdue lors du retour à la palette claire (le contour épais `-webkit-text-stroke` de la version sombre avait été simplifié en wordmark plat le 2026-07-24 car il rendait mal sur fond crème — voir passe "Compactage du layout" plus haut). Recréé différemment pour éviter le même problème : chip à fond accent avec bordure `3px solid var(--ink)`, ombre portée dure et légère rotation (même langage visuel que `.hero-screen`/`.badge`), plutôt qu'un contour de texte.
+
+Vérifié visuellement sur preview Netlify (état 1 et état 2 du hero, logo nav) avant mise en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
