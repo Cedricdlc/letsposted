@@ -400,8 +400,8 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
-/* Empty state (state 1) — no animation, deliberately "nothing has
-   happened yet" per Cédric: a blank post skeleton, not a diagram. */
+/* Procrastination loop (state 1) — "Post" gets skipped for "Post
+   tomorrow", every day, on repeat. Matches phrase 1 directly. */
 .hs-panel--idle{
   position:relative;
   aspect-ratio:4/3;
@@ -410,11 +410,33 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   justify-content:center;
   padding:0 1.6rem;
 }
-.hs-empty-post{ display:flex; align-items:center; gap:.9rem; width:100%; opacity:.5; }
-.hs-empty-post-avatar{ width:2.6rem; height:2.6rem; border-radius:50%; background:var(--line); flex:none; }
-.hs-empty-post-lines{ flex:1; display:flex; flex-direction:column; gap:.55rem; }
-.hs-empty-post-line{ height:.6rem; border-radius:999px; background:var(--line); }
-.hs-empty-post-line--short{ width:55%; }
+.hs-procrastinate{ display:flex; flex-direction:column; align-items:center; gap:.9rem; }
+.hs-procrastinate-row{ display:flex; align-items:center; gap:.6rem; }
+.hs-procrastinate-btn{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:.55rem 1.1rem;
+  font-size:.82rem;
+  font-weight:700;
+  white-space:nowrap;
+}
+.hs-procrastinate-btn--skip{
+  background:var(--card-2);
+  color:var(--faint);
+  text-decoration:line-through;
+}
+.hs-procrastinate-btn--chosen{
+  background:var(--accent);
+  color:var(--bg);
+}
+.hs-procrastinate-arrow{
+  color:var(--faint);
+  font-size:1rem;
+  animation:hs-procrastinate-nudge 1.6s ease-in-out infinite;
+}
+@keyframes hs-procrastinate-nudge{ 0%,100%{ transform:translateX(0); opacity:.6; } 50%{ transform:translateX(4px); opacity:1; } }
+.hs-procrastinate-loop{ font-size:.76rem; color:var(--faint); letter-spacing:.02em; }
 
 .hs-card{ padding:1.3rem 1.4rem; font-size:.86rem; }
 
@@ -504,6 +526,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-scroll-cue{ display:none; }
   .hs-state{ display:none; }
   .hs-state[data-hero-screen-state="1"]{ display:block; }
+  .hs-procrastinate-arrow{ animation:none; opacity:.8; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
@@ -1222,12 +1245,13 @@ h1 .hush, h2 .hush{ color:var(--faint); }
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-panel--idle">
-            <div class="hs-empty-post" aria-hidden="true">
-              <div class="hs-empty-post-avatar"></div>
-              <div class="hs-empty-post-lines">
-                <div class="hs-empty-post-line"></div>
-                <div class="hs-empty-post-line hs-empty-post-line--short"></div>
+            <div class="hs-procrastinate" aria-hidden="true">
+              <div class="hs-procrastinate-row">
+                <span class="hs-procrastinate-btn hs-procrastinate-btn--skip">Post</span>
+                <span class="hs-procrastinate-arrow">→</span>
+                <span class="hs-procrastinate-btn hs-procrastinate-btn--chosen">Post tomorrow</span>
               </div>
+              <p class="hs-procrastinate-loop">tomorrow &middot; tomorrow &middot; tomorrow&hellip;</p>
             </div>
           </div>
         </div>
