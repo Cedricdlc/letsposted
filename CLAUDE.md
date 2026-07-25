@@ -343,6 +343,8 @@ Question encore ouverte, posée à Cédric sans réponse pour l'instant : le for
 
 Vérifié visuellement sur preview Netlify (état 1 et état 2 du hero, logo nav) avant mise en prod.
 
+**4e suivi, même jour (2026-07-25)** : Cédric a signalé "on ne voit pas le bouton jaune" sur le pill "Post tomorrow" — bug réel de contraste, pas de perception : `.hs-procrastinate-btn--chosen` avait `color:var(--bg)` (texte quasi blanc/crème) sur fond `var(--accent)` (jaune pâle), illisible. Corrigé en `color:var(--ink)`, aligné sur la convention du reste du site (tous les autres boutons/pills sur fond accent utilisent déjà du texte `--ink` foncé, ex. `.btn`). Favicon mis à jour en même temps sur les 4 pages qui en ont un (`index.html`, `x-launch.html`, `reddit-launch.html`, `product-hunt-launch.html`) — passait d'un carré noir/texte "P." italique serif jaune (ancien thème sombre, jamais mis à jour depuis) à un chip jaune accent + bordure `--ink` + "P." en gras sans-serif, pour matcher le nouveau logo sticker de la nav.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
