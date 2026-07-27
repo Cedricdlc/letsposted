@@ -416,6 +416,14 @@ Cédric a demandé un audit de cohérence sur les 8 pages du site (après avoir 
 
 Vérifié visuellement sur preview Netlify : les 8 pages (screenshots), le CTA corrigé confirmé via `getAttribute('href')` en JS (`/#hero-scroll` partout). Poussé en prod.
 
+## Hero : highlight du formulaire à l'arrivée sur la dernière étape — 2026-07-27
+
+Cédric : "quand on scroll sur la dernière page 'get your first customer' on devrait highlight le form pour mettre son site" — le formulaire de capture (étape 4) rendait exactement comme les 3 autres états, sans signal que c'est LE moment de conversion.
+
+Ajouté un anneau lumineux qui pulse une seule fois (`@keyframes cap-highlight`, 1.4s, `box-shadow` accent qui s'étend puis disparaît) déclenché quand l'état devient actif — pas une boucle infinie, juste un signal d'arrivée. Scopé sur `.hs-state[data-hero-screen-state="4"].is-active .capbar-in` (desktop, panneau embarqué) et `.hero-phase-pair.is-active .hero-phase-capture .capbar-in` (mobile). Se rejoue à chaque fois qu'on rescrolle sur cette étape (le toggle `.is-active` retire puis rajoute la classe, ce qui relance l'animation CSS). Ne se déclenche pas sous `prefers-reduced-motion` : ce sélecteur dépend de `.is-active`, jamais posé par le JS scrollspy qui s'arrête tôt dans ce cas.
+
+Vérifié via `getComputedStyle` sur preview (animation-name confirmé appliqué à l'arrivée sur l'étape 4) — le timing réel du scroll est trop rapide pour capturer l'animation en plein milieu via screenshot. Poussé en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
