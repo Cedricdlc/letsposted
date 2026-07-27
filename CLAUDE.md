@@ -455,6 +455,16 @@ Ajouté un composant `.hero-stat` (petite carte, grosse ligne + sous-ligne discr
 
 **Retiré immédiatement après** : "enleve les stats que tu viens de mettre désolé mais ca n'apporte rien." Les 4 blocs `.hero-stat` et leur CSS entièrement supprimés, copy des phrases (inchangée par cet essai) conservée. Poussé en prod.
 
+## Nav complète + état actif sur how-it-works/use-case/guides — 2026-07-27
+
+Cédric a montré une capture de la nav-pill d'`index.html` et demandé : "sur chaque page garde la navigation, avec un état actif de l'onglet en cours." Constat : seule `index.html` avait la nav-pill complète (logo + 3 liens + CTA) — `how-it-works.html`, `use-case.html`, `guides.html` n'affichaient que le logo, aucun moyen de naviguer entre les pages une fois sorti de la homepage.
+
+Les 3 pages passées sur le même composant `.nav-pill` (fixed, pill, logo + `.nav-links` + `.btn.nav-cta`) qu'`index.html`, avec le lien de la page courante en `.is-active` (gras + `--ink`, vs `font-weight:500`/`--body` par défaut). `privacy.html` et les 3 pages plateforme (`reddit/x/product-hunt-launch.html`, nav sombre dédiée) **volontairement pas touchées** — scope limité aux 3 pages de contenu principal correspondant aux onglets de la nav.
+
+**Bug de spécificité CSS trouvé et corrigé au passage** : le nav étant maintenant `position:fixed`, il fallait ajouter du padding-top au contenu pour ne pas passer dessous. Première tentative `main{ padding:6.5rem 0 5rem; }` — silencieusement écrasée par `.wrap` (même élément, `<main class="wrap">`) dont le shorthand `padding:0 1.375rem` gagne car un sélecteur de classe bat un sélecteur de type, peu importe l'ordre dans le fichier. Repéré via `getComputedStyle` montrant `padding-top:0px` malgré la règle présente dans le HTML servi (vérifié par `fetch(location.href)`). Corrigé en `main.wrap{ padding-top:6.5rem; padding-bottom:5rem; }` (spécificité 0,1,1, ne touche pas au padding gauche/droite hérité de `.wrap`).
+
+Vérifié visuellement sur les 3 pages (preview Netlify) avant mise en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
