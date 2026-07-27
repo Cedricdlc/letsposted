@@ -503,7 +503,23 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
 .hs-capture-reassure{ font-size:.74rem; color:var(--faint); text-align:center; letter-spacing:.01em; }
 
-.hero-scroll-cue{ display:none; }
+/* Scroll cue: hints that the hero keeps going. Shown at every viewport
+   width now (was desktop-only) - mobile uses the same scroll-driven
+   mechanic and needs the same hint that there's more below. */
+.hero-scroll-cue{
+  display:flex;
+  position:absolute;
+  left:50%; bottom:1.2rem;
+  transform:translateX(-50%);
+  z-index:2;
+  color:var(--faint);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s ease;
+  animation:hero-cue-bounce 1.8s ease-in-out infinite;
+}
+.hero-scroll-cue.is-active{ opacity:.6; }
+@keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
 
 @media (min-width:900px){
   .hero-pin{
@@ -526,20 +542,7 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hs-state{ display:none; }
   .hs-state.is-active{ display:block; animation:hero-phase-in .5s ease both; }
 
-  .hero-scroll-cue{
-    display:flex;
-    position:absolute;
-    left:50%; bottom:2rem;
-    transform:translateX(-50%);
-    z-index:2;
-    color:var(--faint);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .4s ease;
-    animation:hero-cue-bounce 1.8s ease-in-out infinite;
-  }
-  .hero-scroll-cue.is-active{ opacity:.6; }
-  @keyframes hero-cue-bounce{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,6px); } }
+  .hero-scroll-cue{ bottom:2rem; }
 }
 @media (prefers-reduced-motion: reduce){
   .hero-trigger{ height:0; }
