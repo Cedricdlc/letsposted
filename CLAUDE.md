@@ -345,6 +345,12 @@ Vérifié visuellement sur preview Netlify (état 1 et état 2 du hero, logo nav
 
 **4e suivi, même jour (2026-07-25)** : Cédric a signalé "on ne voit pas le bouton jaune" sur le pill "Post tomorrow" — bug réel de contraste, pas de perception : `.hs-procrastinate-btn--chosen` avait `color:var(--bg)` (texte quasi blanc/crème) sur fond `var(--accent)` (jaune pâle), illisible. Corrigé en `color:var(--ink)`, aligné sur la convention du reste du site (tous les autres boutons/pills sur fond accent utilisent déjà du texte `--ink` foncé, ex. `.btn`). Favicon mis à jour en même temps sur les 4 pages qui en ont un (`index.html`, `x-launch.html`, `reddit-launch.html`, `product-hunt-launch.html`) — passait d'un carré noir/texte "P." italique serif jaune (ancien thème sombre, jamais mis à jour depuis) à un chip jaune accent + bordure `--ink` + "P." en gras sans-serif, pour matcher le nouveau logo sticker de la nav.
 
+**5e suivi (2026-07-27)** : après une pause sur le hero, retour de Cédric sur un vrai gap de positionnement (pas juste du style) — la landing ne faisait pas comprendre le vrai différenciateur : Posted. ne se limite pas aux plateformes évidentes (Reddit, Product Hunt, X, LinkedIn), il va chercher dans des forums spécialisés, des groupes Facebook, jusque dans les commentaires LinkedIn. "Il faut qu'on se démarque." Deux changements pour rendre ça explicite :
+- **Sous-texte phrase 3** : "Not a generic blast. The exact communities where your niche already hangs out, in your voice." (vague) → **"Not just Reddit and Product Hunt. Niche forums, Facebook groups, even LinkedIn comments — wherever your buyers actually are, in your voice."**
+- **Mockup état 3** (`.hs-scan-list`) : les 3 exemples scannés étaient r/startups, r/smallbusiness, X — remplacés par **r/startups, FB Group, LinkedIn comment** pour que le visuel illustre concrètement la largeur de recherche annoncée dans le texte, pas juste des variantes de Reddit/X.
+
+Vérifié visuellement sur preview Netlify avant mise en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
