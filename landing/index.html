@@ -558,9 +558,12 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   .hero-phase-pair:not(:last-child){ margin-bottom:1.1rem; }
   .hero-phase-pair.is-active{ animation:none; }
   .hero-scroll-cue{ display:none; }
-  .hs-state{ display:none; }
-  .hs-state[data-hero-screen-state="1"]{ display:block; }
-  .hs-procrastinate-arrow{ animation:none; opacity:.8; }
+  /* .hero-screen never animates past state 1 here (the scroll-driven
+     JS bails out under reduced motion) - hide it and fall back to the
+     same static capture form mobile uses, so desktop+reduced-motion
+     visitors aren't stranded without a way to submit their link. */
+  .hero-screen{ display:none; }
+  .hero-phase-capture{ display:block; }
 }
 
 /* ---------- generic dark panel (mockups) ---------- */
