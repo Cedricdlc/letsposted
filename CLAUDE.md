@@ -424,6 +424,19 @@ Ajouté un anneau lumineux qui pulse une seule fois (`@keyframes cap-highlight`,
 
 Vérifié via `getComputedStyle` sur preview (animation-name confirmé appliqué à l'arrivée sur l'étape 4) — le timing réel du scroll est trop rapide pour capturer l'animation en plein milieu via screenshot. Poussé en prod.
 
+## Hero : "répondre aux commentaires" pas assez visible — retour de recherche utilisateur — 2026-07-27
+
+Cédric a fait une session de user research avec un prospect dans la niche (n=1 pour cette découverte précise — voir [[feedback_dont_act_on_n1_research]]). Le prospect a dit qu'il ne veut pas forcément poster de nouveaux posts, mais répondre aux bons commentaires/conversations existantes — "il faut trouver les bons". Le hero ne représentait que "poster", jamais "répondre".
+
+Traité comme un fix de clarté (pas une nouvelle fonctionnalité — le mockup état 3 montrait déjà un exemple "LinkedIn comment" parmi les sources scannées, donc le produit couvre déjà ça) plutôt que comme un changement produit, donc appliqué directement malgré le n=1 :
+
+- **Phrase 2** : "No posts. No leads. And you know it." → **"No posts. No replies. No leads. And you know it."** — sous-texte aussi mis à jour ("nobody's posting or replying to the right conversations").
+- **Mockup état 2** : ligne "Replies" ajoutée entre "Posts this week" et "New leads" (réordonné pour matcher la phrase), note passée à "Nobody's posting. Nobody's replying. Nobody's finding you."
+- **Phrase 3** : tentative d'élargir "We post for you" → "We post and reply for you", mais le `.mark-word` s'est étalé sur 2 lignes et s'est réduit à un point illisible — **le même bug déjà documenté plus tôt dans la session** (le `::before` en `position:absolute` sur un `inline-block` ne suit pas le texte qui wrap). Cédric a vu ça en direct et a demandé de revenir en arrière : phrase 3 repassée à son texte d'origine ("We post for you"), le concept "reply" reste porté par la phrase 2 + son sous-texte, pas la phrase 3.
+- Au passage, Cédric a aussi demandé de remettre "And you know it" en highlight (`.mark-word`) sur la phrase 2 — jamais surligné avant, ajouté ce tour-ci.
+
+Vérifié visuellement sur preview à chaque étape (3 déploiements successifs pour cette seule passe). Poussé en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
