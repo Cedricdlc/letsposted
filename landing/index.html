@@ -371,28 +371,6 @@ h1 .hush, h2 .hush{ color:var(--faint); }
   max-width:36rem;
 }
 
-/* Small proof-stat badge, sits beside/under a phrase's copy - a real
-   number backing the claim, not just the claim itself. */
-.hero-stat{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:.1rem;
-  margin-top:1.1rem;
-  padding:.65rem 1rem;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-}
-.hero-stat-big{
-  font-family:var(--display);
-  font-weight:800;
-  font-size:1.25rem;
-  letter-spacing:-.01em;
-  color:var(--ink);
-}
-.hero-stat-sub{ font-size:.76rem; color:var(--faint); }
-
 /* Mobile-only capture block, riding along with the last phrase (no
    .hero-screen mockup on mobile — Cédric asked to drop the visuals
    there and just scroll text ending in the lead magnet). Separate
@@ -899,34 +877,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
       <div class="hero-phase-pair is-active" data-hero-frame="1">
         <p class="hero-phase">Stop procrastinating on posting for <span class="mark-word">your business</span>.</p>
         <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
-        <div class="hero-stat">
-          <p class="hero-stat-big">2 min</p>
-          <p class="hero-stat-sub">to drop your link and start</p>
-        </div>
       </div>
       <div class="hero-phase-pair" data-hero-frame="2">
         <p class="hero-phase">No posts. No replies. No leads. <span class="mark-word">And you know it</span>.</p>
         <p class="hero-phase-sub">You built something real. Nobody's seen it yet, and that's what happens when nobody's posting or replying to the right conversations.</p>
-        <div class="hero-stat">
-          <p class="hero-stat-big">0</p>
-          <p class="hero-stat-sub">and it stays 0 until you post</p>
-        </div>
       </div>
       <div class="hero-phase-pair" data-hero-frame="3">
         <p class="hero-phase">We find your platforms. <span class="mark-word">We post for you</span>.</p>
         <p class="hero-phase-sub">We study your niche and your sector, then go wherever your buyers actually are. No fixed list of platforms, in your voice.</p>
-        <div class="hero-stat">
-          <p class="hero-stat-big">Hand-picked</p>
-          <p class="hero-stat-sub">not a generic blast</p>
-        </div>
       </div>
       <div class="hero-phase-pair" data-hero-frame="4">
         <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
         <p class="hero-phase-sub">Real replies from real people who need what you built. Not vanity metrics.</p>
-        <div class="hero-stat">
-          <p class="hero-stat-big">24h</p>
-          <p class="hero-stat-sub">from link to your priority plan</p>
-        </div>
         <div class="hero-phase-capture">
           <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
           <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
