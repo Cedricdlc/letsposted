@@ -7,13 +7,16 @@
 <meta name="robots" content="noindex">
 <style>
 :root{
-  --bg:        #0B0B12;
-  --card:      #12121A;
-  --line:      #26262E;
-  --ink:       #F4F4F5;
-  --body:      #A1A1AA;
-  --faint:     #71717A;
+  --bg:        #FBF8F1;
+  --card:      #F3EEE0;
+  --line:      #E2DBC8;
+  --line-soft: #EAE4D3;
+  --ink:       #1A1917;
+  --body:      #57534A;
+  --faint:     #8A8478;
   --accent:    #F2E96A;
+  --accent-2:  #C9A800;
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 *,*::before,*::after{ box-sizing:border-box; }
@@ -26,8 +29,29 @@ body{
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{ max-width:42rem; margin:0 auto; padding:4rem 1.5rem 6rem; }
-a{ color:var(--accent); }
+nav.nav{ padding:1.2rem 1.5rem 0; }
+.nav .wrap{ padding:0; max-width:42rem; }
+.brand{ display:inline-flex; align-items:center; text-decoration:none; }
+.sticker-patch{
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.05rem;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  background:var(--accent);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  padding:.05rem .5rem;
+  transform:rotate(-2deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.45);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.brand:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
+.sticker-dot{ color:var(--ink); }
+.wrap{ max-width:42rem; margin:0 auto; padding:2.5rem 1.5rem 6rem; }
+a{ color:var(--accent-2); }
 h1{
   color:var(--ink);
   font-size:clamp(1.9rem, 4vw, 2.5rem);
@@ -64,6 +88,9 @@ li + li{ margin-top:.5rem; }
 </style>
 </head>
 <body>
+<nav class="nav">
+  <div class="wrap"><a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a></div>
+</nav>
 <div class="wrap">
   <a class="back" href="/">&larr; Back to Posted.</a>
   <h1>Privacy Policy</h1>

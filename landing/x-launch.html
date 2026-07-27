@@ -80,8 +80,26 @@ strong{ color:var(--ink); font-weight:600; }
 .nav-in{ display:flex; align-items:center; justify-content:space-between; padding:.85rem 0; font-family:var(--sans); }
 .nav .back{ display:inline-flex; align-items:center; gap:.4rem; color:#D8D6CE; font-size:.9rem; font-weight:500; text-decoration:none; }
 .nav .back:hover{ color:#FFFFFF; }
-.sticker-patch{ display:inline-flex; align-items:center; font-family:var(--sans); font-weight:900; font-style:normal; font-size:1.1rem; letter-spacing:-.01em; color:#141414; -webkit-text-stroke:6px #F5F1E8; paint-order:stroke fill; transform:rotate(-3deg); text-decoration:none; }
-.sticker-dot{ color:var(--accent); }
+.sticker-patch{
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--sans);
+  font-weight:800;
+  font-style:normal;
+  font-size:1.05rem;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  background:var(--accent);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  padding:.05rem .5rem;
+  transform:rotate(-2deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.45);
+  text-decoration:none;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.sticker-patch:hover{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
+.sticker-dot{ color:var(--ink); }
 .nav .btn{ font-family:var(--sans); font-weight:600; font-size:.88rem; color:#141414; background:var(--accent); border-radius:999px; padding:.55rem 1.1rem; text-decoration:none; white-space:nowrap; }
 
 .hero{ padding:4rem 0 3rem; text-align:center; }
@@ -158,7 +176,7 @@ footer a{ color:var(--faint); }
   <div class="wrap nav-in">
     <a class="back" href="/"><span aria-hidden="true">&larr;</span><span class="label">Back to Posted.</span></a>
     <a class="sticker-patch" href="/">Posted<span class="sticker-dot">.</span></a>
-    <a class="btn" href="/#book">Show me the plan →</a>
+    <a class="btn" href="/#hero-scroll">Show me the plan →</a>
   </div>
 </nav>
 
@@ -167,7 +185,7 @@ footer a{ color:var(--faint); }
     <span class="badge">X Playbook</span>
     <h1>Launch on X <span class="hl">without triggering the spam filters</span>.</h1>
     <p class="lede">X down-ranks templated content and suspends engagement farming on sight in 2026. A launch thread that reads like a press release gets buried before your audience ever sees it. Here's what actually gets replies instead.</p>
-    <a class="cta" href="/#book">Get my platform priorities <span aria-hidden="true">→</span></a>
+    <a class="cta" href="/#hero-scroll">Get my platform priorities <span aria-hidden="true">→</span></a>
   </div>
 </header>
 
@@ -277,7 +295,7 @@ footer a{ color:var(--faint); }
     <div class="cta-block">
       <h2>Ready to see your launch plan?</h2>
       <p>Paste your product's URL and we'll show you exactly where to post — X included.</p>
-      <a class="btn" href="/#book">Show me the plan <span aria-hidden="true">→</span></a>
+      <a class="btn" href="/#hero-scroll">Show me the plan <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>

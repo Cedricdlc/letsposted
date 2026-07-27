@@ -42,7 +42,25 @@ a{ color:var(--accent-2); }
 .mark-word::after{ content:""; position:absolute; left:-.06em; right:-.06em; bottom:-.1em; height:.38em; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23C9A800' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:100% 100%; }
 nav.nav{ padding:1.2rem 0; }
 .nav-in{ display:flex; align-items:center; justify-content:space-between; }
-.brand{ font-family:var(--display); font-weight:800; font-size:1.2rem; color:var(--ink); text-decoration:none; }
+.brand{ display:inline-flex; align-items:center; text-decoration:none; }
+.sticker-patch{
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.05rem;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  background:var(--accent);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  padding:.05rem .5rem;
+  transform:rotate(-2deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.45);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.brand:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
+.sticker-dot{ color:var(--ink); }
 section{ padding:5rem 0; }
 @media (min-width:760px){ section{ padding:6.5rem 0; } }
 
@@ -96,7 +114,7 @@ footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:cent
 
 <nav class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="/">Posted.</a>
+    <a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a>
   </div>
 </nav>
 

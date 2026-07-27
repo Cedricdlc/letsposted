@@ -25,7 +25,25 @@ body{ background:var(--bg); color:var(--body); font-family:var(--sans); font-siz
 .wrap{ max-width:46rem; margin:0 auto; padding:0 1.375rem; }
 h1{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:clamp(1.85rem, 1.1rem + 3.1vw, 3.1rem); letter-spacing:-.035em; margin-bottom:.6rem; }
 nav.nav{ padding:1.2rem 0; }
-.brand{ font-family:var(--display); font-weight:800; font-size:1.2rem; color:var(--ink); text-decoration:none; }
+.brand{ display:inline-flex; align-items:center; text-decoration:none; }
+.sticker-patch{
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.05rem;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  background:var(--accent);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  padding:.05rem .5rem;
+  transform:rotate(-2deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.45);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.brand:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
+.sticker-dot{ color:var(--ink); }
 main{ padding:3rem 0 5rem; }
 .lede{ color:var(--body); margin-bottom:2.5rem; max-width:34rem; }
 .badge{ display:inline-flex; align-items:center; gap:.4rem; background:rgba(201,168,0,.14); color:var(--accent-2); border-radius:999px; padding:.3rem .75rem; font-size:.78rem; font-weight:600; letter-spacing:.02em; margin-bottom:1rem; }
@@ -44,7 +62,7 @@ footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:cent
 <body>
 
 <nav class="nav">
-  <div class="wrap"><a class="brand" href="/">Posted.</a></div>
+  <div class="wrap"><a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a></div>
 </nav>
 
 <main class="wrap">
