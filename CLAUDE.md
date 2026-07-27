@@ -447,6 +447,14 @@ Cédric : "just a la fin quand je scroll on highlight pas le form" — le ring `
 
 **Note méthodo** : la vérification par capture d'écran/`getComputedStyle` chronométré s'est montrée peu fiable dans cet environnement de test pour une animation de ~2s (plusieurs tentatives de mesurer la valeur `box-shadow` à un instant précis ont donné des résultats incohérents d'un essai à l'autre, probablement parce que les animations CSS n'avancent pas en temps réel de façon fiable sur un onglet piloté par automatisation sans focus réel). Le fix a été appliqué sur la base du diagnostic de la cause racine (conflit de timing + faible contraste), pas d'une capture réussie en plein milieu de l'animation — à confirmer par Cédric en conditions réelles.
 
+## Essai puis retrait : petit encart stat par phrase — 2026-07-27
+
+Cédric a partagé des captures d'un concurrent (unfair.so) avec un petit encart chiffré à côté du titre ("hours, not days", "3-4x replies vs cold outreach") dans un carrousel animé. Ce qui semblait transposable : l'encart chiffré à côté du texte, pas le mécanisme carrousel (déjà équivalent via le scroll-driven mockup existant).
+
+Ajouté un composant `.hero-stat` (petite carte, grosse ligne + sous-ligne discrète) sur les 4 phrases, avec des contenus honnêtes (pas de chiffres inventés) : "2 min / to drop your link and start", "0 / and it stays 0 until you post", "Hand-picked / not a generic blast" (volontairement pas un nombre de plateformes, pour ne pas recontredire le "no fixed list" travaillé plus tôt), "24h / from link to your priority plan". Vérifié visuellement sur les 4 états avant mise en prod.
+
+**Retiré immédiatement après** : "enleve les stats que tu viens de mettre désolé mais ca n'apporte rien." Les 4 blocs `.hero-stat` et leur CSS entièrement supprimés, copy des phrases (inchangée par cet essai) conservée. Poussé en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
