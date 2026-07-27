@@ -360,6 +360,8 @@ Vérifié visuellement sur preview Netlify avant mise en prod.
 
 Vérifié visuellement sur preview Netlify (les deux mockups, zoom sur le curseur) avant mise en prod.
 
+**Suivi (2026-07-27)** : la flèche de scroll (`.hero-scroll-cue`) n'était active que sur la phase 1 (`n === '1'` dans le JS). Cédric l'a voulue sur toutes les phases sauf la dernière (phase 4, celle du formulaire — plus rien à scroller après). Condition changée en `n !== '4'`.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
