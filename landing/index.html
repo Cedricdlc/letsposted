@@ -499,6 +499,18 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-capture{ display:flex; flex-direction:column; justify-content:center; gap:1rem; min-height:100%; }
 .hs-capture-head{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--ink); line-height:1.35; }
 .hs-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
+/* Highlight ring on arrival at the last step - draws the eye to the
+   form once (not looping), on both the desktop embedded panel and
+   the mobile/reduced-motion fallback form. */
+@keyframes cap-highlight{
+  0%{ box-shadow:0 0 0 0 rgba(242,233,106,.9); }
+  70%{ box-shadow:0 0 0 14px rgba(242,233,106,0); }
+  100%{ box-shadow:0 0 0 0 rgba(242,233,106,0); }
+}
+.hs-state[data-hero-screen-state="4"].is-active .capbar-in,
+.hero-phase-pair.is-active .hero-phase-capture .capbar-in{
+  animation:cap-highlight 1.4s ease-out;
+}
 .hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
 .hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
 .hs-capture-reassure{ font-size:.74rem; color:var(--faint); text-align:center; letter-spacing:.01em; }
