@@ -40,8 +40,29 @@ a{ color:var(--accent-2); }
 .badge::before{ content:""; width:.42rem; height:.42rem; border-radius:50%; background:var(--accent-2); }
 .mark-word{ position:relative; display:inline-block; font-weight:600; color:var(--ink); }
 .mark-word::after{ content:""; position:absolute; left:-.06em; right:-.06em; bottom:-.1em; height:.38em; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1,8 Q15,2 30,7 T60,6 T99,8' fill='none' stroke='%23C9A800' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:100% 100%; }
-nav.nav{ padding:1.2rem 0; }
-.nav-in{ display:flex; align-items:center; justify-content:space-between; }
+.nav-pill{
+  position:fixed;
+  top:1.2rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  display:flex;
+  align-items:center;
+  gap:1.8rem;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.6rem .7rem .6rem 1.1rem;
+  box-shadow:0 8px 24px rgba(26,25,23,.08);
+}
+.nav-links{ display:flex; gap:1.4rem; }
+.nav-links a{ font-size:.88rem; font-weight:500; color:var(--body); text-decoration:none; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a.is-active{ color:var(--ink); font-weight:700; }
+@media (max-width:640px){
+  .nav-links{ display:none; }
+  .nav-pill{ gap:.8rem; }
+}
 .brand{ display:inline-flex; align-items:center; text-decoration:none; }
 .sticker-patch{
   display:inline-flex;
@@ -61,8 +82,11 @@ nav.nav{ padding:1.2rem 0; }
 }
 .brand:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
 .sticker-dot{ color:var(--ink); }
+.nav-cta{ padding:.55rem 1.2rem; font-size:.85rem; }
 section{ padding:5rem 0; }
 @media (min-width:760px){ section{ padding:6.5rem 0; } }
+section:first-of-type{ padding-top:8.5rem; }
+@media (min-width:760px){ section:first-of-type{ padding-top:10rem; } }
 
 /* ---------- how it works (verbatim from index.html pre-split) ---------- */
 .hw-scroll{ display:grid; gap:1.1rem; margin-top:2.4rem; }
@@ -112,10 +136,14 @@ footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:cent
 </head>
 <body>
 
-<nav class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a>
+<nav class="nav-pill" aria-label="Main navigation">
+  <a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a>
+  <div class="nav-links">
+    <a href="/how-it-works.html" class="is-active">How it works</a>
+    <a href="/use-case.html">Use case</a>
+    <a href="/guides.html">Guides</a>
   </div>
+  <a class="btn nav-cta" href="/#hero-scroll">Where should I post? <span aria-hidden="true">→</span></a>
 </nav>
 
 <section id="how">

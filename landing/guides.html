@@ -24,7 +24,29 @@
 body{ background:var(--bg); color:var(--body); font-family:var(--sans); font-size:1.0625rem; line-height:1.65; -webkit-font-smoothing:antialiased; }
 .wrap{ max-width:46rem; margin:0 auto; padding:0 1.375rem; }
 h1{ font-family:var(--display); font-weight:700; color:var(--ink); font-size:clamp(1.85rem, 1.1rem + 3.1vw, 3.1rem); letter-spacing:-.035em; margin-bottom:.6rem; }
-nav.nav{ padding:1.2rem 0; }
+.nav-pill{
+  position:fixed;
+  top:1.2rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  display:flex;
+  align-items:center;
+  gap:1.8rem;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.6rem .7rem .6rem 1.1rem;
+  box-shadow:0 8px 24px rgba(26,25,23,.08);
+}
+.nav-links{ display:flex; gap:1.4rem; }
+.nav-links a{ font-size:.88rem; font-weight:500; color:var(--body); text-decoration:none; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a.is-active{ color:var(--ink); font-weight:700; }
+@media (max-width:640px){
+  .nav-links{ display:none; }
+  .nav-pill{ gap:.8rem; }
+}
 .brand{ display:inline-flex; align-items:center; text-decoration:none; }
 .sticker-patch{
   display:inline-flex;
@@ -44,7 +66,21 @@ nav.nav{ padding:1.2rem 0; }
 }
 .brand:hover .sticker-patch{ transform:rotate(-2deg) translateY(-2px); box-shadow:4px 6px 0 rgba(0,0,0,.5); }
 .sticker-dot{ color:var(--ink); }
-main{ padding:3rem 0 5rem; }
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  text-decoration:none;
+  font-family:var(--sans);
+  font-weight:600;
+  color:var(--ink);
+  background:var(--accent);
+  border-radius:999px;
+  padding:.55rem 1.2rem;
+  font-size:.85rem;
+  white-space:nowrap;
+}
+main.wrap{ padding-top:6.5rem; padding-bottom:5rem; }
 .lede{ color:var(--body); margin-bottom:2.5rem; max-width:34rem; }
 .guide-list{ display:grid; gap:1.1rem; }
 .guide-card{ display:block; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.6rem; text-decoration:none; }
@@ -56,8 +92,14 @@ footer{ padding:2.5rem 0; border-top:1px solid var(--line-soft); text-align:cent
 </head>
 <body>
 
-<nav class="nav">
-  <div class="wrap"><a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a></div>
+<nav class="nav-pill" aria-label="Main navigation">
+  <a class="brand" href="/"><span class="sticker-patch">Posted<span class="sticker-dot">.</span></span></a>
+  <div class="nav-links">
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/use-case.html">Use case</a>
+    <a href="/guides.html" class="is-active">Guides</a>
+  </div>
+  <a class="btn nav-cta" href="/#hero-scroll">Where should I post? <span aria-hidden="true">→</span></a>
 </nav>
 
 <main class="wrap">
