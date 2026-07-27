@@ -501,15 +501,19 @@ h1 .hush, h2 .hush{ color:var(--faint); }
 .hs-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
 /* Highlight ring on arrival at the last step - draws the eye to the
    form once (not looping), on both the desktop embedded panel and
-   the mobile/reduced-motion fallback form. */
+   the mobile/reduced-motion fallback form. Delayed .5s so it starts
+   AFTER the parent's own hero-phase-in fade-in finishes (0.5s) -
+   playing it during that fade made the ring nearly invisible, since
+   its opacity was being multiplied by the still-fading-in parent.
+   Darker gold + wider spread for contrast against the cream card. */
 @keyframes cap-highlight{
-  0%{ box-shadow:0 0 0 0 rgba(242,233,106,.9); }
-  70%{ box-shadow:0 0 0 14px rgba(242,233,106,0); }
-  100%{ box-shadow:0 0 0 0 rgba(242,233,106,0); }
+  0%{ box-shadow:0 0 0 0 rgba(201,168,0,.9); }
+  70%{ box-shadow:0 0 0 18px rgba(201,168,0,0); }
+  100%{ box-shadow:0 0 0 0 rgba(201,168,0,0); }
 }
 .hs-state[data-hero-screen-state="4"].is-active .capbar-in,
 .hero-phase-pair.is-active .hero-phase-capture .capbar-in{
-  animation:cap-highlight 1.4s ease-out;
+  animation:cap-highlight 1.4s ease-out .5s both;
 }
 .hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
 .hs-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
