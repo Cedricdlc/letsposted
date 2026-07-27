@@ -398,6 +398,8 @@ Vérifié en forçant l'affichage de la modale via JS sur le preview (évite l'a
 
 Vérifié en conditions réelles : soumission d'une vraie URL via le formulaire hero → modale → vrai appel à `readiness` (pas de simulation) → contenu du teaser confirmé via `textContent` du DOM. Poussé en prod.
 
+**Suivi immédiat** : Cédric a demandé de remettre le mot "identified" (en anglais) dans le teaser. "Picked by hand" → **"Channels identified"**, "Ready in 24h" → **"Angle identified"** — fait écho au "Niche identified" déjà utilisé dans le mockup état 3 du hero, cohérence de vocabulaire entre les deux. Toujours aucun chiffre fabriqué.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
