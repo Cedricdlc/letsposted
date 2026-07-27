@@ -392,6 +392,12 @@ Cédric a demandé de travailler sur le lead magnet (la modale qui s'ouvre aprè
 
 Vérifié en forçant l'affichage de la modale via JS sur le preview (évite l'attente du vrai appel PageSpeed) avant mise en prod.
 
+**Suivi, même jour (2026-07-27)** : les deux points laissés en attente ont été traités.
+- **Chiffres fabriqués du teaser** : "Best platforms to post on / 2 identified" et "Matching posts this week / 23 identified" → remplacés par des affirmations qualitatives vraies, pas des statistiques inventées : **"Best platforms for your niche / Picked by hand"** et **"Your outreach angle / Ready in 24h"**. Le mécanisme visuel (flou + cadenas) reste identique, seul le contenu fabriqué a changé.
+- **Code mort supprimé** : `escapeHtml`, `truncate`, `REDDIT_SVG`/`X_SVG`/`PH_SVG`, `platformCardsInner`, `platformPreviews`, `fetchPlatformCopy` retirés d'`index.html`, ainsi que tout le CSS `.pv-*` associé. **`netlify/functions/platform-copy.js` supprimé** (plus aucun appelant). ⚠️ Le roadmap item "Génération d'un vrai exemple de post" ci-dessous référence ce fichier comme mécanisme de départ — il n'existe plus, récupérable via `git log` si ce chantier reprend, mais une nouvelle fonction serait probablement plus propre à écrire directement.
+
+Vérifié en conditions réelles : soumission d'une vraie URL via le formulaire hero → modale → vrai appel à `readiness` (pas de simulation) → contenu du teaser confirmé via `textContent` du DOM. Poussé en prod.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
