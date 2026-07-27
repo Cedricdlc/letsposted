@@ -362,6 +362,13 @@ Vérifié visuellement sur preview Netlify (les deux mockups, zoom sur le curseu
 
 **Suivi (2026-07-27)** : la flèche de scroll (`.hero-scroll-cue`) n'était active que sur la phase 1 (`n === '1'` dans le JS). Cédric l'a voulue sur toutes les phases sauf la dernière (phase 4, celle du formulaire — plus rien à scroller après). Condition changée en `n !== '4'`.
 
+**Suivi (2026-07-27)** : nettoyage de fin de session, deux actions ponctuelles.
+
+- **Notification email `liste-attente`** : le formulaire principal du hero (capture URL) n'avait aucune alerte configurée côté Netlify, contrairement à `lead-magnet`. Créée via l'API (`createHookBySiteId` — le CLI `netlify api` renvoyait une 422 sans détail utile, contournée en appelant directement `POST https://api.netlify.com/api/v1/hooks` avec le token lu dans `~/Library/Preferences/netlify/config.json`). Les deux formulaires alertent maintenant `delachaise.cedric@gmail.com`.
+- **`use-case.html`** : les tags de plateformes par persona (Reddit/PH/X, etc.) lisaient comme une liste fermée, en contradiction avec le lede de la page elle-même ("not off a fixed list") et le nouveau positionnement du hero. Ajout d'un tag `+ more` (style pointillé, discret) à la fin de chaque liste — signale que ce sont des exemples, pas l'ensemble complet.
+
+Reste ouvert (pas actionné, nécessite une action de Cédric) : vérifier dans le dashboard Netlify si les "36 soumissions" `liste-attente` mentionnées dans une session précédente existent réellement (l'API montre 0 actuellement, pas retrouvées ailleurs) ; envoyer le message de test à des vrais prospects pour valider que le hero se comprend sans explication ; le blocage reduced-motion desktop sur l'état 1 du hero, toujours pas corrigé (basse priorité).
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
