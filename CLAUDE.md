@@ -351,6 +351,8 @@ Vérifié visuellement sur preview Netlify (état 1 et état 2 du hero, logo nav
 
 Vérifié visuellement sur preview Netlify avant mise en prod.
 
+**Suivi immédiat (2026-07-27)** : Cédric a corrigé la direction du sous-texte juste après l'avoir vu — nommer les apps ("Not just Reddit and Product Hunt...") ferme le message plutôt que de l'ouvrir. Le vrai différenciateur à montrer, à la fois dans le texte et le visuel, c'est l'adaptation : on analyse la niche et le secteur du client, puis on va où ça mène, pas une liste figée de plateformes. Reformulé sans aucun nom d'app : **"We study your niche and your sector, then go wherever your buyers actually are. No fixed list of platforms, in your voice."** Ligne "✓" du mockup état 3 changée de "Product & niche analyzed" (générique) à **"Niche identified: project management for small teams"** (concret, montre visuellement l'analyse avant le scan) — cohérent avec l'exemple r/startups juste en dessous. Les 3 exemples scannés (r/startups/FB Group/LinkedIn comment, ajoutés au suivi précédent) sont restés inchangés : ils servent de preuve concrète du scan, pas de liste de plateformes revendiquée dans le texte, donc pas concernés par cette correction.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
