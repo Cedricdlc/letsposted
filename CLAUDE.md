@@ -437,6 +437,16 @@ Traité comme un fix de clarté (pas une nouvelle fonctionnalité — le mockup 
 
 Vérifié visuellement sur preview à chaque étape (3 déploiements successifs pour cette seule passe). Poussé en prod.
 
+## Suivi : le highlight du formulaire (état 4) était invisible en pratique — 2026-07-27
+
+Cédric : "just a la fin quand je scroll on highlight pas le form" — le ring `cap-highlight` ajouté plus tôt le même jour ne se voyait pas du tout en usage réel, malgré la vérification `getComputedStyle` qui avait confirmé la règle appliquée à ce moment-là.
+
+**Cause probable** : le ring jouait EN MÊME TEMPS que l'entrée en fondu du panneau parent (`.hs-state.is-active{ animation:hero-phase-in .5s; }`, opacity 0→1). Pendant sa phase la plus visible (les 70% premiers de `cap-highlight`), le ring était rendu à travers un parent encore partiellement transparent — en plus d'être un jaune pâle (`--accent`) peu contrasté sur la carte crème.
+
+**Corrigé** : animation décalée de `.5s` (`animation:cap-highlight 1.4s ease-out .5s both`, ne démarre qu'une fois le fondu du parent terminé) + couleur passée à `--accent-2` (gold plus foncé) + rayon max élargi (14px → 18px).
+
+**Note méthodo** : la vérification par capture d'écran/`getComputedStyle` chronométré s'est montrée peu fiable dans cet environnement de test pour une animation de ~2s (plusieurs tentatives de mesurer la valeur `box-shadow` à un instant précis ont donné des résultats incohérents d'un essai à l'autre, probablement parce que les animations CSS n'avancent pas en temps réel de façon fiable sur un onglet piloté par automatisation sans focus réel). Le fix a été appliqué sur la base du diagnostic de la cause racine (conflit de timing + faible contraste), pas d'une capture réussie en plein milieu de l'animation — à confirmer par Cédric en conditions réelles.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
