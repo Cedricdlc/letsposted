@@ -491,6 +491,10 @@ Cédric : "Faisons une passe sur toute les meta datas, image, rferncement etc. o
 
 **Au passage** : preview de lien testé avec un outil externe indépendant (opengraph.xyz) après que Cédric a signalé ne pas voir d'aperçu dans le compose X — confirmé que nos balises fonctionnent parfaitement (rendu Facebook ET X corrects), le souci vient de l'éditeur de brouillon X qui n'affiche pas toujours l'aperçu en direct pendant la rédaction.
 
+## Google Search Console configuré — 2026-07-28
+
+Suivi direct de la passe SEO : `letsgetposted.com` ajouté et vérifié dans Google Search Console (méthode "Balise HTML" — `<meta name="google-site-verification" content="JYp67DMINk1V_BW_rqb2aN0QIlHj2IPPEL4HUPzDrEA" />` ajoutée dans `index.html`, déployée, puis validée côté Google). `sitemap.xml` soumis dans la foulée — 7 pages découvertes immédiatement (correspond aux 7 URLs du sitemap). **Ne pas retirer cette balise meta** : Google la garde comme preuve de propriété du site en continu, la supprimer ferait perdre l'accès à la Search Console.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
