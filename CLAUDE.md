@@ -475,6 +475,22 @@ Au passage, la meta description était restée sur l'ancien texte ("25+ platform
 
 Vérifié : tags + image confirmés servis en prod via `curl` (`og:image` présent, image répond 200).
 
+## Passe SEO/métadonnées complète — 2026-07-28
+
+Cédric : "Faisons une passe sur toute les meta datas, image, rferncement etc. on veut aussi etre bien positionné en seo". Audit d'abord (`site:letsgetposted.com` sur Google confirme le site indexé, mais la recherche "lets get posted" ne le fait pas remonter — écrasé par des concurrents au nom quasi-identique letsgetposting.com/letspost.it/getposting.com ; problème de classement pas d'indexation, la vraie réponse c'est du temps + des backlinks + continuer la stratégie de contenu long-tail déjà en place sur les pages guides, pas un fix technique).
+
+**Corrigé** :
+- **`robots.txt` + `sitemap.xml`** créés — n'existaient pas du tout avant. Sitemap liste les 7 pages indexables, `privacy.html` explicitement exclu (déjà `noindex`).
+- **`<h1>` manquant sur `index.html` et `how-it-works.html`** : `index.html` n'avait que des `<p class="hero-phase">` (aucun heading réel) ; la phrase 1 (active par défaut, première dans le DOM) passée en `<h1>`, les phrases 2-4 restent `<p>` — un seul heading net, pas quatre. `how-it-works.html` n'avait que des `<h2>`, zéro `<h1>` sur la page ; converti le `<h2>` principal ("From submission to live, in one flow.") en `<h1>`.
+- **Bug révélé par ce changement, corrigé** : du CSS mort d'un ancien design de hero (`.hero h1`, `.pain-line`/`sticker-slap`, aucune classe utilisée dans le markup actuel) était resté inerte tant qu'aucun vrai `<h1>` n'existait dans `.hero` — dès que la phrase 1 est devenue `<h1>`, cette règle morte (spécificité 0,1,1) a battu `.hero-phase` (0,1,0) et cassé la taille/le retour à la ligne du titre. Supprimé plutôt que contourné avec plus de spécificité.
+- **Canonical + OG/Twitter Card + JSON-LD ajoutés** sur `how-it-works.html`, `use-case.html`, `guides.html` (seules `index.html` et les 3 pages plateforme en avaient avant). Nouvelles images de preview 1200×630 par page (`assets/og-*.png`), générées comme celle d'`index.html` la veille (Chrome headless, capture réelle du rendu en prod).
+- **Descriptions trop longues raccourcies** sur `index.html` (meta 165→145 caractères, og 132→112) — signalé par un vérificateur OG externe.
+- **`favicon.svg` créé en vrai fichier** : `reddit/x/product-hunt-launch.html` référençaient déjà `https://letsgetposted.com/favicon.svg` dans leur JSON-LD (logo de l'org), mais ce fichier n'a jamais existé (404) — le favicon réel est une data-URI inline. Le nouveau fichier corrige les 4 références d'un coup (les 3 pages existantes + le nouveau JSON-LD d'`index.html`).
+
+**Vérifié** : équilibrage accolades/balises, syntaxe JS, validité JSON-LD (parsée), validité XML du sitemap, tous les nouveaux chemins retournent 200 en prod, hero re-capturé pour confirmer l'absence de régression visuelle après le changement de `<h1>`.
+
+**Au passage** : preview de lien testé avec un outil externe indépendant (opengraph.xyz) après que Cédric a signalé ne pas voir d'aperçu dans le compose X — confirmé que nos balises fonctionnent parfaitement (rendu Facebook ET X corrects), le souci vient de l'éditeur de brouillon X qui n'affiche pas toujours l'aperçu en direct pendant la rédaction.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
