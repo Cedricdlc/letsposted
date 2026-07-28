@@ -465,6 +465,16 @@ Les 3 pages passées sur le même composant `.nav-pill` (fixed, pill, logo + `.n
 
 Vérifié visuellement sur les 3 pages (preview Netlify) avant mise en prod.
 
+## Open Graph / preview de lien pour index.html — 2026-07-28
+
+Cédric : "il nous faut pour posted une view quand on partage le lien" — `index.html` n'avait **aucune** balise Open Graph/Twitter Card (contrairement à `product-hunt-launch.html` qui en avait déjà), donc partager le lien affichait un aperçu vide/générique partout (Slack, iMessage, X, etc.).
+
+Ajouté : `og:type/title/description/url/site_name/image(+width/height)` + `twitter:card/title/description/image`, même structure que `product-hunt-launch.html`. Nouvelle image `assets/og-home.png` (1200×630, format standard) — une vraie capture du hero en prod (headless Chrome, viewport 1600×900 puis recadrage/resize, même technique que le logo PNG généré plus tôt dans la session), pas un visuel fabriqué à part.
+
+Au passage, la meta description était restée sur l'ancien texte ("25+ platforms... hot prospects identified with DMs ready to send") — contredisait le positionnement "no fixed list of platforms" travaillé toute la journée. Remplacée par un texte cohérent avec la copy actuelle du hero.
+
+Vérifié : tags + image confirmés servis en prod via `curl` (`og:image` présent, image répond 200).
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
