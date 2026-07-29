@@ -910,6 +910,7 @@ h2{
         <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
         <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="liste-attente" />
+          <input type="hidden" name="source_page" class="source-page-field" value="" />
           <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div class="capbar-in">
             <label class="sr-only" for="cap-url-hero-mobile">Product URL</label>
@@ -990,6 +991,7 @@ h2{
           <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
           <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="liste-attente" />
+            <input type="hidden" name="source_page" class="source-page-field" value="" />
             <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div class="capbar-in">
               <label class="sr-only" for="cap-url-hero">Product URL</label>
@@ -1019,6 +1021,7 @@ h2{
           <form action='/' id='lm-form-modal' method='POST' name='lead-magnet' data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="lead-magnet" />
             <input type="hidden" name="url" id="lm-url-modal" />
+            <input type="hidden" name="source_page" class="source-page-field" value="" />
             <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div class="lm-context">
               <label class="sr-only" for="lm-context-modal">What are you building?</label>
@@ -1044,6 +1047,17 @@ h2{
 /* Inline Netlify form submission : shows the success state without
    leaving the page. No-JS fallback : classic Netlify POST. */
 (function () {
+  /* Lead source tracking (2026-07-29): stamps every capture form's
+     hidden "source_page" field with document.referrer, so Netlify
+     Forms submissions show which page sent the lead - one of our own
+     pages (nav CTA links land here as a normal page navigation, so
+     the referrer is the previous page's URL), an external site, or
+     "Direct / unknown" if there's no referrer at all. */
+  var sourcePageValue = document.referrer || 'Direct / unknown';
+  Array.prototype.forEach.call(document.querySelectorAll('.source-page-field'), function (el) {
+    el.value = sourcePageValue;
+  });
+
   /* Shared modal : opened by either capture form, always reset to a
      clean loading state on open so a second URL doesn't show stale
      results from a previous one. */

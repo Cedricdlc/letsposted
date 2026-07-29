@@ -533,6 +533,16 @@ Cédric, en regardant l'état 1 du mockup (illustratif, `.hs-decorative`) : "la 
 
 **Suivi immédiat** : Cédric a ensuite pointé le bloc "draft post" juste au-dessus comme "étrange" — confirmé par question directe : les 2 barres grises censées représenter le texte du post utilisaient le même pattern visuel qu'un skeleton loader ("contenu en cours de chargement"), ce qui contredit l'idée qu'on veut montrer (un post terminé et prêt, juste jamais envoyé). Remplacées par une vraie phrase de post crédible ("Excited to finally launch this — would love your thoughts 👇"), cohérent avec le contenu illustratif déjà utilisé ailleurs dans le mockup (états 3/4 montrent aussi des textes d'exemple réalistes, pas des données inventées présentées comme réelles — ici "Your business" reste un placeholder générique explicite, pas une fausse donnée client).
 
+## Tracking de la page d'origine des leads — 2026-07-29
+
+Cédric a demandé de savoir de quelle page vient chaque lead. Comme tous les CTA des autres pages (`how-it-works.html`, `guides.html`, `use-case.html`, `privacy.html`, les 3 pages plateforme) pointent vers `/#hero-scroll` — une vraie navigation de page, pas un ancrage SPA — `document.referrer` sur `index.html` reflète correctement la page précédente au moment du chargement.
+
+**Implémenté** : un champ caché `source_page` ajouté aux 3 formulaires (`capture-form-hero`, `capture-form-hero-mobile`, `lm-form-modal`), rempli au chargement de la page via `document.referrer || 'Direct / unknown'` (JS dans le script principal d'`index.html`, tourne une fois au load, cible tous les `.source-page-field`). Remonte automatiquement comme nouvelle colonne dans les soumissions Netlify Forms (`liste-attente` et `lead-magnet`) — Netlify réindexe les champs des formulaires à chaque déploiement qui change le HTML, donc actif dès ce déploiement, mais seulement pour les nouvelles soumissions (rien de rétroactif sur les anciennes).
+
+Vérifié en preview via clic réel sur le CTA de `product-hunt-launch.html` (pas une navigation directe par URL, qui ne pose pas de referrer) — les 3 champs cachés se remplissent bien avec l'URL de la page d'origine, sans soumettre de vraie donnée à Netlify Forms pour le test.
+
+**Limite connue, à garder en tête** : ne capture que le dernier saut (referrer immédiat), pas le point d'entrée d'origine si le visiteur passe par plusieurs pages internes avant de convertir (ex: guide PH → guides.html → index.html montrerait "guides.html", pas "product-hunt-launch.html"). Suffisant pour la demande actuelle ; si Cédric veut un vrai tracking multi-pages plus tard, passer par des paramètres UTM ou `sessionStorage` pour retenir le tout premier referrer de la session.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
