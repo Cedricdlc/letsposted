@@ -543,6 +543,12 @@ Vérifié en preview via clic réel sur le CTA de `product-hunt-launch.html` (pa
 
 **Limite connue, à garder en tête** : ne capture que le dernier saut (referrer immédiat), pas le point d'entrée d'origine si le visiteur passe par plusieurs pages internes avant de convertir (ex: guide PH → guides.html → index.html montrerait "guides.html", pas "product-hunt-launch.html"). Suffisant pour la demande actuelle ; si Cédric veut un vrai tracking multi-pages plus tard, passer par des paramètres UTM ou `sessionStorage` pour retenir le tout premier referrer de la session.
 
+## Retouches mockup hero — tirets + dock plus visible — 2026-07-29
+
+Deux demandes rapides de Cédric sur le mockup du hero :
+- **"dans les exemples enlève à chaque fois le tiret"** : les 3 textes d'exemple illustratifs (`.hs-idle-post-text` état 1, le commentaire LinkedIn de l'état 3, la réponse de l'état 4) utilisaient un tiret cadratin — retirés, remplacés par un point ou un deux-points selon le contexte. Scope volontairement limité à ces exemples illustratifs du mockup (pas touché : les tirets dans les meta descriptions, les commentaires de code, ou la prose des pages guides/plateforme — un tiret cadratin dans une phrase de prose normale n'est pas "un exemple").
+- **"fais ressortir la partie du bas un peu"** : le fond du dock (`.hero-capture-dock`) passe de `var(--card-2)` (même ton que la zone illustrative juste au-dessus) à `var(--accent-soft)` (le lavis doré déjà utilisé ailleurs sur le site pour signaler une zone d'action) — le dock se lit maintenant plus clairement comme sa propre zone, pas juste une suite du mockup. Titre "Drop your link..." aussi légèrement renforcé (`.85rem/600/--body` → `.88rem/700/--ink`). Changement volontairement modeste ("un peu"), pas une refonte.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :
