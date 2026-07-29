@@ -441,9 +441,13 @@ h2{
 .hero-capture-dock .hs-capture-reassure{ margin-top:.7rem; }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
-/* Draft post + procrastination loop (state 1) — a real-looking post
-   draft sits ready to go, but "Post" gets skipped for "Post tomorrow",
-   every day, on repeat. Matches phrase 1 directly. */
+/* Draft post + snooze loop (state 1) — a real-looking post draft sits
+   ready to go, but a reminder to post it keeps getting snoozed, day
+   after day. Matches phrase 1 directly. Rebuilt 2026-07-29: the
+   original "Post / Post tomorrow" two-pill widget required decoding a
+   fake UI pattern nobody recognized (Cédric: "on ne comprend pas").
+   A notification+snooze pattern is something everyone already knows
+   from their phone, no decoding needed. */
 .hs-panel--idle{ display:flex; flex-direction:column; gap:1.3rem; }
 .hs-idle-post{ display:flex; flex-direction:column; gap:.6rem; padding-bottom:1.1rem; border-bottom:1px solid var(--line-soft); }
 .hs-idle-post-head{ display:flex; align-items:center; gap:.6rem; }
@@ -451,45 +455,14 @@ h2{
 .hs-idle-post-name{ font-size:.82rem; font-weight:600; color:var(--faint); }
 .hs-idle-post-line{ display:block; height:.6rem; border-radius:999px; background:var(--card-2); }
 .hs-idle-post-line--short{ width:55%; }
-.hs-procrastinate{ display:flex; flex-direction:column; align-items:flex-start; gap:.7rem; }
-.hs-procrastinate-row{ display:flex; align-items:center; gap:.6rem; }
-.hs-procrastinate-btn{
-  display:inline-flex;
-  align-items:center;
-  border-radius:999px;
-  padding:.55rem 1.1rem;
-  font-size:.82rem;
-  font-weight:700;
-  white-space:nowrap;
-}
-/* The right move ("Post") stays inviting and available — it's not
-   disabled, it's just ignored. "Post tomorrow" is the dull, muted
-   choice that still gets picked, marked by the cursor landing on it. */
-.hs-procrastinate-btn--skip{
-  background:var(--accent);
-  color:var(--ink);
-}
-.hs-procrastinate-btn--chosen{
-  position:relative;
-  background:var(--card-2);
-  color:var(--faint);
-}
-.hs-procrastinate-cursor{
-  position:absolute;
-  right:-.4rem;
-  bottom:-.55rem;
-  width:.95rem;
-  height:.95rem;
-  color:var(--ink);
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.3));
-}
-.hs-procrastinate-arrow{
-  color:var(--faint);
-  font-size:1rem;
-  animation:hs-procrastinate-nudge 1.6s ease-in-out infinite;
-}
-@keyframes hs-procrastinate-nudge{ 0%,100%{ transform:translateX(0); opacity:.6; } 50%{ transform:translateX(4px); opacity:1; } }
-.hs-procrastinate-loop{ font-size:.76rem; color:var(--faint); letter-spacing:.02em; }
+.hs-idle-reminder{ display:flex; flex-direction:column; gap:.8rem; }
+.hs-idle-reminder-row{ display:flex; align-items:center; gap:.6rem; background:var(--card-2); border:1px solid var(--line); border-radius:12px; padding:.7rem .9rem; }
+.hs-idle-reminder-bell{ font-size:1rem; flex:none; }
+.hs-idle-reminder-txt{ font-size:.84rem; color:var(--ink); font-weight:600; flex:1; }
+.hs-idle-reminder-btn{ flex:none; font-size:.76rem; font-weight:700; color:var(--faint); background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:.3rem .7rem; }
+.hs-idle-log{ list-style:none; display:flex; flex-direction:column; gap:.35rem; padding-left:.2rem; }
+.hs-idle-log li{ font-size:.76rem; color:var(--faint); letter-spacing:.01em; }
+.hs-idle-log li::before{ content:"↳ "; opacity:.6; }
 
 .hs-card{ padding:1.3rem 1.4rem; font-size:.86rem; }
 
@@ -963,13 +936,17 @@ h2{
               <span class="hs-idle-post-line"></span>
               <span class="hs-idle-post-line hs-idle-post-line--short"></span>
             </div>
-            <div class="hs-procrastinate" aria-hidden="true">
-              <div class="hs-procrastinate-row">
-                <span class="hs-procrastinate-btn hs-procrastinate-btn--skip">Post</span>
-                <span class="hs-procrastinate-arrow">→</span>
-                <span class="hs-procrastinate-btn hs-procrastinate-btn--chosen">Post tomorrow<svg class="hs-procrastinate-cursor" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg></span>
+            <div class="hs-idle-reminder" aria-hidden="true">
+              <div class="hs-idle-reminder-row">
+                <span class="hs-idle-reminder-bell">🔔</span>
+                <span class="hs-idle-reminder-txt">Time to post this</span>
+                <span class="hs-idle-reminder-btn">Snooze</span>
               </div>
-              <p class="hs-procrastinate-loop">tomorrow &middot; tomorrow &middot; tomorrow&hellip;</p>
+              <ul class="hs-idle-log">
+                <li>Snoozed &middot; Monday</li>
+                <li>Snoozed &middot; Tuesday</li>
+                <li>Snoozed &middot; Wednesday</li>
+              </ul>
             </div>
           </div>
         </div>
