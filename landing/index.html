@@ -453,8 +453,10 @@ h2{
 .hs-idle-post-head{ display:flex; align-items:center; gap:.6rem; }
 .hs-idle-post-avatar{ width:1.9rem; height:1.9rem; border-radius:50%; background:var(--card-2); flex:none; }
 .hs-idle-post-name{ font-size:.82rem; font-weight:600; color:var(--faint); }
-.hs-idle-post-line{ display:block; height:.6rem; border-radius:999px; background:var(--card-2); }
-.hs-idle-post-line--short{ width:55%; }
+/* Real-looking draft text, not grey skeleton bars - a skeleton loader
+   reads as "still loading", which fights the point (a post that's
+   done and ready, just never sent). Cédric flagged this 2026-07-29. */
+.hs-idle-post-text{ font-size:.84rem; color:var(--ink); line-height:1.45; }
 .hs-idle-reminder{ display:flex; flex-direction:column; gap:.8rem; }
 .hs-idle-reminder-row{ display:flex; align-items:center; gap:.6rem; background:var(--card-2); border:1px solid var(--line); border-radius:12px; padding:.7rem .9rem; }
 .hs-idle-reminder-bell{ font-size:1rem; flex:none; }
@@ -933,8 +935,7 @@ h2{
                 <span class="hs-idle-post-avatar"></span>
                 <span class="hs-idle-post-name">Your business</span>
               </div>
-              <span class="hs-idle-post-line"></span>
-              <span class="hs-idle-post-line hs-idle-post-line--short"></span>
+              <p class="hs-idle-post-text">Excited to finally launch this — would love your thoughts 👇</p>
             </div>
             <div class="hs-idle-reminder" aria-hidden="true">
               <div class="hs-idle-reminder-row">
