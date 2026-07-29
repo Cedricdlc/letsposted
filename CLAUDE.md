@@ -515,6 +515,8 @@ Cédric a alors proposé mieux : plutôt que 2 cartes séparées qui se font con
 
 Vérifié en preview : dock ancré pendant tout le crossfade des 3 états, gel propre sur l'état 3 à la phase 4, aucun bloc vide.
 
+**Suivi immédiat, x3 — Cédric a signalé 2 problèmes sur cette passe 2** : (1) la séparation visuelle entre la zone illustrative et le dock était trop faible (`border-top:1px solid var(--line)`, quasi invisible entre deux tons crème proches) → passée à `border-top:2px solid var(--ink)`, cohérent avec le reste du langage visuel du site (bordures encre franches ailleurs : `.hero-screen`, `.sticker-patch`). (2) "bug" signalé : la phase 4 affichait exactement le même visuel que la phase 3 (le gel sur l'état 3 introduit dans la passe précédente) — pas voulu, il attendait une vraie 4e illustration distincte. État 4 réintroduit : le même fil r/startups de l'état 3 reçoit une vraie réponse ("Your business replied — ..."), bouclant visuellement la promesse de la phrase 4 ("first customers, not just views"). Le clamp JS (`screenN`) retiré, le scrollspy retourne à un mapping direct `n` → état.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :

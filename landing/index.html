@@ -423,12 +423,15 @@ h2{
 /* Capture form docked as a permanent footer bar inside the mockup
    frame itself (2026-07-29) - "well integrated" per Cédric, instead of
    a separate floating card that visually competed with the mockup.
-   Illustration states (1-3, in .hs-decorative) keep crossfading above
+   Illustration states (1-4, in .hs-decorative) keep crossfading above
    it; the dock never changes. Not aria-hidden (unlike .hs-decorative,
-   which is purely illustrative) - it's the real, only desktop form. */
+   which is purely illustrative) - it's the real, only desktop form.
+   Bold ink divider (not the usual --line hairline) so the two zones
+   read as clearly separate - Cédric flagged the first pass as too
+   blended together. */
 .hero-capture-dock{
   padding:1.1rem 1.3rem 1.3rem;
-  border-top:1px solid var(--line);
+  border-top:2px solid var(--ink);
   background:var(--card-2);
 }
 .hero-capture-dock .hs-capture-head{ font-size:.85rem; font-weight:600; color:var(--body); margin-bottom:.7rem; }
@@ -526,6 +529,16 @@ h2{
 .hs-scan-icon--linkedin{ background:#0A66C2; }
 .hs-scan-txt{ grid-column:1; color:var(--ink); line-height:1.4; }
 .hs-scan-score{ grid-column:2; grid-row:1 / span 2; align-self:center; font-weight:700; font-size:.78rem; color:var(--bg); background:var(--ok); border-radius:999px; padding:.15rem .55rem; height:fit-content; }
+
+/* Result card (state 4) - the r/startups thread from state 3 gets a
+   real reply, closing the loop the phrase promises ("first customers,
+   not just views"). Reuses .hs-scan-src/.hs-scan-txt for the original
+   post so the thread reads as the same conversation continuing. */
+.hs-result-op{ margin:.5rem 0 .9rem; padding-bottom:.9rem; border-bottom:1px solid var(--line-soft); }
+.hs-result-reply{ display:flex; align-items:flex-start; gap:.6rem; margin-bottom:.9rem; }
+.hs-result-avatar{ width:1.6rem; height:1.6rem; border-radius:50%; background:var(--accent); flex:none; margin-top:.1rem; }
+.hs-result-reply-txt{ font-size:.84rem; color:var(--ink); line-height:1.45; }
+.hs-result-badge{ display:flex; align-items:center; gap:.4rem; font-size:.72rem; color:var(--ok); font-weight:600; }
 
 .hs-capture-head{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--ink); line-height:1.35; }
 /* Highlight ring that draws the eye to the form once (not looping), on
@@ -982,6 +995,18 @@ h2{
           </div>
         </div>
 
+        <div class="hs-state" data-hero-screen-state="4">
+          <div class="hs-card hs-result">
+            <span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>r/startups &middot; 2m ago</span>
+            <p class="hs-scan-txt hs-result-op">Looking for a project management tool that actually works for small teams</p>
+            <div class="hs-result-reply">
+              <span class="hs-result-avatar" aria-hidden="true"></span>
+              <p class="hs-result-reply-txt"><b>Your business</b> replied — "We built exactly this. Happy to show you around."</p>
+            </div>
+            <div class="hs-result-badge"><span class="hs-scan-dot" aria-hidden="true"></span>New reply from a real person, not a view</div>
+          </div>
+        </div>
+
        </div>
         <div class="hero-capture-dock">
           <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
@@ -1143,11 +1168,7 @@ h2{
       var n = current.getAttribute('data-hero-step');
       steps.forEach(function (s) { s.classList.toggle('is-active', s === current); });
       phases.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-hero-frame') === n); });
-      /* Only 3 illustration states exist now (.hero-capture-dock replaced
-         the 4th) - freeze on state 3 once phase 4 is reached instead of
-         leaving the mockup blank. */
-      var screenN = (n === '4') ? '3' : n;
-      screens.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hero-screen-state') === screenN); });
+      screens.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-hero-screen-state') === n); });
       if (cue) cue.classList.toggle('is-active', n !== '4');
     }
 
