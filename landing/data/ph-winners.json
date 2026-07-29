@@ -411,5 +411,12 @@
     "tagline": "Turn data into winning ads. At scale.",
     "score": "519",
     "mentionsAI": false
+  },
+  {
+    "date": "2026-07-28",
+    "product": "Prefactor",
+    "tagline": "Evaluate your AI Agents in real-time",
+    "score": "576",
+    "mentionsAI": true
   }
 ]
