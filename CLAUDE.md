@@ -495,6 +495,20 @@ Cédric : "Faisons une passe sur toute les meta datas, image, rferncement etc. o
 
 Suivi direct de la passe SEO : `letsgetposted.com` ajouté et vérifié dans Google Search Console (méthode "Balise HTML" — `<meta name="google-site-verification" content="JYp67DMINk1V_BW_rqb2aN0QIlHj2IPPEL4HUPzDrEA" />` ajoutée dans `index.html`, déployée, puis validée côté Google). `sitemap.xml` soumis dans la foulée — 7 pages découvertes immédiatement (correspond aux 7 URLs du sitemap). **Ne pas retirer cette balise meta** : Google la garde comme preuve de propriété du site en continu, la supprimer ferait perdre l'accès à la Search Console.
 
+## Capture form déplacé hors du scroll-gate — 2026-07-29
+
+Retour d'un contact de Cédric (solide en business/startup) + donnée Plausible du jour (100+ vues, **0** soumission sur le formulaire `liste-attente`) : le formulaire de capture (champ URL) n'était atteignable qu'en scrollant jusqu'à la phase 4/4 du hero, ou en cliquant le CTA nav qui sautait artificiellement jusque-là en JS. Diagnostic confirmé — c'était bien la seule entrée du funnel, et elle était scroll-gated.
+
+**Fix (ciblé, décidé avec Cédric — pas de refonte du flow post-soumission)** : le bloc formulaire (ex-`.hero-phase-capture`, renommé `.hero-capture-top`) est sorti du `data-hero-frame="4"` et devient un frère persistant des 4 `.hero-phase-pair`, dans `.hero-phase-zone` — visible dès le chargement, sous le titre/sous-titre, quelle que soit la phase active (desktop ET mobile, plus besoin de règle `display:none` à 900px). Le mockup animé à droite (`.hero-screen`, états 1-4) et son propre formulaire à l'état 4 (`.hs-capture` / `#capture-form-hero`) restent inchangés — un 2e point de capture bonus pour ceux qui scrollent jusqu'au bout, pas un problème.
+
+Le highlight-ring au chargement (`cap-highlight`), auparavant déclenché à l'arrivée sur la phase 4 (`.is-active`), joue maintenant simplement au chargement de la page pour `.hero-capture-top` (plus de moment d'"arrivée" puisque déjà visible). Le CTA nav (`#nav-beta-cta`) simplifié : scroll vers le haut du hero + focus sur le champ persistant, au lieu du jump-vers-phase-4 précédent. Aucun changement JS de wiring nécessaire (mêmes IDs `capture-form-hero-mobile`/`cap-url-hero-mobile`, `wire()` fonctionne par ID peu importe l'emplacement DOM).
+
+Bonus : règle au passage le "reduced-motion desktop dead end" — le formulaire persistant ne dépend plus du tout du mécanisme de phases pour être atteignable.
+
+Vérifié sur preview Netlify (desktop 1440px) : formulaire visible immédiatement au chargement, reste ancré pendant que texte/mockup crossfadent au scroll à travers les 4 phases, aucune duplication ni saut visuel.
+
+**Découverte au passage (non liée, signalée à Cédric, pas d'action prise)** : `docs/acquisition-v0.md` + `docs/templates/` + `scripts/score-leads.js` existent sur disque depuis le 20/07 mais n'ont jamais été commités ni implémentés dans Notion — un plan d'acquisition manuelle outbound (bases Lead Scout/Deals/Acquisition Log) parallèle à ce chantier. À clarifier avec Cédric si c'est toujours d'actualité.
+
 ## Roadmap — pas maintenant, mais à ne pas perdre
 
 - **Série de pages plateforme — état (2026-07-16)** : décision prise avec Cédric de NE PAS changer la promesse "25+ plateformes" sur la landing (`index.html` intact, aucune modif de copy). À la place, on construit une vraie page de crédibilité par plateforme, en commençant par les 3 réellement supportées par `platform-copy.js` (Reddit, X, Product Hunt) :

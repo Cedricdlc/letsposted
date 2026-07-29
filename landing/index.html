@@ -372,17 +372,19 @@ h2{
   max-width:36rem;
 }
 
-/* Mobile-only capture block, riding along with the last phrase (no
-   .hero-screen mockup on mobile — Cédric asked to drop the visuals
-   there and just scroll text ending in the lead magnet). Separate
-   form/ids from the desktop one inside .hero-screen to avoid DOM id
-   collisions; both post to the same Netlify form name. */
-.hero-phase-capture{ display:block; margin-top:1.5rem; width:100%; max-width:27rem; }
-.hero-phase-capture .hs-capture-head{ margin-bottom:.7rem; }
-.hero-phase-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
-.hero-phase-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
-.hero-phase-capture .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
-.hero-phase-capture .hs-capture-reassure{ margin-top:.7rem; }
+/* Persistent capture form, always visible under the hero phrase — not
+   tied to any single phase (2026-07-29: moved out of phase 4 so it's
+   reachable without scrolling; a 100+ views / 0 leads day made the old
+   scroll-gated placement untenable). Separate form/ids from the desktop
+   one inside .hero-screen (still there at state 4 as a bonus second
+   capture point for scrollers) to avoid DOM id collisions; both post to
+   the same Netlify form name. */
+.hero-capture-top{ display:block; margin-top:1.7rem; width:100%; max-width:27rem; }
+.hero-capture-top .hs-capture-head{ margin-bottom:.7rem; }
+.hero-capture-top .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
+.hero-capture-top .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
+.hero-capture-top .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+.hero-capture-top .hs-capture-reassure{ margin-top:.7rem; }
 
 /* ---------- hero screen mockup (desktop only, evolves per active step) ---------- */
 
@@ -500,20 +502,19 @@ h2{
 .hs-capture{ display:flex; flex-direction:column; justify-content:center; gap:1rem; min-height:100%; }
 .hs-capture-head{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--ink); line-height:1.35; }
 .hs-capture .capbar-in{ flex-direction:column; border-radius:18px; box-shadow:none; }
-/* Highlight ring on arrival at the last step - draws the eye to the
-   form once (not looping), on both the desktop embedded panel and
-   the mobile/reduced-motion fallback form. Delayed .5s so it starts
-   AFTER the parent's own hero-phase-in fade-in finishes (0.5s) -
-   playing it during that fade made the ring nearly invisible, since
-   its opacity was being multiplied by the still-fading-in parent.
-   Darker gold + wider spread for contrast against the cream card. */
+/* Highlight ring that draws the eye to the form once (not looping).
+   Desktop embedded panel: plays on arrival at step 4 (still scroll-gated
+   there, it's a bonus second capture point). Persistent top form: plays
+   once on page load instead, since it's visible immediately now - no
+   ".is-active" arrival moment to hook it to. Darker gold + wider spread
+   for contrast against the cream card. */
 @keyframes cap-highlight{
   0%{ box-shadow:0 0 0 0 rgba(201,168,0,.9); }
   70%{ box-shadow:0 0 0 18px rgba(201,168,0,0); }
   100%{ box-shadow:0 0 0 0 rgba(201,168,0,0); }
 }
 .hs-state[data-hero-screen-state="4"].is-active .capbar-in,
-.hero-phase-pair.is-active .hero-phase-capture .capbar-in{
+.hero-capture-top .capbar-in{
   animation:cap-highlight 1.4s ease-out .5s both;
 }
 .hs-capture .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
@@ -553,7 +554,6 @@ h2{
   .hero-phase-zone{ text-align:left; }
   .hero-phase{ font-size:clamp(2.2rem,3.3vw,3.1rem); line-height:1.13; }
   .hero-phase-sub{ font-size:1.12rem; }
-  .hero-phase-capture{ display:none; }
 
   .hero-screen{ display:block; position:relative; min-height:23rem; }
   .hs-state{ display:none; }
@@ -579,11 +579,9 @@ h2{
   .hero-phase-pair.is-active{ animation:none; }
   .hero-scroll-cue{ display:none; }
   /* .hero-screen never animates past state 1 here (the scroll-driven
-     JS bails out under reduced motion) - hide it and fall back to the
-     same static capture form mobile uses, so desktop+reduced-motion
-     visitors aren't stranded without a way to submit their link. */
+     JS bails out under reduced motion) - hide it. .hero-capture-top is
+     unaffected (always block, no override needed). */
   .hero-screen{ display:none; }
-  .hero-phase-capture{ display:block; }
 }
 
 .capbar-in{
@@ -890,19 +888,19 @@ h2{
       <div class="hero-phase-pair" data-hero-frame="4">
         <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
         <p class="hero-phase-sub">Real replies from real people who need what you built. Not vanity metrics.</p>
-        <div class="hero-phase-capture">
-          <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
-          <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="liste-attente" />
-            <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-            <div class="capbar-in">
-              <label class="sr-only" for="cap-url-hero-mobile">Product URL</label>
-              <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero-mobile" name="url" required placeholder="https://yourproduct.com">
-              <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
-            </div>
-          </form>
-          <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
-        </div>
+      </div>
+      <div class="hero-capture-top">
+        <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
+        <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="liste-attente" />
+          <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+          <div class="capbar-in">
+            <label class="sr-only" for="cap-url-hero-mobile">Product URL</label>
+            <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero-mobile" name="url" required placeholder="https://yourproduct.com">
+            <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+          </div>
+        </form>
+        <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
       </div>
     </div>
 
@@ -1212,15 +1210,16 @@ h2{
     return scoreHtml + teaserHtml;
   }
 
-  /* Nav CTA jumps straight to the last hero step (the embedded capture
-     panel lives inside .hero-screen's 4th state) and focuses its input. */
+  /* Nav CTA scrolls to the top of the hero and focuses the persistent
+     capture form there (visible immediately now, no need to jump to a
+     specific step anymore). */
   var navCta = document.getElementById('nav-beta-cta');
   if (navCta) {
     navCta.addEventListener('click', function (e) {
       e.preventDefault();
-      var lastStep = document.querySelector('[data-hero-step="4"]');
-      if (lastStep) lastStep.scrollIntoView({ behavior: 'auto', block: 'start' });
-      var url = document.getElementById('cap-url-hero');
+      var hero = document.getElementById('hero-scroll');
+      if (hero) hero.scrollIntoView({ behavior: 'auto', block: 'start' });
+      var url = document.getElementById('cap-url-hero-mobile');
       if (url) setTimeout(function () { url.focus({ preventScroll: true }); }, 300);
     });
   }
