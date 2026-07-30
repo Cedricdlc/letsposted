@@ -1,6 +1,24 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+/* Hero A/B test (2026-07-30) - synchronous, must run before any CSS/paint
+   so the right variant shows with zero flicker (same technique as a
+   no-flash dark-mode toggle). Sets data-variant on <html>; CSS below
+   toggles .variant-control/.variant-diagnostic accordingly. Persisted in
+   localStorage so a visitor sees the same variant on repeat visits.
+   SEO metadata is NOT split - crawlers get whatever the control default
+   below renders, splitting meta tags per-bot-crawl isn't meaningful. */
+(function(){
+  var v;
+  try { v = localStorage.getItem('ab_variant'); } catch(e) {}
+  if (v !== 'control' && v !== 'diagnostic') {
+    v = Math.random() < 0.5 ? 'control' : 'diagnostic';
+    try { localStorage.setItem('ab_variant', v); } catch(e) {}
+  }
+  document.documentElement.setAttribute('data-variant', v);
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="JYp67DMINk1V_BW_rqb2aN0QIlHj2IPPEL4HUPzDrEA" />
@@ -50,6 +68,22 @@
    capture form, "lead-magnet" (fields url + email) in the modal.
    Only external request: Google Fonts above.
    ============================================================ */
+
+/* Hero A/B test variant toggle (2026-07-30) - control (current,
+   interview-validated procrastination framing) vs diagnostic (premium
+   "find your lead channels" framing, untested). data-variant is set
+   synchronously in <head> before this stylesheet is parsed, so this
+   resolves before first paint - no flicker. Default (no JS/no
+   attribute yet) shows control, the proven copy. !important is
+   deliberate here: this is a state-toggle utility class that must win
+   over every other display rule regardless of specificity/source
+   order (.hero-phase/.hero-phase-sub etc. all set their own
+   display:block later in this file) - not a normal style override. */
+.variant-diagnostic{ display:none !important; }
+html[data-variant="diagnostic"] .variant-control{ display:none !important; }
+html[data-variant="diagnostic"] .variant-diagnostic{ display:inline !important; }
+html[data-variant="diagnostic"] p.variant-diagnostic,
+html[data-variant="diagnostic"] div.variant-diagnostic{ display:block !important; }
 
 :root{
   --bg:        #FBF8F1;
@@ -894,31 +928,40 @@ h2{
   <div class="hero-pin">
     <div class="hero-phase-zone">
       <div class="hero-phase-pair is-active" data-hero-frame="1">
-        <h1 class="hero-phase">Stop procrastinating on posting for <span class="mark-word">your business</span>.</h1>
-        <p class="hero-phase-sub">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
+        <h1 class="hero-phase"><span class="variant-control">Stop procrastinating on posting for <span class="mark-word">your business</span>.</span><span class="variant-diagnostic">Find where your leads actually <span class="mark-word">pay attention</span>.</span></h1>
+        <p class="hero-phase-sub variant-control">Most founders wait for the perfect moment. It never comes, and neither do your first customers.</p>
+        <p class="hero-phase-sub variant-diagnostic">You know you should be posting. We show you exactly where, not a generic list of platforms.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="2">
-        <p class="hero-phase">No posts. No replies. No leads. <span class="mark-word">And you know it</span>.</p>
-        <p class="hero-phase-sub">You built something real. Nobody's seen it yet, and that's what happens when nobody's posting or replying to the right conversations.</p>
+        <p class="hero-phase variant-control">No posts. No replies. No leads. <span class="mark-word">And you know it</span>.</p>
+        <p class="hero-phase variant-diagnostic">Wrong channel. Wasted effort. <span class="mark-word">No leads</span>.</p>
+        <p class="hero-phase-sub variant-control">You built something real. Nobody's seen it yet, and that's what happens when nobody's posting or replying to the right conversations.</p>
+        <p class="hero-phase-sub variant-diagnostic">Most founders post wherever's easiest, not where their buyers actually are. That's why the effort doesn't convert.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="3">
-        <p class="hero-phase">We find your platforms. <span class="mark-word">We post for you</span>.</p>
-        <p class="hero-phase-sub">We study your niche and your sector, then go wherever your buyers actually are. No fixed list of platforms, in your voice.</p>
+        <p class="hero-phase variant-control">We find your platforms. <span class="mark-word">We post for you</span>.</p>
+        <p class="hero-phase variant-diagnostic">We diagnose your lead channels. Then <span class="mark-word">post there for you</span>.</p>
+        <p class="hero-phase-sub variant-control">We study your niche and your sector, then go wherever your buyers actually are. No fixed list of platforms, in your voice.</p>
+        <p class="hero-phase-sub variant-diagnostic">A custom map of where your buyers actually are, not a fixed list. Real posts, in your voice, where they'll actually see them.</p>
       </div>
       <div class="hero-phase-pair" data-hero-frame="4">
-        <p class="hero-phase">Get your <span class="mark-word">first customers</span>. Not just views.</p>
-        <p class="hero-phase-sub">Real replies from real people who need what you built. Not vanity metrics.</p>
+        <p class="hero-phase variant-control">Get your <span class="mark-word">first customers</span>. Not just views.</p>
+        <p class="hero-phase variant-diagnostic">Real leads. <span class="mark-word">Not just views</span>.</p>
+        <p class="hero-phase-sub variant-control">Real replies from real people who need what you built. Not vanity metrics.</p>
+        <p class="hero-phase-sub variant-diagnostic">A custom channel diagnostic, read by hand and sent within 24h. Not generated by a bot.</p>
       </div>
       <div class="hero-capture-top">
-        <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
+        <p class="hs-capture-head variant-control">Drop your link. We'll show you where to post.</p>
+        <p class="hs-capture-head variant-diagnostic">Drop your link. Get your custom lead channel map.</p>
         <form action='/' id='capture-form-hero-mobile' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="liste-attente" />
           <input type="hidden" name="source_page" class="source-page-field" value="" />
+          <input type="hidden" name="variant" class="variant-field" value="" />
           <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div class="capbar-in">
             <label class="sr-only" for="cap-url-hero-mobile">Product URL</label>
             <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero-mobile" name="url" required placeholder="https://yourproduct.com">
-            <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+            <button type="submit" class="cap-btn"><span class="variant-control">Where should I post?</span><span class="variant-diagnostic">Get my channel diagnostic</span> <span class="a" aria-hidden="true">→</span></button>
           </div>
         </form>
         <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
@@ -991,15 +1034,17 @@ h2{
 
        </div>
         <div class="hero-capture-dock">
-          <p class="hs-capture-head">Drop your link. We'll show you where to post.</p>
+          <p class="hs-capture-head variant-control">Drop your link. We'll show you where to post.</p>
+          <p class="hs-capture-head variant-diagnostic">Drop your link. Get your custom lead channel map.</p>
           <form action='/' id='capture-form-hero' method='POST' name='liste-attente' data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="liste-attente" />
             <input type="hidden" name="source_page" class="source-page-field" value="" />
+            <input type="hidden" name="variant" class="variant-field" value="" />
             <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div class="capbar-in">
               <label class="sr-only" for="cap-url-hero">Product URL</label>
               <input class="seg-url" type="text" inputmode="url" autocomplete="url" id="cap-url-hero" name="url" required placeholder="https://yourproduct.com">
-              <button type="submit" class="cap-btn">Where should I post? <span class="a" aria-hidden="true">→</span></button>
+              <button type="submit" class="cap-btn"><span class="variant-control">Where should I post?</span><span class="variant-diagnostic">Get my channel diagnostic</span> <span class="a" aria-hidden="true">→</span></button>
             </div>
           </form>
           <p class="hs-capture-reassure">No bots. No spam. Nothing posts without you. Ever.</p>
@@ -1025,6 +1070,7 @@ h2{
             <input type="hidden" name="form-name" value="lead-magnet" />
             <input type="hidden" name="url" id="lm-url-modal" />
             <input type="hidden" name="source_page" class="source-page-field" value="" />
+            <input type="hidden" name="variant" class="variant-field" value="" />
             <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div class="lm-context">
               <label class="sr-only" for="lm-context-modal">What are you building?</label>
@@ -1060,6 +1106,17 @@ h2{
   Array.prototype.forEach.call(document.querySelectorAll('.source-page-field'), function (el) {
     el.value = sourcePageValue;
   });
+
+  /* Hero A/B test (2026-07-30): stamp the same hidden "variant" value
+     (set on <html data-variant> by the synchronous head script) onto
+     every capture form, and fire a Plausible pageview-scoped event so
+     view counts per variant are visible in Plausible, not just
+     conversions in Netlify Forms. */
+  var abVariant = document.documentElement.getAttribute('data-variant') || 'control';
+  Array.prototype.forEach.call(document.querySelectorAll('.variant-field'), function (el) {
+    el.value = abVariant;
+  });
+  if (window.plausible) plausible('Hero Variant View', { props: { variant: abVariant } });
 
   /* Shared modal : opened by either capture form, always reset to a
      clean loading state on open so a second URL doesn't show stale
