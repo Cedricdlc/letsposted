@@ -418,5 +418,12 @@
     "tagline": "Evaluate your AI Agents in real-time",
     "score": "576",
     "mentionsAI": true
+  },
+  {
+    "date": "2026-07-29",
+    "product": "Prelint",
+    "tagline": "Prevent product drift in AI-written code",
+    "score": "540",
+    "mentionsAI": true
   }
 ]
