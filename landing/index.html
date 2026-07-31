@@ -109,6 +109,7 @@ html[data-variant="diagnostic"] div.variant-diagnostic{ display:block !important
   --accent-line: rgba(201,168,0,.4);
   --grad:      #F2E96A;
   --ok:        #4ADE80;
+  --warn:      #F0725A;
   --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
@@ -483,7 +484,16 @@ h2{
 .hero-capture-dock .hs-capture-head{ font-size:.88rem; font-weight:700; color:var(--ink); margin-bottom:.7rem; }
 .hero-capture-dock .capbar-in{ flex-direction:column; border-radius:14px; box-shadow:none; background:var(--bg); }
 .hero-capture-dock .capbar-in .seg-url{ flex:none; border-right:0; border-bottom:1px solid var(--line); }
-.hero-capture-dock .cap-btn{ justify-content:center; padding:1.05rem 1.2rem; }
+.hero-capture-dock .cap-btn{
+  justify-content:center;
+  padding:1.15rem 1.2rem;
+  font-size:1.02rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 0 rgba(0,0,0,.15);
+}
+.hero-capture-dock .cap-btn:hover{ filter:brightness(1.06); }
+.hero-capture-dock .cap-btn:active{ box-shadow:inset 0 2px 0 rgba(0,0,0,.15); }
 .hero-capture-dock .hs-capture-reassure{ margin-top:.7rem; }
 .hs-chrome b{ color:var(--ink); font-weight:600; }
 
@@ -515,12 +525,13 @@ h2{
 .hs-card{ padding:1.3rem 1.4rem; font-size:.86rem; }
 
 /* Empty stats (state 2) */
-.hs-empty{ display:flex; flex-direction:column; gap:.9rem; }
-.hs-empty-row{ display:flex; align-items:baseline; justify-content:space-between; padding-bottom:.9rem; border-bottom:1px solid var(--line-soft); }
+.hs-empty{ display:flex; flex-direction:column; gap:.55rem; }
+.hs-empty-row{ display:flex; align-items:baseline; justify-content:space-between; padding-bottom:.55rem; border-bottom:1px solid var(--line-soft); }
 .hs-empty-row:last-of-type{ border-bottom:0; padding-bottom:0; }
-.hs-empty-label{ font-size:.86rem; color:var(--body); }
-.hs-empty-num{ font-family:var(--display); font-weight:800; font-size:1.6rem; color:var(--faint); }
-.hs-empty-note{ margin-top:.2rem; font-size:.78rem; color:var(--faint); font-style:italic; }
+.hs-empty-label{ font-size:.84rem; color:var(--body); }
+.hs-empty-num{ font-family:var(--display); font-weight:800; font-size:1.35rem; color:var(--faint); }
+.hs-empty-num--zero{ color:var(--warn); }
+.hs-empty-note{ margin-top:.3rem; font-size:.78rem; color:var(--faint); font-style:italic; }
 
 /* Diagnostic variant state 1: pre-scan "analyzing" card, mirrors the
    .hs-scan-head/.hs-scan-icon/.hs-scan-dot tokens used one state
@@ -1022,9 +1033,9 @@ h2{
 
         <div class="hs-state" data-hero-screen-state="2">
           <div class="hs-card hs-empty">
-            <div class="hs-empty-row"><span class="hs-empty-label">Posts this week</span><span class="hs-empty-num">0</span></div>
-            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num">0</span></div>
-            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">Posts this week</span><span class="hs-empty-num hs-empty-num--zero">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num hs-empty-num--zero">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num hs-empty-num--zero">0</span></div>
             <p class="hs-empty-note">Nobody's posting. Nobody's replying. Nobody's finding you.</p>
           </div>
         </div>
@@ -1075,8 +1086,8 @@ h2{
         <div class="hs-state" data-hero-screen-state="2">
           <div class="hs-card hs-empty">
             <div class="hs-empty-row"><span class="hs-empty-label">Posts this week</span><span class="hs-empty-num">12</span></div>
-            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num">0</span></div>
-            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num hs-empty-num--zero">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num hs-empty-num--zero">0</span></div>
             <p class="hs-empty-note">Wrong channel. Real effort, zero leads to show for it.</p>
           </div>
         </div>
