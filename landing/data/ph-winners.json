@@ -425,5 +425,12 @@
     "tagline": "Prevent product drift in AI-written code",
     "score": "540",
     "mentionsAI": true
+  },
+  {
+    "date": "2026-07-30",
+    "product": "SKI",
+    "tagline": "Free voice coding for Claude Code, Codex and more",
+    "score": "550",
+    "mentionsAI": false
   }
 ]
