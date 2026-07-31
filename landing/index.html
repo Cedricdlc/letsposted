@@ -522,6 +522,15 @@ h2{
 .hs-empty-num{ font-family:var(--display); font-weight:800; font-size:1.6rem; color:var(--faint); }
 .hs-empty-note{ margin-top:.2rem; font-size:.78rem; color:var(--faint); font-style:italic; }
 
+/* Diagnostic variant state 1: pre-scan "analyzing" card, mirrors the
+   .hs-scan-head/.hs-scan-icon/.hs-scan-dot tokens used one state
+   later so the sequence reads as one continuous scan, not two
+   different visual languages. */
+.hs-analyzing{ display:flex; flex-direction:column; gap:1rem; }
+.hs-analyzing-platforms{ display:flex; align-items:center; gap:.5rem; }
+.hs-analyzing-more{ font-size:.72rem; color:var(--faint); font-style:italic; margin-left:.2rem; }
+.hs-analyzing-note{ font-size:.82rem; color:var(--body); line-height:1.5; }
+
 /* Scanning platforms card */
 .hs-scan-analyzed{ display:flex; align-items:center; gap:.4rem; font-size:.72rem; color:var(--ok); font-weight:600; margin-bottom:.7rem; }
 .hs-scan-check{ display:inline-flex; align-items:center; justify-content:center; width:1rem; height:1rem; border-radius:50%; background:rgba(74,222,128,.18); font-size:.6rem; flex:none; }
@@ -1045,14 +1054,47 @@ h2{
 
        <div class="hs-decorative variant-diagnostic" aria-hidden="true">
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
-        <div class="hs-card hs-scan">
-          <div class="hs-scan-analyzed"><span class="hs-scan-check">✓</span>Niche identified: <b>project management for small teams</b></div>
-          <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
-          <ul class="hs-scan-list">
-            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
-            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--facebook" aria-hidden="true">f</span>FB Group &middot; 6m ago</span><span class="hs-scan-txt">Anyone found a tool that finds where to post instead of guessing every time?</span><span class="hs-scan-score">8.0</span></li>
-            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--linkedin" aria-hidden="true">in</span>LinkedIn comment &middot; 11m ago</span><span class="hs-scan-txt">Same problem here. Building in public but nobody's seeing the posts</span><span class="hs-scan-score">9.0</span></li>
-          </ul>
+        <div class="hs-state is-active" data-hero-screen-state="1">
+          <div class="hs-card hs-analyzing">
+            <div class="hs-scan-head"><span class="hs-scan-dot"></span>Analyzing your niche&hellip;</div>
+            <div class="hs-analyzing-platforms">
+              <span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>
+              <span class="hs-scan-icon hs-scan-icon--facebook" aria-hidden="true">f</span>
+              <span class="hs-scan-icon hs-scan-icon--linkedin" aria-hidden="true">in</span>
+              <span class="hs-analyzing-more">+ dozens more</span>
+            </div>
+            <p class="hs-analyzing-note">Checking where your buyers actually talk business. Not guessing.</p>
+          </div>
+        </div>
+        <div class="hs-state" data-hero-screen-state="2">
+          <div class="hs-card hs-empty">
+            <div class="hs-empty-row"><span class="hs-empty-label">Posts this week</span><span class="hs-empty-num">12</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">Replies</span><span class="hs-empty-num">0</span></div>
+            <div class="hs-empty-row"><span class="hs-empty-label">New leads</span><span class="hs-empty-num">0</span></div>
+            <p class="hs-empty-note">Wrong channel. Real effort, zero leads to show for it.</p>
+          </div>
+        </div>
+        <div class="hs-state" data-hero-screen-state="3">
+          <div class="hs-card hs-scan">
+            <div class="hs-scan-analyzed"><span class="hs-scan-check">✓</span>Niche identified: <b>project management for small teams</b></div>
+            <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
+            <ul class="hs-scan-list">
+              <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
+              <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--facebook" aria-hidden="true">f</span>FB Group &middot; 6m ago</span><span class="hs-scan-txt">Anyone found a tool that finds where to post instead of guessing every time?</span><span class="hs-scan-score">8.0</span></li>
+              <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--linkedin" aria-hidden="true">in</span>LinkedIn comment &middot; 11m ago</span><span class="hs-scan-txt">Same problem here. Building in public but nobody's seeing the posts</span><span class="hs-scan-score">9.0</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="hs-state" data-hero-screen-state="4">
+          <div class="hs-card hs-result">
+            <span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>r/startups &middot; 2m ago</span>
+            <p class="hs-scan-txt hs-result-op">Looking for a project management tool that actually works for small teams</p>
+            <div class="hs-result-reply">
+              <span class="hs-result-avatar" aria-hidden="true"></span>
+              <p class="hs-result-reply-txt"><b>Your business</b> replied: "We built exactly this. Happy to show you around."</p>
+            </div>
+            <div class="hs-result-badge"><span class="hs-scan-dot" aria-hidden="true"></span>New reply from a real person, not a view</div>
+          </div>
         </div>
        </div>
 
