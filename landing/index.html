@@ -8,14 +8,23 @@
    toggles .variant-control/.variant-diagnostic accordingly. Persisted in
    localStorage so a visitor sees the same variant on repeat visits.
    SEO metadata is NOT split - crawlers get whatever the control default
-   below renders, splitting meta tags per-bot-crawl isn't meaningful. */
+   below renders, splitting meta tags per-bot-crawl isn't meaningful.
+   ?variant=control or ?variant=diagnostic in the URL forces and
+   persists that variant, for manually checking either side (2026-07-31,
+   Cédric asked how to see "v1" without touching devtools). */
 (function(){
   var v;
-  try { v = localStorage.getItem('ab_variant'); } catch(e) {}
+  try {
+    var forced = new URLSearchParams(location.search).get('variant');
+    if (forced === 'control' || forced === 'diagnostic') v = forced;
+  } catch(e) {}
+  if (v !== 'control' && v !== 'diagnostic') {
+    try { v = localStorage.getItem('ab_variant'); } catch(e) {}
+  }
   if (v !== 'control' && v !== 'diagnostic') {
     v = Math.random() < 0.5 ? 'control' : 'diagnostic';
-    try { localStorage.setItem('ab_variant', v); } catch(e) {}
   }
+  try { localStorage.setItem('ab_variant', v); } catch(e) {}
   document.documentElement.setAttribute('data-variant', v);
 })();
 </script>
@@ -973,7 +982,7 @@ h2{
     </div>
 
       <div class="hero-screen">
-       <div class="hs-decorative" aria-hidden="true">
+       <div class="hs-decorative variant-control" aria-hidden="true">
         <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
         <div class="hs-state is-active" data-hero-screen-state="1">
           <div class="hs-card hs-panel--idle">
@@ -1033,6 +1042,20 @@ h2{
         </div>
 
        </div>
+
+       <div class="hs-decorative variant-diagnostic" aria-hidden="true">
+        <div class="hs-chrome">🔗 <b>yourproduct.com</b></div>
+        <div class="hs-card hs-scan">
+          <div class="hs-scan-analyzed"><span class="hs-scan-check">✓</span>Niche identified: <b>project management for small teams</b></div>
+          <div class="hs-scan-head"><span class="hs-scan-dot"></span>Scanning platforms&hellip;<span class="hs-scan-count">85 posts scanned</span></div>
+          <ul class="hs-scan-list">
+            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--reddit" aria-hidden="true">r</span>r/startups &middot; 2m ago</span><span class="hs-scan-txt">Looking for a project management tool that actually works for small teams</span><span class="hs-scan-score">9.0</span></li>
+            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--facebook" aria-hidden="true">f</span>FB Group &middot; 6m ago</span><span class="hs-scan-txt">Anyone found a tool that finds where to post instead of guessing every time?</span><span class="hs-scan-score">8.0</span></li>
+            <li><span class="hs-scan-src"><span class="hs-scan-icon hs-scan-icon--linkedin" aria-hidden="true">in</span>LinkedIn comment &middot; 11m ago</span><span class="hs-scan-txt">Same problem here. Building in public but nobody's seeing the posts</span><span class="hs-scan-score">9.0</span></li>
+          </ul>
+        </div>
+       </div>
+
         <div class="hero-capture-dock">
           <p class="hs-capture-head variant-control">Drop your link. We'll show you where to post.</p>
           <p class="hs-capture-head variant-diagnostic">Drop your link. Get your custom lead channel map.</p>
